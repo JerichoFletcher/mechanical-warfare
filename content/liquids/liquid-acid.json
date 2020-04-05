@@ -1,0 +1,6 @@
+name: Acid
+description: A highly corrosive fluid. Rain it down on the enemies or feed it to chemical drills.
+viscosity: 0.8
+temperature: 0.6
+effect: corroded
+color: c9eb86

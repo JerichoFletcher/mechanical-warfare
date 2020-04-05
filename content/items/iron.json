@@ -1,0 +1,6 @@
+type: material
+name: Iron
+description: A heavy metal used primarily in armor plates and steel casting.
+hardness: 3
+cost: 1
+color: cce7ff

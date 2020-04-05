@@ -1,0 +1,5 @@
+type: resource
+name: HE Shell
+description: High-explosive artillery shells made for long range strikes.
+explosiveness: 1.8
+color: f3885e

@@ -1,0 +1,34 @@
+type: DoubleTurret
+name: Blow
+description: A medium-ranged machinegun turret. Shoots piercing, high-velocity rounds.
+health: 1440
+size: 3
+reload: 10
+ammoUseEffect: shellEjectBig
+inaccuracy: 5
+rotatespeed: 1.25
+shotWidth: 3
+range: 180
+recoil: 4
+ammo: {
+  ap-shell: {
+    damage: 30
+	speed: 12
+	lifetime: 20
+	pierce: true
+	hitEffect: hitLancer
+	bulletWidth: 9
+	bulletHeight: 21
+	backColor: 1fa7a5
+	frontColor: 92fffd
+	ammoMultiplier: 8
+  }
+}
+requirements: [
+  titanium/250
+  surge-alloy/275
+  uranium/300
+]
+category: turret
+research: fuse
+shootSound: blowshot

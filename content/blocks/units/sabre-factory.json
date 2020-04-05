@@ -1,0 +1,23 @@
+type: UnitFactory
+name: Sabre Mech Factory
+description: Assembles lancer-based armored ground units.
+unitType: sabre
+size: 3
+produceTime: 2000
+maxSpawn: 3
+consumes: {
+  power: 1.5
+  items: {
+    items: [
+	  silicon/30
+	  graphite/15
+	]
+  }
+}
+category: units
+research: titan-factory
+requirements: [
+  lead/95
+  silicon/60
+  steel/60
+]

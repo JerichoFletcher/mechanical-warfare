@@ -1,0 +1,42 @@
+name: Hill Path
+description: "A narrow path on the hills closer to the mountains, slightly contaminated by spores. Coal is barely present in the area, only capable of maintaining power. \n \n[lightgray]Research spore extracting and processing technology if possible."
+loadout: basicFoundation
+startingItems: [
+  copper/250
+  lead/200
+  graphite/150
+]
+conditionWave: 20
+launchPeriod: 10
+requirements: [
+  {
+    type: ZoneWave
+	zone: frozen-meadow
+	wave: 20
+  }
+  {
+    type: ZoneWave
+	zone: stainedMountains
+	wave: 20
+  }
+  {
+    type: Unlock
+	block: cultivator
+  }
+  {
+    type: Unlock
+	block: spore-press
+  }
+  {
+    type: Unlock
+	block: coal-centrifuge
+  }
+]
+resources: [
+  copper
+  lead
+  coal
+  titanium
+  iron
+  sand
+]

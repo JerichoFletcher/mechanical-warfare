@@ -1,0 +1,33 @@
+type: LiquidConverter
+name: "Chemical Station"
+description: "Synthesizes acid from gas using iron as catalyst."
+size: 4
+hasPower: true
+hasItems: true
+craftTime: 60
+updateEffect: producesmoke
+consumes: {
+  power: 3
+  items: {
+    items: [
+	  iron/2
+	]
+  }
+  liquid: {
+    liquid: liquid-gas
+	amount: 0.4
+  }
+}
+outputLiquid: {
+  liquid: liquid-acid
+}
+requirements: [
+  iron/80
+  steel/50
+  silicon/60
+  metaglass/60
+]
+category: crafting
+research: oil-refinery
+idleSound: respawning
+idleSoundVolume: 0.5

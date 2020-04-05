@@ -1,0 +1,27 @@
+type: GenericSmelter
+name: "Steel Crucible"
+description: "Melts iron ingots and casts durable steel."
+size: 2
+hasPower: true
+hasItems: true
+craftTime: 40
+craftEffect: smeltsmoke
+consumes: {
+  power: 1.25
+  items: {
+    items: [
+	  iron/3
+	]
+  }
+}
+outputItem: steel/1
+requirements: [
+  copper/80
+  lead/60
+  silicon/40
+  iron/20
+]
+category: crafting
+research: silicon-smelter
+idleSound: respawning
+idleSoundVolume: 0.5

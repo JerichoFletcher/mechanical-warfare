@@ -1,0 +1,30 @@
+name: Chemical Drill
+description: A drill that employs corrosive acid. Capable of mining uranium.
+type: Drill
+size: 3
+tier: 6
+hasPower: true
+drillTime: 270
+drawRim: true
+updateEffect: pulverizeMedium
+drillEffect: mineBig
+heatColor: b5d772
+liquidBoostIntensity: 1
+rotateSpeed: 4
+consumes: {
+  power: 2
+  liquid: {
+    liquid: liquid-acid
+	amount: 0.1
+	booster: false
+  }
+}
+requirements: [
+  iron/50
+  steel/70
+  silicon/60
+  metaglass/50
+  thorium/80
+]
+category: production
+research: blast-drill

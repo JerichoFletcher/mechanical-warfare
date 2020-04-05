@@ -1,0 +1,29 @@
+type: GenericCrafter
+name: AP-Shell Assembler
+description: "Assembles armor-piercing shells used in anti-armor turrets."
+size: 3
+hasPower: true
+hasItems: true
+craftTime: 60
+craftEffect: producesmoke
+consumes: {
+  power: 5
+  items: {
+    items: [
+	  blast-compound/4
+	  uranium/10
+	  coal/8
+	]
+  }
+}
+itemCapacity: 20
+outputItem: ap-shell/1
+requirements: [
+  iron/120
+  silicon/75
+  titanium/80
+  uranium/40
+  plastanium/80
+]
+category: crafting
+research: blast-mixer

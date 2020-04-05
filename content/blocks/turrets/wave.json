@@ -1,0 +1,13 @@
+ammo: {
+  water: waterShot
+  slag: slagShot
+  cryofluid: cryoShot
+  oil: oilShot
+  acid: {
+    type: LiquidBulletType
+	status: corroded
+	liquid: liquid-acid
+	damage: 7
+	knockback: 0.65
+  }
+}

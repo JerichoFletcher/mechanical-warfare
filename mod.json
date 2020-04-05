@@ -1,0 +1,7 @@
+name: "scientific-expansion"
+displayName: "[gold]Mechanical [accent]Warfare[]"
+author: "Folker + JerichoFletcher"
+description: "Not for the faintest of engines."
+version: "1.0"
+minGameVersion: "104.7"
+dependencies: []

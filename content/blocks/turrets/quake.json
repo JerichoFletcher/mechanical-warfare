@@ -1,0 +1,53 @@
+type: ArtilleryTurret
+name: Quake
+description: A powerful, long-ranged artillery turret. Shoots either explosive or armor piercing shells.
+health: 2400
+size: 4
+reload: 700
+ammoUseEffect: shellEjectBig
+inaccuracy: 2
+rotatespeed: 0.25
+shootCone: 5
+range: 360
+recoil: 6
+restitution: 0.005
+cooldown: 0.02
+ammo: {
+  he-shell: {
+    damage: 180
+	speed: 10
+    splashDamage: 390
+	splashDamageRadius: 80
+    hitEffect: blastExplosion
+	knockback: 3
+	lifetime: 90
+	bulletWidth: 17
+	bulletHeight: 22
+	backColor: b6573a
+	frontColor: ffd385
+  }
+  ap-shell: {
+    damage: 1700
+	speed: 10
+    splashDamage: 90
+	splashDamageRadius: 16
+    hitEffect: blastExplosion
+	reloadMultiplier: 1.4
+	knockback: 6
+	lifetime: 90
+	bulletWidth: 17
+	bulletHeight: 22
+	backColor: b68f3a
+	frontColor: fbff85
+  }
+}
+requirements: [
+  iron/200
+  graphite/450
+  plastanium/250
+  surge-alloy/250
+  uranium/300
+]
+category: turret
+research: ripple
+shootSound: quakeshot

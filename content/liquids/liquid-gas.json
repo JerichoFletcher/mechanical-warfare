@@ -1,0 +1,5 @@
+name: Gas
+description: A dangerously explosive oil product. Handle with care.
+flammability: 1.25
+explosiveness: 1
+color: b33eb3

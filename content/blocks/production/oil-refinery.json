@@ -1,0 +1,28 @@
+type: LiquidConverter
+name: "Oil Refinery"
+description: "Processes crude oil into gas."
+size: 2
+hasPower: true
+liquidCapacity: 50
+craftTime: 60
+updateEffect: producesmoke
+consumes: {
+  power: 1.5
+  liquid: {
+    liquid: oil
+	amount: 0.2
+  }
+}
+outputLiquid: {
+  liquid: liquid-gas
+}
+requirements: [
+  titanium/80
+  steel/60
+  silicon/70
+  metaglass/70
+]
+category: crafting
+research: coal-centrifuge
+idleSound: respawning
+idleSoundVolume: 0.5

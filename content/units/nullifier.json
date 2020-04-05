@@ -1,0 +1,37 @@
+type: GroundUnit
+name: nullifier
+description: "Extremely durable and dangerous. Use AP ammo whenever encountered."
+health: 18000
+
+speed: 0.1
+maxVelocity: 0.6
+mass: 6
+drag: 0.4
+hitsize: 25
+rotatespeed: 0.05
+weapon: {
+  name: null-pointer
+  length: 16
+  width: 30
+  reload: 60
+  alternate: true
+  recoil: 6
+  shake: 2.2
+  inaccuracy: 2
+  ejectEffect: shellEjectBig
+  shootSound: artillery
+  bullet: {
+	hitEffect: hitLancer
+	damage: 200
+	splashDamage: 380
+	splashDamageRadius: 40
+	speed: 4
+	knockback: 3
+	lifetime: 75
+	bulletWidth: 20
+	bulletHeight: 23
+	bulletSprite: shell
+	backColor: ffffff
+	frontColor: 000000
+  }
+}

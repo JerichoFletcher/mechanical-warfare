@@ -1,0 +1,6 @@
+name: Lava
+description: Molten volcanic rock. Don't touch.
+temperature: 1.4
+viscosity: 1
+effect: melting
+color: d95f34

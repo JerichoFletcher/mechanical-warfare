@@ -9,5 +9,6 @@ ammo: {
     bulletHeight: 23
     frontColor: b3ffb2
     backColor: 729e5c
+    speed: 8
   }
 }

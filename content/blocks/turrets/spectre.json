@@ -1,0 +1,13 @@
+shootSound: shootBig
+ammo: {
+  graphite: standardDenseBig
+  pyratite: standardIncendiaryBig
+  thorium: standardThoriumBig
+  uranium: {
+    damage: 82
+    bulletWidth: 16
+    bulletHeight: 23
+    frontColor: b3ffb2
+    backColor: 729e5c
+  }
+}

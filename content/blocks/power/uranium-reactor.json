@@ -1,0 +1,29 @@
+type: NuclearReactor
+name: Uranium Reactor
+size: 3
+description: Creates significant amount of power using the potential energy from radioactive uranium. Will explode violently with lack of coolant.
+health: 850
+itemDuration: 420 //lmfao
+powerProduction: 20
+consumes: {
+  items: {
+    items: [
+      uranium/1
+    ]
+  }
+  liquid: {
+    liquid: cryofluid
+    amount: 0.1
+  }
+}
+heating: 0.05
+explosionRadius: 54
+explosionDamage: 1760
+requirements: [
+  lead/325
+  silicon/250
+  uranium/150
+  metaglass/75
+]
+category: power
+research: thorium-reactor

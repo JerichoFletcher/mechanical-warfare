@@ -10,8 +10,7 @@ Additions:
 - 1 new nuclear reactor
 
 Changes:
-- Wave can use the new liquids as ammo
-- RTG Generator can now use the new radioactive substance
+- Vanilla turrets and buildings can accept new items and liquids
 
 Please be aware that _this mod is still under heavy development._ Expect more features to be added regularly!
 

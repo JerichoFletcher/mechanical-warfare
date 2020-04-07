@@ -1,0 +1,10 @@
+type: SurgeWall
+name: Reinforced Wall
+description: Essentially an armored surge wall capable of absorbing extreme damage.
+health: 1280
+requirements: [
+  iron/6
+  surge-alloy/4
+  uranium/3
+]
+research: surge-wall

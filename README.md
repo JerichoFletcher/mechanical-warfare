@@ -14,4 +14,4 @@ Changes:
 Please be aware that _this mod is still under heavy development._ Expect more features to be added regularly!
 
 Cheers,
-JerichoFletcher
+JerichoFletcher & GlennFolker

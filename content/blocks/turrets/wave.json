@@ -10,4 +10,11 @@ ammo: {
 	damage: 7
 	knockback: 0.65
   }
+  lava: {
+    type: LiquidBulletType
+    status: melting
+    liquid: liquid-lava
+    damage: 10
+    knockback: 0.8
+  }
 }

@@ -3,14 +3,14 @@ ammo: {
   slag: slagShot
   cryofluid: cryoShot
   oil: oilShot
-  acid: {
+  liquid-acid: {
     type: LiquidBulletType
-	status: corroded
-	liquid: liquid-acid
-	damage: 7
-	knockback: 0.65
+    status: corroded
+    liquid: liquid-acid
+    damage: 7
+    knockback: 0.65
   }
-  lava: {
+  liquid-lava: {
     type: LiquidBulletType
     status: melting
     liquid: liquid-lava

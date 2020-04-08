@@ -13,7 +13,7 @@ consumes: {
 	  blast-compound/2
 	  uranium/5
 	  coal/4
-	]
+	  ]
   }
 }
 itemCapacity: 20

@@ -1,0 +1,32 @@
+name: Frozen Valley
+description: Iron vains can be seen here. Explore the grassy outskirts. Traverse the wet terrain carefully. Mine iron and learn how to use it.
+loadout: basicFoundation
+startingItems: [
+  copper/200
+  lead/150
+]
+conditionWave: 15
+launchPeriod: 10
+requirements: [
+  {
+    type: ZoneWave
+	zone: groundZero
+	wave: 40
+  }
+  {
+    type: Unlock
+	block: pneumatic-drill
+  }
+  {
+    type: Unlock
+	block: silicon-smelter
+  }
+]
+resources: [
+  copper
+  lead
+  coal
+  titanium
+  iron
+  sand
+]

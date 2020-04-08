@@ -10,9 +10,9 @@ consumes: {
   power: 5
   items: {
     items: [
-	  blast-compound/4
-	  uranium/10
-	  coal/8
+	  blast-compound/2
+	  uranium/5
+	  coal/4
 	]
   }
 }

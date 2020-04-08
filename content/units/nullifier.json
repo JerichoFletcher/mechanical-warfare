@@ -2,7 +2,6 @@ type: GroundUnit
 name: Nullifier
 description: "Extremely durable and dangerous. Use AP ammo whenever encountered."
 health: 18000
-
 speed: 0.1
 maxVelocity: 0.6
 mass: 6

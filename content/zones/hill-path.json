@@ -11,7 +11,7 @@ launchPeriod: 10
 requirements: [
   {
     type: ZoneWave
-	zone: frozen-meadow
+	zone: frozen-valley
 	wave: 20
   }
   {

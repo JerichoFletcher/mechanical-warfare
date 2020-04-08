@@ -25,6 +25,7 @@ ammo: {
 	bulletHeight: 22
 	backColor: b6573a
 	frontColor: ffd385
+	ammoMultiplier: 4
   }
   ap-shell: {
     damage: 1700
@@ -39,6 +40,7 @@ ammo: {
 	bulletHeight: 22
 	backColor: b68f3a
 	frontColor: fbff85
+	ammoMultiplier: 4
   }
 }
 requirements: [

@@ -1,5 +1,5 @@
-name: Frozen Meadow
-description: Several abandoned iron mining camp can be seen here. Explore the grassy outskirts. Traverse the wet terrain carefully. Mine iron and learn how to use it.
+name: Frozen Valley
+description: Iron vains can be seen here. Explore the grassy outskirts. Traverse the wet terrain carefully. Mine iron and learn how to use it.
 loadout: basicFoundation
 startingItems: [
   copper/200
@@ -26,6 +26,7 @@ resources: [
   copper
   lead
   coal
+  titanium
   iron
   sand
 ]

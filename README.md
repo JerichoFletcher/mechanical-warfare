@@ -6,7 +6,7 @@ Additions:
 - Several new environment tiles
 - 2 new powerful turrets (with custom sounds!)
 - 1 new unit + 1 new boss
-- 3 new campaign zones + 1 unused
+- 4 new campaign zones
 
 Please be aware that _this mod is still under heavy development._ Expect more features to be added regularly!
 

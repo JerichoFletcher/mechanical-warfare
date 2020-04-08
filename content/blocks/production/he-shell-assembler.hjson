@@ -10,10 +10,10 @@ consumes: {
   power: 5
   items: {
     items: [
-	  blast-compound/10
-	  steel/4
-	  coal/8
-	]
+	  blast-compound/5
+	  steel/2
+	  coal/4
+	  ]
   }
 }
 itemCapacity: 20

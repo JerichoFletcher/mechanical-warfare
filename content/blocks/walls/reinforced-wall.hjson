@@ -7,5 +7,5 @@ requirements: [
   surge-alloy/4
   uranium/3
 ]
-research: surge-wall
 category: defense
+research: surge-wall

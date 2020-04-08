@@ -1,0 +1,45 @@
+name: Front Gate
+description: A main gate to the enemy's capital. Heavily guarded, knowing that the main factory is inside. Uranium is present, but is already taken and fortified. Destroy the core and move on.
+loadout: basicFoundation
+startingItems: [
+  copper/1500
+  lead/1250
+  graphite/100
+  silicon/500
+  metaglass/500
+  titanium/500
+  iron/750
+  steel/500
+]
+conditionWave: 20
+configureObjective: {
+  type: Launched
+  zone: front-gate
+}
+launchPeriod: 10
+requirements: [
+  {
+    type: ZoneWave
+    zone: nuclearComplex
+    wave: 30
+  }
+  {
+    type: ZoneWave
+    zone: volcano
+    wave: 20
+  }
+  {
+    type: Unlock
+    block: thorium-reactor
+  }
+]
+resources: [
+  copper
+  lead
+  coal
+  titanium
+  iron
+  thorium
+  uranium
+  sand
+]

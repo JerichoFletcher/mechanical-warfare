@@ -8,4 +8,5 @@ requirements: [
   surge-alloy/16
   uranium/12
 ]
+category: defense
 research: reinforced-wall

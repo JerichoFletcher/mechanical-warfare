@@ -37,10 +37,9 @@ ammo: {
     ammoMultiplier: 2
   }
   ap-shell: {
-    damage: 160
+    damage: 175
     speed: 14
     lifetime: 36
-    pierce: true
     hitEffect: hitLancer
     bulletSprite: mechanical-warfare-hvbullet
     bulletWidth: 8

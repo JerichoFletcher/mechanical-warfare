@@ -1,3 +1,4 @@
+type: Mech
 name: Halberd
 description: A durable ship equipped with gatling gun.
 flying: true
@@ -25,5 +26,8 @@ weapon: {
     bulletHeight: 14
     lifetime: 18
     speed: 9.5
+    hitEffect: hitBulletBig
+    shootEffect: shootBig
+    smokeEffect: shootBigSmoke
   }
 }

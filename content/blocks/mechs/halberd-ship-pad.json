@@ -1,0 +1,15 @@
+type: MechPad
+name: Halberd Ship Pad
+mech: halberd
+size: 3
+consumes: {
+  power: 1.4
+}
+requirements: [
+  lead/325
+  silicon/375
+  steel/250
+  uranium/250
+]
+category: upgrade
+research: glaive-ship-pad

@@ -11,8 +11,8 @@ itemCapacity: 80
 engineColor: 7efdfd
 cellTrnsY: 1
 buildPower: 1.2
-weaponOffsetX: 6
-weaponOffsetY: 10
+weaponOffsetX: 4
+weaponOffsetY: 6
 weapon: {
   name: gatling
   length: 1.2

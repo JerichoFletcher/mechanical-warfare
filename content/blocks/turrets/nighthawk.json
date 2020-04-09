@@ -17,7 +17,7 @@ ammo: {
     speed: 10
     lifetime: 50
     hitEffect: hitBulletBig
-    bulletSprite: hvbullet
+    bulletSprite: "hvbullet"
     bulletWidth: 4
     bulletHeight: 16
     frontColor: d0e4e8
@@ -29,7 +29,7 @@ ammo: {
     speed: 12
     lifetime: 42
     hitEffect: hitBulletBig
-    bulletSprite: hvbullet
+    bulletSprite: "hvbullet"
     bulletWidth: 4
     bulletHeight: 20
     frontColor: fdf3e2
@@ -42,7 +42,7 @@ ammo: {
     lifetime: 36
     pierce: true
     hitEffect: hitLancer
-    bulletSprite: hvbullet
+    bulletSprite: "hvbullet"
     bulletWidth: 4
     bulletHeight: 25
     frontColor: fdf3e2

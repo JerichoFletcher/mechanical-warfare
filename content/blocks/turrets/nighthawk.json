@@ -18,8 +18,8 @@ ammo: {
     lifetime: 50
     hitEffect: hitBulletBig
     bulletSprite: hvbullet
-    bulletWidth: 16
-    bulletHeight: 20
+    bulletWidth: 4
+    bulletHeight: 16
     frontColor: d0e4e8
     backColor: f3eeba
     ammoMultiplier: 2
@@ -30,8 +30,8 @@ ammo: {
     lifetime: 42
     hitEffect: hitBulletBig
     bulletSprite: hvbullet
-    bulletWidth: 15
-    bulletHeight: 24
+    bulletWidth: 4
+    bulletHeight: 20
     frontColor: fdf3e2
     backColor: f3eeba
     ammoMultiplier: 2
@@ -43,8 +43,8 @@ ammo: {
     pierce: true
     hitEffect: hitLancer
     bulletSprite: hvbullet
-    bulletWidth: 14
-    bulletHeight: 27
+    bulletWidth: 4
+    bulletHeight: 25
     frontColor: fdf3e2
     backColor: f3eeba
     ammoMultiplier: 3

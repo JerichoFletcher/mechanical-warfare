@@ -1,0 +1,61 @@
+type: ItemTurret
+name: Nighthawk
+description: A long-ranged sniper turret designated to fire high-velocity bullets with exceptional accuracy. Accepts raw items as ammo, but works best with assembled rounds.
+health: 1350
+size: 3
+reload: 150
+ammoUseEffect: shellEjectMedium
+spread: 0
+inaccuracy: 0.33
+rotatespeed: 6
+shootCone: 3
+range: 480
+recoil: 4
+ammo: {
+  graphite: {
+    damage: 95
+    speed: 10
+    lifetime: 50
+    hitEffect: hitBulletBig
+    bulletSprite: hvbullet
+    bulletWidth: 16
+    bulletHeight: 20
+    frontColor: d0e4e8
+    backColor: f3eeba
+    ammoMultiplier: 2
+  }
+  titanium: {
+    damage: 128
+    speed: 12
+    lifetime: 42
+    hitEffect: hitBulletBig
+    bulletSprite: hvbullet
+    bulletWidth: 15
+    bulletHeight: 24
+    frontColor: fdf3e2
+    backColor: f3eeba
+    ammoMultiplier: 2
+  }
+  ap-shell: {
+    damage: 192
+    speed: 14
+    lifetime: 36
+    pierce: true
+    hitEffect: hitLancer
+    bulletSprite: hvbullet
+    bulletWidth: 14
+    bulletHeight: 27
+    frontColor: fdf3e2
+    backColor: f3eeba
+    ammoMultiplier: 3
+  }
+}
+requirements: [
+  copper/180
+  graphite/100
+  titanium/125
+  iron/150
+]
+category: turret
+research: salvo
+shootSound: shootBig

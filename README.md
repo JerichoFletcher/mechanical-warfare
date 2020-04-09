@@ -1,3 +1,5 @@
+![Logo](sprites/mw-icon.png)
+
 # Mechanical Warfare
 Mechanical Warfare is a Mindustry mod adding brand new units, mechs, and turrets. Not for the faintest of engines.
 
@@ -11,4 +13,4 @@ Mechanical Warfare is a Mindustry mod adding brand new units, mechs, and turrets
 Please be aware that _this mod is still under heavy development._ Expect more features to be added regularly!
 
 Cheers,
-JerichoFletcher & GlennFolker
+[JerichoFletcher](https://bit.ly/JF_IG) & GlennFolker

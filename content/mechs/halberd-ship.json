@@ -1,0 +1,32 @@
+type: Mech
+name: Halberd
+description: A durable ship equipped with gatling gun.
+flying: true
+drillPower: 4
+mineSpeed: 1.4
+speed: 0.27
+drag: 0.03
+mass: 4
+health: 420 //lmfao
+itemCapacity: 80
+engineColor: 7efdfd
+cellTrnsY: 1
+buildPower: 1.2
+weapon: {
+  name: gatling
+  length: 1.2
+  reload: 16
+  shots: 8
+  shotDelay: 2
+  alternate: false
+  inaccuracy: 1
+  ejectEffect: shellEjectMedium
+  shootSound: shootBig
+  bullet: {
+    type: BasicBulletType
+    bulletWidth: 10
+    bulletHeight: 16
+    lifetime: 16
+    speed: 9
+  }
+}

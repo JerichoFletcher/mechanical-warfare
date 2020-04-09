@@ -1,6 +1,6 @@
 type: MechPad
 name: Halberd Ship Pad
-mech: halberd
+mech: halberd-ship
 size: 3
 consumes: {
   power: 1.4

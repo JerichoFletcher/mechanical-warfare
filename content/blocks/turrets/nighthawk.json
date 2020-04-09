@@ -18,7 +18,7 @@ ammo: {
     lifetime: 50
     hitEffect: hitBulletBig
     bulletSprite: mechanical-warfare-hvbullet
-    bulletWidth: 4
+    bulletWidth: 8
     bulletHeight: 16
     frontColor: d0e4e8
     backColor: f3eeba
@@ -30,20 +30,20 @@ ammo: {
     lifetime: 42
     hitEffect: hitBulletBig
     bulletSprite: mechanical-warfare-hvbullet
-    bulletWidth: 4
+    bulletWidth: 8
     bulletHeight: 20
     frontColor: fdf3e2
     backColor: f3eeba
     ammoMultiplier: 2
   }
   ap-shell: {
-    damage: 192
+    damage: 160
     speed: 14
     lifetime: 36
     pierce: true
     hitEffect: hitLancer
     bulletSprite: mechanical-warfare-hvbullet
-    bulletWidth: 4
+    bulletWidth: 8
     bulletHeight: 25
     frontColor: fdf3e2
     backColor: f3eeba

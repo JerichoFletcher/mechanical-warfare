@@ -5,7 +5,7 @@ flying: true
 speed: 0.25
 maxVelocity: 1.5
 mass: 4
-health: 1250
+health: 900
 hitsize: 15
 drag: 0.02
 range: 120
@@ -13,8 +13,7 @@ shootCone: 40
 rotateWeapon: false
 engineOffset: 9
 engineSize: 2.5
-rotatespeed: 0.01
-attackLength: 75
+rotatespeed: 0.02
 baseRotateSpeed: 0.08
 weapon: {
   name: phantasmal-gun

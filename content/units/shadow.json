@@ -13,14 +13,14 @@ shootCone: 90
 rotateWeapon: true
 engineOffset: 13
 engineSize: 3
-rotateSpeed: 0.01
+rotatespeed: 0.01
 baseRotateSpeed: 0.06
 weapon: {
   name: shadow-caster
   reload: 120
   alternate: true
   inaccuracy: 2
-  shots: 30
+  shots: 25
   shotDelay: 1
   shootSound: shootBig
   bullet: {
@@ -29,6 +29,6 @@ weapon: {
     bulletHeight: 12
     speed: 10
     lifetime: 12
-    damage: 2
+    damage: 3
   }
 }

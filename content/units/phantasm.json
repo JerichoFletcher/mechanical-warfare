@@ -10,7 +10,7 @@ hitsize: 15
 drag: 0.02
 range: 120
 shootCone: 40
-rotateWeapon: false
+rotateWeapon: true
 engineOffset: 9
 engineSize: 2.5
 rotatespeed: 0.02

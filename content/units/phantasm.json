@@ -1,6 +1,6 @@
 type: flyingUnit
 name: Phantasm
-description: An armored aerial unit equiped with flak gun.
+description: An armored aerial unit equipped with flak gun.
 flying: true
 speed: 0.25
 maxVelovity: 1.5

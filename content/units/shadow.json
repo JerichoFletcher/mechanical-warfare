@@ -1,0 +1,34 @@
+type: hoverUnit
+name: Shadow
+description: A heavy destroyer ship.
+flying: true
+speed: 0.09
+maxVelocity: 0.8
+mass: 5.5
+health: 1200
+hitsize: 24
+drag: 0.01
+range: 100
+shootCone: 90
+rotateWeapon: true
+engineOffset: 13
+engineSize: 3
+rotateSpeed: 0.01
+baseRotateSpeed: 0.06
+weapon: {
+  name: shadow-caster
+  reload: 120
+  alternate: true
+  inaccuracy: 2
+  shots: 30
+  shotDelay: 1
+  shootSound: shootBig
+  bullet: {
+    type: BasicBulletType
+    bulletWidth: 8
+    bulletHeight: 12
+    speed: 10
+    lifetime: 12
+    damage: 2
+  }
+}

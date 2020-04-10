@@ -21,8 +21,9 @@ weapon: {
   alternate: true
   inaccuracy: 2
   shots: 25
+  spacing: 0
   shotDelay: 1
-  shootSound: shootBig
+  shootSound: artillery
   bullet: {
     type: BasicBulletType
     bulletWidth: 8

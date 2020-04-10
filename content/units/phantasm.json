@@ -1,0 +1,36 @@
+type: flyingUnit
+name: Phantasm
+description: An armored aerial unit equiped with flak gun.
+flying: true
+speed: 0.25
+maxVelovity: 1.5
+mass: 4
+health: 1250
+hitsize: 15
+drag: 0.02
+range: 120
+shootCone: 30
+rotateWeapon: false
+engineOffset: 9
+engineSize: 2.5
+rotateSpeed: 0.01
+attackLength: 75
+baseRotateSpeed: 0.08
+weapon: {
+  name: phantasmal-gun
+  reload: 10
+  alternate: true
+  inaccuracy: 2
+  ejectEffect: shellEjectSmall
+  shootEffect: shootSmall
+  smokeEffect: shootSmallSmoke
+  shootSound: shootBig
+  bullet: {
+    type: FlakBulletType
+    bulletWidth: 6
+    bulletHeight: 14
+    speed: 12
+    lifetime: 12
+    damage: 5
+  }
+}

@@ -3,7 +3,7 @@ name: Phantasm
 description: An armored aerial unit equipped with flak gun.
 flying: true
 speed: 0.25
-maxVelovity: 1.5
+maxVelocity: 1.5
 mass: 4
 health: 1250
 hitsize: 15
@@ -13,7 +13,7 @@ shootCone: 30
 rotateWeapon: false
 engineOffset: 9
 engineSize: 2.5
-rotateSpeed: 0.01
+rotatespeed: 0.01
 attackLength: 75
 baseRotateSpeed: 0.08
 weapon: {
@@ -22,8 +22,6 @@ weapon: {
   alternate: true
   inaccuracy: 2
   ejectEffect: shellEjectSmall
-  shootEffect: shootSmall
-  smokeEffect: shootSmallSmoke
   shootSound: shootBig
   bullet: {
     type: FlakBulletType

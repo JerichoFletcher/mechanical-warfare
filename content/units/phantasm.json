@@ -1,4 +1,4 @@
-type: flyingUnit
+type: hoverUnit
 name: Phantasm
 description: An armored aerial unit equipped with flak gun.
 flying: true
@@ -9,7 +9,7 @@ health: 1250
 hitsize: 15
 drag: 0.02
 range: 120
-shootCone: 30
+shootCone: 40
 rotateWeapon: false
 engineOffset: 9
 engineSize: 2.5

@@ -1,5 +1,5 @@
 // Chemical Station
-const chemicalStation = extendContent(liquidConverter, "chemical-station", {
+const chemicalStation = extendContent(LiquidConverter, "chemical-station", {
   generateIcons: function(){
     return [
       Core.atlas.find(this.name)

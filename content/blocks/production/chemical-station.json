@@ -4,6 +4,8 @@ size: 4
 update: true
 hasPower: true
 hasItems: true
+hasLiquids: true
+liquidCapacity: 60
 craftTime: 60
 updateEffect: producesmoke
 consumes: {

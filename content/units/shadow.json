@@ -8,11 +8,11 @@ mass: 5.5
 health: 1200
 hitsize: 24
 drag: 0.01
-range: 110
+range: 90
 shootCone: 90
 rotateWeapon: true
-engineOffset: 13
-engineSize: 3
+engineOffset: 12
+engineSize: 3.5
 rotatespeed: 0.01
 baseRotateSpeed: 0.06
 retreatPercent: 0.2

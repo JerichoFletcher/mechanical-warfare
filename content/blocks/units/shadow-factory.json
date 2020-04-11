@@ -1,6 +1,6 @@
 type: UnitFactory
 name: Shadow Destroyer Factory
-description: Assembles a heavy, hovering destroyer ship.
+description: Assembles heavy destroyer ships known as Shadow.
 unitType: shadow
 size: 5
 produceTime: 3000

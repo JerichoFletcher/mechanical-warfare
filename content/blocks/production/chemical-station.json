@@ -20,6 +20,7 @@ consumes: {
 }
 outputLiquid: {
   liquid: liquid-acid
+	amount: 0.4
 }
 requirements: [
   iron/80

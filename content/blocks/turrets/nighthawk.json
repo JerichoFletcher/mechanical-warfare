@@ -9,11 +9,11 @@ spread: 0
 inaccuracy: 0.33
 rotatespeed: 6
 shootCone: 3
-range: 480
+range: 420 //lmfao
 recoil: 4
 ammo: {
   graphite: {
-    damage: 95
+    damage: 75
     speed: 10
     lifetime: 50
     hitEffect: hitBulletBig
@@ -25,7 +25,7 @@ ammo: {
     ammoMultiplier: 2
   }
   titanium: {
-    damage: 128
+    damage: 98
     speed: 12
     lifetime: 42
     hitEffect: hitBulletBig
@@ -37,7 +37,7 @@ ammo: {
     ammoMultiplier: 2
   }
   ap-shell: {
-    damage: 175
+    damage: 140
     speed: 14
     lifetime: 36
     hitEffect: hitLancer

@@ -6,6 +6,7 @@ const chemicalDrill = extendContent(Drill, "chemical-drill", {
     ];
   },
   load(){
+    this.baseRegion = Core.atlas.find(this.name + "-base");
     this.liquidRegion = Core.atlas.find(this.name + "-liquid");
     this.region = Core.atlas.find(this.name + "-bottom");
     this.rimRegion = Core.atlas.find(this.name + "-rim");
@@ -13,7 +14,7 @@ const chemicalDrill = extendContent(Drill, "chemical-drill", {
     this.topRegion = Core.atlas.find(this.name + "-top");
   },
   draw(tile){
-    Draw.rect(Core.atlas.find("mw-base-3"), tile.drawx(), tile.drawy());
+    Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
     Draw.color(tile.entity.liquids.current().color);
     Draw.alpha(tile.entity.liquids.total() / this.liquidCapacity);
     Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());

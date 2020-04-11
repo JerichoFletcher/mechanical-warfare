@@ -13,7 +13,7 @@ const chemicalDrill = extendContent(Drill, "chemical-drill", {
     if(this.drawRim){
       Draw.color(this.heatColor);
       Draw.blend(Blending.additive);
-      Draw.alpha(tile.entity.warmup * 0.6 * (1 - 0.3 + Mathf.absin(Time.time(), 3, 0.3));
+      Draw.alpha(tile.entity.warmup * 0.6 * (1 - 0.3 + Mathf.absin(Time.time(), 3, 0.3)));
       Draw.rect(Core.atlas.find(this.name + "-rim"), tile.drawx(), tile.drawy());
       Draw.blend();
     }

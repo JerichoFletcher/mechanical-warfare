@@ -2,6 +2,7 @@ type: LiquidConverter
 name: "Chemical Station"
 description: "Synthesizes acid from gas using iron as catalyst."
 size: 4
+update: true
 hasPower: true
 hasItems: true
 craftTime: 60

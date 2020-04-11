@@ -9,6 +9,7 @@ hasItems: true
 drillTime: 270
 drawRim: true
 drawMineItem: true
+drawRotator: true
 updateEffect: pulverizeMedium
 drillEffect: mineBig
 heatColor: b5d772

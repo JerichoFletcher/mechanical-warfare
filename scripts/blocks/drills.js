@@ -8,13 +8,13 @@ const chemicalDrill = extendContent(Drill, "chemical-drill", {
   load(){
     this.bottomRegion = Core.atlas.find(this.name + "-bottom")
     this.liquidRegion = Core.atlas.find(this.name + "-liquid");
-    this.rotatorRegion = Core.atlas.find(this.name + "-rotator-bottom");
+    this.rotatorBottomRegion = Core.atlas.find(this.name + "-rotator-bottom");
     this.rotatorTopRegion = Core.atlas.find(this.name + "-rotator-top");
     this.topRegion = Core.atlas.find(this.name + "-top");
     this.rimRegion = Core.atlas.find(this.name + "-rim");
   },
   draw(tile){
-    const e = tile.entity;
+    const e = tile.ent();
     Draw.rect(this.bottomRegion, tile.drawx(), tile.drawy());
     Draw.color(e.liquids.current().color);
     Draw.alpha(e.liquids.total() / this.liquidCapacity);
@@ -27,13 +27,13 @@ const chemicalDrill = extendContent(Drill, "chemical-drill", {
       Draw.blend();
     }
     Draw.color();
-    Draw.rect(this.rotatorRegion, tile.drawx(), tile.drawy(), e.drillTime * 2.5);
-    Draw.rect(this.rotatorTopRegion, tile.drawx(), tile.drawy(), );
+    Draw.rect(this.rotatorBottomRegion, tile.drawx(), tile.drawy(), e.drillTime * 2.5);
+    Draw.rect(this.rotatorTopRegion, tile.drawx(), tile.drawy());
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
-    /*if(e.dominantItem != null && this.drawMineItem){
+    if(e.dominantItem != null && this.drawMineItem){
       Draw.color(e.dominantItem.color);
       Draw.rect("drill-top", tile.drawx(), tile.drawy(), 1);
       Draw.color();
-    } */
+    }
   },
 });

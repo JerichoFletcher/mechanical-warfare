@@ -13,12 +13,13 @@ const chemicalDrill = extendContent(Drill, "chemical-drill", {
     this.topRegion = Core.atlas.find(this.name + "-top");
   },
   draw(tile){
-    Draw.rect(Core.atlas.find("mw-base-" + this.size), tile.drawx(), tile.drawy());
+    //Draw.rect(Core.atlas.find("mw-base-" + this.size), tile.drawx(), tile.drawy());
     Draw.color(tile.entity.liquids.current().color);
     Draw.alpha(tile.entity.liquids.total() / this.liquidCapacity);
     Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());
     Draw.color();
     this.super$draw(tile);
+    Draw.rect(Core.atlas.find("mw-base-" + this.size), tile.drawx(), tile.drawy());
     /* const e = tile.ent();
     Draw.rect(this.bottomRegion, tile.drawx(), tile.drawy());
     Draw.color(e.liquids.current().color);

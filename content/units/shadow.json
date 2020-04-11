@@ -8,31 +8,30 @@ mass: 5.5
 health: 1200
 hitsize: 24
 drag: 0.01
-range: 90
+range: 140
 shootCone: 90
 rotateWeapon: true
-engineOffset: 12
-engineSize: 3.5
+engineOffset: 11
+engineSize: 4
 rotatespeed: 0.01
 baseRotateSpeed: 0.06
-retreatPercent: 0.2
 weapon: {
   name: shadow-caster
   width: 7
   recoil: 2
-  reload: 60
+  reload: 30
   alternate: true
   inaccuracy: 2
-  shots: 12
+  shots: 6
   spacing: 0
-  shotDelay: 1
+  shotDelay: 2
   shootSound: artillery
   bullet: {
     type: BasicBulletType
     bulletWidth: 8
     bulletHeight: 12
     speed: 10
-    lifetime: 12
+    lifetime: 14
     damage: 6
   }
 }

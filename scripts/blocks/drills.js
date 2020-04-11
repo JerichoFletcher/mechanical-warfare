@@ -2,14 +2,10 @@
 const chemicalDrill = extendContent(Drill, "chemical-drill", {
   generateIcons: function(){
     return [
-      Core.atlas.find("mw-base-" + this.size),
-      Core.atlas.find(this.name + "-bottom"),
-      Core.atlas.find(this.name + "-rotator"),
-      Core.atlas.find(this.name + "-top")
+      Core.atlas.find(this.name)
     ];
   },
   load(){
-    this.baseRegion = Core.atlas.find("mw-base-" + this.size);
     this.liquidRegion = Core.atlas.find(this.name + "-liquid");
     this.region = Core.atlas.find(this.name + "-bottom");
     this.rimRegion = Core.atlas.find(this.name + "-rim");
@@ -17,7 +13,7 @@ const chemicalDrill = extendContent(Drill, "chemical-drill", {
     this.topRegion = Core.atlas.find(this.name + "-top");
   },
   draw(tile){
-    Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
+    Draw.rect(Core.atlas.find("mw-base-" + this.size), tile.drawx(), tile.drawy());
     Draw.color(tile.entity.liquids.current().color);
     Draw.alpha(tile.entity.liquids.total() / this.liquidCapacity);
     Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());

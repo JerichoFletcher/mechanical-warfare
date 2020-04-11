@@ -2,12 +2,12 @@ type: hoverUnit
 name: Shadow
 description: A heavy destroyer ship.
 flying: true
-speed: 0.09
+speed: 0.1
 maxVelocity: 0.8
-mass: 5.5
+mass: 5
 health: 1200
-hitsize: 24
-drag: 0.01
+hitsize: 20
+drag: 0.02
 range: 140
 shootCone: 90
 rotateWeapon: true
@@ -21,13 +21,14 @@ weapon: {
   recoil: 2
   reload: 30
   alternate: true
-  inaccuracy: 2
+  inaccuracy: 0
   shots: 6
   spacing: 0
-  shotDelay: 2
+  shotDelay: 1
   shootSound: artillery
   bullet: {
     type: BasicBulletType
+    inaccuracy: 0
     bulletWidth: 8
     bulletHeight: 12
     speed: 10

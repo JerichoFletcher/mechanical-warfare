@@ -20,9 +20,9 @@ const chemicalDrill = extendContent(Drill, "chemical-drill", {
     }
     Draw.color();
     Draw.rect(Core.atlas.find(this.name + "-rotator-bottom"), tile.drawx(), tile.drawy(), e.drillTime * 2.5);
-    Draw.rect(Core.atlas.find(this.name + "-rotator-top"), tile.drawx(), tile.drawy(), e.drillTime * -4);
-    /*Draw.rect(Core.atlas.find(this.name + "-top"), tile.drawx(), tile.drawy());
-    if(e.dominantItem != null && this.drawMineItem){
+    Draw.rect(Core.atlas.find(this.name + "-rotator-top"), tile.drawx(), tile.drawy(), e.drillTime * 4);
+    Draw.rect(Core.atlas.find(this.name + "-top"), tile.drawx(), tile.drawy());
+    /*if(e.dominantItem != null && this.drawMineItem){
       Draw.color(e.dominantItem.color);
       Draw.rect("drill-top", tile.drawx(), tile.drawy(), 1);
       Draw.color();

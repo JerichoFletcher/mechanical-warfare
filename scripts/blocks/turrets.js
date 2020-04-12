@@ -1,10 +1,10 @@
 // Aegis
 const aegis = extendContent(ItemTurret, "aegis", {
-  generateIcons: function(){
+  /* generateIcons: function(){
     return [
       Core.atlas.find(this.name + "-icon")
     ];
-  },
+  }, */
   load(){
     this.super$load();
     this.region = Core.atlas.find(this.name);

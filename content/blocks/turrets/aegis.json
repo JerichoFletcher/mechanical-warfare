@@ -7,7 +7,7 @@ ammoUseEffect: shellEjectSmall
 inaccuracy: 2
 rotatespeed: 4
 range: 120
-recoil: 2.5
+recoil: 1.2
 shootCone: 10
 shots: 5
 spread: 8

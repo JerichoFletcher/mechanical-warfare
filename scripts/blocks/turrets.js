@@ -7,6 +7,8 @@ const aegis = extendContent(ItemTurret, "aegis", {
   },
   load(){
     this.super$load();
+    this.region = Core.atlas.find(this.name);
+    this.heatRegion = Core.atlas.find(this.name + "-heat");
     this.topRegion = Core.atlas.find(this.name + "-top");
   },
   drawLayer(tile){
@@ -17,27 +19,15 @@ const aegis = extendContent(ItemTurret, "aegis", {
 
 // Blow
 const blow = extendContent(DoubleTurret, "blow", {
-  generateIcons: function(){
-    return [
-      Core.atlas.find(this.name + "-icon")
-    ];
-  },
+  
 });
 
 // Nighthawk
 const nighthawk = extendContent(ItemTurret, "nighthawk", {
-  generateIcons: function(){
-    return [
-      Core.atlas.find(this.name + "-icon")
-    ];
-  },
+  
 });
 
 // Quake
 const quake = extendContent(ArtilleryTurret, "quake", {
-  generateIcons: function(){
-    return [
-      Core.atlas.find(this.name + "-icon")
-    ];
-  },
+  
 });

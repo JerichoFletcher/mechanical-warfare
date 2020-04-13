@@ -10,10 +10,10 @@ const chemicalDrill = extendContent(Drill, "chemical-drill", {
   },
   generateIcons: function(){
     return [
-      Draw.rect(this.baseRegion),
-      Draw.rect(this.region),
-      Draw.rect(this.rotatorRegion),
-      Draw.rect(this.topRegion)
+      this.baseRegion,
+      this.region,
+      this.rotatorRegion,
+      this.topRegion
     ];
   },
   draw(tile){

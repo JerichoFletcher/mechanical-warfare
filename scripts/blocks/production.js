@@ -1,16 +1,22 @@
 // Chemical Station
 const chemicalStation = extendContent(GenericCrafter, "chemical-station", {
+  load(){
+    this.bottomRegion = Core.atlas.find(this.name + "-bottom");
+    this.liquidRegion = Core.atlas.find(this.name + "-liquid");
+    this.topRegion = Core.atlas.find(this.name + "-top");
+  },
   generateIcons: function(){
     return [
-      Core.atlas.find(this.name)
+      Draw.rect(this.bottomRegion);
+      Draw.rect(this.topRegion);
     ];
   },
   draw(tile){
-    Draw.rect(Core.atlas.find(this.name + "-bottom"), tile.drawx(), tile.drawy());
+    Draw.rect(this.bottomRegion, tile.drawx(), tile.drawy());
     Draw.color(this.outputLiquid.liquid.color);
     Draw.alpha(tile.entity.liquids.get(this.outputLiquid.liquid) / this.liquidCapacity);
-    Draw.rect(Core.atlas.find(this.name + "-liquid"), tile.drawx(), tile.drawy());
+    Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());
     Draw.color();
-    Draw.rect(Core.atlas.find(this.name + "-top"), tile.drawx(), tile.drawy());
+    Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
   },
 });

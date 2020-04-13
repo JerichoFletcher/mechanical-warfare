@@ -10,7 +10,7 @@ conditionWave: 20
 launchPeriod: 10
 configureObjective: {
   type: Launched
-  zone: front-gate
+  zone: hill-path
 }
 requirements: [
   {

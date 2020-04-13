@@ -34,5 +34,6 @@ weapon: {
     speed: 10
     lifetime: 20
     damage: 7
+    shootEffect: shootBig
   }
 }

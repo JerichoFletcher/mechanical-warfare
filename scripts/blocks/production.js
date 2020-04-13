@@ -7,8 +7,8 @@ const chemicalStation = extendContent(GenericCrafter, "chemical-station", {
   },
   generateIcons: function(){
     return [
-      this.bottomRegion,
-      this.topRegion
+      Core.atlas.find(this.name + "-bottom"),
+      Core.atlas.find(this.name + "-top")
     ];
   },
   draw(tile){

@@ -1,14 +1,13 @@
-![Logo](sprites/mw-icon.png)
+![Logo](icon.png)
 
 # Mechanical Warfare
 Mechanical Warfare is a Mindustry mod adding brand new units, mechs, and turrets. Not for the faintest of engines.
 
-### Additions:
-- 5 new items + 3 new liquids (with the respective crafters) mostly compatible with vanilla blocks & turrets
-- Several new environment tiles
-- 2 new powerful turrets (with custom sounds!)
-- 1 new unit + 1 new boss
-- 4 new campaign zones
+### Features:
+- New items and liquids (with the respective crafters)
+- Powerful units, ships, and mechs
+- New turrets as a mean of defense against the new enemies
+- 4 challenging campaign zones with new environment tiles
 
 Please be aware that _this mod is still under heavy development._ Expect more features to be added regularly!
 

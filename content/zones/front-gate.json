@@ -20,13 +20,13 @@ launchPeriod: 10
 requirements: [
   {
     type: ZoneWave
-    zone: nuclearComplex
-    wave: 30
+    zone: volcano
+    wave: 20
   }
   {
     type: ZoneWave
-    zone: volcano
-    wave: 20
+    zone: nuclearComplex
+    wave: 30
   }
   {
     type: Unlock

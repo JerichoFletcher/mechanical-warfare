@@ -1,0 +1,23 @@
+name: Phantasm Destroyer Factory
+description: Assembles Phantasm, an armored destroyer ship equipped with flak gun.
+unitType: phantasm
+size: 4
+produceTime: 2000
+maxSpawn: 4
+consumes: {
+  power: 1.4
+  items: {
+    items: [
+      silicon/50
+      titanium/35
+    ]
+  }
+}
+category: units
+research: ghoul-factory
+requirements: [
+  thorium/75
+  titanium/175
+  lead/125
+  silicon/175
+]

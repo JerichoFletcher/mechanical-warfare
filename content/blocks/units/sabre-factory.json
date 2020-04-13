@@ -1,6 +1,5 @@
-type: UnitFactory
 name: Sabre Mech Factory
-description: Assembles lancer-based armored ground units.
+description: Assembles armored ground units equipped with acid-frag rockets.
 unitType: sabre
 size: 3
 produceTime: 2000

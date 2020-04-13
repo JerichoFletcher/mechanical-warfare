@@ -1,4 +1,3 @@
-type: DoubleTurret
 name: Blow
 description: A medium-ranged machinegun turret. Shoots piercing, high-velocity rounds.
 health: 1440
@@ -25,9 +24,9 @@ ammo: {
   }
 }
 requirements: [
-  titanium/250
-  surge-alloy/275
-  uranium/300
+  titanium/125
+  surge-alloy/100
+  uranium/150
 ]
 category: turret
 research: fuse

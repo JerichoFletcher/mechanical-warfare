@@ -11,7 +11,7 @@ immunities: [
   corroded
 ]
 weapon: {
-  name: swarm
+  name: sabre-launcher
   length: 1
   reload: 90
   width: 9

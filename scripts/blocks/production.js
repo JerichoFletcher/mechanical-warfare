@@ -7,8 +7,8 @@ const chemicalStation = extendContent(GenericCrafter, "chemical-station", {
   },
   generateIcons: function(){
     return [
-      Draw.rect(this.bottomRegion);
-      Draw.rect(this.topRegion);
+      Draw.rect(this.bottomRegion),
+      Draw.rect(this.topRegion),
     ];
   },
   draw(tile){

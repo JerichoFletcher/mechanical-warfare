@@ -33,6 +33,6 @@ weapon: {
     bulletHeight: 12
     speed: 10
     lifetime: 20
-    damage: 6
+    damage: 7
   }
 }

@@ -36,7 +36,7 @@ weapon: {
     lifetime: 25
     damage: 15
     shootEffect: shootBig
-    frontColor: ffdddd
-    backColor: ddaaaa
+    frontColor: ccddee
+    backColor: aabbcc
   }
 }

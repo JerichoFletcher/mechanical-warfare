@@ -13,9 +13,8 @@ conditionWave: 20
 launchPeriod: 10
 requirements: [
   {
-    type: ZoneWave
+    type: Launched
 	zone: hill-path
-	wave: 20
   }
   {
     type: Unlock

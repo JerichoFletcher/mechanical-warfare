@@ -1,0 +1,40 @@
+type: HoverUnit
+name: Scythe
+description: A massive hovering destroyer ship equiped with heavy shell launcher.
+flying: true
+speed: 0.07
+maxVelocity: 0.6
+mass: 7
+health: 1760
+hitsize: 25
+drag: 0.02
+range: 160
+shootCone: 150
+rotateWeapon: true
+engineOffset: 14
+engineSize: 5
+rotateSpeed: 0.01
+baseRotateSpeed: 0.05
+weapon: {
+  name: scythe-launcher
+  width: 9
+  recoil: 3
+  reload: 60
+  alternate: true
+  inaccuracy: 2
+  shots: 10
+  spacing: 1
+  shotDelay: 0
+  shootSound: artillery
+  velocityRnd: 0.15
+  bullet: {
+    type: BasicBulletType
+    inaccuracy: 3
+    bulletWidth: 10
+    bulletHeight: 16
+    speed: 7
+    lifetime: 25
+    damage: 15
+    shootEffect: shootBig
+  }
+}

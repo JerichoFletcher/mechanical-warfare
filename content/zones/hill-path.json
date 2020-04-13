@@ -8,6 +8,10 @@ startingItems: [
 ]
 conditionWave: 20
 launchPeriod: 10
+configureObjective: {
+  type: Launched
+  zone: front-gate
+}
 requirements: [
   {
     type: ZoneWave

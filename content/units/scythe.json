@@ -11,23 +11,22 @@ drag: 0.02
 range: 160
 shootCone: 150
 rotateWeapon: true
-engineOffset: 17
-engineSize: 4.6
-engineColor: 7efdfd
+engineOffset: 22
+engineSize: 4
 rotatespeed: 0.01
 baseRotateSpeed: 0.05
 weapon: {
   name: scythe-launcher
   width: 9
   recoil: 3
-  reload: 60
+  reload: 50
   alternate: true
   inaccuracy: 2
   shots: 15
   spacing: 1
-  shotDelay: 1
+  shotDelay: 0
   shootSound: artillery
-  velocityRnd: 0.25
+  velocityRnd: 0.3
   bullet: {
     type: BasicBulletType
     inaccuracy: 3

@@ -11,8 +11,8 @@ drag: 0.02
 range: 160
 shootCone: 150
 rotateWeapon: true
-engineOffset: 22
-engineSize: 4
+engineOffset: 20
+engineSize: 4.5
 rotatespeed: 0.01
 baseRotateSpeed: 0.05
 weapon: {
@@ -36,5 +36,7 @@ weapon: {
     lifetime: 25
     damage: 15
     shootEffect: shootBig
+    frontColor: ffdddd
+    backColor: ddaaaa
   }
 }

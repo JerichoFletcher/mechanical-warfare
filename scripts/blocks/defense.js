@@ -1,6 +1,6 @@
 // Reinforced Wall
 const reinforced-wall = extendContent(Wall, "reinforced-wall",{
-  health = 600
+  health = 1280
   const mendPower = health / 15
   const mendTimer = 30
   update(tile){

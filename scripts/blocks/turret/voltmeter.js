@@ -19,7 +19,7 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
   },
   drawLayer(tile){
     this.super$drawLayer(tile);
-    for (i = 1, i <= 6, i++){
+    for (i = 1; i <= 6; i++){
       var j = i - 1;
       boltrot[j] += boltrotspeed[j];
       if (boltrot[j] >= 360) {boltrot[j] -= 360}

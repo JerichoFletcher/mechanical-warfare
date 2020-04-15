@@ -1,5 +1,5 @@
 // Reinforced Wall
-require("walls/reinforced-wall")
+require("blocks/walls/reinforced-wall")
 
 // Large Reinforced Wall
-require("walls/reinforced-wall-large")
+require("blocks/walls/reinforced-wall-large")

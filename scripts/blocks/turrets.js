@@ -32,12 +32,9 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
   shoot(tile, type){
     var entity = tile.ent();
     entity.heat = 1;
-    this.bullet(tile, type, this.targetRot);
+    Calls.createBullet(type, tile.getTeam(), tile.drawx(), tile.drawy(), this.targetRot);
     this.effects(tile);
     this.useAmmo(tile);
-  },
-  bullet(tile, type, angle){
-    Calls.createBullet(type, tile.entity, tile.getTeam(), tile.drawx(), tile.drawy(), angle);
   },
 });
 

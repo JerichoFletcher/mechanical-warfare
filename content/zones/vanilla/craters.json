@@ -1,0 +1,8 @@
+resources: [
+  copper
+  lead
+  coal
+  sand
+  scrap
+  cobblestone
+]

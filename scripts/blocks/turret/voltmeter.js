@@ -26,7 +26,6 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
       var s = this.name + "-bolt" + i;
       Draw.alpha(0.9 + Mathf.absin(Time.time(), boltrotspeed[j] * 0.1, 0.1));
       Draw.rect(Core.atlas.find(s), tile.drawx(), tile.drawy(), boltrot[j]);
-      Draw.alpha();
     }
   },
 });

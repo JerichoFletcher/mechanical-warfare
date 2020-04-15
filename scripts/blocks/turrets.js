@@ -29,9 +29,7 @@ const nighthawk = extendContent(ItemTurret, "nighthawk", {
 
 //Voltmeter
 const voltmeter = extendContent(PowerTurret, "voltmeter", {
-  shouldTurn: function(tile){
-    return false;
-  },
+  
 });
 
 // Quake

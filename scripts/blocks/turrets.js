@@ -29,7 +29,16 @@ const nighthawk = extendContent(ItemTurret, "nighthawk", {
 
 //Voltmeter
 const voltmeter = extendContent(PowerTurret, "voltmeter", {
-  
+  shoot(tile, type){
+    var entity = tile.ent();
+    entity.heat = 1;
+    this.bullet(tile, type, this.targetRot);
+    this.effects(tile);
+    this.useAmmo(tile);
+  },
+  bullet(tile, type, angle){
+    Bullet.create(type, tile.entity, tile.getTeam(), tile.drawx(), tile.drawy(), angle);
+  },
 });
 
 // Quake

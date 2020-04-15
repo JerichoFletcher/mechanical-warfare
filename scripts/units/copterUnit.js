@@ -1,3 +1,3 @@
-const copterUnit = extend(HoverUnit, {
+const CopterUnit = extend(HoverUnit, {
   
 });

@@ -8,6 +8,7 @@ powerUse: 3
 shootType: lightning
 shootCone: 360
 rotatespeed: 0
+heatColor: a9d8ff
 targetAir: true
 range: 150
 requirements: [

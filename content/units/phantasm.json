@@ -1,4 +1,4 @@
-type: hoverUnit
+type: HoverUnit
 name: Phantasm
 description: An armored aerial unit equipped with flak gun.
 flying: true

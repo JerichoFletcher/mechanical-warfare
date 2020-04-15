@@ -1,0 +1,10 @@
+resources: [
+  copper
+  lead
+  coal
+  titanium
+  thorium
+  sand
+  scrap
+  cobblestone
+]

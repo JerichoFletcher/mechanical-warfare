@@ -4,7 +4,7 @@ const aegis = extendContent(ItemTurret, "aegis", {
     return [
       Core.atlas.find(this.name + "-icon")
     ];
-  }, */
+  },
   load(){
     this.super$load();
     this.region = Core.atlas.find(this.name);
@@ -14,7 +14,7 @@ const aegis = extendContent(ItemTurret, "aegis", {
   drawLayer(tile){
     this.super$drawLayer(tile);
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
-  },
+  }, */
 });
 
 // Blow

@@ -1,8 +1,8 @@
-type: SurgeWall
 name: Large Reinforced Wall
 description: Essentially an armored surge wall capable of absorbing extreme damage. Spans multiple tiles.
 size: 2
 health: 5120
+update: true
 requirements: [
   iron/24
   surge-alloy/16

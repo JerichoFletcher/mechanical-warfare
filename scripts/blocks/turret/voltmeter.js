@@ -19,7 +19,7 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
         this.findTarget(tile);
       }
       if (this.validateTarget(tile)){
-        if (Float.isNaN(entity.rotation)){
+        if (entity.rotation == null){
           entity.rotation = 0;
         }
         entity.heat = Mathf.lerpDelta(entity.heat, 1, boltWarmup);

@@ -28,7 +28,8 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
       const j = i - 1;
       const s = this.name + "-bolt" + i;
       Draw.mixcol(Color.white, Mathf.absin(Time.time(), boltrotspeed[j] * 0.1, 0.5));
-      Draw.alpha(a * (0.9 + Mathf.absin(Time.time(), boltrotspeed[j] * 0.1, 0.1)));
+      // Draw.alpha(a * (0.9 + Mathf.absin(Time.time(), boltrotspeed[j] * 0.1, 0.1)));
+      Draw.alpha(a);
       Draw.rect(Core.atlas.find(s), tile.drawx(), tile.drawy(), Time.time() * boltrotspeed[j]);
       Draw.mixcol();
     }

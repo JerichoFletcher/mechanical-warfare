@@ -1,6 +1,6 @@
 type: CoreBlock
 name: "Core: Origin"
-desription: The fourth newer version of the core capsule. Extremely durable and capable of withstanding extreme amount of damage.
+description: The fourth newer version of the core capsule. Extremely durable and capable of withstanding extreme amount of damage.
 size: 6
 health: 10000
 itemCapacity: 21000

@@ -19,7 +19,7 @@ const serpent = extendContent(UnitType, "serpent", {
     const cons = prov(CopterUnit);
     this.constructor = cons;
     this.description = Core.bundle.getOrNull("unit." + this.name + ".description");
-    this.typeID = new TypeID(name, cons);
+    this.typeID = new TypeID(this.name, cons);
   },
   load(){
     this.super$load();

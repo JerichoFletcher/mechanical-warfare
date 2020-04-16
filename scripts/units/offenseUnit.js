@@ -1,8 +1,8 @@
 // CopterUnit
 require("units/copterUnit")
 
-// exampleCopterUnit
-const exampleCopterUnit = extendContent(UnitType, "example-copter-unit", {
+// Serpent
+const serpent = extendContent(UnitType, "serpent", {
   load(){
     this.super$load();
     this.rotorBladeRegion = Core.atlas.find(this.name + "-rotor-blade");

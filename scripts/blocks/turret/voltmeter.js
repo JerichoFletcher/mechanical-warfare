@@ -31,10 +31,15 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     for (i = 1; i <= 6; i++){
       var j = i - 1;
       var s = this.name + "-bolt" + i;
+      var sign =
+        i > 4 ?
+          (i % 2 == 0 ? 1 : -1)
+        :
+          (i > 2 ? -1 : 1);
       Draw.mixcol(Color.white, Mathf.absin(Time.time(), boltrotspeed[j] * 0.1, 0.5));
       Draw.alpha(this.boltWarmup * (0.9 + Mathf.absin(Time.time(), boltrotspeed[j] * 0.1, 0.1)));
       Draw.blend(Blending.additive);
-      Draw.rect(Core.atlas.find(s), tile.drawx(), tile.drawy(), Time.time() * boltrotspeed[j]);
+      Draw.rect(Core.atlas.find(s), tile.drawx(), tile.drawy(), Time.time() * boltrotspeed[j] * sign);
       Draw.blend();
       Draw.reset();
     }

@@ -12,7 +12,6 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     const entity = tile.ent();
     var status = this.details.status;
     this.details.status = Mathf.approach(status, entity.power.status, boltCooldown);
-    }
   },
   shoot(tile, type){
     const entity = tile.ent();

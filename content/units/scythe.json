@@ -23,7 +23,7 @@ weapon: {
   alternate: true
   inaccuracy: 2
   shots: 15
-  spacing: 1
+  spacing: 0.5
   shotDelay: 0
   shootSound: artillery
   velocityRnd: 0.3

@@ -35,6 +35,7 @@ weapon: {
     bulletHeight: 16
     speed: 7
     lifetime: 25
+    damage: 15
     splashDamage: 15
     splashDamageRadius: 2
     shootEffect: shootBig

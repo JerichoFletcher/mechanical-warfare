@@ -10,7 +10,14 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
   update(tile){
     this.super$update(tile);
     const entity = tile.ent();
-    this.details.status = Mathf.lerpDelta(this.details.status, entity.power.status, boltCooldown);
+    if (entity.power.status < 0.1){
+      this.details.status = 0;
+    }else if(entity.power.status > 0.9){
+      this.details.status = 1;
+    }else{
+      var status = this.details.status;
+      this.details.status = Mathf.lerpDelta(status, entity.power.status, boltCooldown);
+    }
   },
   shoot(tile, type){
     const entity = tile.ent();

@@ -1,5 +1,5 @@
-const boltrotspeed = [8, 6, 18, 15, 24, 20];
-const boltrotdir = [1, -1, -1, 1, 1, -1];
+const boltrotspeed = [8, -6, -18, 15, 24, -20];
+// const boltrotdir = [1, -1, -1, 1, 1, -1];
 const boltCooldown = 0.05;
 //var warmup = 0;
 const voltmeter = extendContent(PowerTurret, "voltmeter", {
@@ -25,16 +25,10 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     for (i = 1; i <= 6; i++){
       const j = i - 1;
       const s = this.name + "-bolt" + i;
-      const rawrot = Time.time() * boltrotspeed[j] * boltrotdir[j];
-      const truerot =
-        rawrot < 0 ?
-          360 + (rawrot % 360)
-        :
-          rawrot % 360;
       Draw.mixcol(Color.white, Mathf.absin(Time.time(), boltrotspeed[j] * 0.1, 0.5));
       Draw.alpha(entity.power.status * (0.9 + Mathf.absin(Time.time(), boltrotspeed[j] * 0.1, 0.1)));
       Draw.blend(Blending.additive);
-      Draw.rect(Core.atlas.find(s), tile.drawx(), tile.drawy(), truerot);
+      Draw.rect(Core.atlas.find(s), tile.drawx(), tile.drawy(), Time.time() * boltrotspeed[j]);
       Draw.blend();
       Draw.reset();
     }

@@ -10,13 +10,8 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
   update(tile){
     this.super$update(tile);
     const entity = tile.ent();
-    if (entity.power.status < 0.1){
-      this.details.status = 0;
-    }else if(entity.power.status > 0.9){
-      this.details.status = 1;
-    }else{
-      var status = this.details.status;
-      this.details.status = Mathf.lerpDelta(status, entity.power.status, boltCooldown);
+    var status = this.details.status;
+    this.details.status = Mathf.approach(status, entity.power.status, boltCooldown);
     }
   },
   shoot(tile, type){
@@ -40,7 +35,7 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     Draw.reset();
     Draw.blend(Blending.additive);
     for (var i = 1; i <= 6; i++){
-      if (!Mathf.chance(status)){continue;}
+      if (!Mathf.randomBoolean(status)){continue;}
       var j = i - 1;
       var rawrot = Time.time() * boltrotspeed[j] * boltrotdir[j];
       var truerot =

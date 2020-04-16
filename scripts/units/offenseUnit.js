@@ -16,10 +16,9 @@ const CopterUnit = extend(HoverUnit, {
 // Serpent
 const serpent = extendContent(UnitType, "serpent", {
   create(mainConstructor){
-    const cons = new HoverUnit;
-    this.constructor = cons;
+    this.constructor = mainConstructor;
     this.description = Core.bundle.getOrNull("unit." + this.name + ".description");
-    this.typeID = new TypeID(this.name, cons);
+    this.typeID = new TypeID(this.name, mainConstructor);
   },
   create: function(team){
     const unit = this.constructor.get();

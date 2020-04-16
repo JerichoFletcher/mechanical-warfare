@@ -1,4 +1,4 @@
-type: hoverUnit
+type: HoverUnit
 name: Shadow
 description: A heavy destroyer ship that fires quick bursts of bullets.
 flying: true

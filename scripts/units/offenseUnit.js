@@ -18,7 +18,7 @@ const serpent = extendContent(UnitType, "serpent", {
   create(mainConstructor){
     const cons = prov(CopterUnit);
     this.constructor = cons;
-    this.description = Core.bundle.getOrNull("unit." + name + ".description");
+    this.description = Core.bundle.getOrNull("unit." + this.name + ".description");
     this.typeID = new TypeID(name, cons);
   },
   load(){

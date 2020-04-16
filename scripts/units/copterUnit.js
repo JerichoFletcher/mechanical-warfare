@@ -4,9 +4,8 @@ const CopterUnit = extend(HoverUnit, {
     Draw.rect(this.type.region, this.x, this.y, this.rotation - 90);
     this.drawWeapons();
     // draw rotor
-    for (const i of Mathf.signs) {
-      Draw.rect(this.type.rotorBladeRegion, this.x, this.y - this.type.rotorOffset * Vars.tilesize, Time.time() * this.type.rotorSpeed * i);
-    }
+    Draw.rect(this.type.rotorBladeRegion, this.x, this.y - this.type.rotorOffset * Vars.tilesize, Time.time() * this.type.rotorSpeed);
+    Draw.rect(this.type.rotorBladeRegion, this.x, this.y - this.type.rotorOffset * Vars.tilesize, Time.time() * this.type.rotorSpeed * -1);
     Draw.rect(this.type.rotorTopRegion, this.x, this.y - this.type.rotorOffset * Vars.tilesize);
     // end draw rotor
     Draw.mixcol();

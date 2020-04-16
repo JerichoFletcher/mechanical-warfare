@@ -1,0 +1,25 @@
+type: UnitFactory
+name: Serpent Copter Factory
+description: Assembles useless hovering helicopter known as Serpent.
+unitType: serpent
+size: 5
+produceTime: 3000
+maxSpawn: 3
+consumes: {
+  power: 2
+  items: {
+    items: [
+      silicon/60
+      titanium/50
+    ]
+  }
+}
+category: units
+research: phantasm-factory
+requirements: [
+  uranium/175
+  surge-alloy/250
+  titanium/325
+  lead/300
+  silicon/275
+]

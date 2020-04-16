@@ -29,7 +29,7 @@ weapon: {
   velocityRnd: 0.3
   bullet: {
     type: ArtilleryBulletType
-    collidesTile: true
+    collidesTiles: true
     inaccuracy: 3
     bulletWidth: 10
     bulletHeight: 16

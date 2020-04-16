@@ -10,5 +10,5 @@ requirements: [
   surge-alloy/3000
   steel/3000
 ]
-buildVisibility: shown
+buildVisibility: debugOnly
 category: effect

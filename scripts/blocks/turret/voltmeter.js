@@ -1,8 +1,15 @@
-var boltrotspeed = [16, 12, 18, 15, 24, 20];
+const boltrotspeed = [8, 6, 18, 15, 24, 20];
+const boltCooldown = 0.05;
 //var warmup = 0;
 const voltmeter = extendContent(PowerTurret, "voltmeter", {
+  load(){
+    this.super$load();
+    this.boltWarmup = 0;
+  },
   update(tile){
     this.super$update(tile);
+    const sign = tile.entity.cons.valid() ? 1 : -1;
+    this.boltWarmup = Mathf.lerpDelta(this.boltWarmup, 1, boltCooldown * sign);
   },
   shoot(tile, type){
     var entity = tile.ent();
@@ -18,13 +25,15 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
   },
   drawLayer(tile){
     this.super$drawLayer(tile);
-    var f = (1.8 + Mathf.absin(Time.time(), 1, 0.4)) * Vars.tilesize;
+    var f = (2 + Mathf.absin(Time.time(), 2, 0.5)) * Vars.tilesize;
+    Draw.alpha(this.boltWarmup);
     Draw.rect(Core.atlas.find(this.name + "-top"), tile.drawx(), tile.drawy(), f, f);
+    Draw.reset();
     for (i = 1; i <= 6; i++){
       var j = i - 1;
       var s = this.name + "-bolt" + i;
       Draw.mixcol(Color.white, Mathf.absin(Time.time(), boltrotspeed[j] * 0.1, 0.5));
-      Draw.alpha(0.9 + Mathf.absin(Time.time(), boltrotspeed[j] * 0.1, 0.1));
+      Draw.alpha(this.boltWarmup * (0.9 + Mathf.absin(Time.time(), boltrotspeed[j] * 0.1, 0.1)));
       Draw.blend(Blending.additive);
       Draw.rect(Core.atlas.find(s), tile.drawx(), tile.drawy(), Time.time() * boltrotspeed[j]);
       Draw.blend();

@@ -5,13 +5,9 @@ const boltCooldown = 0.05;
 const voltmeter = extendContent(PowerTurret, "voltmeter", {
   load(){
     this.super$load();
-    this.details = new DetailsData();
   },
   update(tile){
     this.super$update(tile);
-    const entity = tile.ent();
-    var status = this.details.status;
-    this.details.status = Mathf.approach(status, entity.power.status, boltCooldown);
   },
   shoot(tile, type){
     const entity = tile.ent();
@@ -28,7 +24,7 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
   drawLayer(tile){
     this.super$drawLayer(tile);
     const entity = tile.ent();
-    var status = this.details.status;
+    var status = entity.power.status;
     var f = ((2 + Mathf.absin(Time.time(), 2, 0.5)) * Vars.tilesize) * status;
     Draw.rect(Core.atlas.find(this.name + "-top"), tile.drawx(), tile.drawy(), f, f);
     Draw.reset();
@@ -52,7 +48,3 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     Draw.reset();
   },
 });
-// storage for details data
-function DetailsData(){
-  this.status = 0;
-}

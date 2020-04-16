@@ -10,8 +10,4 @@ const serpent = extendContent(UnitType, "serpent", {
     this.rotorSpeed = 9;
     this.rotorOffset = 4;
   },
-  UnitType(name, mainConstructor){
-    this(name);
-    this.create(CopterUnit);
-  },
 });

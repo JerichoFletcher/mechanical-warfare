@@ -1,3 +1,4 @@
+type: UnitFactory
 name: Sabre Mech Factory
 description: Assembles armored ground units equipped with acid-frag rockets.
 unitType: sabre

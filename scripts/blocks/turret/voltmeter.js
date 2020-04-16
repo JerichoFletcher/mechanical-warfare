@@ -8,8 +8,7 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
   },
   update(tile){
     this.super$update(tile);
-    const sign = tile.entity.cons.valid() ? 1 : -1;
-    this.boltWarmup = Mathf.lerpDelta(this.boltWarmup, 1, boltCooldown * sign);
+    this.boltWarmup = Mathf.lerpDelta(this.boltWarmup, tile.entity.power.status, boltCooldown);
   },
   shoot(tile, type){
     var entity = tile.ent();

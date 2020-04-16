@@ -15,6 +15,17 @@ const CopterUnit = extend(HoverUnit, {
 
 // Serpent
 const serpent = extendContent(UnitType, "serpent", {
+  create(mainConstructor){
+    const cons = new CopterUnit;
+    this.constructor = cons;
+    this.description = Core.bundle.getOrNull("unit." + this.name + ".description");
+    this.typeID = new TypeID(this.name, cons);
+  },
+  create: function(team){
+    const unit = this.constructor.get();
+    unit.init(this, team);
+    return unit;
+  },
   load(){
     this.super$load();
     this.rotorBladeRegion = Core.atlas.find(this.name + "-rotor-blade");

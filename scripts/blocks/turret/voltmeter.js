@@ -18,18 +18,17 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
   drawLayer(tile){
     this.super$drawLayer(tile);
     const entity = tile.ent();
-    const a = entity.power.status;
-    const f = (2 + Mathf.absin(Time.time(), 2, 0.5)) * Vars.tilesize;
+    var a = entity.power.status;
+    var f = (2 + Mathf.absin(Time.time(), 2, 0.5)) * Vars.tilesize;
     Draw.alpha(a);
     Draw.rect(Core.atlas.find(this.name + "-top"), tile.drawx(), tile.drawy(), f, f);
     Draw.reset();
     Draw.blend(Blending.additive);
     for (var i = 1; i <= 6; i++){
-      const j = i - 1;
-      const s = this.name + "-bolt" + i;
-      //Draw.mixcol(Color.white, Mathf.absin(Time.time(), boltrotspeed[j] * 0.1, 0.5));
-      //Draw.alpha(a * (0.9 + Mathf.absin(Time.time(), boltrotspeed[j] * 0.1, 0.1)));
-      Draw.rect(Core.atlas.find(s), tile.drawx(), tile.drawy(), Time.time() * boltrotspeed[j]);
+      var j = i - 1;
+      Draw.mixcol(Color.white, Mathf.absin(Time.time(), boltrotspeed[j] * 0.1, 0.5));
+      Draw.alpha(a * (0.9 + Mathf.absin(Time.time(), boltrotspeed[j] * 0.1, 0.1)));
+      Draw.rect(Core.atlas.find(this.name + "-bolt" + i), tile.drawx(), tile.drawy(), Time.time() * boltrotspeed[j]);
       Draw.mixcol();
       Draw.color();
     }

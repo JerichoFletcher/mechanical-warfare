@@ -28,13 +28,15 @@ weapon: {
   shootSound: artillery
   velocityRnd: 0.3
   bullet: {
-    type: BasicBulletType
+    type: ArtilleryBulletType
+    collidesTile: true
     inaccuracy: 3
     bulletWidth: 10
     bulletHeight: 16
     speed: 7
     lifetime: 25
-    damage: 15
+    splashDamage: 15
+    splashDamageRadius: 2
     shootEffect: shootBig
     frontColor: ccddee
     backColor: aabbcc

@@ -16,7 +16,7 @@ ammo: {
     type: FlakBulletType
     damage: 18
     splashDamage: 48
-    splashDamageRadius: 6
+    splashDamageRadius: 18
     speed: 18
     lifetime: 14
     bulletWidth: 3
@@ -30,7 +30,7 @@ ammo: {
     type: FlakBulletType
     damage: 18
     splashDamage: 48
-    splashDamageRadius: 6
+    splashDamageRadius: 18
     speed: 16
     lifetime: 16
     bulletWidth: 4
@@ -45,7 +45,7 @@ ammo: {
     type: FlakBulletType
     damage: 30
     splashDamage: 68
-    splashDamageRadius: 14
+    splashDamageRadius: 42
     speed: 17
     lifetime: 14
     bulletWidth: 3
@@ -59,7 +59,7 @@ ammo: {
     type: FlakBulletType
     damage: 28
     splashDamage: 64
-    splashDamageRadius: 8
+    splashDamageRadius: 24
     speed: 18
     lifetime: 14
     bulletWidth: 4
@@ -73,7 +73,7 @@ ammo: {
     type: FlakBulletType
     damage: 35
     splashDamage: 72
-    splashDamageRadius: 14
+    splashDamageRadius: 42
     speed: 20
     lifetime: 13
     bulletWidth: 5

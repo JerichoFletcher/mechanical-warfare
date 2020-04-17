@@ -62,7 +62,7 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     
     // top region
     if (heat >= 0.11){
-      var f = ((2 + Mathf.absin(Time.time(), 2, 0.5)) * Vars.tilesize) * heat;
+      var f = ((2 + Mathf.absin(Time.time(), 2, 0.6)) * Vars.tilesize) * (heat - 0.1);
       Draw.rect(Core.atlas.find(this.name + "-top"), tile.drawx(), tile.drawy(), f, f);
       Draw.reset();
     }

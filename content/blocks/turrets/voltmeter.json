@@ -5,7 +5,7 @@ size: 3
 reload: 20
 recoil: 0
 powerUse: 10
-shots: 4
+shots: 5
 shootType: arc
 shootCone: 360
 rotatespeed: 0

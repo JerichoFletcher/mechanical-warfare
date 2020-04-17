@@ -22,4 +22,6 @@ category: turret
 research: arc
 shootSound: voltmetershot
 idleSound: voltmeterIdle
+idleSoundVolume: 0.5
 activeSound: voltmeterActive
+activeSoundVolume: 1

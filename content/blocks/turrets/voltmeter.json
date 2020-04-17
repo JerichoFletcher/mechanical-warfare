@@ -20,4 +20,6 @@ requirements: [
 ]
 category: turret
 research: arc
-shootSound: spark
+shootSound: voltmetershot
+idleSound: voltmeterIdle
+activeSound: voltmeterActive

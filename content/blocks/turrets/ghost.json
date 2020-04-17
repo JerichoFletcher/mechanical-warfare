@@ -1,0 +1,95 @@
+type: DoubleTurret
+name: Ghost
+description: An advanced anti-air turret. Shoots high-velocity flak bullets.
+health: 1350
+size: 3
+reload: 20
+ammoUseEffect: shellEjectBig
+inaccuracy: 0
+rotatespeed: 4
+shotWidth: 2
+range: 240
+recoil: 3.5
+ammo: {
+  metaglass: {
+    type: FlakBulletType
+    damage: 9
+    splashDamage: 17
+    splashDamageRadius: 4
+    speed: 18
+    lifetime: 14
+    bulletWidth: 3
+    bulletHeight: 15
+    frontColor: ffe0bb
+    backColor: d3b189
+    ammoMultiplier: 2
+    hitEffect: flakExplosion
+  }
+  pyratite: {
+    type: FlakBulletType
+    damage: 9
+    splashDamage: 12
+    splashDamageRadius: 4
+    speed: 16
+    lifetime: 16
+    bulletWidth: 4
+    bulletHeight: 18
+    frontColor: ee8d18
+    backColor: d66410
+    ammoMultiplier: 2
+    hitEffect: flakExplosion
+    status: burning
+  }
+  blastCompound: {
+    type: FlakBulletType
+    damage: 12
+    splashDamage: 17
+    splashDamageRadius: 6
+    speed: 17
+    lifetime: 14
+    bulletWidth: 3
+    bulletHeight: 15
+    frontColor: e5b9a8
+    backColor: c68686
+    ammoMultiplier: 2
+    hitEffect: blastExplosion
+  }
+  plastanium: {
+    type: FlakBulletType
+    damage: 16
+    splashDamage: 16
+    splashDamageRadius: 4
+    speed: 18
+    lifetime: 14
+    bulletWidth: 4
+    bulletHeight: 18
+    frontColor: e1ffbb
+    backColor: 9ad284
+    ammoMultiplier: 3
+    hitEffect: plasticExplosion
+  }
+  he-shell: {
+    type: FlakBulletType
+    damage: 23
+    splashDamage: 19
+    splashDamageRadius: 7
+    speed: 20
+    lifetime: 13
+    bulletWidth: 5
+    bulletHeight: 21
+    frontColor: e5b9a8
+    backColor: c68686
+    ammoMultiplier: 5
+    hitEffect: blastExplosion
+  }
+}
+requirements: [
+  plastanium/75
+  steel/100
+  surge-alloy/50
+  graphite/150
+  thorium/125
+]
+category: turret
+research: swarmer
+shootSound: shootBig

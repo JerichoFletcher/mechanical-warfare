@@ -14,7 +14,7 @@ targetGround: false
 ammo: {
   metaglass: {
     type: FlakBulletType
-    damage: 9
+    damage: 18
     splashDamage: 24
     splashDamageRadius: 4
     speed: 18
@@ -28,7 +28,7 @@ ammo: {
   }
   pyratite: {
     type: FlakBulletType
-    damage: 9
+    damage: 18
     splashDamage: 24
     splashDamageRadius: 4
     speed: 16
@@ -43,7 +43,7 @@ ammo: {
   }
   blast-compound: {
     type: FlakBulletType
-    damage: 15
+    damage: 30
     splashDamage: 34
     splashDamageRadius: 7
     speed: 17
@@ -57,7 +57,7 @@ ammo: {
   }
   plastanium: {
     type: FlakBulletType
-    damage: 14
+    damage: 28
     splashDamage: 32
     splashDamageRadius: 4
     speed: 18
@@ -71,7 +71,7 @@ ammo: {
   }
   he-shell: {
     type: FlakBulletType
-    damage: 19
+    damage: 35
     splashDamage: 38
     splashDamageRadius: 7
     speed: 20

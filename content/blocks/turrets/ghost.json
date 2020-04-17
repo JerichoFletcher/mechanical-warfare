@@ -40,7 +40,7 @@ ammo: {
     hitEffect: flakExplosion
     status: burning
   }
-  blastCompound: {
+  blast-compound: {
     type: FlakBulletType
     damage: 12
     splashDamage: 17

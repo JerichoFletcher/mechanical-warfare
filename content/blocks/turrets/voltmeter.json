@@ -11,7 +11,7 @@ shootCone: 360
 rotatespeed: 0
 heatColor: a9d8ff
 targetAir: true
-range: 150
+range: 140
 requirements: [
   copper/180
   iron/200

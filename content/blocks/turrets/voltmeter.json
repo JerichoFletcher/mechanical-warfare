@@ -5,7 +5,8 @@ size: 3
 reload: 15
 recoil: 0
 powerUse: 3
-shootType: lightning
+shots: 5
+shootType: arc
 shootCone: 360
 rotatespeed: 0
 heatColor: a9d8ff

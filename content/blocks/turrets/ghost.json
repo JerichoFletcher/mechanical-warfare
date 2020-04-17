@@ -25,8 +25,18 @@ ammo: {
     backColor: d3b189
     ammoMultiplier: 2
     hitEffect: flakExplosion
-    fragBullets: 6
-    fragBullet: glassFrag
+    fragBullets: 12
+    fragBullet: {
+      type: BasicBulletType
+      damage: 9
+      bulletWidth: 5
+      bulletHeight: 12
+      bulletShrink: 1
+      lifetime: 20
+      frontColor: ee8d18
+      backColor: d66410
+      despawnEffect: none
+    }
   }
   pyratite: {
     type: FlakBulletType
@@ -42,10 +52,10 @@ ammo: {
     ammoMultiplier: 2
     hitEffect: flakExplosion
     status: burning
-    fragBullets: 6
+    fragBullets: 12
     fragBullet: {
       type: BasicBulletType
-      damage: 6
+      damage: 9
       bulletWidth: 5
       bulletHeight: 12
       bulletShrink: 1
@@ -68,10 +78,10 @@ ammo: {
     backColor: c68686
     ammoMultiplier: 2
     hitEffect: blastExplosion
-    fragBullets: 6
+    fragBullets: 12
     fragBullet: {
       type: BasicBulletType
-      damage: 9
+      damage: 14
       bulletWidth: 5
       bulletHeight: 12
       bulletShrink: 1
@@ -94,10 +104,10 @@ ammo: {
     backColor: 9ad284
     ammoMultiplier: 3
     hitEffect: plasticExplosion
-    fragBullets: 6
+    fragBullets: 12
     fragBullet: {
       type: BasicBulletType
-      damage: 8
+      damage: 12
       bulletWidth: 5
       bulletHeight: 12
       bulletShrink: 1
@@ -120,10 +130,10 @@ ammo: {
     backColor: c68686
     ammoMultiplier: 5
     hitEffect: blastExplosion
-    fragBullets: 6
+    fragBullets: 12
     fragBullet: {
       type: BasicBulletType
-      damage: 11
+      damage: 17
       bulletWidth: 5
       bulletHeight: 12
       bulletShrink: 1

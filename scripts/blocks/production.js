@@ -22,7 +22,7 @@ const chemicalStation = extendContent(GenericCrafter, "chemical-station", {
 });
 
 // Stone Centrifuge
-const stoneCentrifuge = extendContent(Genericrafter, "stone-centrifuge", {
+const stoneCentrifuge = extendContent(GenericCrafter, "stone-centrifuge", {
   load(){
     this.super$load();
     this.liquidRegion = Core.atlas.find(this.name + "-liquid");

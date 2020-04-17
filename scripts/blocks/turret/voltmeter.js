@@ -87,6 +87,10 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     Draw.blend();
     Draw.reset();
   },
+  shouldIdleSound: function(tile){
+    var entity = tile.ent();
+    return tile != null && entity.cons.valid();
+  },
   shouldActiveSound: function(tile){
     var entity = tile.ent();
     return tile != null && entity.heat > baseHeat;

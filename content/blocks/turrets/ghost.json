@@ -3,13 +3,14 @@ name: Ghost
 description: An advanced anti-air turret. Shoots high-velocity flak bullets.
 health: 1350
 size: 3
-reload: 20
+reload: 15
 ammoUseEffect: shellEjectBig
 inaccuracy: 0
 rotatespeed: 4
 shotWidth: 2
 range: 240
 recoil: 3.5
+targetGround: false
 ammo: {
   metaglass: {
     type: FlakBulletType

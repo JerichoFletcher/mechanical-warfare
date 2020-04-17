@@ -49,18 +49,21 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     if (entity.cons.valid()){
       Draw.mixcol(Pal.lancerLaser, 1);
       for (var i = 1; i <= 3; i++){
-        var current = Mathf.absin(Time.time() + i * 2 * Mathf.PI / 3, lampPeriod, 1);
+        var n = 4 - i;
+        var current = Mathf.absin(Time.time() + i * lampPeriod * 2 * Mathf.PI / 3, lampPeriod, 1);
         Draw.alpha(current);
-        Draw.rect(Core.atlas.find(this.name + "-lamp" + i), tile.drawx(), tile.drawy());
+        Draw.rect(Core.atlas.find(this.name + "-lamp" + n), tile.drawx(), tile.drawy());
       }
       Draw.mixcol();
       Draw.reset();
     }
     
     // top region
-    var f = ((2 + Mathf.absin(Time.time(), 2, 0.5)) * Vars.tilesize) * heat;
-    Draw.rect(Core.atlas.find(this.name + "-top"), tile.drawx(), tile.drawy(), f, f);
-    Draw.reset();
+    if (heat >= 0.11){
+      var f = ((2 + Mathf.absin(Time.time(), 2, 0.5)) * Vars.tilesize) * heat;
+      Draw.rect(Core.atlas.find(this.name + "-top"), tile.drawx(), tile.drawy(), f, f);
+      Draw.reset();
+    }
     
     // bolts
     Draw.blend(Blending.additive);

@@ -2,10 +2,10 @@ name: Voltmeter
 description: A Tesla tower-type turret. Fires electric arcs in rapid succession.
 health: 1620
 size: 3
-reload: 15
+reload: 20
 recoil: 0
-powerUse: 3
-shots: 5
+powerUse: 10
+shots: 4
 shootType: arc
 shootCone: 360
 rotatespeed: 0
@@ -13,10 +13,10 @@ heatColor: a9d8ff
 targetAir: true
 range: 140
 requirements: [
-  copper/180
+  copper/250
   iron/200
-  silicon/150
-  titanium/175
+  silicon/225
+  surge-alloy/175
 ]
 category: turret
 research: arc

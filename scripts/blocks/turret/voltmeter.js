@@ -1,7 +1,8 @@
 const boltrotspeed = [8, 6, 18, 15, 12, 10];
 const boltrotdir = [1, -1, -1, 1, 1, -1];
 const boltWarmup = 0.05;
-const lampPeriod = 2;
+const baseHeat = 0.1;
+const lampPeriod = 4;
 //var warmup = 0;
 const voltmeter = extendContent(PowerTurret, "voltmeter", {
   load(){
@@ -12,7 +13,7 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     var entity = tile.ent()
     if (!this.validateTarget(tile)){
       entity.target = null;
-      entity.heat = Mathf.lerpDelta(entity.heat, 0, this.cooldown);
+      entity.heat = Mathf.lerpDelta(entity.heat, entity.cons.valid() ? baseHeat : 0, this.cooldown);
     }
     entity.recoil = 0;
     if (this.hasAmmo(tile)){
@@ -46,12 +47,14 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     var heat = entity.heat;
     // lamps
     if (entity.cons.valid()){
+      Draw.mixcol(Pal.lancerLaser, 1);
       for (var i = 1; i <= 3; i++){
-        var current = Mathf.absin(Time.time() + i * 2 * Mathf.PI / 3, 1.5, 1);
+        var current = Mathf.absin(Time.time() + i * 2 * Mathf.PI / 3, lampPeriod, 1);
         Draw.alpha(current);
         Draw.rect(Core.atlas.find(this.name + "-lamp" + i), tile.drawx(), tile.drawy());
-        Draw.reset();
       }
+      Draw.mixcol();
+      Draw.reset();
     }
     
     // top region
@@ -62,7 +65,7 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     // bolts
     Draw.blend(Blending.additive);
     for (var i = 1; i <= 6; i++){
-      if (!Mathf.randomBoolean(Mathf.pow(heat, 2))){continue;}
+      if (!Mathf.randomBoolean(heat)){continue;}
       var j = i - 1;
       var rawrot = Time.time() * boltrotspeed[j] * boltrotdir[j];
       var truerot =

@@ -15,7 +15,7 @@ ammo: {
   metaglass: {
     type: FlakBulletType
     damage: 9
-    splashDamage: 17
+    splashDamage: 24
     splashDamageRadius: 4
     speed: 18
     lifetime: 14
@@ -29,7 +29,7 @@ ammo: {
   pyratite: {
     type: FlakBulletType
     damage: 9
-    splashDamage: 12
+    splashDamage: 24
     splashDamageRadius: 4
     speed: 16
     lifetime: 16
@@ -43,9 +43,9 @@ ammo: {
   }
   blast-compound: {
     type: FlakBulletType
-    damage: 12
-    splashDamage: 17
-    splashDamageRadius: 6
+    damage: 15
+    splashDamage: 34
+    splashDamageRadius: 7
     speed: 17
     lifetime: 14
     bulletWidth: 3
@@ -57,8 +57,8 @@ ammo: {
   }
   plastanium: {
     type: FlakBulletType
-    damage: 16
-    splashDamage: 16
+    damage: 14
+    splashDamage: 32
     splashDamageRadius: 4
     speed: 18
     lifetime: 14
@@ -71,8 +71,8 @@ ammo: {
   }
   he-shell: {
     type: FlakBulletType
-    damage: 23
-    splashDamage: 19
+    damage: 19
+    splashDamage: 38
     splashDamageRadius: 7
     speed: 20
     lifetime: 13

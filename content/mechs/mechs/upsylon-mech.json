@@ -13,11 +13,11 @@ buildPower: 1.8
 weaponOffsetX: 2
 weapon: {
   name: shotgun
+  width: 5
   recoil: 3
   reload: 30
   shots: 20
-  spacing: 0
-  shotDelay: 0
+  spacing: 1
   inaccuracy: 20
   alternate: true
   ejectEffect: shellEjectBig
@@ -31,7 +31,7 @@ weapon: {
     speed: 8
     lifetime: 9
     hitEffect: hitBulletSmall
-    shootEfect: shootBig
+    shootEffect: shootBig
     smokeEffect: shootBigSmoke
   }
 }

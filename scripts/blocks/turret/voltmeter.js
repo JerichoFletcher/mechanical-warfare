@@ -1,6 +1,8 @@
 const boltrotspeed = [8, 6, 18, 15, 12, 10];
 const boltrotdir = [1, -1, -1, 1, 1, -1];
 const boltWarmup = 0.05;
+const baseHeat = 0.1;
+const lampPeriod = 4;
 //var warmup = 0;
 const voltmeter = extendContent(PowerTurret, "voltmeter", {
   load(){
@@ -11,7 +13,7 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     var entity = tile.ent()
     if (!this.validateTarget(tile)){
       entity.target = null;
-      entity.heat = Mathf.lerpDelta(entity.heat, 0, this.cooldown);
+      entity.heat = Mathf.lerpDelta(entity.heat, entity.cons.valid() ? baseHeat : 0, this.cooldown);
     }
     entity.recoil = 0;
     if (this.hasAmmo(tile)){
@@ -22,7 +24,9 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
         if (entity.rotation == null){
           entity.rotation = 0;
         }
-        entity.heat = Mathf.lerpDelta(entity.heat, 1, boltWarmup);
+        if (entity.cons.valid()){
+          entity.heat = Mathf.lerpDelta(entity.heat, 1, boltWarmup);
+        }
       }
     }
   },
@@ -33,7 +37,9 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
       result.set(entity.target.getX(), entity.target.getY());
     }
     const targetRot = result.sub(tile.drawx(), tile.drawy()).angle();
-    Calls.createBullet(type, tile.getTeam(), tile.drawx(), tile.drawy(), targetRot, 1, 1);
+    for (var i = 0; i < this.shots; i++){
+      Calls.createBullet(type, tile.getTeam(), tile.drawx(), tile.drawy(), targetRot, 1, 1);
+    }
     this.effects(tile);
     this.useAmmo(tile);
   },
@@ -41,9 +47,27 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     this.super$drawLayer(tile);
     var entity = tile.ent();
     var heat = entity.heat;
-    var f = ((2 + Mathf.absin(Time.time(), 2, 0.5)) * Vars.tilesize) * heat;
-    Draw.rect(Core.atlas.find(this.name + "-top"), tile.drawx(), tile.drawy(), f, f);
-    Draw.reset();
+    // lamps
+    if (entity.cons.valid()){
+      Draw.mixcol(Pal.lancerLaser, 1);
+      for (var i = 1; i <= 3; i++){
+        var n = 4 - i;
+        var current = Mathf.absin(Time.time() + i * lampPeriod * 2 * Mathf.PI / 3, lampPeriod, 1);
+        Draw.alpha(current);
+        Draw.rect(Core.atlas.find(this.name + "-lamp" + n), tile.drawx(), tile.drawy());
+      }
+      Draw.mixcol();
+      Draw.reset();
+    }
+    
+    // top region
+    if (heat >= 0.11){
+      var f = ((2 + Mathf.absin(Time.time(), 2, 0.6)) * Vars.tilesize) * (heat - 0.1);
+      Draw.rect(Core.atlas.find(this.name + "-top"), tile.drawx(), tile.drawy(), f, f);
+      Draw.reset();
+    }
+    
+    // bolts
     Draw.blend(Blending.additive);
     for (var i = 1; i <= 6; i++){
       if (!Mathf.randomBoolean(heat)){continue;}
@@ -62,5 +86,13 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     }
     Draw.blend();
     Draw.reset();
+  },
+  shouldIdleSound: function(tile){
+    var entity = tile.ent();
+    return tile != null && entity.cons.valid();
+  },
+  shouldActiveSound: function(tile){
+    var entity = tile.ent();
+    return tile != null && entity.heat > baseHeat;
   },
 });

@@ -8,12 +8,14 @@ mineSpeed: 0.9
 itemCapacity: 70
 shake: 2
 engineColor: 7efdfd
+engineOffset: 5.6
 health: 300
 buildPower: 1.8
 weaponOffsetX: 2
 weapon: {
   name: shotgun
   width: 5
+  length: 6
   recoil: 3
   reload: 30
   shots: 20
@@ -22,7 +24,7 @@ weapon: {
   alternate: true
   ejectEffect: shellEjectBig
   shake: 2
-  velocityRnd: 2
+  velocityRnd: 0.2
   shootSound: shootBig
   bullet: {
     damage: 12

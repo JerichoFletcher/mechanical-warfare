@@ -10,9 +10,9 @@ shake: 2
 engineColor: 7efdfd
 health: 300
 buildPower: 1.8
+weaponOffsetX: 2
 weapon: {
   name: shotgun
-  width: 5
   recoil: 3
   reload: 30
   shots: 20

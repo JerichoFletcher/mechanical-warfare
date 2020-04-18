@@ -1,7 +1,6 @@
 name: Upsylon
 description: A moderately-armored ground mech equipped with heavy shotgun.
 speed: 0.5
-update: true
 boostSpeed: 0.8
 mass: 3.5
 drillPower: 6

@@ -1,5 +1,5 @@
 name: Upsylon
-desription: A moderately-armored ground mech equipped with heavy shotgun.
+description: A moderately-armored ground mech equipped with heavy shotgun.
 speed: 0.5
 boostSpeed: 0.8
 mass: 3.5
@@ -12,19 +12,19 @@ health: 300
 buildPower: 1.8
 weapon: {
   name: shotgun
+  width: 5
   recoil: 3
   reload: 30
   shots: 20
-  spacing: 0.5
+  spacing: 0
   shotDelay: 0
-  inaccuracy: 12
+  inaccuracy: 20
   alternate: true
   ejectEffect: shellEjectBig
   shake: 2
   velocityRnd: 2
   shootSound: shootBig
   bullet: {
-    type: BasicBulletType
     damage: 12
     bulletWidth: 5
     bulletHeight: 12

@@ -1,0 +1,29 @@
+name: Stone Grinder
+description: Grinds stone into fine sand.
+size: 2
+hasItems: true
+hasLiquids: true
+hasPower: true
+craftTime: 60
+updateEffect: pulverizeMedium
+craftEffect: pulverize
+consumes: {
+  power: 0.2
+  items: {
+    items: [
+      cobblestone/1
+    ]
+  }
+  liquid: {
+    liquid: water
+    amount: 0.08
+    booster: true
+  }
+}
+requirements: [
+  copper/35
+  lead/15
+  graphite/20
+]
+category: production
+research: pulverizer

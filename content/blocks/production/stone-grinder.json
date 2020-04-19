@@ -14,12 +14,8 @@ consumes: {
       cobblestone/1
     ]
   }
-  liquid: {
-    liquid: water
-    amount: 0.08
-    booster: true
-  }
 }
+outputItem: sand/2
 requirements: [
   copper/35
   lead/15

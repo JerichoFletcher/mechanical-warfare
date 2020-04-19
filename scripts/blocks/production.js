@@ -61,8 +61,8 @@ const stoneGrinder = extendContent(GenericCrafter, "stone-grinder", {
     const entity = tile.ent();
     const f = Vars.tilesize;
     Draw.rect(this.bottomRegion, tile.drawx(), tile.drawy());
-    Draw.rect(this.rightRotatorRegion, tile.drawx() + 11 / f, tile.drawy() + 11 / f, entity.totalProgress * 2 * entity.warmup);
-    Draw.rect(this.leftRotatorRegion, tile.drawx() - 10 / f, tile.drawy() - 10 / f, entity.totalProgress * -2 * entity.warmup);
+    Draw.rect(this.rightRotatorRegion, tile.drawx() + 11 / f, tile.drawy() - 11 / f, entity.totalProgress * 2 * entity.warmup);
+    Draw.rect(this.leftRotatorRegion, tile.drawx() - 10 / f, tile.drawy() + 10 / f, entity.totalProgress * -2 * entity.warmup);
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
   },
 });

@@ -2,7 +2,6 @@ name: Stone Grinder
 description: Grinds stone into fine sand.
 size: 2
 hasItems: true
-hasLiquids: true
 hasPower: true
 craftTime: 60
 updateEffect: pulverizeMedium
@@ -21,5 +20,5 @@ requirements: [
   lead/15
   graphite/20
 ]
-category: production
+category: crafting
 research: pulverizer

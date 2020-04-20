@@ -9,7 +9,6 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     this.super$load();
   },
   update(tile){
-    this.super$update(tile);
     var entity = tile.ent()
     if (!this.validateTarget(tile)){
       entity.target = null;
@@ -32,16 +31,18 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
   },
   shoot(tile, type){
     var entity = tile.ent();
-    var result = Predict.intercept(entity, entity.target, type.speed);
-    if (result.isZero()){
-      result.set(entity.target.getX(), entity.target.getY());
+    if (entity.heat >= 0.9){
+      var result = Predict.intercept(entity, entity.target, type.speed);
+      if (result.isZero()){
+        result.set(entity.target.getX(), entity.target.getY());
+      }
+      const targetRot = result.sub(tile.drawx(), tile.drawy()).angle();
+      for (var i = 0; i < this.shots; i++){
+        Calls.createBullet(type, tile.getTeam(), tile.drawx(), tile.drawy(), targetRot, 1, 1);
+      }
+      this.effects(tile);
+      this.useAmmo(tile);
     }
-    const targetRot = result.sub(tile.drawx(), tile.drawy()).angle();
-    for (var i = 0; i < this.shots; i++){
-      Calls.createBullet(type, tile.getTeam(), tile.drawx(), tile.drawy(), targetRot, 1, 1);
-    }
-    this.effects(tile);
-    this.useAmmo(tile);
   },
   drawLayer(tile){
     this.super$drawLayer(tile);

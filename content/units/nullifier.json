@@ -21,9 +21,7 @@ weapon: {
   shootSound: artillery
   bullet: {
 	hitEffect: blastExplosion
-	damage: 200
-	splashDamage: 380
-	splashDamageRadius: 40
+	damage: 700
 	speed: 4
 	knockback: 3
 	lifetime: 75

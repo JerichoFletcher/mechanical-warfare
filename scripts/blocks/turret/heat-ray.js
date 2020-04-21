@@ -20,7 +20,7 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
       if (this.validateTarget(tile)){
         var result = new Vec2(entity.target.getX(), entity.target.getY());
         var targetRot = result.sub(tile.drawx(), tile.drawy()).angle();
-c        if (entity.rotation == null){
+        if (entity.rotation == null){
           entity.rotation = 0;
         }
         if (this.shouldTurn(tile)){

@@ -7,7 +7,23 @@ recoil: 0
 powerUse: 1.8
 shootCone: 1
 rotatespeed: 7
-shootType: frag
+shootType: {
+  speed: 0.001
+  damage: 5
+  lifetime: 1
+  bulletSprite: clear
+  knockback: 0
+  recoil: 0
+  inaccuracy: 0
+  status: melting
+  hitSound: none
+  hitEffect: hitMeltdown
+  despawnEffect: none
+  hitSize: 1
+  drawSize: 0
+  shootEffect: none
+  smokeEffect: none
+}
 heatColor: f96a6a
 targetAir: true
 range: 100
@@ -17,5 +33,6 @@ requirements: [
   silicon/120
   steel/100
 ]
+shootSound: none
 category: turret
 research: arc

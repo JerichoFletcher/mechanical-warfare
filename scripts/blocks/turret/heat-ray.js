@@ -1,18 +1,5 @@
 const warmup = 0.06;
-const heatLaser = extend(BulletType, {
-  speed: 0.001,
-  damage: 5,
-  hitEffect: Fx.hitMeltdown,
-  despawnEffect: Fx.none,
-  shootEffect: Fx.none,
-  smokeEffect: Fx.none,
-  lifetime: 1,
-  init(b){
-    Damage.damage(b.getTeam(), b.x, b.y, 1, this.damage);
-  },
-  draw(b){
-  },
-});
+const rayDamage = 5;
 const heatRay = extendContent(PowerTurret, "heat-ray", {
   load(){
     this.super$load();
@@ -50,14 +37,14 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
   },
   shoot(tile, type){
     var entity = tile.ent();
-    var laserType = heatLaser;
     this.tr.trns(entity.rotation, this.size * Vars.tilesize / 2, Mathf.range(this.xRand));
-    this.bullet(tile, laserType, entity.rotation);
+    this.bullet(tile, type, entity.rotation);
     this.effects(tile);
     this.useAmmo(tile);
   },
   bullet(tile, type, angle){
     var entity = tile.ent();
+    Damage.damage(tile.getTeam(), entity.target.getX(), entity.target.getY(), 1, rayDamage);
     Drawf.laser(
       this.heatLaserRegion,
       this.heatLaserEndRegion,
@@ -66,6 +53,5 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
       entity.target.getX(),
       entity.target.getY()
     );
-    Calls.createBullet(type, tile.getTeam(), entity.target.getX(), entity.target.getY(), 0, 1, 1);
   },
 });

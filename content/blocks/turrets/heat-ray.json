@@ -7,6 +7,7 @@ recoil: 0
 powerUse: 1.8
 shootCone: 1
 rotatespeed: 7
+shootType: frag
 heatColor: f96a6a
 targetAir: true
 range: 100

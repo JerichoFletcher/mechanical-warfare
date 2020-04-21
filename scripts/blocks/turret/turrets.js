@@ -3,10 +3,8 @@ const aegis = extendContent(ItemTurret, "aegis", {
   
 });
 
-// Blow
-const blow = extendContent(DoubleTurret, "blow", {
-  
-});
+// Heat Ray
+require("blocks/turret/heat-ray")
 
 // Nighthawk
 const nighthawk = extendContent(ItemTurret, "nighthawk", {
@@ -15,6 +13,11 @@ const nighthawk = extendContent(ItemTurret, "nighthawk", {
 
 //Voltmeter
 require("blocks/turret/voltmeter")
+
+// Blow
+const blow = extendContent(DoubleTurret, "blow", {
+  
+});
 
 // Quake
 const quake = extendContent(ArtilleryTurret, "quake", {

@@ -1,5 +1,5 @@
 const warmup = 0.06;
-const rayDamage = 5;
+const rayScale = 0.9;
 const heatRay = extendContent(PowerTurret, "heat-ray", {
   load(){
     this.super$load();
@@ -20,7 +20,7 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
       if (this.validateTarget(tile)){
         var result = new Vec2(entity.target.getX(), entity.target.getY());
         var targetRot = result.sub(tile.drawx(), tile.drawy()).angle();
-        if (entity.rotation == null){
+c        if (entity.rotation == null){
           entity.rotation = 0;
         }
         if (this.shouldTurn(tile)){
@@ -44,16 +44,23 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
   },
   bullet(tile, type, angle){
     var entity = tile.ent();
+    var tx = tile.drawx();
+    var ty = tile.drawy();
+    var ex = entity.target.getX();
+    var ey = entity.target.getY();
+    var rot = Mathf.angle(ex - tx, ey - ty);
     Calls.createBullet(type, tile.getTeam(), entity.target.getX(), entity.target.getY(), 0, 1, 1);
     Draw.color(Color.lightGray, Color.white, 1 - Mathf.absin(Time.time(), 0.5, 0.3));
-    Drawf.laser(
-      this.beamRegion,
-      this.beamEndRegion,
-      tile.drawx() + this.tr.x,
-      tile.drawy() + this.tr.y,
-      entity.target.getX(),
-      entity.target.getY()
-    );
+    var vec = new Vec2();
+    vec.trns(rot, 8 * rayScale * Draw.scl);
+    Draw.rect(this.beamEndRegion, tx, ty, this.beamEndRegion.getWidth() * rayScale * Draw.scl, this.beamEndRegion.getHeight() * rayScale * Draw.scl, rot + 180);
+    Draw.rect(this.beamEndRegion, ex, ey, this.beamEndRegion.getWidth() * rayScale * Draw.scl, this.beamEndRegion.getHeight() * rayScale * Draw.scl, rot);
+    Lines.stroke(12 * rayScale);
+    Lines.precise(true);
+    Lines.line(this.beamRegion, tx + vec.x, ty + vec.y, ex - vec.x, ey - vec.y, CapStyle.none, 0);
+    Lines.precise(false);
+    Lines.stroke(1);
+    Vars.renderer.lights.line(tx, ty, ex, ey);
     Draw.color();
   },
 });

@@ -1,5 +1,7 @@
 const warmup = 0.06;
-const heatLaser = extendContent(BulletType, 0.001, 5, {
+const heatLaser = extendContent(BulletType, {
+  speed: 0.001,
+  damage: 5,
   hitEffect: Fx.hitMeltdown,
   despawnEffect: Fx.none,
   shootEffect: Fx.none,

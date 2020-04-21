@@ -3,8 +3,6 @@ const rayDamage = 5;
 const heatRay = extendContent(PowerTurret, "heat-ray", {
   load(){
     this.super$load();
-    this.heatLaserRegion = Core.atlas.find("mechanical-warfare-heatlaser");
-    this.heatLaserEndRegion = Core.atlas.find("mechanical-warfare-heatlaser-end");
   },
   update(tile){
     var entity = tile.ent();
@@ -44,10 +42,10 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
   },
   bullet(tile, type, angle){
     var entity = tile.ent();
-    Damage.damage(tile.getTeam(), entity.target.getX(), entity.target.getY(), 1, rayDamage);
+    Calls.createBullet(type, tile.getTeam(), entity.target.getX(), entity.target.getY(), 0, 1, 1);
     Drawf.laser(
-      this.heatLaserRegion,
-      this.heatLaserEndRegion,
+      Core.atlas.find("mechanical-warfare-heatlaser"),
+      Core.atlas.find("mechanical-warfare-heatlaser-end"),
       tile.drawx() + this.tr.x,
       tile.drawy() + this.tr.y,
       entity.target.getX(),

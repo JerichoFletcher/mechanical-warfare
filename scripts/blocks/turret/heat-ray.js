@@ -3,6 +3,8 @@ const rayDamage = 5;
 const heatRay = extendContent(PowerTurret, "heat-ray", {
   load(){
     this.super$load();
+    this.beamRegion = Core.atlas.find(this.name + "-beam");
+    this.beamEndRegion = Core.atlas.find(this.name + "-beam-end");
   },
   update(tile){
     var entity = tile.ent();
@@ -43,13 +45,15 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
   bullet(tile, type, angle){
     var entity = tile.ent();
     Calls.createBullet(type, tile.getTeam(), entity.target.getX(), entity.target.getY(), 0, 1, 1);
+    Draw.color(Color.lightGray, Color.white, 1 - Mathf.absin(Time.time(), 0.5, 0.3));
     Drawf.laser(
-      Core.atlas.find(this.name + "-beam"),
-      Core.atlas.find(this.name + "-beam-end"),
+      this.beamRegion,
+      this.beamEndRegion,
       tile.drawx() + this.tr.x,
       tile.drawy() + this.tr.y,
       entity.target.getX(),
       entity.target.getY()
     );
+    Draw.color();
   },
 });

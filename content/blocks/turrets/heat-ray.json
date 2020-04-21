@@ -1,0 +1,20 @@
+name: Heat Ray
+description: A small, powered turret that fires a focused beam of heat at enemies within its range.
+health: 700
+size: 2
+reload: 1
+recoil: 0
+powerUse: 1.8
+shootCone: 1
+rotatespeed: 7
+heatColor: f96a6a
+targetAir: true
+range: 100
+requirements: [
+  lead/150
+  titanium/120
+  silicon/120
+  steel/100
+]
+category: turret
+research: arc

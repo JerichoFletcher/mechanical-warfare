@@ -44,8 +44,8 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
     var entity = tile.ent();
     Calls.createBullet(type, tile.getTeam(), entity.target.getX(), entity.target.getY(), 0, 1, 1);
     Drawf.laser(
-      Core.atlas.find("mechanical-warfare-heatlaser"),
-      Core.atlas.find("mechanical-warfare-heatlaser-end"),
+      Core.atlas.find(this.name + "-beam"),
+      Core.atlas.find(this.name + "-beam-end"),
       tile.drawx() + this.tr.x,
       tile.drawy() + this.tr.y,
       entity.target.getX(),

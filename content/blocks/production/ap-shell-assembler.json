@@ -1,5 +1,5 @@
 type: GenericCrafter
-name: AP-Shell Assembler
+name: AP Shell Assembler
 description: "Assembles armor-piercing shells used in anti-armor turrets."
 size: 3
 hasPower: true

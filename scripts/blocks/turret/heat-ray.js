@@ -1,5 +1,6 @@
 const warmup = 0.06;
 const rayScale = 0.8;
+const turretLength = 7;
 const heatRay = extendContent(PowerTurret, "heat-ray", {
   load(){
     this.super$load();
@@ -58,10 +59,10 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
       var targetPos = new Vec2(entity.target.getX(), entity.target.getY());
       var angle = targetPos.sub(tile.drawx(), tile.drawy()).angle();
       if (Angles.angleDist(entity.rotation, angle) < this.shootCone){
-        Draw.color(Color.lightGray, Color.white, 1 - Mathf.absin(Time.time(), 0.33, 0.3));
+        Draw.color(Color.lightGray, Color.white, 1 - Mathf.absin(Time.time(), 0.6, 0.3));
         Drawf.laser(this.beamRegion, this.beamEndRegion, 
-          tile.drawx() + this.tr.x,
-          tile.drawy() + this.tr.y,
+          tile.drawx() + Angles.trnsx(angle, turretLength),
+          tile.drawy() + Angles.trnsy(angle, turretLength),
           entity.target.getX(), entity.target.getY(), entity.heat * rayScale);
         Draw.color();
       }

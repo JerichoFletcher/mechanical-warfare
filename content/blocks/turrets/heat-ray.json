@@ -2,14 +2,14 @@ name: Heat Ray
 description: A small, powered turret that fires a focused beam of heat at enemies within its range.
 health: 700
 size: 2
-reload: 1
+reload: 2
 recoil: 0
 powerUse: 1.8
 shootCone: 1
 rotatespeed: 7
 shootType: {
   speed: 0.001
-  damage: 5
+  damage: 10
   lifetime: 1
   bulletSprite: clear
   knockback: 0

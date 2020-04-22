@@ -10,8 +10,8 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
     var entity = tile.ent();
     if (!this.validateTarget(tile)){
       entity.target = null;
-      entity.heat = Mathf.lerpDelta(entity.heat, 0, this.cooldown);
     }
+    entity.heat = Mathf.lerpDelta(entity.heat, 0, this.cooldown);
     entity.recoil = 0;
     if (this.hasAmmo(tile)){
       if(entity.timer.get(this.timerTarget, this.targetInterval)){
@@ -50,17 +50,17 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
     var ey = entity.target.getY();
     var rot = Mathf.angle(ex - tx, ey - ty);
     Calls.createBullet(type, tile.getTeam(), entity.target.getX(), entity.target.getY(), 0, 1, 1);
-    Draw.color(Color.lightGray, Color.white, 1 - Mathf.absin(Time.time(), 0.5, 0.3));
-    var vec = new Vec2();
-    vec.trns(rot, 8 * rayScale * Draw.scl);
-    Draw.rect(this.beamEndRegion, tx, ty, this.beamEndRegion.getWidth() * rayScale * Draw.scl, this.beamEndRegion.getHeight() * rayScale * Draw.scl, rot + 180);
-    Draw.rect(this.beamEndRegion, ex, ey, this.beamEndRegion.getWidth() * rayScale * Draw.scl, this.beamEndRegion.getHeight() * rayScale * Draw.scl, rot);
-    Lines.stroke(12 * rayScale);
-    Lines.precise(true);
-    Lines.line(this.beamRegion, tx + vec.x, ty + vec.y, ex - vec.x, ey - vec.y, CapStyle.none, 0);
-    Lines.precise(false);
-    Lines.stroke(1);
-    Vars.renderer.lights.line(tx, ty, ex, ey);
-    Draw.color();
+  },
+  drawLayer2(tile){
+    var entity = tile.ent();
+    if (entity.cons.valid() && entity.target != null){
+      var targetPos = new Vec2(entity.target.getX(), entity.target.getY());
+      var angle = targetPos.sub(tile.drawx(), tile.drawy()).angle();
+      if (Angles.angleDist(entity.rotation, angle) < this.shootCone){
+        Draw.color(Color.lightGray, Color.white, 1 - Mathf.absin(Time.time(), 0.8, 0.3));
+        Drawf.laser(this.beamRegion, this.beamEndRegion, this.tr.x, this.tr.y, entity.target.getX(), entity.target.getY());
+        Draw.color();
+      }
+    }
   },
 });

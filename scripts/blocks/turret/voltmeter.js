@@ -1,6 +1,6 @@
 const boltrotspeed = [8, 6, 18, 15, 12, 10];
 const boltrotdir = [1, -1, -1, 1, 1, -1];
-const boltWarmup = 0.05;
+const boltWarmup = 0.07;
 const baseHeat = 0.1;
 const lampPeriod = 4;
 //var warmup = 0;
@@ -12,8 +12,8 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     var entity = tile.ent()
     if (!this.validateTarget(tile)){
       entity.target = null;
-      entity.heat = Mathf.lerpDelta(entity.heat, entity.cons.valid() ? baseHeat : 0, this.cooldown);
     }
+    entity.heat = Mathf.lerpDelta(entity.heat, entity.cons.valid() ? baseHeat : 0, this.cooldown);
     entity.recoil = 0;
     if (this.hasAmmo(tile)){
       if(entity.timer.get(this.timerTarget, this.targetInterval)){

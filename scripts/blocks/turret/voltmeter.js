@@ -25,6 +25,7 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
         }
         if (entity.cons.valid()){
           entity.heat = Mathf.lerpDelta(entity.heat, 1, boltWarmup);
+          this.updateShooting(tile);
         }
       }
     }

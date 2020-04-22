@@ -1,12 +1,10 @@
 const warmup = 0.06;
-const rayScale = 0.9;
+const rayScale = 0.8;
 const heatRay = extendContent(PowerTurret, "heat-ray", {
   load(){
     this.super$load();
-    //this.beamRegion = Core.atlas.find(this.name + "-beam");
-    //this.beamEndRegion = Core.atlas.find(this.name + "-beam-end");
-    this.beamRegion = Core.atlas.find("laser");
-    this.beamEndRegion = Core.atlas.find("laser-end");
+    this.beamRegion = Core.atlas.find(this.name + "-beam");
+    this.beamEndRegion = Core.atlas.find(this.name + "-beam-end");
     this.layer2 = Layer.power;
   },
   update(tile){
@@ -60,11 +58,11 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
       var targetPos = new Vec2(entity.target.getX(), entity.target.getY());
       var angle = targetPos.sub(tile.drawx(), tile.drawy()).angle();
       if (Angles.angleDist(entity.rotation, angle) < this.shootCone){
-        Draw.color(Color.valueOf("f96a6a"), Color.valueOf("ff7575"), 1 - Mathf.absin(Time.time(), 0.8, 0.3));
+        Draw.color(Color.lightGray, Color.white, 1 - Mathf.absin(Time.time(), 0.33, 0.3));
         Drawf.laser(this.beamRegion, this.beamEndRegion, 
           tile.drawx() + this.tr.x,
           tile.drawy() + this.tr.y,
-          entity.target.getX(), entity.target.getY(), entity.heat);
+          entity.target.getX(), entity.target.getY(), entity.heat * rayScale);
         Draw.color();
       }
     }

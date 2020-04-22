@@ -60,7 +60,10 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
       var angle = targetPos.sub(tile.drawx(), tile.drawy()).angle();
       if (Angles.angleDist(entity.rotation, angle) < this.shootCone){
         Draw.color(Color.lightGray, Color.white, 1 - Mathf.absin(Time.time(), 0.8, 0.3));
-        Drawf.laser(this.beamRegion, this.beamEndRegion, this.tr.x, this.tr.y, entity.target.getX(), entity.target.getY(), entity.heat);
+        Drawf.laser(this.beamRegion, this.beamEndRegion, 
+          tile.drawx() + this.tr.x,
+          tile.drawy() + this.tr.y,
+          entity.target.getX(), entity.target.getY(), entity.heat);
         Draw.color();
       }
     }

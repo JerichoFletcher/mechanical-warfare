@@ -1,5 +1,5 @@
 type: GenericCrafter
-name: HE-Shell Assembler
+name: HE Shell Assembler
 description: "Assembles high-explosive shells used in artilleries."
 size: 3
 hasPower: true

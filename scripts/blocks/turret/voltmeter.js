@@ -7,13 +7,16 @@ const lampPeriod = 4;
 const voltmeter = extendContent(PowerTurret, "voltmeter", {
   load(){
     this.super$load();
+    this.layer2 = Layer.power;
   },
   update(tile){
     var entity = tile.ent()
     if (!this.validateTarget(tile)){
       entity.target = null;
     }
-    entity.heat = Mathf.lerpDelta(entity.heat, entity.cons.valid() ? baseHeat : 0, this.cooldown);
+    entity.heat = Mathf.lerpDelta(entity.heat, entity.cons.valid() ? baseHeat : 0, 
+      this.cooldown > (boltWarmup * entity.efficiency()) ? (boltWarmup * entity.efficiency()) : this.cooldown
+    );
     entity.recoil = 0;
     if (this.hasAmmo(tile)){
       if(entity.timer.get(this.timerTarget, this.targetInterval)){
@@ -24,7 +27,7 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
           entity.rotation = 0;
         }
         if (entity.cons.valid()){
-          entity.heat = Mathf.lerpDelta(entity.heat, 1, boltWarmup);
+          entity.heat = Mathf.lerpDelta(entity.heat, 1, boltWarmup * entity.efficiency());
           this.updateShooting(tile);
         }
       }
@@ -42,14 +45,18 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
   },
   drawLayer(tile){
     this.super$drawLayer(tile);
+  },
+  drawLayer2(tile){
     var entity = tile.ent();
     var heat = entity.heat;
+    
     // lamps
-    if (entity.cons.valid()){
+    if (entity.efficiency() > 0){
       Draw.mixcol(Pal.lancerLaser, 1);
       for (var i = 1; i <= 3; i++){
         var n = 4 - i;
-        var current = Mathf.absin(Time.time() + i * lampPeriod * 2 * Mathf.PI / 3, lampPeriod, 1);
+        var period = lampPeriod * entity.efficiency();
+        var current = Mathf.absin(Time.time() + i * period * 2 * Mathf.PI / 3, period, entity.efficiency());
         Draw.alpha(current);
         Draw.rect(Core.atlas.find(this.name + "-lamp" + n), tile.drawx(), tile.drawy());
       }
@@ -81,12 +88,13 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
       Draw.mixcol();
       Draw.color();
     }
+    
     Draw.blend();
     Draw.reset();
   },
   shouldIdleSound: function(tile){
     var entity = tile.ent();
-    return tile != null && entity.cons.valid();
+    return tile != null && entity.cons.valid() && !this.shouldActiveSound(tile);
   },
   shouldActiveSound: function(tile){
     var entity = tile.ent();

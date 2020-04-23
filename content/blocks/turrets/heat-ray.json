@@ -27,7 +27,6 @@ shootType: {
 heatColor: f96a6a
 targetAir: true
 range: 100
-coolantMultiplier: 1
 requirements: [
   lead/150
   titanium/120

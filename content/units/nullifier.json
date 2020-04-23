@@ -8,6 +8,7 @@ mass: 6
 drag: 0.4
 hitsize: 25
 rotatespeed: 0.05
+// Raw DPS: 1400
 weapon: {
   name: null-pointer
   length: 18

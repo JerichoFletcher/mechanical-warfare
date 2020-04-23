@@ -15,6 +15,7 @@ engineOffset: 9
 engineSize: 2.5
 rotatespeed: 0.02
 baseRotateSpeed: 0.08
+// Raw DPS: 60
 weapon: {
   name: phantasmal-gun
   reload: 10

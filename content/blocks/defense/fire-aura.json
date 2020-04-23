@@ -1,0 +1,12 @@
+name: Fire Aura
+description: Applies fire damage to all units within it's range.
+size: 2
+health: 320
+requirements: [
+  lead/125
+  iron/75
+  metaglass/50
+  phase-fabric/25
+]
+category: effect
+research: mend-projector

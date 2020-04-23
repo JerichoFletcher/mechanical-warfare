@@ -63,7 +63,7 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
         Drawf.laser(this.beamRegion, this.beamEndRegion, 
           tile.drawx() + Angles.trnsx(angle, turretLength),
           tile.drawy() + Angles.trnsy(angle, turretLength),
-          entity.target.getX(), entity.target.getY(), entity.heat * rayScale);
+          entity.target.getX(), entity.target.getY(), entity.heat * rayScale * entity.power.status);
         Draw.color();
       }
     }

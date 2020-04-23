@@ -15,6 +15,7 @@ engineOffset: 11
 engineSize: 4
 rotatespeed: 0.01
 baseRotateSpeed: 0.06
+// Raw DPS: 168
 weapon: {
   name: shadow-caster
   width: 7

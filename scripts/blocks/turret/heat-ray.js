@@ -28,9 +28,6 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
         if (this.shouldTurn(tile)){
           this.turnToTarget(tile, targetRot);
         }
-        if (entity.cons.valid()){
-          entity.heat = Mathf.lerpDelta(entity.heat, 1, warmup);
-        }
         if (Angles.angleDist(entity.rotation, targetRot) < this.shootCone){
           this.updateShooting(tile);
         }
@@ -39,6 +36,7 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
   },
   shoot(tile, type){
     var entity = tile.ent();
+    entity.heat = Mathf.lerpDelta(entity.heat, 1, warmup);
     this.tr.trns(entity.rotation, this.size * Vars.tilesize / 2, Mathf.range(this.xRand));
     this.bullet(tile, type, entity.rotation);
     this.effects(tile);
@@ -66,6 +64,16 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
           entity.target.getX(), entity.target.getY(), entity.heat * rayScale * entity.power.status);
         Draw.color();
       }
+    }
+  },
+  shouldActiveSound: function(tile){
+    var entity = tile.ent();
+    if (tile != null && entity.target != null && entity.cons.valid()){
+      var targetPos = new Vec2(entity.target.getX(), entity.target.getY());
+      var angle = targetPos.sub(tile.drawx(), tile.drawy()).angle()
+      return Angles.angleDist(entity.rotation, angle) < this.shootCone;
+    }else{
+      return false;
     }
   },
 });

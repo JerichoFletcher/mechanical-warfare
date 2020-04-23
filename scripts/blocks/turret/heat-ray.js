@@ -1,6 +1,6 @@
 const warmup = 0.06;
 const rayScale = 0.8;
-const turretLength = 7;
+const turretLength = 6;
 const heatRay = extendContent(PowerTurret, "heat-ray", {
   load(){
     this.super$load();

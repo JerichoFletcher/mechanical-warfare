@@ -11,6 +11,7 @@ itemCapacity: 80
 engineColor: 7efdfd
 cellTrnsY: 1
 buildPower: 1.2
+// Raw DPS: 340
 weapon: {
   name: gatling
   length: 1.2

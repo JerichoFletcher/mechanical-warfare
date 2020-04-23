@@ -12,6 +12,7 @@ engineOffset: 5.6
 health: 250
 buildPower: 1.8
 weaponOffsetX: 2
+// Raw DPS: 960
 weapon: {
   name: shotgun
   width: 5

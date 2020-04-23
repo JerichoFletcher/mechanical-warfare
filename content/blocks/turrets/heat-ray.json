@@ -34,5 +34,6 @@ requirements: [
   steel/100
 ]
 shootSound: none
+activeSound: heatrayActive
 category: turret
 research: arc

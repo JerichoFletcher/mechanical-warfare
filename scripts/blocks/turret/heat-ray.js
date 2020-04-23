@@ -8,32 +8,6 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
     this.beamEndRegion = Core.atlas.find(this.name + "-beam-end");
     this.layer2 = Layer.power;
   },
-  update(tile){
-    var entity = tile.ent();
-    if (!this.validateTarget(tile)){
-      entity.target = null;
-    }
-    entity.heat = Mathf.lerpDelta(entity.heat, 0, this.cooldown);
-    entity.recoil = 0;
-    if (this.hasAmmo(tile)){
-      if(entity.timer.get(this.timerTarget, this.targetInterval)){
-        this.findTarget(tile);
-      }
-      if (this.validateTarget(tile)){
-        var result = new Vec2(entity.target.getX(), entity.target.getY());
-        var targetRot = result.sub(tile.drawx(), tile.drawy()).angle();
-        if (entity.rotation == null){
-          entity.rotation = 0;
-        }
-        if (this.shouldTurn(tile)){
-          this.turnToTarget(tile, targetRot);
-        }
-        if (Angles.angleDist(entity.rotation, targetRot) < this.shootCone){
-          this.updateShooting(tile);
-        }
-      }
-    }
-  },
   shoot(tile, type){
     var entity = tile.ent();
     entity.heat = Mathf.lerpDelta(entity.heat, 1, warmup);
@@ -51,6 +25,7 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
     var rot = Mathf.angle(ex - tx, ey - ty);
     Calls.createBullet(type, tile.getTeam(), entity.target.getX(), entity.target.getY(), 0, 1, 1);
   },
+  // draw heat laser
   drawLayer2(tile){
     var entity = tile.ent();
     if (entity.cons.valid() && entity.target != null){
@@ -66,6 +41,7 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
       }
     }
   },
+  // only play sound when shooting
   shouldActiveSound: function(tile){
     var entity = tile.ent();
     if (tile != null && entity.target != null && entity.cons.valid()){

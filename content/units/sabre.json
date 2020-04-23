@@ -10,6 +10,7 @@ rotatespeed: 0.08
 immunities: [
   corroded
 ]
+// Raw DPS: 93.3
 weapon: {
   name: sabre-launcher
   length: 1

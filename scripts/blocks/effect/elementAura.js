@@ -15,7 +15,7 @@ auraBullet.instantDisappear = true;
 
 // Fire Aura
 const fireAura = extendContent(LiquidTurret, "fire-aura", {
-  load(tile){
+  load(){
     this.region = Core.atlas.find(this.name);
     this.liquidRegion = Core.atlas.find(this.name + "-liquid");
     this.topRegion = Core.atlas.find(this.name + "-top");

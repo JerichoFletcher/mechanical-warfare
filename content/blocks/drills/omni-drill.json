@@ -11,7 +11,7 @@ drawRim: true
 drawMineItem: true
 updateEffect: pulverizeRed
 drillEffect: mineHuge
-headColor: b5d772
+heatColor: b5d772
 requirements: [
   iron/250
   lead/275

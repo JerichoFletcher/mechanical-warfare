@@ -1,0 +1,22 @@
+name: Omni Drill
+description: A mining drill capable of mining anything at an extremely fast pace.
+size: 4
+update: true
+tier: 7
+hasPower: true
+hasLiquids: true
+hasItems: true
+drillTime: 160
+drawRim: true
+drawMineItem: true
+updateEffect: pulverizeBig
+drillEffect: mineHuge
+headColor: b5d772
+requirements: [
+  iron/250
+  lead/275
+  titanium/200
+  uranium/150
+]
+category: production
+research: chemical-drill

@@ -6,6 +6,13 @@ const fireAuraEffect = newEffect(40, e => {
   Lines.circle(e.x, e.y, e.fin() * 50);
 });
 
+// Fire Aura bullet
+const fireAuraBullet = extend(BulletType, {});
+fireAuraBullet.bulletSprite = Core.atlas.find("clear");
+fireAuraBullet.speed = 0.001;
+fireAuraBullet.lifetime = 1;
+fireAuraBullet.instantDisappear = true;
+
 // Fire Aura
 const fireAura = extendContent(LiquidTurret, "fire-aura", {
   load(tile){
@@ -15,6 +22,10 @@ const fireAura = extendContent(LiquidTurret, "fire-aura", {
   },
   drawLayer(tile){
     this.super$drawLayer(tile);
+    Draw.color(tile.entity.liquids.current().color);
+    Draw.alpha(tile.entity.liquids.total() / this.liquidCapacity);
+    Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());
+    Draw.color();
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
   },
 });

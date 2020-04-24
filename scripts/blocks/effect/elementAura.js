@@ -10,7 +10,6 @@ const fireAuraEffect = newEffect(40, e => {
 const fireAuraBullet = extend(BulletType, {});
 fireAuraBullet.bulletSprite = Core.atlas.find("clear");
 fireAuraBullet.speed = 0.001;
-fireAuraBullet.lifetime = 1;
 fireAuraBullet.instantDisappear = true;
 
 // Fire Aura

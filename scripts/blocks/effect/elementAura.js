@@ -22,8 +22,9 @@ const fireAura = extendContent(LiquidTurret, "fire-aura", {
   },
   drawLayer(tile){
     this.super$drawLayer(tile);
-    Draw.color(tile.entity.liquids.current().color);
-    Draw.alpha(tile.entity.liquids.total() / this.liquidCapacity);
+    var entity = tile.ent();
+    Draw.color(entity.liquids.current().color);
+    Draw.alpha(entity.liquids.total() / this.liquidCapacity);
     Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());
     Draw.color();
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());

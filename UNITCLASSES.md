@@ -1,6 +1,6 @@
 # Unit Classes
 
-In Mechanical Warfare, we created 4 unit classes:
+In Mechanical Warfare, we also created 4 unit classes:
 - Orange;
 - Cyan (WIP);
 - Purple (not yet implemented); and

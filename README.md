@@ -9,7 +9,13 @@ Mechanical Warfare is a Mindustry mod adding brand new units, mechs, and turrets
 - New turrets as a mean of defense against the new enemies
 - 4 challenging campaign zones with new environment tiles
 
-Please be aware that _this mod is still under heavy development._ Expect more features to be added regularly!
+### Supported Languages:
+- English
+
+Feel free to write a translation issue if there's wrong translation(s) or if you want to create another bundle file.
+
+
+###### Please be aware that this mod is still under heavy development. Expect more features to be added regularly!
 
 Cheers,
 [JerichoFletcher](https://bit.ly/JF_IG) & GlennFolker

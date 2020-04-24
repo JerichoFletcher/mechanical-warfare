@@ -45,8 +45,8 @@ const omniDrill = extendContent(Drill, "omni-drill", {
     const s = 0.3;
     const ts = 0.6;
     Draw.rect(this.region, tile.drawx(), tile.drawy());
-    Draw.rect(this.rotatorLeftRegion, tile.drawx() - 52 / Vars.tilesize, tile.drawy() + Mathf.sin(entity.drillTime, 20) * entity.efficiency(), entity.timeDrilled * this.rotateSpeed);
-    Draw.rect(this.rotatorRightRegion, tile.drawx() + 52 / Vars.tilesize, tile.drawy() + Mathf.sin(entity.drillTime, 20) * entity.efficiency(), entity.timeDrilled * this.rotateSpeed * -1);
+    Draw.rect(this.rotatorLeftRegion, tile.drawx() - 52 / 8, tile.drawy() + Mathf.sin(entity.drillTime, 20) * entity.efficiency(), entity.timeDrilled * this.rotateSpeed);
+    Draw.rect(this.rotatorRightRegion, tile.drawx() + 52 / 8, tile.drawy() + Mathf.sin(entity.drillTime, 20) * entity.efficiency(), entity.timeDrilled * this.rotateSpeed * -1);
     Draw.rect(this.topRegion);
     if(drawRim){
       Draw.color(this.heatColor);

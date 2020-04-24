@@ -27,6 +27,7 @@ const chemicalDrill = extendContent(Drill, "chemical-drill", {
 });
 
 // Omni Drill
+/*
 const omniDrill = extendContent(Drill, "omni-drill", {
   load(){
     this.region = Core.atlas.find(this.name + "-bottom");
@@ -40,13 +41,12 @@ const omniDrill = extendContent(Drill, "omni-drill", {
       Core.atlas.find(this.name)
     ];
   },
-  draw(tile){
-    var entity = tile.ent();
+  draw(){
     const s = 0.3;
     const ts = 0.6;
     Draw.rect(this.region, tile.drawx(), tile.drawy());
-    Draw.rect(this.rotatorLeftRegion, tile.drawx() - 52 / 8, tile.drawy() + Mathf.sin(entity.timeDrilled, 20) * entity.efficiency(), entity.timeDrilled * this.rotateSpeed);
-    Draw.rect(this.rotatorRightRegion, tile.drawx() + 52 / 8, tile.drawy() + Mathf.sin(entity.tileDrilled, 20) * entity.efficiency(), entity.timeDrilled * this.rotateSpeed * -1);
+    Draw.rect(this.rotatorLeftRegion, tile.drawx() - 52 / 8, tile.drawy() + Mathf.sin(this.timeDrilled, 20), this.timeDrilled * this.rotateSpeed);
+    Draw.rect(this.rotatorRightRegion, tile.drawx() + 52 / 8, tile.drawy() + Mathf.sin(this.tileDrilled, 20), this.timeDrilled * this.rotateSpeed * -1);
     Draw.rect(this.topRegion);
     if(drawRim){
       Draw.color(this.heatColor);
@@ -63,3 +63,4 @@ const omniDrill = extendContent(Drill, "omni-drill", {
     }
   }
 });
+*/

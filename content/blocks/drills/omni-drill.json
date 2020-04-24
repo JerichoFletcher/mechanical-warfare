@@ -9,7 +9,7 @@ hasItems: true
 drillTime: 160
 drawRim: true
 drawMineItem: true
-updateEffect: pulverizeBig
+updateEffect: pulverizeRed
 drillEffect: mineHuge
 headColor: b5d772
 requirements: [

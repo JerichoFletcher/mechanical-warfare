@@ -6,7 +6,7 @@ tier: 7
 hasPower: true
 hasLiquids: true
 hasItems: true
-drillTime: 160
+drillTime: 200
 drawRim: true
 drawMineItem: true
 updateEffect: pulverizeRed

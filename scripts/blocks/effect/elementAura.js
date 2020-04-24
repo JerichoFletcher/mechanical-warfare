@@ -6,11 +6,12 @@ const fireAuraEffect = newEffect(40, e => {
   Lines.circle(e.x, e.y, e.fin() * 50);
 });
 
-// Fire Aura bullet
-const fireAuraBullet = extend(BulletType, {});
-fireAuraBullet.bulletSprite = Core.atlas.find("clear");
-fireAuraBullet.speed = 0.001;
-fireAuraBullet.instantDisappear = true;
+// Aura bullet
+const auraBullet = extend(BulletType, {});
+auraBullet.bulletSprite = Core.atlas.find("clear");
+auraBullet.speed = 0.001;
+auraBullet.damage = 0;
+auraBullet.instantDisappear = true;
 
 // Fire Aura
 const fireAura = extendContent(LiquidTurret, "fire-aura", {

@@ -1,9 +1,11 @@
 # Unit Classes
 
-In Mechanical Warfare, we also created 4 unit classes:
+In Mechanical Warfare, we created 4 unit classes:
 - Orange;
-- Cyan (WIP);
-- Purple (not yet implemented); and
-- Red (not yet implemented).
+- Cyan;
+- Purple (upcoming); and
+- Red (upcoming).
 
 These classes have their own average DPS respectively.
+
+We also override the unit factory top sprites to correlate with their respective unit classes.

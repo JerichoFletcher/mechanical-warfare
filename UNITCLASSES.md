@@ -1,3 +1,4 @@
+![icon](icon.png)
 # Unit Classes
 
 In Mechanical Warfare, we created 4 unit classes:

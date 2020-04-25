@@ -1,6 +1,4 @@
 type: DoubleTurret
-name: Ghost
-description: An advanced anti-air turret. Shoots high-velocity flak bullets.
 health: 1350
 size: 3
 reload: 15

@@ -1,6 +1,4 @@
 type: HoverUnit
-name: Phantasm
-description: An armored aerial unit equipped with flak gun.
 flying: true
 speed: 0.25
 maxVelocity: 1.5

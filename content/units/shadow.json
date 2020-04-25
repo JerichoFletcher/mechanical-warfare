@@ -1,6 +1,4 @@
 type: HoverUnit
-name: Shadow
-description: A heavy destroyer ship that fires quick bursts of bullets.
 flying: true
 speed: 0.1
 maxVelocity: 0.8

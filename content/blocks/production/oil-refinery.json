@@ -1,6 +1,4 @@
 type: LiquidConverter
-name: "Oil Refinery"
-description: "Processes crude oil into gas."
 size: 2
 hasPower: true
 liquidCapacity: 50

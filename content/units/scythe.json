@@ -1,6 +1,4 @@
 type: HoverUnit
-name: Scythe
-description: A massive hovering destroyer ship equiped with heavy shell launcher.
 flying: true
 speed: 0.07
 maxVelocity: 0.6

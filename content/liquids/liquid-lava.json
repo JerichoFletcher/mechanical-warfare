@@ -1,5 +1,3 @@
-name: Lava
-description: Molten volcanic rock. Don't touch.
 temperature: 1.4
 viscosity: 0.9
 effect: melting

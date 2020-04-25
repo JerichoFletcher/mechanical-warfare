@@ -1,6 +1,4 @@
 type: material
-name: Uranium
-description: A dense, radioactive substance possessing a high yield of potential energy.
 hardness: 6
 cost: 1.2
 explosiveness: 0.3

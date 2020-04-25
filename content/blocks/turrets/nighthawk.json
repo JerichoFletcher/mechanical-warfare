@@ -1,5 +1,3 @@
-name: Nighthawk
-description: A long-ranged sniper turret designated to fire high-velocity bullets with exceptional accuracy. Accepts raw items as ammo, but works best with assembled rounds.
 health: 1350
 size: 3
 reload: 160

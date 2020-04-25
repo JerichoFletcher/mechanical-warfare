@@ -1,6 +1,4 @@
 type: GenericCrafter
-name: Stone Melter
-description: Melts stone into searing lava.
 size: 1
 hasLiquids: true
 hasPower: true

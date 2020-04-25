@@ -1,5 +1,3 @@
-name: Front Gate
-description: A main gate to the enemy's capital. Heavily guarded, knowing that the main factory is inside. Uranium is present, but is already taken and fortified. Take out the two cores and move on.
 loadout: basicFoundation
 startingItems: [
   copper/1500

@@ -1,5 +1,3 @@
-name: Hill Path
-description: "A narrow path on the hills closer to the mountains, slightly contaminated by spores. Coal is barely present in the area, only capable of maintaining power. \n \n[lightgray]Research spore extracting and processing technology if possible."
 loadout: basicFoundation
 startingItems: [
   copper/250

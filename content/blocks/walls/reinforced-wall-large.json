@@ -7,6 +7,7 @@ requirements: [
   iron/24
   surge-alloy/16
   uranium/12
+  phase-fabric/4
 ]
 category: defense
 research: reinforced-wall

@@ -1,5 +1,3 @@
-name: Voltmeter
-description: A Tesla tower-type turret. Fires electric arcs in rapid succession.
 health: 1620
 size: 3
 reload: 20

@@ -6,6 +6,7 @@ requirements: [
   iron/6
   surge-alloy/4
   uranium/3
+  phase-fabric/1
 ]
 category: defense
 research: surge-wall

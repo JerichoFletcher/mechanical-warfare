@@ -1,5 +1,3 @@
-name: Reinforced Wall
-description: Essentially an armored surge wall capable of absorbing extreme damage. Can mend itself slowly.
 health: 1280
 update: true
 requirements: [

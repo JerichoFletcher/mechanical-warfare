@@ -1,7 +1,5 @@
 type: NuclearReactor
-name: Uranium Reactor
 size: 3
-description: Creates significant amount of power using the potential energy from radioactive uranium. Will explode violently with lack of coolant.
 health: 850
 itemDuration: 420 //lmfao
 powerProduction: 20

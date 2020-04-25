@@ -1,0 +1,23 @@
+size: 2
+update: true
+hasPower: true
+hasItems: true
+hasLiquids: true
+craftTime: 20
+consumes: {
+  power: 1
+  liquid: {
+    liquid: liquid-lava
+    amount: 0.07
+  }
+}
+outputItem: cobblestone/1
+requirements: [
+  copper/45
+  graphite/20
+  titanium/35
+]
+category: crafting
+research: stone-melter
+idleSound: respawning
+idleSoundVolume: 0.5

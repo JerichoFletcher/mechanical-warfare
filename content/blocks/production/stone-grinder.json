@@ -1,0 +1,22 @@
+size: 2
+hasItems: true
+hasPower: true
+craftTime: 60
+updateEffect: pulverizeMedium
+craftEffect: pulverize
+consumes: {
+  power: 0.2
+  items: {
+    items: [
+      cobblestone/1
+    ]
+  }
+}
+outputItem: sand/2
+requirements: [
+  copper/35
+  lead/15
+  graphite/20
+]
+category: crafting
+research: pulverizer

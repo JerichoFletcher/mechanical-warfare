@@ -1,3 +1,4 @@
+type: UnitFactory
 name: Scythe Destroyer Factory
 description: Assembles Scythe, a massive hovering destroyer ship.
 unitType: scythe

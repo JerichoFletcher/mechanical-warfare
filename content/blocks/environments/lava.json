@@ -1,5 +1,4 @@
 type: Floor
-name: Lava
 liquidDrop: liquid-lava
 speedMultiplier: 0.15
 variants: 0

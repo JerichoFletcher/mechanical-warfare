@@ -1,6 +1,4 @@
-type: hoverUnit
-name: Shadow
-description: A heavy destroyer ship that fires quick bursts of bullets.
+type: HoverUnit
 flying: true
 speed: 0.1
 maxVelocity: 0.8
@@ -15,6 +13,7 @@ engineOffset: 11
 engineSize: 4
 rotatespeed: 0.01
 baseRotateSpeed: 0.06
+// Raw DPS: 168
 weapon: {
   name: shadow-caster
   width: 7

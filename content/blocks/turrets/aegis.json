@@ -1,23 +1,20 @@
-name: Aegis
-description: A durable short-ranged turret. Makes for a moderately good wall thanks to its thick armor.
 size: 2
 health: 3000
 reload: 30
 ammoUseEffect: shellEjectSmall
-inaccuracy: 2
+inaccuracy: 5
 rotatespeed: 4
 range: 120
 recoil: 1.2
 shootCone: 10
 shots: 5
-spread: 8
 ammo: {
   copper: {
     type: BasicBulletType
     damage: 7
     speed: 3.5
     lifetime: 36
-    inaccuracy: 2
+    inaccuracy: 8
     ammoMultiplier: 2
   }
   iron: {
@@ -25,7 +22,7 @@ ammo: {
     damage: 10
     speed: 3.9
     lifetime: 32
-    inaccuracy: 1.5
+    inaccuracy: 7.5
     ammoMultiplier: 2
   }
   thorium: {
@@ -33,7 +30,7 @@ ammo: {
     damage: 14
     speed: 4.5
     lifetime: 28
-    inaccuracy: 1
+    inaccuracy: 7
     ammoMultiplier: 2
   }
   uranium: {
@@ -41,7 +38,7 @@ ammo: {
     damage: 20
     speed: 4.8
     lifetime: 27
-    inaccuracy: 0.6
+    inaccuracy: 5.6
     reloadMultiplier: 1.17
     ammoMultiplier: 2
   }

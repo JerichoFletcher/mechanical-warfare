@@ -1,0 +1,26 @@
+type: GenericCrafter
+size: 1
+hasLiquids: true
+hasPower: true
+craftTime: 10
+consumes: {
+  power: 1
+  items: {
+    items: [
+      cobblestone/1
+    ]
+  }
+}
+outputLiquid: {
+  liquid: liquid-lava
+  amount: 2
+}
+requirements: [
+  lead/40
+  titanium/25
+  graphite/30
+]
+research: melter
+category: crafting
+idleSound: respawning
+idleSoundVolume: 0.5

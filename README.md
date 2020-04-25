@@ -13,3 +13,6 @@ Please be aware that _this mod is still under heavy development._ Expect more fe
 
 Cheers,
 [JerichoFletcher](https://bit.ly/JF_IG) & GlennFolker
+
+Translators:
+- French - [feu-follet](https://github.com/feu-follet)

@@ -1,0 +1,26 @@
+health: 1620
+size: 3
+reload: 20
+recoil: 0
+powerUse: 10
+shots: 5
+shootType: arc
+shootCone: 360
+rotatespeed: 0
+heatColor: a9d8ff
+targetAir: true
+range: 140
+requirements: [
+  copper/250
+  lead/225
+  iron/200
+  silicon/225
+  surge-alloy/175
+]
+category: turret
+research: incandescence
+shootSound: voltmetershot
+idleSound: voltmeterIdle
+idleSoundVolume: 0.5
+activeSound: voltmeterActive
+activeSoundVolume: 1

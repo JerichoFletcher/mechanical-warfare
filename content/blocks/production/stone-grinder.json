@@ -1,5 +1,3 @@
-name: Stone Grinder
-description: Grinds stone into fine sand.
 size: 2
 hasItems: true
 hasPower: true

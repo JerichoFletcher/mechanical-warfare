@@ -1,7 +1,5 @@
 type: MechPad
-name: Upsylon Mech Pad
 mech: upsylon-mech
-description: Provides transformation into a moderately-armored powerful ground mech.
 size: 3
 consumes: {
   power: 1.4

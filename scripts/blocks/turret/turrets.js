@@ -3,8 +3,8 @@ const aegis = extendContent(ItemTurret, "aegis", {
   
 });
 
-// Heat Ray
-require("blocks/turret/heat-ray")
+// Incandescence
+require("blocks/turret/incandescence")
 
 // Nighthawk
 const nighthawk = extendContent(ItemTurret, "nighthawk", {

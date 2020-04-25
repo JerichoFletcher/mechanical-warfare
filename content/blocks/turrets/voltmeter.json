@@ -20,7 +20,7 @@ requirements: [
   surge-alloy/175
 ]
 category: turret
-research: heat-ray
+research: incandescence
 shootSound: voltmetershot
 idleSound: voltmeterIdle
 idleSoundVolume: 0.5

@@ -1,6 +1,4 @@
 type: GenericSmelter
-name: Steel Crucible
-description: Melts iron ingots and casts durable steel.
 size: 2
 hasPower: true
 hasItems: true

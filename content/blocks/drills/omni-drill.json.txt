@@ -1,3 +1,4 @@
+// NOT IMPLEMENTED YET!
 name: Omni Drill
 description: A mining drill capable of mining anything at an extremely fast pace.
 size: 4

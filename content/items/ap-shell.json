@@ -1,5 +1,3 @@
 type: resource
-name: AP Shell
-description: Armor-piercing artillery shells to counter heavy armors.
 explosiveness: 0.6
 color: c9e75f

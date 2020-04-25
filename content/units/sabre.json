@@ -1,6 +1,4 @@
 type: GroundUnit
-name: Sabre
-description: A well-armored unit that fires acid frag-rockets.
 health: 600
 speed: 0.12
 drag: 0.4

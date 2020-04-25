@@ -1,5 +1,3 @@
-name: Halberd
-description: A durable ship equipped with gatling gun.
 flying: true
 drillPower: 4
 mineSpeed: 1.4

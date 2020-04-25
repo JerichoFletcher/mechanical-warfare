@@ -1,11 +1,11 @@
 const warmup = 0.06;
 const rayScale = 0.8;
 const turretLength = 6;
-const heatRay = extendContent(PowerTurret, "heat-ray", {
+const heatRay = extendContent(PowerTurret, "incandescence", {
   load(){
     this.super$load();
-    this.beamRegion = Core.atlas.find(this.name + "-beam");
-    this.beamEndRegion = Core.atlas.find(this.name + "-beam-end");
+    this.beamRegion = Core.atlas.find("mechanical-warfare-heat-ray-beam");
+    this.beamEndRegion = Core.atlas.find("mechanical-warfare-heat-ray-beam-end");
     this.layer2 = Layer.power;
   },
   shoot(tile, type){
@@ -29,9 +29,8 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
   drawLayer2(tile){
     var entity = tile.ent();
     if (entity.cons.valid() && entity.target != null){
-      var targetPos = new Vec2(entity.target.getX(), entity.target.getY());
-      var angle = targetPos.sub(tile.drawx(), tile.drawy()).angle();
-      if (Angles.angleDist(entity.rotation, angle) < this.shootCone){
+      if (Angles.angleDist(entity.angleTo(entity.target), entity.rotation) < this.shootCone){
+        var angle = entity.angleTo(entity.target);
         Draw.color(Color.lightGray, Color.white, 1 - Mathf.absin(Time.time(), 0.6, 0.3));
         Drawf.laser(this.beamRegion, this.beamEndRegion, 
           tile.drawx() + Angles.trnsx(angle, turretLength),
@@ -45,9 +44,7 @@ const heatRay = extendContent(PowerTurret, "heat-ray", {
   shouldActiveSound: function(tile){
     var entity = tile.ent();
     if (tile != null && entity.target != null && entity.cons.valid()){
-      var targetPos = new Vec2(entity.target.getX(), entity.target.getY());
-      var angle = targetPos.sub(tile.drawx(), tile.drawy()).angle()
-      return Angles.angleDist(entity.rotation, angle) < this.shootCone;
+      return Angles.angleDist(entity.angleTo(entity.target), entity.rotation) < this.shootCone;
     }else{
       return false;
     }

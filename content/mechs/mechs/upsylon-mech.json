@@ -18,8 +18,8 @@ weapon: {
   recoil: 3
   reload: 30
   shots: 20
-  spacing: 1
-  inaccuracy: 20
+  spacing: 0
+  inaccuracy: 12
   alternate: true
   ejectEffect: shellEjectBig
   shake: 2
@@ -30,7 +30,7 @@ weapon: {
     bulletWidth: 5
     bulletHeight: 12
     speed: 5
-    lifetime: 14
+    lifetime: 17
     hitEffect: hitBulletSmall
     shootEffect: shootBig
     smokeEffect: shootBigSmoke

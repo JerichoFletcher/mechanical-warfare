@@ -1,3 +1,4 @@
+// NOT IMPLEMENTED YET!
 name: Fire Aura
 description: Applies fire damage to all units within it's range.
 size: 2

@@ -9,6 +9,7 @@ ammo: {
     splashDamageRadius: 120
     status: melting
     instantDisappear: true
+    ammoMultiplier: 2
   }
 }
 requirements: [

@@ -1,5 +1,11 @@
 size: 2
 health: 320
+consumes: {
+  liquid: {
+    liquid: liquid-lava
+    amount: 0.5
+  }
+}
 requirements: [
   lead/125
   iron/75

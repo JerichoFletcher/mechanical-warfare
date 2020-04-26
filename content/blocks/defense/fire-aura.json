@@ -18,6 +18,5 @@ requirements: [
   metaglass/50
   phase-fabric/25
 ]
-type: LiquidTurret
-category: turret
+category: effect
 research: mend-projector

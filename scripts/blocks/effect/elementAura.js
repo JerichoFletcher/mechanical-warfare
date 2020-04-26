@@ -23,8 +23,7 @@ fireAuraBullet.instantDisappear = true;*/
 /* Fire Aura */
 const fireAura = extendContent(LiquidTurret, "fire-aura", {
   load(){
-    this.region = Core.atlas.find(this.name);
-    this.liquidRegion = Core.atlas.find(this.name + "-liquid");
+    this.super$load();
     this.topRegion = Core.atlas.find(this.name + "-top");
   },
   update(tile){
@@ -84,10 +83,6 @@ const fireAura = extendContent(LiquidTurret, "fire-aura", {
     }
   },
   shouldTurn: function(tile){
-    return false;
-  },
-  shouldActiveSound: function(tile){
-    //return this.hasAmmo(tile) && this.validateTarget(tile);
     return false;
   },
 });

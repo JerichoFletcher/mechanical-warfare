@@ -1,5 +1,4 @@
 const fireAuraRange = 15 * Vars.tilesize;
-const fireAuraWarmup = 0.08;
 
 /* Fire Aura effect */
 const fireAuraColor = "ffaa44";
@@ -11,19 +10,20 @@ const fireAuraEffect = newEffect(40, e => {
 });
 
 /* Aura bullet */
-/*const fireAuraBullet = extend(BulletType, {});
+const fireAuraBullet = extend(BulletType, {});
 fireAuraBullet.bulletSprite = Core.atlas.find("clear");
 fireAuraBullet.speed = 0.001;
 fireAuraBullet.damage = 0;
 fireAuraBullet.splashDamage = 20;
 fireAuraBullet.splashDamageRadius = fireAuraRange;
 fireAuraBullet.status = StatusEffects.melting;
-fireAuraBullet.instantDisappear = true;*/
+fireAuraBullet.instantDisappear = true;
 
 /* Fire Aura */
-const fireAura = extendContent(LiquidTurret, "fire-aura", {
+const fireAura = extendContent(Turret, "fire-aura", {
   load(){
     this.super$load();
+    this.liquidRegion = Core.atlas.find(this.name + "-liquid");
     this.topRegion = Core.atlas.find(this.name + "-top");
   },
   update(tile){
@@ -34,7 +34,7 @@ const fireAura = extendContent(LiquidTurret, "fire-aura", {
     entity.recoil = 0;
     entity.heat = Mathf.lerpDelta(entity.heat,
       this.validateTarget(tile) ? 1 : 0,
-      this.validateTarget(tile) ? fireAuraWarmup : this.cooldown
+      this.validateTarget(tile) ? this.warmup : this.cooldown
     );
     if (this.hasAmmo(tile)){
       if (entity.timer.get(this.timerTarget, this.targetInterval)){
@@ -50,6 +50,10 @@ const fireAura = extendContent(LiquidTurret, "fire-aura", {
   },
   drawLayer(tile){
     this.super$drawLayer(tile);
+    Draw.color(entity.liquids.current().color);
+    Draw.alpha(entity.liquids.total() / this.liquidCapacity);
+    Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());
+    Draw.color();
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
   },
   shoot(tile, type){
@@ -77,13 +81,42 @@ const fireAura = extendContent(LiquidTurret, "fire-aura", {
       );
     }
   },
+  useAmmo: function(tile){
+    var entity = tile.ent();
+    if (tile.isEnemyCheat()){
+      return this.shootType;
+    }
+    var type = this.shootType;
+    entity.cons.trigger();
+    return type;
+  },
+  peekAmmo: function(tile){
+    return this.shootType;
+  },
+  hasAmmo: function(tile){
+    var entity = tile.ent();
+    return entity.cons.valid();
+  },
+  setStats(){
+    this.super$setStats();
+    this.stats.add(BlockStat.damage, this.shootType.damage, StatUnit.none);
+  },
   shouldTurn: function(tile){
     return false;
   },
+  baseReloadSpeed(tile){
+    return tile.isEnemyCheat() ? 1 : tile.entity.power.status;
+  },
 });
 fireAura.reload = 5;
+fireAura.shootType = fireAuraBullet;
 fireAura.range = fireAuraRange;
 fireAura.effectAreaCount = 10;
+fireAura.hasPower = true;
+fireAura.hasLiquids = true;
 fireAura.liquidCapacity = 20;
 fireAura.shootEffect = fireAuraEffect;
 fireAura.smokeEffect = Fx.fireSmoke;
+fireAura.ammoUseEffect = Fx.none;
+fireAura.targetInterval = 5;
+fireAura.warmup = 0.08;

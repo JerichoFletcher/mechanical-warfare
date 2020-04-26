@@ -18,5 +18,5 @@ requirements: [
   metaglass/50
   phase-fabric/25
 ]
-category: effect
+category: turret
 research: mend-projector

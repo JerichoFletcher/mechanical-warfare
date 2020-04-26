@@ -61,7 +61,7 @@ const fireAura = extendContent(LiquidTurret, "fire-aura", {
   shoot(tile, type){
     Calls.createBullet(type, tile.getTeam(), tile.drawx(), tile.drawy(), Mathf.random(360), 1, 1);
     this.effects(tile);
-    this.effectsArea(tile, 10);
+    this.effectsArea(tile, this.effectAreaCount);
     this.useAmmo(tile);
   },
   effects(tile){
@@ -93,5 +93,6 @@ const fireAura = extendContent(LiquidTurret, "fire-aura", {
 });
 fireAura.reload = 5;
 fireAura.range = fireAuraRange;
+fireAura.effectAreaCount = 10;
 fireAura.shootEffect = fireAuraEffect;
 fireAura.smokeEffect = Fx.fireSmoke;

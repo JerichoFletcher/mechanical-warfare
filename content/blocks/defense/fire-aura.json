@@ -1,17 +1,12 @@
 size: 2
 health: 320
-ammo: {
-  liquid-lava: {
-    speed: 0.001
-    lifetime: 1
-    damage: 0
-    knockback: 0
-    splashDamage: 14
-    splashDamageRadius: 120
-    status: melting
-    hitEffect: fire
-    bulletSprite: clear
-    ammoMultiplier: 2
+consumes: {
+  power: 1.5
+  liquid: {
+    liquid: liquid-lava
+    amount: 0.5
+    booster: false
+    optional: false
   }
 }
 requirements: [

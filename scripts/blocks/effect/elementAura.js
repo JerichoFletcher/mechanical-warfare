@@ -50,11 +50,6 @@ const fireAura = extendContent(LiquidTurret, "fire-aura", {
   },
   drawLayer(tile){
     this.super$drawLayer(tile);
-    var entity = tile.ent();
-    Draw.color(entity.liquids.current().color);
-    Draw.alpha(entity.liquids.total() / this.liquidCapacity);
-    Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());
-    Draw.color();
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
   },
   shoot(tile, type){
@@ -89,5 +84,6 @@ const fireAura = extendContent(LiquidTurret, "fire-aura", {
 fireAura.reload = 5;
 fireAura.range = fireAuraRange;
 fireAura.effectAreaCount = 10;
+fireAura.liquidCapacity = 20;
 fireAura.shootEffect = fireAuraEffect;
 fireAura.smokeEffect = Fx.fireSmoke;

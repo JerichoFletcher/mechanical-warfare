@@ -1,0 +1,51 @@
+type: HoverUnit
+flying: true
+speed: 0.16
+maxVelocity: 1.2
+mass: 5.5
+health: 1350
+hitsize: 20
+drag: 0.01
+range: 150
+shootCone: 60
+rotateWeapon: false
+engineOffset: 15
+engineSize: 3
+rotatepeed: 0.02
+baseRotateSpeed: 0.07
+// Raw DPS: 304
+weapon: {
+  name: axe-launcher
+  width: 7
+  recoil: 3
+  reload: 30
+  alternate: false
+  inaccuracy: 5
+  shots: 2
+  spacing: 0
+  shotDelay: 0
+  shootSound: missile
+  bullet: {
+    type: MissileBulletType
+    bulletWidth: 9
+    bulletHeight: 23
+    bulletShrink: 1
+    inaccuracy: 2
+    speed: 4
+    lifetime: 50
+    damage: 24
+    splashDamage: 8
+    splashDamageRadius: 16
+    shootEffect: shootBig
+    frontColor: eeddcc
+    backColor: ccbbaa
+    fragBullets: 3
+    fragBullet: {
+      type: LiquidBulletType
+      liquid: liquid-lava
+      lifetime: 2
+      speed: 1
+      damage: 2
+    }
+  }
+}

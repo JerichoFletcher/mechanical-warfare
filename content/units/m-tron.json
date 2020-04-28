@@ -16,20 +16,18 @@ weapon: {
   shake: 2
   shots: 3
   spacing: 0
-  shotDelay: 3
+  shotDelay: 2
   ejectEffect: shellEjectBig
   shootSound: missile
   bullet: {
     type: BasicBulletType
     bulletSprite: mechanical-warfare-energybullet1
-    bulletWidth: 11
+    bulletWidth: 7
     bulletHeight: 16
     speed: 3.5
     lifetime: 60
     damage: 32
     frontColor: ddeeff
     backColor: aabbcc
-    homingPower: 0.008
-    homingRange: 160
   }
 }

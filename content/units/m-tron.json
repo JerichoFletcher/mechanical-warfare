@@ -1,5 +1,5 @@
 type: GroundUnit
-health: 1120
+health: 1280
 speed: 0.08
 drag: 0.3
 mass: 5

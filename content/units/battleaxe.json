@@ -29,7 +29,7 @@ weapon: {
     type: MissileBulletType
     bulletWidth: 9
     bulletHeight: 23
-    bulletShrink: 1
+    bulletShrink: 0.4
     inaccuracy: 2
     speed: 4
     lifetime: 50

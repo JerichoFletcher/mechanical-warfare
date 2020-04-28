@@ -13,7 +13,13 @@ consumes: {
 	  graphite/15
 	]
   }
+  liquid: {
+    liquid: liquid-acid
+    amount: 15
+  }
 }
+hasLiquids: true
+liquidCapacity: 30
 category: units
 research: titan-factory
 requirements: [

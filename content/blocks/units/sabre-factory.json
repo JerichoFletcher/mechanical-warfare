@@ -15,7 +15,7 @@ consumes: {
   }
   liquid: {
     liquid: liquid-acid
-    amount: 15
+    amount: 0.25
   }
 }
 hasLiquids: true

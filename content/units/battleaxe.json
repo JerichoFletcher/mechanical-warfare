@@ -11,7 +11,7 @@ shootCone: 60
 rotateWeapon: false
 engineOffset: 15
 engineSize: 3
-rotatepeed: 0.02
+rotatespeed: 0.02
 baseRotateSpeed: 0.07
 // Raw DPS: 304
 weapon: {
@@ -37,8 +37,8 @@ weapon: {
     splashDamage: 8
     splashDamageRadius: 16
     shootEffect: shootBig
-    frontColor: eeddcc
-    backColor: ccbbaa
+    frontColor: ffddcc
+    backColor: ccaa99
     fragBullets: 3
     fragBullet: {
       type: LiquidBulletType

@@ -1,6 +1,6 @@
 type: GroundUnit
 health: 1120
-speed: 0.1
+speed: 0.08
 drag: 0.3
 mass: 5
 hitsize: 16
@@ -10,13 +10,13 @@ weapon: {
   name: m-rifle
   length: 1
   reload: 50
-  width: 13
+  width: 16
   alternate: true
   recoil: 4
   shake: 2
   shots: 3
   spacing: 0
-  shotDelay: 5
+  shotDelay: 3
   ejectEffect: shellEjectBig
   shootSound: missile
   bullet: {

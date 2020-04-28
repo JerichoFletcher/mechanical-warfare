@@ -4,7 +4,7 @@ description: Assembles armored ground units equipped with acid-frag rockets.
 unitType: sabre
 size: 3
 produceTime: 2000
-maxSpawn: 3
+maxSpawn: 4
 consumes: {
   power: 1.5
   items: {

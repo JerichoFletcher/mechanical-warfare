@@ -14,7 +14,13 @@ consumes: {
       steel/65
     ]
   }
+  liquid: {
+    liquid: liquid-lava
+    amount: 15
+  }
 }
+hasLiquids: true
+liquidCapacity: 30
 category: units
 research: revenant-factory
 requirements: [

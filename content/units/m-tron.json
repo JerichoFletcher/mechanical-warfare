@@ -10,7 +10,7 @@ weapon: {
   name: m-rifle
   length: 1
   reload: 50
-  width: 16
+  width: 14
   alternate: true
   recoil: 4
   shake: 2
@@ -24,12 +24,12 @@ weapon: {
     bulletSprite: mechanical-warfare-energybullet1
     bulletWidth: 11
     bulletHeight: 16
-    speed: 7
-    lifetime: 30
+    speed: 3.5
+    lifetime: 60
     damage: 32
     frontColor: ddeeff
     backColor: aabbcc
-    homingPower: 0.08
+    homingPower: 0.008
     homingRange: 160
   }
 }

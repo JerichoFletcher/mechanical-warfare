@@ -16,7 +16,7 @@ consumes: {
   }
   liquid: {
     liquid: liquid-lava
-    amount: 15
+    amount: 0.25
   }
 }
 hasLiquids: true

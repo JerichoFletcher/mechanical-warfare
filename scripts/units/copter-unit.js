@@ -25,3 +25,11 @@ serpentUnit.create(copterBase);
 serpentUnit.rotorOffset = 1;
 serpentUnit.rotorScale = 1;
 serpentUnit.rotorSpeed = 1;
+
+const serpentFactory = extendContent(UnitFactory, "serpent-factory", {
+  load(){
+    this.region = Core.atlas.find("revenant-factory");
+    this.topRegion = Core.atlas.find("revenant-factory-top");
+  }
+});
+serpentFactory.unitType = serpentUnit;

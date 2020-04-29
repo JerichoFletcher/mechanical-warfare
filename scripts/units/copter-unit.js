@@ -22,14 +22,14 @@ const serpentUnit = extendContent(UnitType, "serpent", {
   load(){
     this.weapon.load();
     this.region = Core.atlas.find("revenant");
-    this.rotorBladeRegion = Core.atlas.find(this.name + "-rotor-blade");
-    this.rotorTopRegion = Core.atlas.find(this.name + "-rotor-top");
+    this.bladeRegion = Core.atlas.find(this.name + "-rotor-blade");
+    this.topRegion = Core.atlas.find(this.name + "-rotor-top");
   },
   rotorBladeRegion: function(){
-    return this.rotorBladeRegion;
+    return this.bladeRegion;
   },
   rotorTopRegion: function(){
-    return this.rotorTopRegion;
+    return this.topRegion;
   },
   rotorScale: function(){
     return 1.4;

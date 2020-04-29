@@ -10,3 +10,18 @@ const copterBase = prov(() => extend(HoverUnit, {
     Draw.rect(this.type.rotorTopRegion, this.x + offx, this.y + offy);
   },
 }));
+
+// Serpent
+const serpentUnit = extendContent(UnitType, "serpent", {
+  load(){
+    this.weapon.load();
+    //this.region = Core.atlas.find(this.name);
+    this.region = Core.atlas.find("revenant");
+    this.rotorBladeRegion = Core.atlas.find("mechanical-warfare-rotor-blade");
+    this.rotorTopRegion = Core.atlas.find("mechanical-warfare-rotor-top");
+  },
+});
+serpentUnit.create(copterBase);
+serpentUnit.rotorOffset = 1;
+serpentUnit.rotorScale = 1;
+serpentUnit.rotorSpeed = 1;

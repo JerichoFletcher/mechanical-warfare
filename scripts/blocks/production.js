@@ -75,7 +75,11 @@ const mk2Assembler = extendContent(GenericCrafter, "mk2-assembler", {
     this.heatRegion = Core.atlas.find(this.name + "-heat");
     this.topRegion = Core.atlas.find(this.name + "-top");
   },
-  generateIcons: function{
+  generateIcons: function(){
+    return [
+      Core.atlas.find(this.name),
+      Core.atlas.find(this.name + "-top")
+    ];
   },
   draw(tile){
     const entity = tile.ent();
@@ -83,7 +87,7 @@ const mk2Assembler = extendContent(GenericCrafter, "mk2-assembler", {
     Draw.color(entity.liquids.current().color);
     Draw.alpha(entity.liquids.total() / this.liquidCapacity);
     Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());
-    Draw.color(Color.valueOf("888833"), Color.valueOf("444422"), Mathf.absin(Time.time(), 0.7, 1));
+    Draw.color(Color.valueOf("000000"), Color.valueOf("444422"), Mathf.absin(Time.time(), 3.2, 1) * entity.efficiency());
     Draw.blend(Blending.additive);
     Draw.rect(this.heatRegion, tile.drawx(), tile.drawy());
     Draw.blend();

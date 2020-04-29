@@ -66,3 +66,23 @@ const stoneGrinder = extendContent(GenericCrafter, "stone-grinder", {
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
   },
 });
+
+// MK2 Module Assembler
+const mk2Assembler = extendContent(GenericCrafter, "mk2-assembler", {
+  load(){
+    this.region = Core.atlas.find(this.name);
+    this.liquidRegion = Core.atlas.find(this.name + "-liquid");
+    this.heatRegion = Core.atlas.find(this.name + "-heat");
+  },
+  draw(tile){
+    const entity = tile.ent();
+    Draw.rect(this.region, tile.drawx(), tile.drawy());
+    Draw.color(entity.liquids.current().color);
+    Draw.alpha(entity.liquids.total() / this.liquidCapacity);
+    Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());
+    Draw.color(Color.valueOf("aaaa66"), Color.valueOf("666633"), Mathf.absin(Time.time(), 1.2, 1));
+    Draw.blend(Blending.additive);
+    Draw.rect(this.heatRegion, tile.drawx(), tile.drawy());
+    Draw.reset();
+  },
+});

@@ -1,0 +1,36 @@
+size: 3
+hasPower: true
+hasItems: true
+hasLiquids: true
+craftTime: 300
+craftEffect: formsmoke
+consumes: {
+  power: 3.5
+  items: {
+    items: [
+      steel/7
+      silicon/8
+      uranium/5
+      plastanium/6
+      surge-alloy/5
+      phase-fabric/4
+    ]
+  }
+  liquid: {
+    liquid: liquid-acid
+    amount: 0.1
+  }
+}
+itemCapacity: 20
+liquidCapacity: 60
+outputItem: mk2-module/1
+requirements: [
+  copper/150
+  lead/125
+  metaglass/45
+  silicon/125
+  iron/150
+  uranium/75
+]
+category: crafting
+research: phase-weaver

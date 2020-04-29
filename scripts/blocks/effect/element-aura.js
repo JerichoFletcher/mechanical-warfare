@@ -69,7 +69,7 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
     Units.nearbyEnemies(tile.getTeam(), tile.drawx() - radius, tile.drawy() - radius, radius * 2, radius * 2, cons(unit => {
       if(unit.withinDst(tile.drawx(), tile.drawy(), radius)){
         if(!unit.isDead() && unit instanceof HealthTrait){
-          Calls.createBullet(type, tile.geatTeam(), unit.getX(), unit.getY(), 0, 1, 1);
+          Calls.createBullet(type, tile.geatTeam(), unit.x, unit.x, 0, 1, 1);
         }
       }
     }));

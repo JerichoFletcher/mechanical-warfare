@@ -2,7 +2,7 @@ size: 3
 hasPower: true
 hasItems: true
 hasLiquids: true
-craftTime: 450
+craftTime: 300
 craftEffect: formsmoke
 consumes: {
   power: 3.5
@@ -18,9 +18,10 @@ consumes: {
   }
   liquid: {
     liquid: liquid-acid
-    amount: 0.067
+    amount: 0.1
   }
 }
+itemCapacity: 20
 liquidCapacity: 60
 outputItem: mk2-module/1
 requirements: [

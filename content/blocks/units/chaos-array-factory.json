@@ -1,4 +1,4 @@
-type: Unit Factory
+type: UnitFactory
 unitType: chaos-array
 size: 5
 produceTime: 4000

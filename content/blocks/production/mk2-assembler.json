@@ -18,7 +18,7 @@ consumes: {
   }
   liquid: {
     liquid: liquid-acid
-    amount: 24
+    amount: 0.1
   }
 }
 outputItem: mk2-module/1

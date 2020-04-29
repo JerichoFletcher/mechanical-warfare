@@ -17,7 +17,6 @@ const copterBase = prov(() => extend(HoverUnit, {
   },
 }));
 
-print(modName);
 // Serpent
 const serpentUnit = extendContent(UnitType, "serpent", {
   load(){

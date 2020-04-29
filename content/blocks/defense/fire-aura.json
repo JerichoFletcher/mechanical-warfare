@@ -1,7 +1,7 @@
 size: 2
 health: 320
+powerUse: 1.5
 consumes: {
-  power: 1.5
   liquid: {
     liquid: liquid-lava
     amount: 0.5

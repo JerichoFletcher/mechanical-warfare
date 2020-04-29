@@ -7,8 +7,13 @@ const copterBase = prov(() => extend(HoverUnit, {
     var offy = Angles.trnsy(this.rotation, offset);
     var rotorBladeRegion = Core.atlas.find(this.type.name + "-rotor-blade");
     var rotorTopRegion = Core.atlas.find(this.type.name + "-rotor-top");
-    Draw.rect(rotorBladeRegion, this.x + offx, this.y + offy, Time.time() * rotorSpeed);
-    Draw.rect(rotorTopRegion, this.x + offx, this.y + offy);
+    if(Core.atlas.isFound(rotorBladeRegion) && Core.atlas.isFound(rotorTopRegion)){
+      var width = rotorBladeRegion.getWidth() * this.type.rotorScale();
+      var height = rotorBladeRegion.getHeight() * this.type.rotorScale();
+      Draw.rect(rotorBladeRegion, this.x + offx, this.y + offy, Time.time() * rotorSpeed);
+      Draw.rect(rotorBladeRegion, this.x + offx, this.y + offy, Time.time() * -rotorSpeed);
+      Draw.rect(rotorTopRegion, this.x + offx, this.y + offy);
+    }
   },
 }));
 
@@ -16,18 +21,10 @@ const copterBase = prov(() => extend(HoverUnit, {
 const serpentUnit = extendContent(UnitType, "serpent", {
   load(){
     this.weapon.load();
-    //this.region = Core.atlas.find(this.name);
     this.region = Core.atlas.find("revenant");
-    /*this.rotorBladeRegion = Core.atlas.find(this.name + "-rotor-blade");
-    this.rotorTopRegion = Core.atlas.find(this.name + "-rotor-top");
-    if(!Core.atlas.isFound(this.rotorBladeRegion) || !Core.atlas.isFound(this.rotorTopRegion)){
-      print("the error, damn you donkey!");
-    }else{
-      print("gud boi sprite has been found");
-    }*/
   },
-  generateIcons: function(){
-    return [Core.atlas.find("revenant")];
+  rotorScale: function(){
+    return 1.4;
   },
 });
 serpentUnit.create(copterBase);

@@ -20,7 +20,9 @@ const serpentUnit = extendContent(UnitType, "serpent", {
     this.region = Core.atlas.find("revenant");
     this.rotorBladeRegion = Core.atlas.find("mechanical-warfare-rotor-blade");
     this.rotorTopRegion = Core.atlas.find("mechanical-warfare-rotor-top");
-    print(this.name);
+    if(!Core.atlas.isFound(this.rotorBladeRegion)){
+      print("the error, damn you donkey!");
+    }
   },
   generateIcons: function(){
     return [Core.atlas.find("revenant")];

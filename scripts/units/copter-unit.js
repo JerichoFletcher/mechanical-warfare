@@ -2,7 +2,7 @@ const copterBase = prov(() => extend(HoverUnit, {
   draw(){
     this.super$draw();
     const offset = 1;
-    const rotorSpeed = 3;
+    const rotorSpeed = 6;
     var offx = Angles.trnsx(this.rotation, offset);
     var offy = Angles.trnsy(this.rotation, offset);
     var rotorBladeRegion = Core.atlas.find(this.type.name + "-rotor-blade");

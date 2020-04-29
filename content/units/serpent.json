@@ -1,0 +1,20 @@
+localizedName: "Serpent"
+flying: true
+health: 750
+mass: 3
+hitsize: 15
+speed: 0.2
+drag: 0.01
+maxVelocity: 0.5
+range: 150
+shootCone: 90
+rotatespeed: 0.03
+baseRotateSpeed: 0.01
+weapon: {
+  reload: 6
+  recoil: 3
+  alternate: true
+  length: 5
+  shootSound: shootBig
+  bullet: standardDenseBig
+}

@@ -83,6 +83,7 @@ const mk2Assembler = extendContent(GenericCrafter, "mk2-assembler", {
     Draw.color(Color.valueOf("aaaa66"), Color.valueOf("666633"), Mathf.absin(Time.time(), 1.2, 1));
     Draw.blend(Blending.additive);
     Draw.rect(this.heatRegion, tile.drawx(), tile.drawy());
+    Draw.blend();
     Draw.reset();
   },
 });

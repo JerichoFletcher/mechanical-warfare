@@ -1,0 +1,24 @@
+type: Unit Factory
+unitType: chaos-array
+size: 5
+produceTime: 4000
+maxSpawn: 1
+consumes: {
+  power: 2.5
+  items: {
+    items: [
+      silicon/90
+      surge-alloy/75
+      iron/80
+    ]
+  }
+}
+category: units
+research: fortress-factory
+requirements: [
+  thorium/450
+  lead/350
+  silicon/375
+  steel/300
+]
+// will require mk2-module soon

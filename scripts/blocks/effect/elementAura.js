@@ -73,7 +73,6 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
       }
     }));
     this.effects(tile);
-    this.effectsArea(tile, this.effectAreaCount);
     this.useAmmo(tile);
   },
   effects(tile){
@@ -82,18 +81,14 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
     var entity = tile.ent();
     Effects.effect(shootEffect, tile.drawx(), tile.drawy(), entity.rotation);
     Effects.effect(smokeEffect, tile.drawx(), tile.drawy(), entity.rotation);
-    this.shootSound.at(tile, Mathf.random(0.9, 1.1));
-  },
-  effectsArea: function(tile, i){
-    var shootEffect = this.shootEffect == Fx.none ? (this.peekAmmo(tile)).shootEffect : this.shootEffect;
-    var entity = tile.ent();
-    for (var j = 0; j < i; j++){
+    for (var i = 0; i < this.areaEffectCount; j++){
       Effects.effect(shootEffect,
         tile.drawx() + Angles.trnsx(Mathf.random(360), Mathf.random(this.range)),
         tile.drawy() + Angles.trnsy(Mathf.random(360), Mathf.random(this.range)),
         entity.rotation
       );
     }
+    this.shootSound.at(tile, Mathf.random(0.9, 1.1));
   },
   useAmmo: function(tile){
     tile.entity.cons.trigger();
@@ -178,7 +173,7 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
 fireAura.reload = 5;
 fireAura.shootType = fireAuraBullet;
 fireAura.range = fireAuraRange;
-fireAura.effectAreaCount = 3;
+fireAura.areaEffectCount = 3;
 fireAura.hasLiquids = true;
 fireAura.liquidCapacity = 20;
 fireAura.shootEffect = fireAuraEffect;

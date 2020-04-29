@@ -1,12 +1,10 @@
 const copterBase = prov(() => extend(HoverUnit, {
   draw(){
     this.super$draw();
-    var offset = this.type.rotorOffset;
+    var offset = 1;
     var offx = Angles.trnsx(this.rotation, offset);
     var offy = Angles.trnsy(this.rotation, offset);
-    var rotorWidth = this.type.rotorBladeRegion.getWidth() * this.type.rotorScale;
-    var rotorHeight = this.type.rotorBladeRegion.getHeight() * this.type.rotorScale;
-    Draw.rect(this.type.rotorBladeRegion, this.x + offx, this.y + offy, rotorWidth, rotorHeight, Time.time() * this.type.rotorSpeed);
+    Draw.rect(this.type.rotorBladeRegion, this.x + offx, this.y + offy, Time.time());
     Draw.rect(this.type.rotorTopRegion, this.x + offx, this.y + offy);
   },
 }));
@@ -19,9 +17,6 @@ const serpentUnit = extendContent(UnitType, "serpent", {
     this.region = Core.atlas.find("revenant");
     this.rotorBladeRegion = Core.atlas.find("mechanical-warfare-rotor-blade");
     this.rotorTopRegion = Core.atlas.find("mechanical-warfare-rotor-top");
-    this.rotorOffset = 0;
-    this.rotorScale = 1;
-    this.rotorSpeed = 1;
   },
 });
 serpentUnit.create(copterBase);

@@ -75,6 +75,8 @@ const mk2Assembler = extendContent(GenericCrafter, "mk2-assembler", {
     this.heatRegion = Core.atlas.find(this.name + "-heat");
     this.topRegion = Core.atlas.find(this.name + "-top");
   },
+  generateIcons: function{
+  },
   draw(tile){
     const entity = tile.ent();
     Draw.rect(this.region, tile.drawx(), tile.drawy());

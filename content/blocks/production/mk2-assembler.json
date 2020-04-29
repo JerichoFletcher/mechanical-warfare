@@ -21,6 +21,7 @@ consumes: {
     amount: 24
   }
 }
+outputItem: mk2-module/1
 requirements: [
   copper/150
   lead/125

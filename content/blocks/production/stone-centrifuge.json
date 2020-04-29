@@ -19,5 +19,3 @@ requirements: [
 ]
 category: crafting
 research: stone-melter
-idleSound: respawning
-idleSoundVolume: 0.5

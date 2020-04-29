@@ -2,7 +2,7 @@ const copterBase = prov(() => extend(HoverUnit, {
   draw(){
     this.super$draw();
     const offset = 1;
-    const rotorSpeed = 6;
+    const rotorSpeed = 15;
     var offx = Angles.trnsx(this.rotation, offset);
     var offy = Angles.trnsy(this.rotation, offset);
     var rotorBladeRegion = Core.atlas.find(this.type.name + "-rotor-blade");
@@ -10,9 +10,11 @@ const copterBase = prov(() => extend(HoverUnit, {
     if(Core.atlas.isFound(rotorBladeRegion) && Core.atlas.isFound(rotorTopRegion)){
       var width = rotorBladeRegion.getWidth() * this.type.rotorScale();
       var height = rotorBladeRegion.getHeight() * this.type.rotorScale();
+      for(var i = 0; i < 3; i++){
       Draw.rect(rotorBladeRegion, this.x + offx, this.y + offy, Time.time() * rotorSpeed);
       Draw.rect(rotorBladeRegion, this.x + offx, this.y + offy, Time.time() * -rotorSpeed);
       Draw.rect(rotorTopRegion, this.x + offx, this.y + offy);
+      }
     }
   },
 }));

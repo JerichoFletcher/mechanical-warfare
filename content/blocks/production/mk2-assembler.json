@@ -1,4 +1,4 @@
-size: 2
+size: 3
 hasPower: true
 hasItems: true
 hasLiquids: true
@@ -18,9 +18,10 @@ consumes: {
   }
   liquid: {
     liquid: liquid-acid
-    amount: 0.1
+    amount: 0.067
   }
 }
+liquidCapacity: 60
 outputItem: mk2-module/1
 requirements: [
   copper/150

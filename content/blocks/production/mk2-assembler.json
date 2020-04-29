@@ -3,7 +3,7 @@ hasPower: true
 hasItems: true
 hasLiquids: true
 craftTime: 450
-craftEffect: formSmoke
+craftEffect: formsmoke
 consumes: {
   power: 3.5
   items: {

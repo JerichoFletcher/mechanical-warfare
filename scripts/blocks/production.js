@@ -88,7 +88,7 @@ const mk2Assembler = extendContent(GenericCrafter, "mk2-assembler", {
     Draw.alpha(entity.liquids.total() / this.liquidCapacity);
     Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());
     if (entity.cons.valid()){
-      Draw.color(Color.valueOf("000000"), Color.valueOf("222211"), Mathf.absin(Time.time(), 3.2, 1) * entity.efficiency() * entity.warmup);
+      Draw.color(Color.valueOf("000000"), Color.valueOf("181809"), Mathf.absin(Time.time(), 5 - entity.efficiency() * 2, 1) * entity.warmup);
       Draw.blend(Blending.additive);
       Draw.rect(this.heatRegion, tile.drawx(), tile.drawy());
       Draw.blend();

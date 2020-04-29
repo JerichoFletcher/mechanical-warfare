@@ -19,12 +19,12 @@ const serpentUnit = extendContent(UnitType, "serpent", {
     this.region = Core.atlas.find("revenant");
     this.rotorBladeRegion = Core.atlas.find("mechanical-warfare-rotor-blade");
     this.rotorTopRegion = Core.atlas.find("mechanical-warfare-rotor-top");
+    this.rotorOffset = 0;
+    this.rotorScale = 1;
+    this.rotorSpeed = 1;
   },
 });
 serpentUnit.create(copterBase);
-serpentUnit.rotorOffset = 1;
-serpentUnit.rotorScale = 1;
-serpentUnit.rotorSpeed = 1;
 
 const serpentFactory = extendContent(UnitFactory, "serpent-factory", {
   load(){

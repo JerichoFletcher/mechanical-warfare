@@ -14,7 +14,7 @@ consumes: {
   }
 }
 category: units
-research: fortress-factory
+research: sabre-factory
 requirements: [
   uranium/50
   lead/175

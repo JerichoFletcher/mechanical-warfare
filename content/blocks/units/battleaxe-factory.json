@@ -21,7 +21,7 @@ consumes: {
 }
 hasLiquids: true
 category: units
-research: revenant-factory
+research: shadow-factory
 requirements: [
   uranium/200
   titanium/325

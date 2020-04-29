@@ -1,0 +1,16 @@
+size: 4
+produceTime: 200
+maxSpawn: 4
+consumes: {
+  power: 2
+  items: {
+    items: [
+      silicon/1
+    ]
+  }
+}
+requirements: [
+  copper/1
+]
+category: units
+research: revenant-factory

@@ -18,12 +18,6 @@ fireAuraBullet.damage = 1;
 fireAuraBullet.status = StatusEffects.melting;
 fireAuraBullet.hitEffect = Fx.none;
 
-const fireAuraConsumer = new ConsumeLiquid(Vars.content.getByName(ContentType.liquid, modName + "-liquid-lava"), 1);
-fireAuraConsumer.valid = function(entity){
-  return entity != null && entity.liquids != null && entity.liquids.get(this.liquid) >= this.use(entity) && entity.target != null;
-};
-fireAuraConsumer.display = function(stats){};
-
 /* Fire Aura */
 const fireAura = extendContent(PowerTurret, "fire-aura", {
   load(){
@@ -111,24 +105,41 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
   },
   setStats(){
     this.super$setStats();
-    this.consumes.add(fireAuraConsume);
+    this.stats.add(BlockStat.input, new LiquidValue(this.liquidAsAmmo(), this.shootType.ammoMultiplier, true));
   },
   useAmmo: function(tile){
-    tile.entity.cons.trigger();
-    return this.super$useAmmo(tile);
+    var entity = tile.ent();
+    if(tile.isEnemyCheat()){
+      return this.shootType;
+    }
+    var type = this.shootType;
+    entity.liquids.remove(entity.liquids.current(), type.ammoMultiplier);
+    return type;
+  },
+  acceptItem: function(item, tile, source){
+    return false;
+  },
+  acceptLiquid: function(tile, source, liquid, amount){
+    return this.liquidAsAmmo() == liquid || tile.entity.liquids.current() == liquid && tile.entity.liquids.get(tile.entity.liquids.current()) <= this.shootType.ammoMultiplier + 0.001;
   },
   hasAmmo: function(tile){
-    return tile.entity.cons.valid();
+    var entity = tile.ent();
+    return this.liquidAsAmmo() == entity.liquids.current() && entity.liquids.total() >= this.shootType.ammoMultiplier;
   },
   shouldTurn: function(tile){
     return false;
+  },
+  liquidAsAmmo: function(){
+    return Vars.content.getByName(this.liquidAmmoName);
   },
 });
 fireAura.reload = 5;
 fireAura.shootType = fireAuraBullet;
 fireAura.range = fireAuraRange;
 fireAura.areaEffectCount = 3;
+fireAura.hasItems = false;
 fireAura.hasLiquids = true;
+fireAura.liquidAmmoName = modName + "-liquid-lava";
 fireAura.liquidCapacity = 20;
 fireAura.shootEffect = fireAuraEffect;
 fireAura.smokeEffect = Fx.fireSmoke;

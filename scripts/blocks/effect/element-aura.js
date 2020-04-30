@@ -14,8 +14,9 @@ const fireAuraBullet = extend(BasicBulletType, {});
 fireAuraBullet.bulletSprite = Core.atlas.find("clear");
 fireAuraBullet.speed = 0.001;
 fireAuraBullet.lifetime = 1;
-fireAuraBullet.damage = 0;
+fireAuraBullet.damage = 1;
 fireAuraBullet.status = StatusEffects.melting;
+fireAuraBullet.hitEffect = Fx.none;
 
 /* Fire Aura */
 const fireAura = extendContent(PowerTurret, "fire-aura", {
@@ -74,6 +75,7 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
       }
     }));
     this.effects(tile);
+    this.effectsArea(tile, this.areaEffectCount);
     this.useAmmo(tile);
   },
   effects(tile){
@@ -82,14 +84,35 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
     var entity = tile.ent();
     Effects.effect(shootEffect, tile.drawx(), tile.drawy(), entity.rotation);
     Effects.effect(smokeEffect, tile.drawx(), tile.drawy(), entity.rotation);
-    for (var i = 0; i < this.areaEffectCount; i++){
+    this.shootSound.at(tile, Mathf.random(0.9, 1.1));
+  },
+  effectsArea(tile, count){
+    var shootEffect = this.shootEffect == Fx.none ? (this.peekAmmo(tile)).shootEffect : this.shootEffect;
+    var smokeEffect = this.smokeEffect == Fx.none ? (this.peekAmmo(tile)).smokeEffect : this.smokeEffect;
+    var entity = tile.ent();
+    for (var i = 0; i < count; i++){
       Effects.effect(shootEffect,
         tile.drawx() + Angles.trnsx(Mathf.random(360), Mathf.random(this.range)),
         tile.drawy() + Angles.trnsy(Mathf.random(360), Mathf.random(this.range)),
         entity.rotation
       );
+      Effects.effect(smokeEffect,
+        tile.drawx() + Angles.trnsx(Mathf.random(360), Mathf.random(this.range)),
+        tile.drawy() + Angles.trnsy(Mathf.random(360), Mathf.random(this.range)),
+        entity.rotation
+      );
     }
-    this.shootSound.at(tile, Mathf.random(0.9, 1.1));
+  },
+  setStats(){
+    this.super$setStats();
+    this.consumes.add(extend(ConsumeLiquid, {
+      liquid: Vars.content.getByName(ContentType.liquid, modName + "-liquid-lava"),
+      amount: 0.4,
+      valid(entity){
+        return entity.target != null;
+      },
+      display(stats){},
+    }));
   },
   useAmmo: function(tile){
     tile.entity.cons.trigger();

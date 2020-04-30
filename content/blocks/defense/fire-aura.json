@@ -2,14 +2,6 @@ size: 2
 health: 320
 powerUse: 1.5
 shootSound: none
-consumes: {
-  liquid: {
-    liquid: liquid-lava
-    amount: 0.5
-    booster: false
-    optional: false
-  }
-}
 requirements: [
   lead/125
   iron/75

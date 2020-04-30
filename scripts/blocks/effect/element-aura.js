@@ -31,7 +31,7 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
       entity.target = null;
     }
     entity.recoil = 0;
-    entity.rotation = 0;
+    entity.rotation = 90;
     entity.heat = Mathf.lerpDelta(entity.heat,
       this.validateTarget(tile) ? 1 : 0,
       this.validateTarget(tile) ? this.warmup : this.cooldown

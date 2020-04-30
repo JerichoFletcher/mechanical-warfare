@@ -73,7 +73,7 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     // bolts
     Draw.blend(Blending.additive);
     for (var i = 1; i <= 6; i++){
-      if (Mathf.randomSeed(Mathf.round(Time.time() * (99 + 9 * i))) > heat){continue;}
+      if (Mathf.randomSeed(Mathf.round(Time.time() * (99 + 9 * i * tile.pos()))) > heat){continue;}
       var j = i - 1;
       var rawrot = Time.time() * boltrotspeed[j] * boltrotdir[j];
       var truerot =

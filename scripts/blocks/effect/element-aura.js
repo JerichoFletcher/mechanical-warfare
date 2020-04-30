@@ -130,7 +130,7 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
     return false;
   },
   liquidAsAmmo: function(){
-    return Vars.content.getByName(modName + "-liquid-lava");
+    return Vars.content.getByName(ContentType.liquid, this.liquidAmmoName);
   },
 });
 fireAura.reload = 5;
@@ -139,6 +139,7 @@ fireAura.range = fireAuraRange;
 fireAura.areaEffectCount = 3;
 fireAura.hasItems = false;
 fireAura.hasLiquids = true;
+fireAura.liquidAmmoName = modName + "-liquid-lava"
 fireAura.liquidCapacity = 20;
 fireAura.shootEffect = fireAuraEffect;
 fireAura.smokeEffect = Fx.fireSmoke;

@@ -18,6 +18,12 @@ fireAuraBullet.damage = 1;
 fireAuraBullet.status = StatusEffects.melting;
 fireAuraBullet.hitEffect = Fx.none;
 
+const fireAuraConsumer = new ConsumeLiquid(Vars.content.getByName(ContentType.liquid, modName + "-liquid-lava"), 1);
+fireAuraConsumer.valid = function(entity){
+  return entity != null && entity.liquids != null && entity.liquids.get(this.liquid) >= this.use(entity) && entity.target != null;
+};
+fireAuraConsumer.display = function(stats){};
+
 /* Fire Aura */
 const fireAura = extendContent(PowerTurret, "fire-aura", {
   load(){
@@ -105,14 +111,7 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
   },
   setStats(){
     this.super$setStats();
-    this.consumes.add(extend(ConsumeLiquid, {
-      liquid: Vars.content.getByName(ContentType.liquid, modName + "-liquid-lava"),
-      amount: 0.4,
-      valid(entity){
-        return entity.target != null;
-      },
-      display(stats){},
-    }));
+    this.consumes.add(fireAuraConsume);
   },
   useAmmo: function(tile){
     tile.entity.cons.trigger();

@@ -4,7 +4,7 @@ const fireAuraRange = 15 * Vars.tilesize;
 const fireAuraColor = "ffaa44";
 const fireAuraEffect = newEffect(40, e => {
   Draw.color(Color.valueOf(fireAuraColor), Pal.darkFlame, e.fin());
-  Angles.randLenVectors(e.id, 3, 2 + e.fin() * 9, cons((x, y) => {
+  Angles.randLenVectors(e.id, 3, 2 + e.fin() * 9, new Floatc2((x, y) => {
     Fill.circle(e.x + x, e.y + y, 0.2 + e.fout() * 1.5);
   }));
 });

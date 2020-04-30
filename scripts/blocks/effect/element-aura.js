@@ -4,9 +4,9 @@ const fireAuraRange = 15 * Vars.tilesize;
 const fireAuraColor = "ffaa44";
 const fireAuraEffect = newEffect(40, e => {
   Draw.color(Color.valueOf(fireAuraColor), Pal.darkFlame, e.fin());
-  Angles.randLenVectors(e.id, 3, 2 + e.fin() * 9, new Floatc2((x, y) => {
+  Angles.randLenVectors(e.id, 3, 2 + e.fin() * 9, new Floatc2(){get: (x, y) => {
     Fill.circle(e.x + x, e.y + y, 0.2 + e.fout() * 1.5);
-  }));
+  }});
 });
 
 /* Aura bullet */
@@ -69,7 +69,7 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
     Units.nearbyEnemies(tile.getTeam(), tile.drawx() - radius, tile.drawy() - radius, radius * 2, radius * 2, cons(unit => {
       if(unit.withinDst(tile.drawx(), tile.drawy(), radius)){
         if(!unit.isDead() && unit instanceof HealthTrait){
-          Calls.createBullet(type, tile.getTeam(), unit.x, unit.x, 0, 1, 1);
+          Calls.createBullet(type, tile.getTeam(), unit.x, unit.y, 0, 1, 1);
         }
       }
     }));

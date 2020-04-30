@@ -36,7 +36,7 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
       this.validateTarget(tile) ? 1 : 0,
       this.validateTarget(tile) ? this.warmup : this.cooldown
     );
-    if (entity.cons.valid()){
+    if(this.hasAmmo(tile) && entity.cons.valid()){
       if(entity.timer.get(this.timerTarget, this.targetInterval)){
         this.findTarget(tile);
       }
@@ -105,7 +105,7 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
   },
   setStats(){
     this.super$setStats();
-    this.stats.add(BlockStat.input, new LiquidValue(this.liquidAsAmmo(), this.shootType.ammoMultiplier, true));
+    this.stats.add(BlockStat.input, new LiquidValue(this.liquidAsAmmo(), this.shootType.ammoMultiplier * 60 / this.reload, true));
   },
   useAmmo: function(tile){
     var entity = tile.ent();

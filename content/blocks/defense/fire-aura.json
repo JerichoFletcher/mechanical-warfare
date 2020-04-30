@@ -1,6 +1,7 @@
 size: 2
 health: 320
 powerUse: 1.5
+shootSound: none
 consumes: {
   liquid: {
     liquid: liquid-lava

@@ -82,7 +82,7 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
     var entity = tile.ent();
     Effects.effect(shootEffect, tile.drawx(), tile.drawy(), entity.rotation);
     Effects.effect(smokeEffect, tile.drawx(), tile.drawy(), entity.rotation);
-    for (var i = 0; i < this.areaEffectCount; j++){
+    for (var i = 0; i < this.areaEffectCount; i++){
       Effects.effect(shootEffect,
         tile.drawx() + Angles.trnsx(Mathf.random(360), Mathf.random(this.range)),
         tile.drawy() + Angles.trnsy(Mathf.random(360), Mathf.random(this.range)),

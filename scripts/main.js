@@ -6,4 +6,4 @@ require("blocks/defense")
 //require("blocks/effect/elementAura")
 
 //units
-copter = require("units/copter-unit")
+require("units/copter-unit")

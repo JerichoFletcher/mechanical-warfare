@@ -12,7 +12,7 @@ const copterBase = prov(() => extend(HoverUnit, {
       var tra = this.rotation - 90;
       var trY = -this.type.weapon.getRecoil(this, (sign > 0)) + this.type.weaponOffsetY;
       var w = -sign * this.type.weapon.region.getWidth() * Draw.scl;
-      var h = this.type.weapon.getHeight() * Draw.scl;
+      var h = this.type.weapon.region.getHeight() * Draw.scl;
       Draw.rect(this.type.weapon.region,
         this.x + Angles.trnsx(tra, this.getWeapon().width * sign, trY),
         this.y + Angles.trsny(tra, this.getWeapon().width * sign, trY),

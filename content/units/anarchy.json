@@ -39,6 +39,7 @@ weapon: {
     inaccuracy: 2
     collidesTiles: true
     collidesAir: false
+    collides: true
     hitShake: 3
     frontColor: ddeeff
     backColor: aabbcc

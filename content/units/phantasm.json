@@ -16,6 +16,7 @@ baseRotateSpeed: 0.08
 // Raw DPS: 60
 weapon: {
   name: phantasmal-gun
+  ignoreRotation: true
   reload: 10
   alternate: true
   inaccuracy: 2

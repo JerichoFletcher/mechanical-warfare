@@ -1,6 +1,26 @@
 const copterBase = prov(() => extend(HoverUnit, {
   draw(){
-    this.super$draw();
+    Draw.mixcol(Color.white, this.hitTime / this.hitDuration);
+    Draw.rect(this.type.region, this.x, this.y, this.rotation - 90);
+    this.drawWeapons();
+    this.drawRotor();
+    Draw.mixcol();
+  },
+  drawWeapons(){
+    for(var i = 0; i <= 1; i++){
+      var sign = Mathf.signs[i];
+      var tra = this.rotation - 90;
+      var trY = -this.type.weapon.getRecoil(this, (sign > 0)) + this.type.weaponOffsetY;
+      var w = -sign * this.type.weapon.region.getWidth() * Draw.scl;
+      var h = this.type.weapon.getHeight() * Draw.scl;
+      Draw.rect(this.type.weapon.region,
+        this.x + Angles.trnsx(tra, this.getWeapon().width * sign, trY),
+        this.y + Angles.trsny(tra, this.getWeapon().width * sign, trY),
+        w, h, tra
+      );
+    },
+  },
+  drawRotor(){
     var offx = Angles.trnsx(this.rotation, this.type.rotorOffset());
     var offy = Angles.trnsy(this.rotation, this.type.rotorOffset());
     var rotorBladeRegion = Core.atlas.isFound(this.type.rotorBladeRegion()) ?
@@ -10,11 +30,9 @@ const copterBase = prov(() => extend(HoverUnit, {
     if(Core.atlas.isFound(rotorBladeRegion) && Core.atlas.isFound(rotorTopRegion)){
       var width = rotorBladeRegion.getWidth() * this.type.rotorScale();
       var height = rotorBladeRegion.getHeight() * this.type.rotorScale();
-      Draw.mixcol(Color.white, this.hitTime / this.hitDuration);
       Draw.rect(rotorBladeRegion, this.x + offx, this.y + offy, Time.time() * this.type.rotorSpeed());
       Draw.rect(rotorBladeRegion, this.x + offx, this.y + offy, 90 + Time.time() * this.type.rotorSpeed());
       Draw.rect(rotorTopRegion, this.x + offx, this.y + offy);
-      Draw.mixcol();
     }
   },
 }));
@@ -23,9 +41,7 @@ const copterBase = prov(() => extend(HoverUnit, {
 const serpentUnit = extendContent(UnitType, "serpent", {
   load(){
     this.weapon.load();
-    this.region = Core.atlas.find("revenant");
-    //this.bladeRegion = Core.atlas.find(this.name + "-rotor-blade");
-    //this.topRegion = Core.atlas.find(this.name + "-rotor-top");
+    this.region = Core.atlas.find(this.name);
   },
   rotorBladeRegion: function(){
     return typeof(this.bladeRegion) !== "undefined" ? this.bladeRegion : Core.atlas.find("error");

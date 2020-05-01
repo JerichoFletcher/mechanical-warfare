@@ -12,7 +12,7 @@ rotateWeapon: true
 engineOffset: 9
 engineSize: 2.5
 rotatespeed: 0.1
-baseRotateSpeed: 0.08
+baseRotateSpeed: 0.5
 // Raw DPS: 60
 weapon: {
   name: phantasmal-gun

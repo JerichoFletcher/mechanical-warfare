@@ -25,6 +25,12 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
     this.liquidRegion = Core.atlas.find(this.name + "-liquid");
     this.topRegion = Core.atlas.find(this.name + "-top");
   },
+  generateIcons: function(){
+    return [
+      Core.atlas.find(this.name),
+      Core.atlas.find(this.name + "-top")
+    ];
+  },
   update(tile){
     var entity = tile.ent();
     if(!this.validateTarget(tile)){

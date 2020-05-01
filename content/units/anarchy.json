@@ -1,5 +1,5 @@
 type: GroundUnit
-health: 6000
+health: 7000
 speed: 0.16
 maxVelocity: 0.9
 mass: 5
@@ -7,12 +7,12 @@ drag: 0.6
 hitsize: 18
 rotatespeed: 0.08
 targetAir: false
-// Raw DPS: 
+// Raw DPS: 750
 weapon: {
   name: anarchy-blaster
   length: 15
-  width: 25
-  reload: 90
+  width: 20
+  reload: 80
   alternate: true
   recoil: 6
   shake: 3
@@ -21,30 +21,26 @@ weapon: {
   shotDelay: 0
   spacing: 0
   ejectEffect: shellEjectBig
-  shootSound: quakeshoot
+  shootSound: quakeshot
   bullet: {
     type: ArtilleryBulletType
     bulletWidth: 17
     bulletHeight: 22
     lifetime: 100
     speed: 8
-    damage: 80
-    splashDamage: 150
-    splashDamageRadius: 48
+    damage: 150
+    splashDamage: 100
+    splashDamageRadius: 16
     hitEffect: blastExplosion
     despawnEffect: blastExplosion
     shootEffect: shootBig
     smokeEffect: shootBigSmoke
-    hitSound: boom
+    hitSound: explosion
     inaccuracy: 2
-    status: shocked
-    statusDuration: 20
     collidesTiles: true
     collidesAir: false
-    lightining: 10
-    lightningLength: 8
     hitShake: 3
     frontColor: ddeeff
-    backColor: ccbbaa
+    backColor: aabbcc
   }
 }

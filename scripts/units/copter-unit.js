@@ -18,7 +18,7 @@ const copterBase = prov(() => extend(HoverUnit, {
         this.y + Angles.trsny(tra, this.getWeapon().width * sign, trY),
         w, h, tra
       );
-    },
+    }
   },
   drawRotor(){
     var offx = Angles.trnsx(this.rotation, this.type.rotorOffset());

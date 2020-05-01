@@ -11,6 +11,7 @@ shootCone: 90
 rotatespeed: 0.03
 baseRotateSpeed: 0.01
 weapon: {
+  name: serpent-gun
   reload: 6
   recoil: 3
   alternate: true

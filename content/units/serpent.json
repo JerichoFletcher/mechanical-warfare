@@ -10,27 +10,3 @@ rotatespeed: 0.02
 baseRotateSpeed: 0.01
 engineOffset: 14
 engineSize: 1.5
-// Raw DPS: 40
-//  weapon: {
-//  name: serpent-gun
-//  length: 5
-//  width: 10
-//  reload: 12
-//  alternate: true
-//  recoil: 2
-//  shake: 0
-//  inaccuracy: 3
-//  ejectEffect: shellEjectSmall
-//  shootSound: shootSnap
-//  bullet: {
-//    type: BasicBulletType
-//    bulletWidth: 6
-//    bulletHeight: 8
-//    speed: 7
-//    lifetime: 24
-//    damage: 4
-//    shootEffect: shootSmall
-//    smokeEffect: shootSmallSmoke
-//    inaccuracy: 2
-//  }
-//}

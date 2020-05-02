@@ -38,6 +38,15 @@ const copterBase = prov(() => extend(HoverUnit, {
 }));
 
 // Serpent
+const serpentBullet = extend(BasicBulletType, {});
+serpentBullet.width = 6;
+serpentBullet.height = 8;
+serpentBullet.speed = 7;
+serpentBullet.lifetime = 19;
+serpentBullet.damage = 4;
+serpentBullet.shootEffect = Fx.shootSmall;
+serpentBullet.smokeEffect = Fx.shootSmallSmoke;
+
 const serpentWeapon = extendContent(Weapon, "serpent-gun", {
   
 });
@@ -51,15 +60,6 @@ serpentWeapon.inaccuracy = 3;
 serpentWeapon.ejectEffect = Fx.shellEjectSmall;
 serpentWeapon.shootSound = Sounds.shootSnap;
 serpentWeapon.bullet = serpentBullet;
-
-const serpentBullet = extend(BasicBulletType, {});
-serpentBullet.width = 6;
-serpentBullet.height = 8;
-serpentBullet.speed = 7;
-serpentBullet.lifetime = 19;
-serpentBullet.damage = 4;
-serpentBullet.shootEffect = Fx.shootSmall;
-serpentBullet.smokeEffect = Fx.shootSmallSmoke;
 
 const serpentUnit = extendContent(UnitType, "serpent", {
   load(){

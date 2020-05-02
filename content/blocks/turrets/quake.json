@@ -1,6 +1,6 @@
 health: 2400
 size: 4
-reload: 700
+reload: 500
 ammoUseEffect: shellEjectBig
 inaccuracy: 2
 rotatespeed: 0.25

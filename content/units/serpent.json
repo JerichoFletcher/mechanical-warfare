@@ -1,21 +1,20 @@
-localizedName: "Serpent"
 flying: true
 health: 750
-mass: 3
+mass: 4
 hitsize: 15
-speed: 0.42
-drag: 0.1
+speed: 0.7
+drag: 0.01
 maxVelocity: 0.5
 range: 150
 shootCone: 90
-rotatespeed: 0.1
-baseRotateSpeed: 0.2
-range: 60
+rotatespeed: 0.01
+baseRotateSpeed: 0.02
 engineOffset: 7
 engineSize: 1.5
 // Raw DPS: 80
 weapon: {
   name: serpent-gun
+  length: 5
   width: 10
   reload: 12
   alternate: true
@@ -28,8 +27,8 @@ weapon: {
     type: BasicBulletType
     bulletWidth: 6
     bulletHeight: 8
-    speed: 6
-    lifetime: 20
+    speed: 7
+    lifetime: 24
     damage: 8
     shootEffect: shootSmall
     smokeEffect: shootSmallSmoke

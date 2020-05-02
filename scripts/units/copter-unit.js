@@ -64,9 +64,5 @@ const serpentUnit = extendContent(UnitType, "serpent", {
 });
 serpentUnit.create(copterBase);
 
-const serpentFactory = extendContent(UnitFactory, "serpent-factory", {
-  load(){
-    this.super$load();
-  },
-});
+const serpentFactory = extendContent(UnitFactory, "serpent-factory", {});
 serpentFactory.unitType = serpentUnit;

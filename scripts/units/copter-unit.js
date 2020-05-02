@@ -66,13 +66,7 @@ serpentUnit.create(copterBase);
 
 const serpentFactory = extendContent(UnitFactory, "serpent-factory", {
   load(){
-    this.region = Core.atlas.find(this.name);
-    this.topRegion = Core.atlas.find("clear");
+    this.super$load();
   },
-  generateIcons: function(){
-    return [
-      Core.atlas.find(this.name)
-    ];
-  }
 });
 serpentFactory.unitType = serpentUnit;

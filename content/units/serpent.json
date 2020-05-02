@@ -1,17 +1,16 @@
 flying: true
-health: 750
+health: 420
 mass: 4
 hitsize: 15
-speed: 0.4
+speed: 0.5
 drag: 0.01
 maxVelocity: 0.8
 range: 150
-shootCone: 90
-rotatespeed: 0.01
-baseRotateSpeed: 0.02
-engineOffset: 7
+rotatespeed: 0.02
+baseRotateSpeed: 0.01
+engineOffset: 14
 engineSize: 1.5
-// Raw DPS: 80
+// Raw DPS: 40
 weapon: {
   name: serpent-gun
   length: 5
@@ -29,7 +28,7 @@ weapon: {
     bulletHeight: 8
     speed: 7
     lifetime: 24
-    damage: 8
+    damage: 4
     shootEffect: shootSmall
     smokeEffect: shootSmallSmoke
     inaccuracy: 2

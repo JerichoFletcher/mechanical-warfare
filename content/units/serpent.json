@@ -3,19 +3,34 @@ flying: true
 health: 750
 mass: 3
 hitsize: 15
-speed: 0.2
-drag: 0.01
+speed: 0.42
+drag: 0.1
 maxVelocity: 0.5
 range: 150
 shootCone: 90
-rotatespeed: 0.03
-baseRotateSpeed: 0.01
+rotatespeed: 0.1
+baseRotateSpeed: 0.2
+range: 
+// Raw DPS: 80
 weapon: {
   name: serpent-gun
-  reload: 6
-  recoil: 3
+  width: 5
+  reload: 12
   alternate: true
-  length: 5
-  shootSound: shootBig
-  bullet: standardDenseBig
+  recoil: 2
+  shake: 0
+  inaccuracy: 3
+  ejectEffect: shellEjectSmall
+  shootSound: shootSnap
+  bullet: {
+    type: BasicBulletType
+    bulletWidth: 6
+    bulletHeight: 8
+    speed: 5
+    lifetime: 16
+    damage: 8
+    shootEffect: shootSmall
+    smokeEffect: shootSmallSmoke
+    inaccuracy: 2
+  }
 }

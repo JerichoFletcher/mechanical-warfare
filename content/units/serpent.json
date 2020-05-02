@@ -10,7 +10,7 @@ range: 150
 shootCone: 90
 rotatespeed: 0.1
 baseRotateSpeed: 0.2
-range: 
+range: 60
 // Raw DPS: 80
 weapon: {
   name: serpent-gun

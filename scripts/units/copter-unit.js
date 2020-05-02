@@ -58,13 +58,21 @@ const serpentUnit = extendContent(UnitType, "serpent", {
   rotorOffset: function(){
     return 1;
   },
+  isTwinBlade: function(){
+    return false;
+  },
 });
 serpentUnit.create(copterBase);
 
 const serpentFactory = extendContent(UnitFactory, "serpent-factory", {
   load(){
-    this.region = Core.atlas.find(modName + "-phantasm-factory");
-    this.topRegion = Core.atlas.find(modName + "-phantasm-factory-top");
+    this.region = Core.atlas.find(this.name);
+    this.topRegion = Core.atlas.find("clear");
+  },
+  generateIcons: function(){
+    return [
+      Core.atlas.find(this.name)
+    ];
   }
 });
 serpentFactory.unitType = serpentUnit;

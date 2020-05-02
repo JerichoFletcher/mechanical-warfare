@@ -62,7 +62,31 @@ const serpentUnit = extendContent(UnitType, "serpent", {
     return false;
   },
 });
+serpentUnit.weapon = serpentWeapon;
 serpentUnit.create(copterBase);
+
+const serpentWeapon = extendContent(Weapon, "serpent-gun", {
+  
+});
+serpentWeapon.width = 10;
+serpentWeapon.length = 5;
+serpentWeapon.reload = 12;
+serpentWeapon.alternate = true;
+serpentWeapon.recoil = 2;
+serpentWeapon.shake = 0;
+serpentWeapon.inaccuracy = 3;
+serpentWeapon.ejectEffect = Fx.shellEjectSmall;
+serpentWeapon.shootSound = Sounds.shootSnap;
+serpentWeapon.bullet = serpentBullet;
+
+const serpentBullet = extend(BasicBulletType, {});
+serpentBullet.width = 6;
+serpentBullet.height = 8;
+serpentBullet.speed = 7;
+serpentBullet.lifetime = 19;
+serpentBullet.damage = 4;
+serpentBullet.shootEffect = Fx.shootSmall;
+serpentBullet.smokeEffect = Fx.shootSmallSmoke;
 
 const serpentFactory = extendContent(UnitFactory, "serpent-factory", {
   load(){

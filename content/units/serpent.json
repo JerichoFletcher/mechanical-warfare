@@ -11,10 +11,12 @@ shootCone: 90
 rotatespeed: 0.1
 baseRotateSpeed: 0.2
 range: 60
+engineOffset: 7
+engineSize: 1.5
 // Raw DPS: 80
 weapon: {
   name: serpent-gun
-  width: 5
+  width: 10
   reload: 12
   alternate: true
   recoil: 2
@@ -26,8 +28,8 @@ weapon: {
     type: BasicBulletType
     bulletWidth: 6
     bulletHeight: 8
-    speed: 5
-    lifetime: 16
+    speed: 6
+    lifetime: 20
     damage: 8
     shootEffect: shootSmall
     smokeEffect: shootSmallSmoke

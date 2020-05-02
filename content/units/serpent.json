@@ -11,7 +11,7 @@ baseRotateSpeed: 0.01
 engineOffset: 14
 engineSize: 1.5
 // Raw DPS: 40
-weapon: {
+/*weapon: {
   name: serpent-gun
   length: 5
   width: 10
@@ -33,4 +33,4 @@ weapon: {
     smokeEffect: shootSmallSmoke
     inaccuracy: 2
   }
-}
+}*/

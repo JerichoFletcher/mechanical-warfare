@@ -2,9 +2,9 @@ flying: true
 health: 750
 mass: 4
 hitsize: 15
-speed: 0.7
+speed: 0.4
 drag: 0.01
-maxVelocity: 0.5
+maxVelocity: 0.8
 range: 150
 shootCone: 90
 rotatespeed: 0.01

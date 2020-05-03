@@ -21,17 +21,28 @@ const copterBase = prov(() => extend(HoverUnit, {
     }
   },
   drawRotor(){
-    var offx = Angles.trnsx(this.rotation, this.type.rotorOffset());
-    var offy = Angles.trnsy(this.rotation, this.type.rotorOffset());
+    var offx = Angles.trnsx(this.rotation, this.type.rotorOffset(), this.type.rotorWidth());
+    var offy = Angles.trnsy(this.rotation, this.type.rotorOffset(), this.type.rotorWidth());
     var rotorBladeRegion = Core.atlas.isFound(this.type.rotorBladeRegion()) ?
       this.type.rotorBladeRegion() : Core.atlas.find(modName + "-rotor-blade");
     var rotorTopRegion = Core.atlas.isFound(this.type.rotorTopRegion()) ?
       this.type.rotorTopRegion() : Core.atlas.find(modName + "-rotor-top");
-    if(Core.atlas.isFound(rotorBladeRegion) && Core.atlas.isFound(rotorTopRegion)){
-      var width = rotorBladeRegion.getWidth() * this.type.rotorScale();
-      var height = rotorBladeRegion.getHeight() * this.type.rotorScale();
-      Draw.rect(rotorBladeRegion, this.x + offx, this.y + offy, Time.time() * this.type.rotorSpeed());
-      Draw.rect(rotorBladeRegion, this.x + offx, this.y + offy, 90 + Time.time() * this.type.rotorSpeed());
+    var width = rotorBladeRegion.getWidth() * this.type.rotorScale();
+    var height = rotorBladeRegion.getHeight() * this.type.rotorScale();
+    var rotorAngle = Time.time() * this.type.rotorSpeed() % 360;
+    var rotorAngle2 = this.type.alternateRotor() ? 360 - (rotorAngle % 360) : 90 + rotorAngle;
+    if(this.type.isTwinBlade()){
+      for(var i = 0; i <= 1; i++){
+        var sign = Mathf.signs[i];
+        var twinOffX = offx * sign;
+        var twinOffY = offy * sign;
+        Draw.rect(rotorBladeRegion, this.x + twinOffX, this.y + twinOffY, width, height, rotorAngle);
+        Draw.rect(rotorBladeRegion, this.x + twinOffX, this.y + twinOffY, width, height, 90 + rotorAngle);
+        Draw.rect(rotorTopRegion, this.x + twinOffX, this.y + twinOffY);
+      }
+    }else{
+      Draw.rect(rotorBladeRegion, this.x + offx, this.y + offy, width, height, rotorAngle);
+      Draw.rect(rotorBladeRegion, this.x + offx, this.y + offy, width, height, 90 + rotorAngle);
       Draw.rect(rotorTopRegion, this.x + offx, this.y + offy);
     }
   },
@@ -80,6 +91,12 @@ const serpentUnit = extendContent(UnitType, "serpent", {
   },
   rotorOffset: function(){
     return 3;
+  },
+  rotorWidth: function(){
+    return 0;
+  },
+  alternateRotor: function(){
+    return true;
   },
   isTwinBlade: function(){
     return false;

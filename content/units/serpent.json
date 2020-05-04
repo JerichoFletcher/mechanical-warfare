@@ -5,7 +5,7 @@ hitsize: 15
 speed: 0.5
 drag: 0.01
 maxVelocity: 0.8
-range: 150
+range: 80
 rotatespeed: 0.02
 baseRotateSpeed: 0.01
 engineOffset: 14

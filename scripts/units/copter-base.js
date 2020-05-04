@@ -1,4 +1,11 @@
 module.exports = {
+  drawBase(base){
+    Draw.mixcol(Color.white, base.hitTime / base.hitDuration);
+    Draw.rect(base.type.region, base.x, base.y, base.rotation - 90);
+    base.drawWeapons();
+    base.drawRotor();
+    Draw.mixcol();
+  },
   drawRotor(base){
     var bladeRegion = Core.atlas.isFound(base.type.rotorBladeRegion()) ?
       base.type.rotorBladeRegion() : Core.atlas.find(modName + "-rotor-blade");
@@ -29,7 +36,7 @@ module.exports = {
     for(var i = 0; i <= 1; i++){
       var sign = Mathf.signs[i];
       var angle = base.rotation - 90;
-      var trY = base.type.offsetY - base.type.weapon.getRecoil(base, (sign > 0));
+      var trY = base.type.weaponOffsetY - base.type.weapon.getRecoil(base, (sign > 0));
       var w = -sign * base.type.weapon.region.getWidth() * Draw.scl;
       var h = base.type.weapon.region.getHeight() * Draw.scl;
       Draw.rect(base.type.weapon.region, 

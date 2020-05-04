@@ -7,7 +7,7 @@ rotatespeed: 0.25
 shootCone: 5
 range: 360
 recoil: 6
-restitution: 0.005
+restitution: 0.008
 cooldown: 0.02
 ammo: {
   he-shell: {

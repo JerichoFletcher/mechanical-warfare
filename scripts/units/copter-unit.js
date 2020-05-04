@@ -82,6 +82,8 @@ serpentUnit.create(prov(() => extend(HoverUnit, {
         var offx = Angles.trnsx(this.rotation - 90, this.getWeapon().width * this.currentLauncher / 2, 1);
         var offy = Angles.trnsy(this.rotation - 90, this.getWeapon().width * this.currentLauncher / 2, 1);
         Calls.createBullet(serpentMissile, this.getTeam(), this.x + offx, this.y + offy, this.rotation, 1 - Mathf.random(0.1), 1);
+        Sounds.missile.at(this.x, this.y, Mathf.random(0.9, 1.1));
+        this.missileTimer = 0;
         if(this.currentLauncher < 0){
           this.currentLauncher = 1;
         }else{

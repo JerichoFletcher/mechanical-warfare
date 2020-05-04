@@ -12,7 +12,7 @@ serpentBullet.smokeEffect = Fx.shootSmallSmoke;
 
 const serpentWeapon = extendContent(Weapon, "serpent-gun", {
   load(){
-    this.region = Core.atlas.find(modName + "-serpent-gun-equip");
+    this.region = Core.atlas.find(this.name + "-equip");
   },
 });
 serpentWeapon.width = 10;
@@ -59,11 +59,7 @@ const serpentUnit = extendContent(UnitType, "serpent", {
 serpentUnit.weapon = serpentWeapon;
 serpentUnit.create(prov(() => extend(HoverUnit, {
   draw(){
-    Draw.mixcol(Color.white, this.hitTime / this.hitDuration);
-    Draw.rect(this.type.region, this.x, this.y, this.rotation - 90);
-    this.drawWeapons();
-    this.drawRotor();
-    Draw.mixcol();
+    copterLib.drawBase(this);
   },
   drawWeapons(){
     copterLib.drawWeapons(this);

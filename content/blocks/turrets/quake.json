@@ -23,6 +23,7 @@ ammo: {
 	backColor: b6573a
 	frontColor: ffd385
 	ammoMultiplier: 4
+	hitSound: boom
   }
   ap-shell: {
     damage: 1700
@@ -38,6 +39,7 @@ ammo: {
 	backColor: b68f3a
 	frontColor: fbff85
 	ammoMultiplier: 4
+	hitSound: boom
   }
 }
 requirements: [

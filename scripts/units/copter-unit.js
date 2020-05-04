@@ -1,52 +1,4 @@
-const copterBase = prov(() => extend(HoverUnit, {
-  draw(){
-    Draw.mixcol(Color.white, this.hitTime / this.hitDuration);
-    Draw.rect(this.type.region, this.x, this.y, this.rotation - 90);
-    this.drawWeapons();
-    this.drawRotor();
-    Draw.mixcol();
-  },
-  drawWeapons(){
-    for(var i = 0; i <= 1; i++){
-      var sign = Mathf.signs[i];
-      var tra = this.rotation - 90;
-      var trY = -this.type.weapon.getRecoil(this, (sign > 0)) + this.type.weaponOffsetY;
-      var w = -sign * this.type.weapon.region.getWidth() * Draw.scl;
-      var h = this.type.weapon.region.getHeight() * Draw.scl;
-      Draw.rect(this.type.weapon.region,
-        this.x + Angles.trnsx(tra, this.getWeapon().width * sign, trY),
-        this.y + Angles.trnsy(tra, this.getWeapon().width * sign, trY),
-        w, h, tra
-      );
-    }
-  },
-  drawRotor(){
-    var offx = Angles.trnsx(this.rotation, this.type.rotorOffset(), this.type.rotorWidth());
-    var offy = Angles.trnsy(this.rotation, this.type.rotorOffset(), this.type.rotorWidth());
-    var rotorBladeRegion = Core.atlas.isFound(this.type.rotorBladeRegion()) ?
-      this.type.rotorBladeRegion() : Core.atlas.find(modName + "-rotor-blade");
-    var rotorTopRegion = Core.atlas.isFound(this.type.rotorTopRegion()) ?
-      this.type.rotorTopRegion() : Core.atlas.find(modName + "-rotor-top");
-    var width = rotorBladeRegion.getWidth() * this.type.rotorScale();
-    var height = rotorBladeRegion.getHeight() * this.type.rotorScale();
-    var rotorAngle = Time.time() * this.type.rotorSpeed() % 360;
-    var rotorAngle2 = this.type.alternateRotor() ? 360 - (rotorAngle % 360) : 90 + rotorAngle;
-    if(this.type.isTwinBlade()){
-      for(var i = 0; i <= 1; i++){
-        var sign = Mathf.signs[i];
-        var twinOffX = offx * sign;
-        var twinOffY = offy * sign;
-        Draw.rect(rotorBladeRegion, this.x + twinOffX, this.y + twinOffY, width, height, rotorAngle);
-        Draw.rect(rotorBladeRegion, this.x + twinOffX, this.y + twinOffY, width, height, 90 + rotorAngle);
-        Draw.rect(rotorTopRegion, this.x + twinOffX, this.y + twinOffY);
-      }
-    }else{
-      Draw.rect(rotorBladeRegion, this.x + offx, this.y + offy, width, height, rotorAngle);
-      Draw.rect(rotorBladeRegion, this.x + offx, this.y + offy, width, height, 90 + rotorAngle);
-      Draw.rect(rotorTopRegion, this.x + offx, this.y + offy);
-    }
-  },
-}));
+const copterLib = require("units/copter-base");
 
 // Serpent
 const serpentBullet = extend(BasicBulletType, {});
@@ -58,9 +10,7 @@ serpentBullet.damage = 4;
 serpentBullet.shootEffect = Fx.shootSmall;
 serpentBullet.smokeEffect = Fx.shootSmallSmoke;
 
-const serpentWeapon = extendContent(Weapon, "serpent-gun", {
-  
-});
+const serpentWeapon = extendContent(Weapon, "serpent-gun", {});
 serpentWeapon.width = 10;
 serpentWeapon.length = 5;
 serpentWeapon.reload = 12;
@@ -103,7 +53,21 @@ const serpentUnit = extendContent(UnitType, "serpent", {
   },
 });
 serpentUnit.weapon = serpentWeapon;
-serpentUnit.create(copterBase);
+serpentUnit.create(prov(() => extend(HoverUnit, {
+  draw(){
+    Draw.mixcol(Color.white, this.hitTime / this.hitDuration);
+    Draw.rect(this.type.region, this.x, this.y, this.rotation - 90);
+    this.drawWeapons();
+    this.drawRotor();
+    Draw.mixcol();
+  },
+  drawWeapons(){
+    copterLib.drawWeapons(this);
+  },
+  drawRotor(){
+    copterLib.drawRotor(this);
+  },
+})));
 
 const serpentFactory = extendContent(UnitFactory, "serpent-factory", {
   load(){

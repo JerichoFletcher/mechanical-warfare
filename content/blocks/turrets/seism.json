@@ -8,7 +8,7 @@ shootCone: 5
 range: 420 //lmfao
 recoil: 6.5
 restitution: 0.02
-cooldown: 0.2
+cooldown: 0.02
 shootSound: quakemk2shot
 ammo: {
   he-shell: {

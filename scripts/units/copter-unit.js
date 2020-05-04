@@ -25,7 +25,7 @@ serpentWeapon.bullet = serpentBullet;
 const serpentUnit = extendContent(UnitType, "serpent", {
   load(){
     this.weapon.load();
-    print(Core.atlas.isFound(Core.atlas.find(base.type.weapon.name + "-equip")));
+    print(Core.atlas.isFound(Core.atlas.find(this.weapon.name + "-equip")));
     this.region = Core.atlas.find(this.name);
   },
   rotorBladeRegion: function(){

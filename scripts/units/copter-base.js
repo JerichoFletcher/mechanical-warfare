@@ -6,8 +6,8 @@ module.exports = {
       base.type.rotorTopRegion() : Core.atlas.find(modName + "-rotor-top");
     var offx = Angles.trnsx(base.rotation, base.type.rotorOffset(), base.type.rotorWidth());
     var offy = Angles.trnsy(base.rotation, base.type.rotorOffset(), base.type.rotorWidth());
-    var w = bladeRegion.getWidth() * base.type.rotorScale();
-    var h = bladeRegion.getHeight() * base.type.rotorScale();
+    var w = bladeRegion.getWidth() * base.type.rotorScale() * Draw.scl;
+    var h = bladeRegion.getHeight() * base.type.rotorScale() * Draw.scl;
     var angle = Time.time() * base.type.rotorSpeed() % 360;
     var angle2 = base.type.alternateRotor() ? 360 - (angle % 360) : 90 + angle;
     if(base.type.isTwinBlade()){

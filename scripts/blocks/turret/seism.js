@@ -1,3 +1,3 @@
-const seism = extendContent(ArtilerryTurret, "seism", {
+const seism = extendContent(ArtilleryTurret, "seism", {
   
 });

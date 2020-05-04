@@ -23,3 +23,6 @@ const blow = extendContent(DoubleTurret, "blow", {
 const quake = extendContent(ArtilleryTurret, "quake", {
   
 });
+
+// Seism
+require("blocks/turret/seism")

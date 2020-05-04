@@ -10,7 +10,11 @@ serpentBullet.damage = 4;
 serpentBullet.shootEffect = Fx.shootSmall;
 serpentBullet.smokeEffect = Fx.shootSmallSmoke;
 
-const serpentWeapon = extendContent(Weapon, "serpent-gun", {});
+const serpentWeapon = extendContent(Weapon, "serpent-gun", {
+  load(){
+    this.region = Core.atlas.find(this.name + "-equip");
+  },
+});
 serpentWeapon.width = 10;
 serpentWeapon.length = 5;
 serpentWeapon.reload = 12;
@@ -25,7 +29,6 @@ serpentWeapon.bullet = serpentBullet;
 const serpentUnit = extendContent(UnitType, "serpent", {
   load(){
     this.weapon.load();
-    print(Core.atlas.isFound(Core.atlas.find(this.weapon.name + "-equip")));
     this.region = Core.atlas.find(this.name);
   },
   rotorBladeRegion: function(){

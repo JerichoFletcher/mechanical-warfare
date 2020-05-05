@@ -39,13 +39,12 @@ module.exports = {
       var trY = base.type.weaponOffsetY - base.type.weapon.getRecoil(base, (sign > 0));
       var w = -sign * base.type.weapon.region.getWidth() * Draw.scl;
       var h = base.type.weapon.region.getHeight() * Draw.scl;
-      Draw.rect(base.type.weapon.region, 
+      Draw.rect(base.type.weaponRegion(), 
         base.x + Angles.trnsx(angle, base.getWeapon().width * sign, trY),
         base.y + Angles.trnsy(angle, base.getWeapon().width * sign, trY),
         w, h, angle
       );
     }
     //print(Core.atlas.isFound(Core.atlas.find(base.type.weapon.name + "-equip")));
-    print(base.type.weapon.name + "-equip");
   },
 };

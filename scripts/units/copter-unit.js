@@ -103,6 +103,7 @@ serpentUnit.create(prov(() => extend(HoverUnit, {
   drawRotor(){
     copterLib.drawRotor(this);
   },
+  drawEngine(){},
 })));
 
 const serpentFactory = extendContent(UnitFactory, "serpent-factory", {

@@ -66,6 +66,9 @@ const serpentUnit = extendContent(UnitType, "serpent", {
   isTwinBlade: function(){
     return false;
   },
+  weaponRegion: function(){
+    return Core.atlas.find("serpent-gun-equip");
+  },
 });
 serpentUnit.weapon = serpentWeapon;
 serpentUnit.create(prov(() => extend(HoverUnit, {

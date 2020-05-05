@@ -1,12 +1,12 @@
 flying: true
-health: 420
+health: 420 //lmfao
 mass: 4
 hitsize: 15
-speed: 0.5
-drag: 0.01
-maxVelocity: 0.8
-range: 80
-rotatespeed: 0.02
-baseRotateSpeed: 0.01
-engineOffset: 14
-engineSize: 1.5
+speed: 0.7
+drag: 0.005
+maxVelocity: 1.2
+range: 70
+rotatespeed: 0.04
+baseRotateSpeed: 0.1
+engineOffset: 16
+engineSize: 1.8

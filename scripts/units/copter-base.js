@@ -46,5 +46,6 @@ module.exports = {
       );
     }
     //print(Core.atlas.isFound(Core.atlas.find(base.type.weapon.name + "-equip")));
+    print(base.type.weapon.name + "-equip");
   },
 };

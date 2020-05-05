@@ -19,7 +19,7 @@ serpentMissile.lifetime = 35;
 serpentMissile.damage = 15;
 serpentMissile.drag = -0.01;
 serpentMissile.homingPower = 0.01;
-serpentMissile.homingRange = 40;
+serpentMissile.homingRange = 60;
 serpentMissile.shootEffect = Fx.shootBig;
 serpentMissile.smokeEffect = Fx.shootBigSmoke;
 

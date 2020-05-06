@@ -46,9 +46,9 @@ const serpentUnit = extendContent(UnitType, "serpent", {
   secondaryReload: function(){
     return 40;
   },
-  secondaryRange: function(){
+  /*secondaryRange: function(){
     return 100;
-  },
+  },*/
   secondaryShootCone: function(){
     return 45;
   },
@@ -90,7 +90,7 @@ serpentUnit.create(prov(() => extend(HoverUnit, {
     if(typeof(this.currentLauncher) === "undefined"){
       this.currentLauncher = -1;
     }
-    if(this.target != null && this.target.getTeam().isEnemy(this.getTeam()) && Angles.near(this.angleTo(this.target), this.rotation, this.type.secondaryShootCone()) && this.dst(this.target) < this.type.secondaryRange()){
+    if(this.target != null && this.target.getTeam().isEnemy(this.getTeam()) && Angles.near(this.angleTo(this.target), this.rotation, this.type.secondaryShootCone()) && this.dst(this.target) < serpentMissile.range()){
       if(this.missileTimer++ >= this.type.secondaryReload()){
         var offx = Angles.trnsx(this.rotation - 90, this.getWeapon().width * this.currentLauncher / 2, 1);
         var offy = Angles.trnsy(this.rotation - 90, this.getWeapon().width * this.currentLauncher / 2, 1);

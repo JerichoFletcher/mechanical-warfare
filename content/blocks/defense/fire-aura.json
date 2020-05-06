@@ -1,7 +1,7 @@
 size: 2
 health: 320
 powerUse: 1.5
-activeSound: fire
+activeSound: fireAuraActive
 requirements: [
   lead/125
   iron/75

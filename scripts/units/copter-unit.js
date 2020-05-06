@@ -1,7 +1,6 @@
 const copterLib = require("units/copter-base");
 
 // Serpent
-const serpentMissileReload = 40;
 const serpentBullet = extend(BasicBulletType, {});
 serpentBullet.width = 9;
 serpentBullet.height = 12;
@@ -44,8 +43,14 @@ const serpentUnit = extendContent(UnitType, "serpent", {
     this.weapon.load();
     this.region = Core.atlas.find(this.name);
   },
+  secondaryReload: function(){
+    return 40;
+  },
   secondaryRange: function(){
     return 100;
+  },
+  secondaryShootCone: function(){
+    return 45;
   },
   secondaryShootSound: function(){
     return Sounds.missile;
@@ -69,7 +74,7 @@ const serpentUnit = extendContent(UnitType, "serpent", {
     return 0;
   },
   alternateRotor: function(){
-    return true;
+    return false;
   },
   isTwinBlade: function(){
     return false;
@@ -85,8 +90,8 @@ serpentUnit.create(prov(() => extend(HoverUnit, {
     if(typeof(this.currentLauncher) === "undefined"){
       this.currentLauncher = -1;
     }
-    if(this.target != null && this.within(this.target, this.type.secondaryRange())){
-      if(this.missileTimer++ >= serpentMissileReload){
+    if(this.target != null && this.target.getTeam().isEnemy(this.getTeam()) && Angles.near(this.angleTo(this.target), this.rotation, this.type.secondaryShootCone()) && this.dst(this.target) < this.type.secondaryRange()){
+      if(this.missileTimer++ >= this.type.secondaryReload()){
         var offx = Angles.trnsx(this.rotation - 90, this.getWeapon().width * this.currentLauncher / 2, 1);
         var offy = Angles.trnsy(this.rotation - 90, this.getWeapon().width * this.currentLauncher / 2, 1);
         Calls.createBullet(serpentMissile, this.getTeam(), this.x + offx, this.y + offy, this.rotation, 1 - Mathf.random(0.1), 1);

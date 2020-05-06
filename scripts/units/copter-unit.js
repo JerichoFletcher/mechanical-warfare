@@ -18,8 +18,8 @@ serpentMissile.speed = 4;
 serpentMissile.lifetime = 35;
 serpentMissile.damage = 15;
 serpentMissile.drag = -0.01;
-serpentMissile.homingPower = 0.01;
-serpentMissile.homingRange = 60;
+serpentMissile.homingPower = 0.075;
+serpentMissile.homingRange = 120;
 serpentMissile.shootEffect = Fx.shootBig;
 serpentMissile.smokeEffect = Fx.shootBigSmoke;
 
@@ -43,6 +43,12 @@ const serpentUnit = extendContent(UnitType, "serpent", {
   load(){
     this.weapon.load();
     this.region = Core.atlas.find(this.name);
+  },
+  secondaryRange: function(){
+    return 100;
+  },
+  secondaryShootSound: function(){
+    return Sounds.missile;
   },
   rotorBladeRegion: function(){
     return typeof(this.bladeRegion) !== "undefined" ? this.bladeRegion : Core.atlas.find("error");
@@ -79,12 +85,12 @@ serpentUnit.create(prov(() => extend(HoverUnit, {
     if(typeof(this.currentLauncher) === "undefined"){
       this.currentLauncher = -1;
     }
-    if(this.target != null){
+    if(this.target != null && this.within(this.target, this.type.secondaryRange())){
       if(this.missileTimer++ >= serpentMissileReload){
         var offx = Angles.trnsx(this.rotation - 90, this.getWeapon().width * this.currentLauncher / 2, 1);
         var offy = Angles.trnsy(this.rotation - 90, this.getWeapon().width * this.currentLauncher / 2, 1);
         Calls.createBullet(serpentMissile, this.getTeam(), this.x + offx, this.y + offy, this.rotation, 1 - Mathf.random(0.1), 1);
-        Sounds.missile.at(this.x, this.y, Mathf.random(0.9, 1.1));
+        this.type.secondaryShootSound().at(this.x, this.y, Mathf.random(0.9, 1.1));
         this.missileTimer = 0;
         if(this.currentLauncher < 0){
           this.currentLauncher = 1;

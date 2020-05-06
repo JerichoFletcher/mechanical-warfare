@@ -33,11 +33,12 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
     }
     entity.recoil = 0;
     entity.rotation = 90;
+    var isShooting = this.hasAmmo(tile) && this.validateTarget(tile);
     entity.heat = Mathf.lerpDelta(entity.heat,
-      this.validateTarget(tile) ? 1 : 0,
-      this.validateTarget(tile) ? this.warmup : this.cooldown
+      isShooting ? 1 : 0,
+      isShooting ? this.warmup : this.cooldown
     );
-    if(this.hasAmmo(tile) && entity.cons.valid()){
+    if(this.hasAmmo(tile)){
       if(entity.timer.get(this.timerTarget, this.targetInterval)){
         this.findTarget(tile);
       }
@@ -85,7 +86,7 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
     var entity = tile.ent();
     Effects.effect(shootEffect, tile.drawx(), tile.drawy(), entity.rotation);
     Effects.effect(smokeEffect, tile.drawx(), tile.drawy(), entity.rotation);
-    this.shootSound.at(tile, Mathf.random(0.9, 1.1));
+    //this.shootSound.at(tile, Mathf.random(0.9, 1.1));
   },
   effectsArea(tile, count){
     var shootEffect = this.shootEffect == Fx.none ? (this.peekAmmo(tile)).shootEffect : this.shootEffect;
@@ -125,7 +126,11 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
   },
   hasAmmo: function(tile){
     var entity = tile.ent();
-    return this.liquidAsAmmo() == entity.liquids.current() && entity.liquids.total() >= this.shootType.ammoMultiplier;
+    return entity.cons.valid() && this.liquidAsAmmo() == entity.liquids.current() && entity.liquids.total() >= this.shootType.ammoMultiplier;
+  },
+  shouldActiveSound: function(tile){
+    var entity = tile.ent();
+    return tile != null && this.hasAmmo(tile) && this.validateTarget(tile);
   },
   shouldTurn: function(tile){
     return false;

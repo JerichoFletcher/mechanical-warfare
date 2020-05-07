@@ -1,21 +1,22 @@
 const copterLib = require("units/copter-base");
 
 // Serpent
+// Raw DPS: 80
 const serpentBullet = extend(BasicBulletType, {});
 serpentBullet.width = 9;
 serpentBullet.height = 12;
 serpentBullet.speed = 9;
 serpentBullet.lifetime = 21;
-serpentBullet.damage = 4;
+serpentBullet.damage = 5;
 serpentBullet.shootEffect = Fx.shootSmall;
 serpentBullet.smokeEffect = Fx.shootSmallSmoke;
 
 const serpentMissile = extend(MissileBulletType, {});
-serpentMissile.width = 12;
-serpentMissile.height = 16;
-serpentMissile.speed = 4;
-serpentMissile.lifetime = 35;
-serpentMissile.damage = 15;
+serpentMissile.width = 15;
+serpentMissile.height = 20;
+serpentMissile.speed = 2.8;
+serpentMissile.lifetime = 50;
+serpentMissile.damage = 20;
 serpentMissile.drag = -0.01;
 serpentMissile.homingPower = 0.075;
 serpentMissile.homingRange = 120;

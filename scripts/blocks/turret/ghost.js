@@ -87,13 +87,22 @@ ghostPlastanium.fragBullet = ghostPlastaniumFrag;
 
 const ghostSurge = extend(FlakBulletType, {
   update(b){
-    var cone = this.lightningCone;
-    var rot = b.velocity().angle() + Mathf.random(-cone, cone);
-    Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.surge, this.lightningDamage, b.x, b.y, rot, 10)
+    if(Mathf.chance(0.33)){
+      var cone = this.lightningCone;
+      var rot = b.velocity().angle() + Mathf.random(-cone, cone);
+      Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.surge, this.lightningDamage, b.x, b.y, rot, 10);
+    }
+  },
+  hit(b, x, y){
+    if(typeof(x) !== "undefined" && typeof(y) !== "undefined"){this.super$hit(b, x, y)}
+    for(var i = 0; i < this.lightningHitCount; i++){
+      Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.surge, this.lightningDamage, b.x, b.y, Mathf.random(360), 15);
+    }
   }
 });
 ghostSurge.damage = 20;
 ghostSurge.lightningDamage = 8;
+ghostSurge.lightningHitCount = 10;
 ghostSurge.splashDamage = 36;
 ghostSurge.splashDamageRadius = 20;
 ghostSurge.speed = 18;
@@ -103,8 +112,6 @@ ghostSurge.bulletHeight = 18;
 ghostSurge.ammoMultiplier = 3;
 ghostSurge.hitEffect = Fx.flakExplosion;
 ghostSurge.reloadMultiplier = 0.8;
-ghostSurge.lightining = 5;
-ghostSurge.lightningLength = 15;
 ghostSurge.lightningCone = 45;
 ghostSurge.status = StatusEffects.shocked;
 

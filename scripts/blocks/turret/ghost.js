@@ -135,6 +135,6 @@ ghost.ammo(
   Items.pyratite, ghostPyratite,
   Items.blastCompound, ghostBlastCompound,
   Items.plastanium, ghostPlastanium,
-  Items.surgealloy, ghostSurge,
-  Vars.content.getByName(ContentType.item, modName + "-he-shell"), ghostShell
+  Items.surgealloy, ghostSurge
+  //Vars.content.getByName(ContentType.item, modName + "-he-shell"), ghostShell
 );

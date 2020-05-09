@@ -136,11 +136,10 @@ ghostShell.hitEffect = Fx.blastExplosion;
 ghostShell.fragBullets = 12;
 ghostShell.fragBullet = ghostShellFrag;
 
-const shell;
 const ghost = extendContent(DoubleTurret, "ghost", {
   init(){
     this.super$init();
-    shell = Vars.content.getByName(ContentType.item, modName + "-he-shell");
+    this._shell = Vars.content.getByName(ContentType.item, modName + "-he-shell");
   },
 });
 ghost.ammo(
@@ -149,5 +148,5 @@ ghost.ammo(
   Items.blastCompound, ghostBlastCompound,
   Items.plastanium, ghostPlastanium,
   Items.surgealloy, ghostSurge,
-  shell, ghostShell
+  ghost._shell, ghostShell
 );

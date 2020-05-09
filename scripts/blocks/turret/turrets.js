@@ -3,6 +3,9 @@ const aegis = extendContent(ItemTurret, "aegis", {
   
 });
 
+// Ghost
+require("blocks/turret/ghost")
+
 // Incandescence
 require("blocks/turret/incandescence")
 

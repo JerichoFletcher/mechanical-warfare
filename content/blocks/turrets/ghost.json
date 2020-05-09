@@ -1,4 +1,3 @@
-type: DoubleTurret
 health: 1350
 size: 3
 reload: 15
@@ -114,6 +113,21 @@ ammo: {
       backColor: 9ad284
       despawnEffect: none
     }
+  }
+  surge-alloy: {
+    type: FlakBulletType
+    damage: 15
+    splashDamage: 56
+    splashDamageRadius: 20
+    speed: 18
+    lifetime: 14
+    bulletWidth: 4
+    bulletHeight: 18
+    frontColor: ffffdd
+    backColor: ccccaa
+    ammoMultiplier: 3
+    hitEffect: blastExplosion
+    reloadMultiplier: 0.8
   }
   he-shell: {
     type: FlakBulletType

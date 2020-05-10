@@ -12,8 +12,8 @@ serpentBullet.shootEffect = Fx.shootSmall;
 serpentBullet.smokeEffect = Fx.shootSmallSmoke;
 
 const serpentMissile = extend(MissileBulletType, {});
-serpentMissile.width = 15;
-serpentMissile.height = 20;
+serpentMissile.width = 18;
+serpentMissile.height = 24;
 serpentMissile.speed = 2.8;
 serpentMissile.lifetime = 50;
 serpentMissile.damage = 20;

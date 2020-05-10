@@ -116,12 +116,12 @@ ghostSurge.lightningCone = 45;
 ghostSurge.status = StatusEffects.shocked;
 
 const ghostShellFrag = extend(BasicBulletType, {});
-ghostPlastaniumFrag.damage = 17;
-ghostPlastaniumFrag.bulletWidth = 5;
-ghostPlastaniumFrag.bulletHeight = 12;
-ghostPlastaniumFrag.bulletShrink = 1;
-ghostPlastaniumFrag.lifetime = 20;
-ghostPlastaniumFrag.despawnEffect = Fx.none;
+ghostShellFrag.damage = 17;
+ghostShellFrag.bulletWidth = 5;
+ghostShellFrag.bulletHeight = 12;
+ghostShellFrag.bulletShrink = 1;
+ghostShellFrag.lifetime = 20;
+ghostShellFrag.despawnEffect = Fx.none;
 
 const ghostShell = extend(FlakBulletType, {});
 ghostShell.damage = 23;

@@ -3,7 +3,7 @@ const seism = extendContent(ArtilleryTurret, "seism", {
     this.super$load();
   },
   drawLayer(tile){
-    this.super$load();
+    this.super$drawLayer(tile);
     var entity = tile.ent();
     var val = entity.totalAmmo / this.maxAmmo;
     for(var i = 0; i <= 2; i++){

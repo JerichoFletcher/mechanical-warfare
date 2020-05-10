@@ -2,6 +2,8 @@ health: 1350
 size: 3
 reload: 15
 ammoUseEffect: shellEjectBig
+shootEffect: shootBig
+smokeEffect: shootBigSmoke
 inaccuracy: 0
 rotatespeed: 4
 shotWidth: 2

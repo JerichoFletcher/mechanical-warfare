@@ -139,15 +139,13 @@ ghostShell.fragBullet = ghostShellFrag;
 const ghost = extendContent(DoubleTurret, "ghost", {
   init(){
     this.super$init();
-    this.shell = Vars.content.getByName(ContentType.item, this.shellAmmoName);
+    ghost.ammo(
+      Items.metaglass, ghostGlass,
+      Items.pyratite, ghostPyratite,
+      Items.blastCompound, ghostBlastCompound,
+      Items.plastanium, ghostPlastanium,
+      Items.surgealloy, ghostSurge,
+      Vars.content.getByName(ContentType.item, modName + "-he-shell"), ghostShell
+    );
   },
 });
-ghost.shellAmmoName = modName + "-he-shell";
-ghost.ammo(
-  Items.metaglass, ghostGlass,
-  Items.pyratite, ghostPyratite,
-  Items.blastCompound, ghostBlastCompound,
-  Items.plastanium, ghostPlastanium,
-  Items.surgealloy, ghostSurge,
-  ghost.shell, ghostShell
-);

@@ -6,7 +6,8 @@ mass: 4
 health: 900
 hitsize: 15
 drag: 0.02
-range: 120
+range: 140
+attackLength: 110
 shootCone: 5
 rotateWeapon: true
 engineOffset: 9

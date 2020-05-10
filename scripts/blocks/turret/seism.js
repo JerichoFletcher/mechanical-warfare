@@ -1,9 +1,6 @@
 const seism = extendContent(ArtilleryTurret, "seism", {
   load(){
     this.super$load();
-    for(var i = 0; i <= 2; i++){
-      this.ammoRegions[i] = Core.atlas.find(this.name + "-phase" + i);
-    }
   },
   drawLayer(tile){
     this.super$load();
@@ -15,7 +12,7 @@ const seism = extendContent(ArtilleryTurret, "seism", {
       var hi = j / 3;
       Draw.color(Color.valueOf("00000000"), Pal.turretHeat, (Mathf.clamp(val, lo, hi) - lo) * 3);
       Draw.blend(Blending.additive);
-      Draw.rect(this.ammoRegions[i], tile.drawx() + this.tr2.x, tile.drawy() + this.tr2.y, entity.rotation - 90);
+      Draw.rect(Core.atlas.find(this.name + "-phase" + i), tile.drawx() + this.tr2.x, tile.drawy() + this.tr2.y, entity.rotation - 90);
       Draw.blend();
       Draw.color();
     }

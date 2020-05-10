@@ -102,7 +102,7 @@ const ghostSurge = extend(FlakBulletType, {
 });
 ghostSurge.damage = 20;
 ghostSurge.lightningDamage = 8;
-ghostSurge.lightningHitCount = 10;
+ghostSurge.lightningHitCount = 3;
 ghostSurge.splashDamage = 48;
 ghostSurge.splashDamageRadius = 20;
 ghostSurge.speed = 18;
@@ -138,7 +138,6 @@ ghostShell.fragBullet = ghostShellFrag;
 
 const ghost = extendContent(DoubleTurret, "ghost", {
   init(){
-    this.super$init();
     ghost.ammo(
       Items.metaglass, ghostGlass,
       Items.pyratite, ghostPyratite,
@@ -147,5 +146,6 @@ const ghost = extendContent(DoubleTurret, "ghost", {
       Items.surgealloy, ghostSurge,
       Vars.content.getByName(ContentType.item, modName + "-he-shell"), ghostShell
     );
+    this.super$init();
   },
 });

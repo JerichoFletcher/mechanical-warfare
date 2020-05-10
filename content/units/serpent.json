@@ -5,6 +5,7 @@ hitsize: 15
 speed: 0.8
 drag: 0.005
 maxVelocity: 1.42
-range: 70
+range: 100
+attackLength: 70
 rotatespeed: 0.04
 baseRotateSpeed: 0.1

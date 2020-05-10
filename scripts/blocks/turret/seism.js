@@ -10,10 +10,9 @@ const seism = extendContent(ArtilleryTurret, "seism", {
       var j = i + 1;
       var lo = i / 3;
       var hi = j / 3;
-      Draw.color(Color.valueOf("00000000"), Pal.turretHeat, (Mathf.clamp(val, lo, hi) - lo) * 3);
-      Draw.blend(Blending.additive);
+      Draw.color(Pal.lancerLaser);
+      Draw.alpha((Mathf.clamp(val, lo, hi) - lo) * 3);
       Draw.rect(Core.atlas.find(this.name + "-phase" + i), tile.drawx() + this.tr2.x, tile.drawy() + this.tr2.y, entity.rotation - 90);
-      Draw.blend();
       Draw.color();
     }
   }

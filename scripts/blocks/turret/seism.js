@@ -3,7 +3,7 @@ const seismHE = extend(BasicBulletType, {
   update(b){
     this.super$update(b);
     if(Mathf.chance(0.75)){
-      Effects.effect(elib.bulletTrail(30, 2, 0.5, this.frontColor), b.x, b.y, b.rot());
+      Effects.effect(this.trailEffect, b.x, b.y, b.rot());
     }
   },
   hit(b, x, y){
@@ -15,7 +15,7 @@ const seismHE = extend(BasicBulletType, {
 });
 seismHE.damage = 270;
 seismHE.splashDamage = 560;
-seismHE.splashDamageRadius = 80;
+seismHE.splashDamageRadius = 40;
 seismHE.speed = 12;
 seismHE.lifetime = 40;
 seismHE.knockback = 4;
@@ -25,7 +25,14 @@ seismHE.frontColor = Color.valueOf("ffd385");
 seismHE.backColor = Color.valueOf("b6573a");
 seismHE.ammoMultiplier = 4;
 seismHE.hitSound = Sounds.boom;
-seismHE.hitEffect = elib.quakeHit(30, Pal.missileYellow, 6, 40, 3, Pal.missileYellowBack, 45, 0.5, Pal.missileYellow, 3, 15, 20, 120, 14, 1);
+seismHE.trailEffect = newEffect(30, e => {
+  elib.fillCircle(e.x, e.y, seismHE.frontColor, 1, Mathf.lerp(2, 0.5, e.fin()));
+});
+seismHE.hitEffect = newEffect(27, e => {
+  elib.outlineCircle(e.x, e.y, Pal.missileYellow, 6 * e.fout(), Mathf.lerp(3, 60, e.fin()));
+  elib.fillCircle(e.x, e.y, Pal.missileYellowBack, 0.3 + e.fin() * 0.7, Mathf.lerp(65, 0.5, e.fout()));
+  elib.splashLines(e.x, e.y, Pal.missileYellow, e.fout() * 3, Mathf.lerp(20, 120, e.finpow()), Mathf.lerp(14, 1, e.fin()), 15, e.id);
+});
 
 const seism = extendContent(ArtilleryTurret, "seism", {
   load(){

@@ -1,4 +1,4 @@
-// Mechanical Warfare extra pallete lib.
+// Mechanical Warfare extra pallette lib.
 // Lib by JerichoFletcher
 module.exports = {
   frontColorHE: Color.valueOf("ffd385"),

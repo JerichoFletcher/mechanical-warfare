@@ -23,5 +23,6 @@ module.exports = {
         Lines.lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), e.fout() * (lEndSize - lStartSize) + lStartSize);
       }});
     });
+    return hit;
   }
 };

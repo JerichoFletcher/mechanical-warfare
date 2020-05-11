@@ -76,8 +76,8 @@ seismAP.hitSound = Sounds.boom;
 seismAP.trailEffect = newEffect(30, e => {
   elib.fillCircle(e.x, e.y, seismAP.frontColor, 1, Mathf.lerp(2, 0.5, e.fin()));
 });
-seism.hitEffect = Fx.blastExplosion;
-seism.despawnEffect = seism.hitEffect;
+seismAP.hitEffect = Fx.blastExplosion;
+seismAP.despawnEffect = seism.hitEffect;
 
 const seism = extendContent(ArtilleryTurret, "seism", {
   load(){

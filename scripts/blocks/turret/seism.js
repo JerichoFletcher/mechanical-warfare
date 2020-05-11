@@ -35,6 +35,7 @@ const seism = extendContent(ArtilleryTurret, "seism", {
     seism.ammo(
       Vars.content.getByName(ContentType.item, modName + "-he-shell"), seismHE
     );
+    this.super$init();
   },
   drawLayer(tile){
     this.super$drawLayer(tile);

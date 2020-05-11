@@ -14,11 +14,11 @@ module.exports = {
     Fill.circle(x, y, radius);
     Draw.color();
   },
-  splashLines(cx, cy, col, thickness, distance, length, count, seed){
+  splashLines(x, y, col, thickness, distance, length, count, seed){
     Draw.color(col);
     Lines.stroke(thickness);
-    Angles.randLenVectors(seed, count, distance, new Floatc2(){get: (x, y) => {
-      Lines.lineAngle(cx + x, cy + u, Mathf.angle(offx, offy), length);
+    Angles.randLenVectors(seed, count, distance, new Floatc2(){get: (a, b) => {
+      Lines.lineAngle(x + a, y + b, Mathf.angle(offx, offy), length);
     }});
     Draw.color();
     Lines.stroke(1);

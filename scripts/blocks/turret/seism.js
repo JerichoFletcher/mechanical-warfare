@@ -1,5 +1,6 @@
 const elib = require("effectlib");
 const plib = require("plib");
+
 const seismHE = extend(BasicBulletType, {
   update(b){
     this.super$update(b);
@@ -7,12 +8,14 @@ const seismHE = extend(BasicBulletType, {
       Effects.effect(this.trailEffect, b.x, b.y, b.rot());
     }
   },
-  hit(b, x, y){
+  /*hit(b, x, y){
     if(typeof(x) !== "undefined" && typeof(y) !== "undefined"){
       this.super$hit(b, x, y);
+    }else{
+      this.super$hit(b);
     }
     Effects.effect(this.hitEffect, b.x, b.y, b.rot());
-  }
+  }*/
 });
 seismHE.damage = 270;
 seismHE.splashDamage = 560;
@@ -26,14 +29,55 @@ seismHE.frontColor = plib.frontColorHE;
 seismHE.backColor = plib.backColorHE;
 seismHE.ammoMultiplier = 4;
 seismHE.hitSound = Sounds.boom;
+// Trail effect
 seismHE.trailEffect = newEffect(30, e => {
   elib.fillCircle(e.x, e.y, seismHE.frontColor, 1, Mathf.lerp(2, 0.5, e.fin()));
 });
+// Hit effect
 seismHE.hitEffect = newEffect(27, e => {
-  elib.outlineCircle(e.x, e.y, Pal.missileYellow, 6 * e.fout(), Mathf.lerp(3, 60, e.fin()));
-  elib.fillCircle(e.x, e.y, Pal.missileYellowBack, 0.3 + e.fin() * 0.7, Mathf.lerp(65, 0.5, e.fout()));
-  elib.splashLines(e.x, e.y, Pal.missileYellow, e.fout() * 3, Mathf.lerp(20, 120, e.finpow()), Mathf.lerp(14, 1, e.fin()), 15, e.id);
+  var c1Thickness = 6 * e.fout();
+  var c1Radius = Mathf.lerp(3, 60, e.fin());
+  elib.outlineCircle(e.x, e.y, Pal.missileYellow, c1Thickness, c1Radius);
+  
+  var c2Alpha = 0.3 + e.fin() * 0.7;
+  var c2Radius = Mathf.lerp(65, 0.5, e.fin());
+  elib.fillCircle(e.x, e.y, Pal.missileYellowBack, c2Alpha, c2Radius);
+  
+  var lThickness = e.fout() * 3;
+  var lDistance = Mathf.lerp(20, 120, e.finpow());
+  var lLength = Mathf.lerp(14, 1, e.fin());
+  var lCount = 15;
+  elib.splashLines(e.x, e.y, Pal.missileYellow, lThickness, lDistance, lLength, lCount, e.id);
 });
+seismHE.despawnEffect = seismHE.hitEffect;
+
+const seismAP = extend(BasicBulletType, {
+  update(b){
+    this.super$update(b);
+    if(Mathf.chance(0.75)){
+      Effects.effect(this.trailEffect, b.x, b.y, b.rot());
+    }
+  },
+});
+seismAP.damage = 2550;
+seismAP.splashDamage = 120;
+seismAP.splashDamageRadius = 20;
+seismAP.speed = 12;
+seismAP.lifetime = 40;
+seismAP.knockback = 8;
+seismAP.bulletWidth = 20;
+seismAP.bulletHeight = 26;
+seismAP.frontColor = plib.frontColorAP;
+seismAP.backColor = plib.backColorAP;
+seismAP.ammoMultiplier = 4;
+seismAP.reloadMultiplier = 1.2;
+seismAP.hitSound = Sounds.boom;
+// Trail effect
+seismAP.trailEffect = newEffect(30, e => {
+  elib.fillCircle(e.x, e.y, seismAP.frontColor, 1, Mathf.lerp(2, 0.5, e.fin()));
+});
+seism.hitEffect = Fx.blastExplosion;
+seism.despawnEffect = seism.hitEffect;
 
 const seism = extendContent(ArtilleryTurret, "seism", {
   load(){
@@ -41,7 +85,8 @@ const seism = extendContent(ArtilleryTurret, "seism", {
   },
   init(){
     seism.ammo(
-      Vars.content.getByName(ContentType.item, modName + "-he-shell"), seismHE
+      Vars.content.getByName(ContentType.item, modName + "-he-shell"), seismHE,
+      Vars.content.getByName(ContentType.item, modName + "-ap-shell"), seismAP
     );
     this.super$init();
   },

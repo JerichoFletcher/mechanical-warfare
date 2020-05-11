@@ -1,4 +1,5 @@
 const elib = require("effectlib");
+const plib = require("plib");
 const seismHE = extend(BasicBulletType, {
   update(b){
     this.super$update(b);
@@ -21,8 +22,8 @@ seismHE.lifetime = 40;
 seismHE.knockback = 4;
 seismHE.bulletWidth = 20;
 seismHE.bulletHeight = 26;
-seismHE.frontColor = Color.valueOf("ffd385");
-seismHE.backColor = Color.valueOf("b6573a");
+seismHE.frontColor = plib.frontColorHE;
+seismHE.backColor = plib.backColorHE;
 seismHE.ammoMultiplier = 4;
 seismHE.hitSound = Sounds.boom;
 seismHE.trailEffect = newEffect(30, e => {

@@ -25,7 +25,7 @@ seismHE.frontColor = Color.valueOf("ffd385");
 seismHE.backColor = Color.valueOf("b6573a");
 seismHE.ammoMultiplier = 4;
 seismHE.hitSound = Sounds.boom;
-seismHE.hitEffect = elib.quakeHit(30, Pal.misileYellow, 6, 40, 3, Pal.missileYellowBack, 45, 0.5, Pal.missileYellow, 3, 15, 20, 120, 14, 1);
+seismHE.hitEffect = elib.quakeHit(30, Pal.missileYellow, 6, 40, 3, Pal.missileYellowBack, 45, 0.5, Pal.missileYellow, 3, 15, 20, 120, 14, 1);
 
 const seism = extendContent(ArtilleryTurret, "seism", {
   load(){

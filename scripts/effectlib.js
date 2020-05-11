@@ -18,7 +18,7 @@ module.exports = {
     Draw.color(col);
     Lines.stroke(thickness);
     Angles.randLenVectors(seed, count, distance, new Floatc2(){get: (a, b) => {
-      Lines.lineAngle(x + a, y + b, Mathf.angle(offx, offy), length);
+      Lines.lineAngle(x + a, y + b, Mathf.angle(a, b), length);
     }});
     Draw.color();
     Lines.stroke(1);

@@ -22,6 +22,7 @@ module.exports = {
       Angles.randLenVectors(e.id, lCount, e.finpow() * (lEnd - lStart) + lStart, new Floatc2(){get: (x, y) => {
         Lines.lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), e.fout() * (lEndSize - lStartSize) + lStartSize);
       }});
+      Draw.color();
     });
     return hit;
   }

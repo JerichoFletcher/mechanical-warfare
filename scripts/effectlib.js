@@ -1,3 +1,5 @@
+// Shortcuts for common draw methods used in effects.
+// Lib by JerichoFletcher
 module.exports = {
   outlineCircle(x, y, col, thickness, radius){
     Draw.color(col);

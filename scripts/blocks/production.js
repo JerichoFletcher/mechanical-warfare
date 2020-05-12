@@ -88,8 +88,9 @@ const mk2Assembler = extendContent(GenericCrafter, "mk2-assembler", {
     Draw.alpha(entity.warmup);
     Lines.lineAngleCenter(
       tile.drawx(),
-      tile.drawy() + Mathf.sin(entity.totalProgress, 5, this.size / 2),
-      90
+      tile.drawy() + Mathf.sin(entity.totalProgress, 5, Vars.tilesize / 3 * this.size),
+      90,
+      Vars.tilesize * this.size / 2
     );
     Draw.reset();
     Draw.rect(this.region);

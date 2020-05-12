@@ -77,12 +77,12 @@ quakeAP.trailEffect = newEffect(27, e => {
 // Hit effect
 quakeAP.hitEffect = newEffect(9, e => {
   var cThickness = 4 * e.fout();
-  var cRadius = Mathf.lerp(1.5, 10, e.fin());
+  var cRadius = Mathf.lerp(1.5, 20, e.fin());
   elib.outlineCircle(e.x, e.y, quakeAP.frontColor, cThickness, cRadius);
   
   var lThickness = e.fout() * 2.5;
-  var lDistance = Mathf.lerp(1, 14, e.finpow());
-  var lLength = Mathf.lerp(3, 1, e.fin());
+  var lDistance = Mathf.lerp(1, 25, e.finpow());
+  var lLength = Mathf.lerp(4, 1, e.fin());
   var lCount = 4;
   elib.splashLines(e.x, e.y, quakeAP.backColor, lThickness, lDistance, lLength, lCount, e.id);
 });

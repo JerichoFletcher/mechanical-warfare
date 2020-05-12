@@ -19,7 +19,7 @@ const seismHE = extend(BasicBulletType, {
 });
 seismHE.damage = 270;
 seismHE.splashDamage = 560;
-seismHE.splashDamageRadius = 40;
+seismHE.splashDamageRadius = 60;
 seismHE.speed = 12;
 seismHE.lifetime = 40;
 seismHE.knockback = 4;
@@ -44,8 +44,8 @@ seismHE.hitEffect = newEffect(18, e => {
   elib.fillCircle(e.x, e.y, Pal.missileYellowBack, c2Alpha, c2Radius);
   
   var sAlpha = 0.3 + e.fout() * 0.7;
-  var sRadius = Mathf.lerp(2, 0.5, e.fin());
-  Angles.randLenVectors(e.id, 10, Mathf.lerp(20, 60, e.finpow()), new Floatc2(){get: (a, b) => {
+  var sRadius = Mathf.lerp(6, 1, e.fin());
+  Angles.randLenVectors(e.id, 10, Mathf.lerp(5, 40, e.finpow()), new Floatc2(){get: (a, b) => {
     elib.fillCircle(e.x + a, e.y + b, Color.gray, sAlpha, sRadius);
   }});
   
@@ -67,7 +67,7 @@ const seismAP = extend(BasicBulletType, {
 });
 seismAP.damage = 2550;
 seismAP.splashDamage = 120;
-seismAP.splashDamageRadius = 20;
+seismAP.splashDamageRadius = 15;
 seismAP.speed = 12;
 seismAP.lifetime = 40;
 seismAP.knockback = 8;
@@ -82,7 +82,17 @@ seismAP.hitSound = Sounds.boom;
 seismAP.trailEffect = newEffect(30, e => {
   elib.fillCircle(e.x, e.y, seismAP.frontColor, 1, Mathf.lerp(2, 0.2, e.fin()));
 });
-seismAP.hitEffect = Fx.blastExplosion;
+seismAP.hitEffect = newEffect(13, e => {
+  var cThickness = 4 * e.fout();
+  var cRadius = Mathf.lerp(2, 15, e.fin());
+  elib.outlineCircle(e.x, e.y, seismAP.frontColor, cThickness, cRadius);
+  
+  var lThickness = e.fout() * 3;
+  var lDistance = Mathf.lerp(5, 30, e.finpow());
+  var lLength = Mathf.lerp(8, 1, e.fin());
+  var lCount = 10;
+  elib.splashLines(e.x, e.y, seismAP.backColor, lThickness, lDistance, lLength, lCount, e.id);
+});
 seismAP.despawnEffect = seismAP.hitEffect;
 
 const seism = extendContent(ArtilleryTurret, "seism", {

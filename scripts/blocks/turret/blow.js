@@ -39,25 +39,30 @@ const blow = extendContent(DoubleTurret, "blow", {
     );
     this.super$init();
   },
+  hasAmmo(tile){
+    var entity = tile.ent();
+    return entity.ammo.size > 0 && entity.ammo.peek().amount >= this.ammoPerShot * this.shots;
+  },
   shoot(tile, ammo){
     var entity = tile.ent();
 
     //this.tr3.trns.(entity.rotation - 90, this.shotWidth * i, (this.size * Vars.tilesize / 2) - entity.recoil);    
-
-    for(var i = 0; i < this.shots; i++){
-      Time.run(this.burstSpacing * i, run(() => {
-        if(tile.entity instanceof Turret.TurretEntity && entity.ammo.size > 0 && entity.ammo.peek().amount >= this.ammoPerShot){
-         entity.recoil = this.recoil;
-         entity.heat = 1;
-         for(var a = 0; a < 2; a++){
-           var i = Mathf.signs[a];
-           this.tr.trns(entity.rotation - 90, this.shotWidth * i, (this.size * Vars.tilesize / 2) - entity.recoil);
-           this.bullet(tile, ammo, entity.rotation + Mathf.range(this.inaccuracy));
-           this.effects(tile);
-           this.useAmmo(tile);
+    if(this.hasAmmo(tile)){
+      for(var i = 0; i < this.shots; i++){
+        Time.run(this.burstSpacing * i, run(() => {
+          if(tile.entity instanceof Turret.TurretEntity){
+            entity.recoil = this.recoil;
+            entity.heat = 1;
+            for(var a = 0; a < 2; a++){
+              var i = Mathf.signs[a];
+              this.tr.trns(entity.rotation - 90, this.shotWidth * i, (this.size * Vars.tilesize / 2) - entity.recoil);
+              this.bullet(tile, ammo, entity.rotation + Mathf.range(this.inaccuracy));
+              this.effects(tile);
+              this.useAmmo(tile);
+            }
           }
-        }
-      }));
+        }));
+      }
     }
   },
 });

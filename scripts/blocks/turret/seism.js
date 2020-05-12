@@ -88,9 +88,9 @@ seismAP.hitEffect = newEffect(13, e => {
   elib.outlineCircle(e.x, e.y, seismAP.frontColor, cThickness, cRadius);
   
   var lThickness = e.fout() * 3;
-  var lDistance = Mathf.lerp(5, 30, e.finpow());
-  var lLength = Mathf.lerp(8, 1, e.fin());
-  var lCount = 10;
+  var lDistance = Mathf.lerp(3, 27, e.finpow());
+  var lLength = Mathf.lerp(5, 1, e.fin());
+  var lCount = 6;
   elib.splashLines(e.x, e.y, seismAP.backColor, lThickness, lDistance, lLength, lCount, e.id);
 });
 seismAP.despawnEffect = seismAP.hitEffect;

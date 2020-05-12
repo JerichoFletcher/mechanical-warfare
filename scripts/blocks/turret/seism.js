@@ -27,7 +27,7 @@ seismHE.bulletWidth = 20;
 seismHE.bulletHeight = 26;
 seismHE.frontColor = plib.frontColorHE;
 seismHE.backColor = plib.backColorHE;
-seismHE.ammoMultiplier = 4;
+seismHE.ammoMultiplier = 2;
 seismHE.hitSound = Sounds.boom;
 // Trail effect
 seismHE.trailEffect = newEffect(30, e => {
@@ -75,7 +75,7 @@ seismAP.bulletWidth = 20;
 seismAP.bulletHeight = 26;
 seismAP.frontColor = plib.frontColorAP;
 seismAP.backColor = plib.backColorAP;
-seismAP.ammoMultiplier = 4;
+seismAP.ammoMultiplier = 2;
 seismAP.reloadMultiplier = 1.2;
 seismAP.hitSound = Sounds.boom;
 // Trail effect

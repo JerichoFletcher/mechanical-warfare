@@ -100,7 +100,7 @@ const seism = extendContent(ArtilleryTurret, "seism", {
     this.super$load();
   },
   init(){
-    seism.ammo(
+    this.ammo(
       Vars.content.getByName(ContentType.item, modName + "-he-shell"), seismHE,
       Vars.content.getByName(ContentType.item, modName + "-ap-shell"), seismAP
     );

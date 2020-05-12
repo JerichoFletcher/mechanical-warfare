@@ -52,13 +52,7 @@ const blow = extendContent(DoubleTurret, "blow", {
         for(var a = 0; a < 2; a++){
           var i = Mathf.signs[a];
           this.tr.trns(entity.rotation, this.shotWidth * i, (this.size * Vars.tilesize / 2) - entity.recoil);
-          Calls.createBullet(
-            ammo, tile.getTeam(),
-            tile.drawx() + this.tr.x,
-            tile.drawy() + this.tr.y,
-            entity.rotation + Mathf.range(this.inaccuracy + type.inaccuracy),
-            1, 1
-          );
+          Calls.createBullet(ammo, tile.getTeam(), tile.drawx() + this.tr.x, tile.drawy() + this.tr.y, entity.rotation + Mathf.range(this.inaccuracy + type.inaccuracy), 1, 1);
           this.effects(tile);
           this.useAmmo(tile);
         }

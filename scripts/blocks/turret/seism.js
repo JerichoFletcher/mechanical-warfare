@@ -82,6 +82,7 @@ seismAP.hitSound = Sounds.boom;
 seismAP.trailEffect = newEffect(30, e => {
   elib.fillCircle(e.x, e.y, seismAP.frontColor, 1, Mathf.lerp(2, 0.2, e.fin()));
 });
+// Hit effect
 seismAP.hitEffect = newEffect(13, e => {
   var cThickness = 4 * e.fout();
   var cRadius = Mathf.lerp(2, 15, e.fin());

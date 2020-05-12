@@ -46,7 +46,7 @@ const blow = extendContent(DoubleTurret, "blow", {
 
     for(var i = 0; i < this.shots; i++){
       Time.run(this.burstSpacing * i, run(() => {
-        if(tile.entity instanceof Turret.TurretEntity && this.hasAmmo(tile)){
+        if(tile.entity instanceof Turret.TurretEntity && entity.ammo.size > 0 && entity.ammo.peek().amount >= this.ammoPerShot){
          entity.recoil = this.recoil;
          entity.heat = 1;
          for(var a = 0; a < 2; a++){

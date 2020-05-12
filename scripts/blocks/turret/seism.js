@@ -31,17 +31,23 @@ seismHE.ammoMultiplier = 4;
 seismHE.hitSound = Sounds.boom;
 // Trail effect
 seismHE.trailEffect = newEffect(30, e => {
-  elib.fillCircle(e.x, e.y, seismHE.frontColor, 1, Mathf.lerp(2, 0.5, e.fin()));
+  elib.fillCircle(e.x, e.y, seismHE.frontColor, 1, Mathf.lerp(2, 0.2, e.fin()));
 });
 // Hit effect
-seismHE.hitEffect = newEffect(27, e => {
+seismHE.hitEffect = newEffect(18, e => {
   var c1Thickness = 6 * e.fout();
   var c1Radius = Mathf.lerp(3, 60, e.fin());
   elib.outlineCircle(e.x, e.y, Pal.missileYellow, c1Thickness, c1Radius);
   
   var c2Alpha = 0.3 + e.fin() * 0.7;
-  var c2Radius = Mathf.lerp(65, 0.5, e.fin());
+  var c2Radius = Mathf.lerp(60, 0.5, e.fin());
   elib.fillCircle(e.x, e.y, Pal.missileYellowBack, c2Alpha, c2Radius);
+  
+  var sAlpha = 0.3 + e.fout() * 0.7;
+  var sRadius = Mathf.lerp(2, 0.5, e.fin());
+  Angles.randLenVectors(e.id, 10, Mathf.lerp(20, 60, e.finpow()), new Floatc2(){get: (a, b) => {
+    elib.fillCircle(e.x + a, e.y + b, Color.gray, sAlpha, sRadius);
+  }});
   
   var lThickness = e.fout() * 3;
   var lDistance = Mathf.lerp(20, 120, e.finpow());
@@ -74,7 +80,7 @@ seismAP.reloadMultiplier = 1.2;
 seismAP.hitSound = Sounds.boom;
 // Trail effect
 seismAP.trailEffect = newEffect(30, e => {
-  elib.fillCircle(e.x, e.y, seismAP.frontColor, 1, Mathf.lerp(2, 0.5, e.fin()));
+  elib.fillCircle(e.x, e.y, seismAP.frontColor, 1, Mathf.lerp(2, 0.2, e.fin()));
 });
 seismAP.hitEffect = Fx.blastExplosion;
 seismAP.despawnEffect = seismAP.hitEffect;

@@ -93,10 +93,10 @@ const mk2Assembler = extendContent(GenericCrafter, "mk2-assembler", {
       Vars.tilesize * this.size / 2
     );
     Draw.reset();
-    Draw.rect(this.region);
+    Draw.rect(this.region, tile.drawx(), tile.drawy());
     Draw.color(entity.liquids.current().color);
     Draw.alpha(entity.liquids.total() / this.liquidCapacity);
-    Draw.rect(this.liquidRegion);
+    Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());
     Draw.reset();
   }
 });

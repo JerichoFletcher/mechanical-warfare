@@ -8,14 +8,6 @@ const seismHE = extend(BasicBulletType, {
       Effects.effect(this.trailEffect, b.x, b.y, b.rot());
     }
   },
-  /*hit(b, x, y){
-    if(typeof(x) !== "undefined" && typeof(y) !== "undefined"){
-      this.super$hit(b, x, y);
-    }else{
-      this.super$hit(b);
-    }
-    Effects.effect(this.hitEffect, b.x, b.y, b.rot());
-  }*/
 });
 seismHE.damage = 270;
 seismHE.splashDamage = 560;
@@ -85,11 +77,11 @@ seismAP.trailEffect = newEffect(30, e => {
 // Hit effect
 seismAP.hitEffect = newEffect(13, e => {
   var cThickness = 4 * e.fout();
-  var cRadius = Mathf.lerp(2, 15, e.fin());
+  var cRadius = Mathf.lerp(2, 30, e.fin());
   elib.outlineCircle(e.x, e.y, seismAP.frontColor, cThickness, cRadius);
   
   var lThickness = e.fout() * 3;
-  var lDistance = Mathf.lerp(3, 27, e.finpow());
+  var lDistance = Mathf.lerp(3, 45, e.finpow());
   var lLength = Mathf.lerp(5, 1, e.fin());
   var lCount = 6;
   elib.splashLines(e.x, e.y, seismAP.backColor, lThickness, lDistance, lLength, lCount, e.id);

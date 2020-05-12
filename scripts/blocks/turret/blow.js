@@ -41,7 +41,6 @@ const blow = extendContent(DoubleTurret, "blow", {
   },
   shoot(tile, ammo){
     var entity = tile.ent();
-    entity.heat = 1;
 
     //this.tr3.trns.(entity.rotation - 90, this.shotWidth * i, (this.size * Vars.tilesize / 2) - entity.recoil);    
 
@@ -49,9 +48,10 @@ const blow = extendContent(DoubleTurret, "blow", {
       Time.run(this.burstSpacing * i, run(() => {
         if(!tile.entity instanceof Turret.TurretEntity || !this.hasAmmo(tile)){return;}
         entity.recoil = this.recoil;
+        entity.heat = 1;
         for(var a = 0; a < 2; a++){
           var i = Mathf.signs[a];
-          this.tr.trns.(entity.rotation, this.shotWidth * i, (this.size * Vars.tilesize / 2) - entity.recoil);
+          this.tr.trns(entity.rotation, this.shotWidth * i, (this.size * Vars.tilesize / 2) - entity.recoil);
           Calls.createBullet(
             ammo, tile.getTeam(),
             tile.drawx() + this.tr.x,

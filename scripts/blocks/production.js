@@ -90,7 +90,7 @@ const mk2Assembler = extendContent(GenericCrafter, "mk2-assembler", {
       tile.drawx(),
       tile.drawy() + Mathf.sin(entity.totalProgress, 5, (Vars.tilesize * this.size) / 2),
       0,
-      Vars.tilesize * this.size
+      (Vars.tilesize - 1) * this.size
     );
     Draw.reset();
     Draw.rect(this.region, tile.drawx(), tile.drawy());

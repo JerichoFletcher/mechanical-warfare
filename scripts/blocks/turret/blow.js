@@ -46,7 +46,7 @@ const blow = extendContent(DoubleTurret, "blow", {
     //this.tr3.trns.(entity.rotation - 90, this.shotWidth * i, (this.size * Vars.tilesize / 2) - entity.recoil);    
 
     for(var i = 0; i < this.shots; i++){
-      Time.run(this.burstSpacing * i, () => {
+      Time.run(this.burstSpacing * i, run(() => {
         if(!tile.entity instanceof Turret.TurretEntity || !this.hasAmmo(tile)){return;}
         entity.recoil = this.recoil;
         for(var a = 0; a < 2; a++){
@@ -62,7 +62,7 @@ const blow = extendContent(DoubleTurret, "blow", {
           this.effects(tile);
           this.useAmmo(tile);
         }
-      });
+      }));
     }
   },
 });

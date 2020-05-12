@@ -6,7 +6,7 @@ inaccuracy: 5
 rotatespeed: 1.25
 shotWidth: 3
 range: 180
-recoil: 40
+recoil: 3.5
 requirements: [
   titanium/125
   surge-alloy/100

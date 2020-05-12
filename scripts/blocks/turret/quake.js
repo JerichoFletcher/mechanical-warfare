@@ -47,7 +47,7 @@ quakeHE.hitEffect = newEffect(13, e => {
   var lCount = 12;
   elib.splashLines(e.x, e.y, Pal.missileYellow, lThickness, lDistance, lLength, lCount, e.id);
 });
-seismHE.despawnEffect = seismHE.hitEffect;
+quakeHE.despawnEffect = quakeHE.hitEffect;
 
 const quakeAP = extend(BasicBulletType, {
   update(b){

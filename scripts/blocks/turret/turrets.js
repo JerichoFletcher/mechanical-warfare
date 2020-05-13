@@ -18,9 +18,7 @@ const nighthawk = extendContent(ItemTurret, "nighthawk", {
 require("blocks/turret/voltmeter")
 
 // Blow
-const blow = extendContent(DoubleTurret, "blow", {
-  
-});
+require("blocks/turret/blow")
 
 // Quake
 require("blocks/turret/quake")

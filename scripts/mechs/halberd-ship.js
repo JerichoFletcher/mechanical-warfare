@@ -71,27 +71,25 @@ const halberd = extendContent(Mech, "halberd-ship", {
     this.region = Core.atlas.find(this.name);
   },
   updateAlt(player){
-    this.vec2.trns(player.rotation - 90, 0, this.engineOffset);
-    Effects.effect(this.halberdTrail(player),
+    this.vec2.trns(player.rotation - 90, 0, -this.engineOffset);
+    Effects.effect(this.trailEffect,
       player.x + this.vec2.x + (player.velocity().x * 5 / 6),
       player.y + this.vec2.y + (player.velocity().y * 5 / 6),
       player.rotation
     );
     if(Mathf.chance((player.velocity().len() / this.maxSpeed * 0.08))){
       this.vec2.trns(player.rotation - 90, 0, this.weaponOffsetY);
-      var dir = player.rotation - 90 + Mathf.random(-this.plasmaCone, this.plasmaCone);
+      var dir = player.rotation + Mathf.random(-this.plasmaCone, this.plasmaCone);
       Calls.createBullet(halberdBullet2, player.getTeam(),
         player.x + this.vec2.x, player.y + this.vec2.y,
         dir, 1, 1
       );
     }
   },
-  halberdTrail: function(player){
-    return newEffect(30, e => {
-      var size = e.fout() * 1.5 * this.engineSize * (player.velocity().len() / this.maxSpeed);
-      elib.fillCircle(e.x, e.y, this.engineColor, 1, size);
-    });
-  }
+});
+halberd.trailEffect = newEffect(24, e => {
+  var size = e.fout() * 1.5 * e.data.engineSize * (e.data.velocity().len() / e.data.maxSpeed);
+  elib.fillCircle(e.x, e.y, e.data.engineColor, 1, size);
 });
 halberd.plasmaCone = 30;
 halberd.vec2 = new Vec2();

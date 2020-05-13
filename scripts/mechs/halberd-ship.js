@@ -61,7 +61,7 @@ const halberdTrail = newEffect(30, e => {
   Draw.blend();
 });
 
-const halberd = extendContent(Mech, "halberd", {
+const halberd = extendContent(Mech, "halberd-ship", {
   updateAlt(player){
     if(player.velocity().len() > 5){
       this.vec2.trns(player.rotation - 90, 0, this.engineOffset);

@@ -7,6 +7,8 @@ halberdBullet.bulletWidth = 6;
 halberdBullet.bulletHeight = 12;
 halberdBullet.speed = 9;
 halberdBullet.lifetime = 18;
+halberdBullet.frontColor = plib.frontColorCyan;
+halberdBullet.backColor = plib.backColorCyan;
 halberdBullet.hitEffect = Fx.hitBulletSmall;
 halberdBullet.shootEffect = Fx.shootBig;
 halberdBullet.smokeEffect = Fx.shootBigSmoke;
@@ -20,8 +22,9 @@ const halberdBullet2 = extend(BasicBulletType, {
       Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.lancerLaser, this.lightningDamage, b.x, b.y, rot, 10);
     }
   },
-  hit(b, x, y){
-    this.super$hit(b, b.x, b.y);
+  hit(b, x, y){},
+  despawned(b){
+    this.super$despawned(b);
     for(var i = 0; i < 3; i++){
       Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.lancerLaser, this.lightningDamage, b.x, b.y, Mathf.random(360), 15);
     }
@@ -103,7 +106,7 @@ halberd.drag = 0.01;
 halberd.mass = 4;
 halberd.health = 420; // WEED
 halberd.itemCapacity = 80;
-halberd.engineColor = Color.valueOf("7efdfd");
+halberd.engineColor = plib.frontColorCyan;
 halberd.cellTrnsY = 1;
 halberd.buildPower = 1.2;
 halberd.weapon = halberdGun;

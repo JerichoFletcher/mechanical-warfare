@@ -94,6 +94,7 @@ halberd.itemCapacity = 80;
 halberd.engineColor = Color.valueOf("7efdfd");
 halberd.cellTrnsY = 1;
 halberd.buildPower = 1.2;
+halberd.weapon = halberdGun;
 
 const halberdPad = extendContent(MechPad, "halberd-ship-pad", {});
 halberdPad.mech = halberd;

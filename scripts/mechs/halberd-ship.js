@@ -22,14 +22,17 @@ const halberdBullet2 = extend(BasicBulletType, {
       Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.lancerLaser, this.lightningDamage, b.x, b.y, rot, 10);
     }
   },
-  hit(b, x, y){},
-  despawned(b){
-    this.super$despawned(b);
+  hit(b, x, y){
+    this.super$hit(b);
     for(var i = 0; i < 3; i++){
       Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.lancerLaser, this.lightningDamage, b.x, b.y, Mathf.random(360), 15);
     }
   }
 });
+halberdBullet2.collides = false;
+halberdBullet2.collidesTile = false;
+halberdBullet2.collidesAir = false;
+halberdBullet2.collidesTeam = false;
 halberdBullet2.lightningDamage = 12
 halberdBullet2.lightningCone = 45;
 halberdBullet2.damage = 0;

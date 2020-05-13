@@ -93,21 +93,21 @@ const halberd = extendContent(Mech, "halberd-ship", {
 halberd.trailEffectA = newEffect(30, e => {
   Draw.blend(Blending.additive);
   Draw.color(plib.frontColorCyan, plib.backColorCyan, e.fin());
-  Fill.circle(e.x, e.y, e.fout() * 0.33 * halberd.engineSize);
+  Fill.circle(e.x, e.y, e.fout() * 0.5 * halberd.engineSize);
   Draw.blend();
   Draw.color();
 });
 halberd.trailEffectB = newEffect(30, e => {
   Draw.blend(Blending.additive);
   Draw.color(plib.frontColorCyan, plib.backColorCyan, e.fin());
-  Fill.circle(e.x, e.y, e.fout() * 0.67 * halberd.engineSize);
+  Fill.circle(e.x, e.y, e.fout() * halberd.engineSize);
   Draw.blend();
   Draw.color();
 });
 halberd.trailEffectC = newEffect(30, e => {
   Draw.blend(Blending.additive);
   Draw.color(plib.frontColorCyan, plib.backColorCyan, e.fin());
-  Fill.circle(e.x, e.y, e.fout() * halberd.engineSize);
+  Fill.circle(e.x, e.y, e.fout() * 1.5 * halberd.engineSize);
   Draw.blend();
   Draw.color();
 });

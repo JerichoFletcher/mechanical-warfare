@@ -23,7 +23,7 @@ const halberdBullet2 = extend(BasicBulletType, {
     }
   },
   hit(b, x, y){
-    this.super$hit(b);
+    this.super$hit(b, b.x, b.y);
     for(var i = 0; i < 3; i++){
       Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.lancerLaser, this.lightningDamage, b.x, b.y, Mathf.random(360), 15);
     }

@@ -13,9 +13,7 @@ halberdBullet.smokeEffect = Fx.shootBigSmoke;
 
 const halberdBullet2 = extend(BasicBulletType, {
   update(b){
-    if(Mathf.chance(0.8)){
-      Effects.effect(this.trailEffect, b.x, b.y, b.rot());
-    }
+    Effects.effect(this.trailEffect, b.x, b.y, b.rot());
     if(Mathf.chance(0.1)){
       var cone = this.lightningCone;
       var rot = b.rot() + Mathf.random(-cone, cone);
@@ -48,7 +46,11 @@ halberdBullet2.despawnEffect = newEffect(20, e => {
   elib.fillCircle(e.x, e.y, Pal.lancerLaser, 0.2 + e.fout() * 0.8, Mathf.lerp(12, 0.2, e.fin()));
 });
 
-const halberdGun = extendContent(Weapon, "gatling-gun-equip", {});
+const halberdGun = extendContent(Weapon, "gatling-gun", {
+  load(){
+    this.region = Core.atlas.find(this.name + "-equip");
+  }
+});
 halberdGun.length = 1.2;
 halberdGun.reload = 6;
 halberdGun.alternate = true;
@@ -60,7 +62,7 @@ halberdGun.bullet = halberdBullet;
 const halberdTrail = newEffect(30, e => {
   Draw.blend(Blending.additive);
   Draw.color(Color.valueOf(this.engineColor), Color.black, e.fin());
-  Fill.circle(e.x, e.y, 0.2 + e.fout() * 1.5);
+  Fill.circle(e.x, e.y, e.fout() * halberd.engineSize);
   Draw.blend();
 });
 
@@ -70,9 +72,9 @@ const halberd = extendContent(Mech, "halberd-ship", {
     this.region = Core.atlas.find(this.name);
   },
   updateAlt(player){
-    if(player.velocity().len() > 5){
+    if(player.velocity().len() > 10){
       this.vec2.trns(player.rotation - 90, 0, this.engineOffset);
-      Effects.effect(halberdTrail, player.x + this.vec2.x, player.y + this.vec2.y, player.rotation);
+      Effects.effect(this.trailEffect, player.x + this.vec2.x, player.y + this.vec2.y, player.rotation);
       if(Mathf.chance(0.25)){
         for(var i = 0; i < 8; i++){
           Calls.createBullet(halberdBullet2, player.getTeam(),
@@ -98,6 +100,7 @@ halberd.engineColor = Color.valueOf("7efdfd");
 halberd.cellTrnsY = 1;
 halberd.buildPower = 1.2;
 halberd.weapon = halberdGun;
+halberd.trailEffect = halberdTrail;
 
 const halberdPad = extendContent(MechPad, "halberd-ship-pad", {});
 halberdPad.mech = halberd;

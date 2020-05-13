@@ -2,7 +2,7 @@ flying: true
 drillPower: 4
 mineSpeed: 1.4
 speed: 0.2
-maxSpeed: 8
+maxSpeed: 12
 drag: 0.01
 mass: 4
 health: 420 //lmfao

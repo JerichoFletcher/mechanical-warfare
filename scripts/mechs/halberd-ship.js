@@ -62,40 +62,35 @@ halberdGun.ejectEffect = Fx.shellEjectSmall;
 halberdGun.shootSound = Sounds.shootBig;
 halberdGun.bullet = halberdBullet;
 
-const halberdTrail = newEffect(30, e => {
-  Draw.blend(Blending.additive);
-  Draw.color(Color.valueOf(this.engineColor), Color.black, e.fin());
-  Fill.circle(e.x, e.y, e.fout() * 2 * halberd.engineSize);
-  Draw.blend();
-});
-
 const halberd = extendContent(Mech, "halberd-ship", {
   load(){
     this.weapon.load();
     this.region = Core.atlas.find(this.name);
   },
   updateAlt(player){
-    if(player.velocity().len() > 8){
-      this.vec2.trns(player.rotation - 90, 0, this.engineOffset);
-      Effects.effect(this.trailEffect,
-        player.x + this.vec2.x + (player.velocity().x * 5 / 6),
-        player.y + this.vec2.y + (player.velocity().y * 5 / 6),
-        player.rotation
+    this.vec2.trns(player.rotation - 90, 0, this.engineOffset);
+    Effects.effect(this.halberdTrail(player),
+      player.x + this.vec2.x + (player.velocity().x * 5 / 6),
+      player.y + this.vec2.y + (player.velocity().y * 5 / 6),
+      player.rotation
+    );
+    if(Mathf.chance((player.velocity().len() / this.maxSpeed * 0.08))){
+      this.vec2.trns(player.rotation - 90, 0, this.weaponOffsetY);
+      var dir = player.rotation - 90 + Mathf.random(-this.plasmaCone, this.plasmaCone);
+      Calls.createBullet(halberdBullet2, player.getTeam(),
+        player.x + this.vec2.x, player.y + this.vec2.y,
+        dir, 1, 1
       );
     }
-    if(player.velocity().len() > 8){
-      if(Mathf.chance((player.velocity().len() / this.maxSpeed * 0.08))){
-        for(var i = 0; i < 4; i++){
-          var dir = i * 90 - 45;
-          Calls.createBullet(halberdBullet2, player.getTeam(),
-            player.x + this.vec2.x, player.y + this.vec2.y,
-            dir, 1, 1
-          );
-        }
-      }
-    }
+  },
+  halberdTrail: function(player){
+    return newEffect(30, e => {
+      var size = e.fout() * 1.5 * this.engineSize * (player.velocity().len() / this.maxSpeed);
+      elib.fillCircle(e.x, e.y, this.engineColor, 1, size);
+    });
   }
 });
+halberd.plasmaCone = 30;
 halberd.vec2 = new Vec2();
 halberd.flying = true;
 halberd.drillPower = 4;
@@ -110,7 +105,6 @@ halberd.engineColor = plib.frontColorCyan;
 halberd.cellTrnsY = 1;
 halberd.buildPower = 1.2;
 halberd.weapon = halberdGun;
-halberd.trailEffect = halberdTrail;
 
 const halberdPad = extendContent(MechPad, "halberd-ship-pad", {});
 halberdPad.mech = halberd;

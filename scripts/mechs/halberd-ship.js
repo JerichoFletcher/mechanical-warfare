@@ -72,11 +72,14 @@ const halberd = extendContent(Mech, "halberd-ship", {
   },
   updateAlt(player){
     this.vec2.trns(player.rotation - 90, 0, -this.engineOffset);
-    Effects.effect(this.trailEffect,
-      player.x + this.vec2.x + (player.velocity().x * 5 / 6),
-      player.y + this.vec2.y + (player.velocity().y * 5 / 6),
-      player.rotation
-    );
+    var scl = player.velocity().len() / this.maxSpeed;
+    if(scl <= 0.33){
+      Effects.effect(this.trailEffectA, player.x + this.vec2.x, player.y + this.vec2.y, player.rotation);
+    }else if(scl <= 0.67){
+      Effects.effect(this.trailEffectB, player.x + this.vec2.x, player.y + this.vec2.y, player.rotation);
+    }else if(scl <= 1){
+      Effects.effect(this.trailEffectC, player.x + this.vec2.x, player.y + this.vec2.y, player.rotation);
+    }
     if(Mathf.chance((player.velocity().len() / this.maxSpeed * 0.08))){
       this.vec2.trns(player.rotation - 90, 0, this.weaponOffsetY);
       var dir = player.rotation + Mathf.random(-this.plasmaCone, this.plasmaCone);
@@ -87,9 +90,26 @@ const halberd = extendContent(Mech, "halberd-ship", {
     }
   },
 });
-halberd.trailEffect = newEffect(24, e => {
-  var size = e.fout() * 1.5 * e.data.engineSize * (e.data.velocity().len() / e.data.maxSpeed);
-  elib.fillCircle(e.x, e.y, e.data.engineColor, 1, size);
+halberd.trailEffectA = newEffect(30, e => {
+  Draw.blend(Blending.additive);
+  Draw.color(plib.frontColorCyan, plib.backColorCyan, e.fin());
+  Fill.circle(e.x, e.y, e.fout() * 0.33 * halberd.engineSize);
+  Draw.blend();
+  Draw.color();
+});
+halberd.trailEffectB = newEffect(30, e => {
+  Draw.blend(Blending.additive);
+  Draw.color(plib.frontColorCyan, plib.backColorCyan, e.fin());
+  Fill.circle(e.x, e.y, e.fout() * 0.67 * halberd.engineSize);
+  Draw.blend();
+  Draw.color();
+});
+halberd.trailEffectC = newEffect(30, e => {
+  Draw.blend(Blending.additive);
+  Draw.color(plib.frontColorCyan, plib.backColorCyan, e.fin());
+  Fill.circle(e.x, e.y, e.fout() * halberd.engineSize);
+  Draw.blend();
+  Draw.color();
 });
 halberd.plasmaCone = 30;
 halberd.vec2 = new Vec2();

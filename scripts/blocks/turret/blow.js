@@ -51,14 +51,16 @@ const blow = extendContent(DoubleTurret, "blow", {
       for(var i = 0; i < this.shots; i++){
         Time.run(this.burstSpacing * i, run(() => {
           if(tile.entity instanceof Turret.TurretEntity){
-            entity.recoil = this.recoil;
-            entity.heat = 1;
-            for(var a = 0; a < 2; a++){
-              var i = Mathf.signs[a];
-              this.tr.trns(entity.rotation - 90, this.shotWidth * i, (this.size * Vars.tilesize / 2) - entity.recoil);
-              this.bullet(tile, ammo, entity.rotation + Mathf.range(this.inaccuracy));
-              this.effects(tile);
-              this.useAmmo(tile);
+            if(this.hasAmmo(tile)){
+              entity.recoil = this.recoil;
+              entity.heat = 1;
+              for(var a = 0; a < 2; a++){
+                var i = Mathf.signs[a];
+                this.tr.trns(entity.rotation - 90, this.shotWidth * i, (this.size * Vars.tilesize / 2) - entity.recoil);
+                this.bullet(tile, ammo, entity.rotation + Mathf.range(this.inaccuracy));
+                this.effects(tile);
+                this.useAmmo(tile);
+              }
             }
           }
         }));
@@ -67,4 +69,4 @@ const blow = extendContent(DoubleTurret, "blow", {
   },
 });
 blow.shots = 4;
-blow.burstSpacing = 3;
+blow.burstSpacing = 4;

@@ -12,11 +12,11 @@ blowShell.pierce = false;
 blowShell.damage = 30;
 blowShell.speed = 12;
 blowShell.lifetime = 20;
-blowShell.bulletWidth = 9;
-blowShell.bulletHeight = 21;
+blowShell.bulletWidth = 6;
+blowShell.bulletHeight = 14;
 blowShell.frontColor = Color.valueOf("ddffaa");
 blowShell.backColor = Color.valueOf("aacc66");
-blowShell.ammoMultiplier = 5;
+blowShell.ammoMultiplier = 3;
 blowShell.trailEffect = newEffect(30, e => {
   //elib.fillCircle(e.x, e.y, blowShell.frontColor, 1, Mathf.lerp(2, 0.2, e.fin()));
 });

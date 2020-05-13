@@ -46,7 +46,7 @@ halberdBullet2.despawnEffect = newEffect(20, e => {
   elib.fillCircle(e.x, e.y, Pal.lancerLaser, 0.2 + e.fout() * 0.8, Mathf.lerp(12, 0.2, e.fin()));
 });
 
-const halberdGun = extendContent(Weapon, "gatling-gun", {
+const halberdGun = extendContent(Weapon, "gatling", {
   load(){
     this.region = Core.atlas.find(this.name + "-equip");
   }
@@ -62,7 +62,7 @@ halberdGun.bullet = halberdBullet;
 const halberdTrail = newEffect(30, e => {
   Draw.blend(Blending.additive);
   Draw.color(Color.valueOf(this.engineColor), Color.black, e.fin());
-  Fill.circle(e.x, e.y, e.fout() * halberd.engineSize);
+  Fill.circle(e.x, e.y, e.fout() * 5 * halberd.engineSize);
   Draw.blend();
 });
 
@@ -74,14 +74,19 @@ const halberd = extendContent(Mech, "halberd-ship", {
   updateAlt(player){
     if(player.velocity().len() > 8){
       this.vec2.trns(player.rotation - 90, 0, this.engineOffset);
-      Effects.effect(this.trailEffect, player.x + this.vec2.x, player.y + this.vec2.y, player.rotation);
+      Effects.effect(this.trailEffect,
+        player.x + this.vec2.x + (player.velocity().x * 3 / 4),
+        player.y + this.vec2.y + (player.velocity().y * 3 / 4),
+        player.rotation
+      );
     }
-    if(player.velocity().len() > 12){
-      if(Mathf.chance(0.05)){
-        for(var i = 0; i < 8; i++){
+    if(player.velocity().len() > 8){
+      if(Mathf.chance((player.velocity().len() / this.maxSpeed * 0.08))){
+        for(var i = 0; i < 4; i++){
+          var dir = i * 90 - 45;
           Calls.createBullet(halberdBullet2, player.getTeam(),
             player.x + this.vec2.x, player.y + this.vec2.y,
-            i * 45, 1, 1
+            dir, 1, 1
           );
         }
       }

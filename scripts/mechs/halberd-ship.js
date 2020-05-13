@@ -45,7 +45,7 @@ halberdBullet2.despawnEffect = newEffect(20, e => {
   elib.fillCircle(e.x, e.y, Pal.lancerLaser, 0.2 + e.fout() * 0.8, Mathf.lerp(12, 0.2, e.fin()));
 });
 
-const halberdGun = extendContent(Weapon, "gatling-gun", {});
+const halberdGun = extendContent(Weapon, "gatling-gun-equip", {});
 halberdGun.length = 1.2;
 halberdGun.reload = 6;
 halberdGun.alternate = true;
@@ -62,6 +62,10 @@ const halberdTrail = newEffect(30, e => {
 });
 
 const halberd = extendContent(Mech, "halberd-ship", {
+  load(){
+    this.weapon.load();
+    this.region = Core.atlas.find(this.name);
+  },
   updateAlt(player){
     if(player.velocity().len() > 5){
       this.vec2.trns(player.rotation - 90, 0, this.engineOffset);

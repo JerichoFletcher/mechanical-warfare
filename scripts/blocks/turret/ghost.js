@@ -60,6 +60,7 @@ ghostBlastCompound.bulletWidth = 3;
 ghostBlastCompound.bulletHeight = 15;
 ghostBlastCompound.ammoMultiplier = 2;
 ghostBlastCompound.hitEffect = Fx.blastExplosion;
+ghostBlastCompound.reloadMultiplier = 0.6;
 ghostBlastCompound.fragBullets = 12;
 ghostBlastCompound.fragBullet = ghostBlastCompoundFrag;
 
@@ -73,7 +74,7 @@ ghostPlastaniumFrag.despawnEffect = Fx.none;
 
 const ghostPlastanium = extend(FlakBulletType, {});
 ghostPlastanium.damage = 18;
-ghostPlastanium.splashDamage = 64;
+ghostPlastanium.splashDamage = 56;
 ghostPlastanium.splashDamageRadius = 24;
 ghostPlastanium.speed = 18;
 ghostPlastanium.lifetime = 14;
@@ -81,13 +82,12 @@ ghostPlastanium.bulletWidth = 4;
 ghostPlastanium.bulletHeight = 18;
 ghostPlastanium.ammoMultiplier = 3;
 ghostPlastanium.hitEffect = Fx.plasticExplosion;
-ghostPlastanium.reloadMultiplier = 1.2;
 ghostPlastanium.fragBullets = 12;
 ghostPlastanium.fragBullet = ghostPlastaniumFrag;
 
 const ghostSurge = extend(FlakBulletType, {
   update(b){
-    if(Mathf.chance(0.33)){
+    if(Mathf.chance(0.5)){
       var cone = this.lightningCone;
       var rot = b.velocity().angle() + Mathf.random(-cone, cone);
       Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.surge, this.lightningDamage, b.x, b.y, rot, 10);
@@ -101,8 +101,8 @@ const ghostSurge = extend(FlakBulletType, {
   }
 });
 ghostSurge.damage = 20;
-ghostSurge.lightningDamage = 8;
-ghostSurge.lightningHitCount = 3;
+ghostSurge.lightningDamage = 12;
+ghostSurge.lightningHitCount = 5;
 ghostSurge.splashDamage = 48;
 ghostSurge.splashDamageRadius = 20;
 ghostSurge.speed = 18;
@@ -111,7 +111,7 @@ ghostSurge.bulletWidth = 4;
 ghostSurge.bulletHeight = 18;
 ghostSurge.ammoMultiplier = 3;
 ghostSurge.hitEffect = Fx.flakExplosion;
-ghostSurge.reloadMultiplier = 0.8;
+ghostSurge.reloadMultiplier = 1.2;
 ghostSurge.lightningCone = 45;
 ghostSurge.status = StatusEffects.shocked;
 
@@ -139,12 +139,12 @@ ghostShell.fragBullet = ghostShellFrag;
 const ghost = extendContent(DoubleTurret, "ghost", {
   init(){
     ghost.ammo(
-      Items.metaglass, ghostGlass,
-      Items.pyratite, ghostPyratite,
-      Items.blastCompound, ghostBlastCompound,
-      Items.plastanium, ghostPlastanium,
-      Items.surgealloy, ghostSurge,
-      Vars.content.getByName(ContentType.item, modName + "-he-shell"), ghostShell
+      Items.metaglass, ghostGlass, // Raw DPS: 672
+      Items.pyratite, ghostPyratite, // Raw DPS: 672
+      Items.blastCompound, ghostBlastCompound, // Raw DPS: 731
+      Items.plastanium, ghostPlastanium, // Raw DPS: 872
+      Items.surgealloy, ghostSurge, // Raw DPS: 640
+      Vars.content.getByName(ContentType.item, modName + "-he-shell"), ghostShell // Raw DPS: 1196
     );
     this.super$init();
   },

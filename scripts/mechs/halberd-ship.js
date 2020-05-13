@@ -48,7 +48,7 @@ halberdBullet2.despawnEffect = newEffect(20, e => {
 
 const halberdGun = extendContent(Weapon, "gatling", {
   load(){
-    this.region = Core.atlas.find(this.name + "-equip");
+    this.region = Core.atlas.find(modName + "-gatling-equip");
   }
 });
 halberdGun.length = 1.2;
@@ -62,7 +62,7 @@ halberdGun.bullet = halberdBullet;
 const halberdTrail = newEffect(30, e => {
   Draw.blend(Blending.additive);
   Draw.color(Color.valueOf(this.engineColor), Color.black, e.fin());
-  Fill.circle(e.x, e.y, e.fout() * 5 * halberd.engineSize);
+  Fill.circle(e.x, e.y, e.fout() * 2 * halberd.engineSize);
   Draw.blend();
 });
 
@@ -75,8 +75,8 @@ const halberd = extendContent(Mech, "halberd-ship", {
     if(player.velocity().len() > 8){
       this.vec2.trns(player.rotation - 90, 0, this.engineOffset);
       Effects.effect(this.trailEffect,
-        player.x + this.vec2.x + (player.velocity().x * 3 / 4),
-        player.y + this.vec2.y + (player.velocity().y * 3 / 4),
+        player.x + this.vec2.x + (player.velocity().x * 5 / 6),
+        player.y + this.vec2.y + (player.velocity().y * 5 / 6),
         player.rotation
       );
     }

@@ -68,5 +68,5 @@ const blow = extendContent(DoubleTurret, "blow", {
     }
   },
 });
-blow.shots = 4;
-blow.burstSpacing = 4;
+blow.shots = 3;
+blow.burstSpacing = 2;

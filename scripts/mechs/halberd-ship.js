@@ -72,10 +72,12 @@ const halberd = extendContent(Mech, "halberd-ship", {
     this.region = Core.atlas.find(this.name);
   },
   updateAlt(player){
-    if(player.velocity().len() > 10){
+    if(player.velocity().len() > 8){
       this.vec2.trns(player.rotation - 90, 0, this.engineOffset);
       Effects.effect(this.trailEffect, player.x + this.vec2.x, player.y + this.vec2.y, player.rotation);
-      if(Mathf.chance(0.25)){
+    }
+    if(player.velocity().len() > 12){
+      if(Mathf.chance(0.05)){
         for(var i = 0; i < 8; i++){
           Calls.createBullet(halberdBullet2, player.getTeam(),
             player.x + this.vec2.x, player.y + this.vec2.y,
@@ -91,7 +93,7 @@ halberd.flying = true;
 halberd.drillPower = 4;
 halberd.mineSpeed = 1.4;
 halberd.speed = 0.2;
-halberd.maxSpeed = 12;
+halberd.maxSpeed = 15;
 halberd.drag = 0.01;
 halberd.mass = 4;
 halberd.health = 420; // WEED

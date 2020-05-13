@@ -1,3 +1,6 @@
+const elib = require("effectlib");
+const plib = require("plib");
+
 const halberdBullet = extend(BasicBulletType, {});
 halberdBullet.damage = 12;
 halberdBullet.bulletWidth = 6;

@@ -78,3 +78,6 @@ const halberd = extendContent(Mech, "halberd-ship", {
   }
 });
 halberd.vec2 = new Vec2();
+
+const halberdPad = extendContent(MechPad, "halberd-ship-pad", {});
+halberdPad.mech = halberd;

@@ -25,7 +25,7 @@ blowShell.hitEffect = newEffect(13, e => {
   var lDistance = Mathf.lerp(0, 20, e.finpow());
   var lLength = Mathf.lerp(2, 0.2, e.fin());
   var lCount = 6;
-  elib.splashLines(e.x, e.y, seismAP.backColor, lThickness, lDistance, lLength, lCount, e.id);
+  elib.splashLines(e.x, e.y, blowShell.backColor, lThickness, lDistance, lLength, lCount, e.id);
 });
 blowShell.despawnEffect = blowShell.hitEffect;
 

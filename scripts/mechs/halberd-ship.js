@@ -78,6 +78,18 @@ const halberd = extendContent(Mech, "halberd-ship", {
   }
 });
 halberd.vec2 = new Vec2();
+halberd.flying = true;
+halberd.drillPower = 4;
+halberd.mineSpeed = 1.4;
+halberd.speed = 0.2;
+halberd.maxSpeed = 12;
+halberd.drag = 0.01;
+halberd.mass = 4;
+halberd.health = 420; // WEED
+halberd.itemCapacity = 80;
+halberd.engineColor = Color.valueOf("7efdfd");
+halberd.cellTrnsY = 1;
+halberd.buildPower = 1.2;
 
 const halberdPad = extendContent(MechPad, "halberd-ship-pad", {});
 halberdPad.mech = halberd;

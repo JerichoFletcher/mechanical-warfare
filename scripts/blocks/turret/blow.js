@@ -1,5 +1,5 @@
-//const elib = require("effectlib");
-//const plib = require("plib");
+const elib = require("effectlib");
+const plib = require("plib");
 
 const blowShell = extend(BasicBulletType, {
   update(b){
@@ -14,18 +14,18 @@ blowShell.speed = 12;
 blowShell.lifetime = 20;
 blowShell.bulletWidth = 6;
 blowShell.bulletHeight = 14;
-blowShell.frontColor = Color.valueOf("ddffaa");
-blowShell.backColor = Color.valueOf("aacc66");
+blowShell.frontColor = plib.frontColorAP;
+blowShell.backColor = plib.backColorAP;
 blowShell.ammoMultiplier = 3;
 blowShell.trailEffect = newEffect(30, e => {
-  //elib.fillCircle(e.x, e.y, blowShell.frontColor, 1, Mathf.lerp(2, 0.2, e.fin()));
+  elib.fillCircle(e.x, e.y, blowShell.frontColor, 1, Mathf.lerp(1.5, 0.2, e.fin()));
 });
 blowShell.hitEffect = newEffect(13, e => {
-  /*var lThickness = e.fout() * 1.2;
+  var lThickness = e.fout() * 1.2;
   var lDistance = Mathf.lerp(0, 20, e.finpow());
   var lLength = Mathf.lerp(2, 0.2, e.fin());
   var lCount = 6;
-  elib.splashLines(e.x, e.y, seismAP.backColor, lThickness, lDistance, lLength, lCount, e.id);*/
+  elib.splashLines(e.x, e.y, seismAP.backColor, lThickness, lDistance, lLength, lCount, e.id);
 });
 blowShell.despawnEffect = blowShell.hitEffect;
 

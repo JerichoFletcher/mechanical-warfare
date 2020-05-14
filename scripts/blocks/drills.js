@@ -27,6 +27,7 @@ const chemicalDrill = extendContent(Drill, "chemical-drill", {
 });
 
 Vars.content.blocks().each(boolf(b => b.entityType instanceof Drill.DrillEntity), cons(b => {
+  print(b.name + " override start");
   b.countOre = function(tile){
     b.returnItem = null;
     b.returnCount = 0;
@@ -41,6 +42,9 @@ Vars.content.blocks().each(boolf(b => b.entityType instanceof Drill.DrillEntity)
       b.itemArray.add(item);
     }));
     const stone = Vars.content.getByName(ContentType.item, modName + "-cobblestone");
+    if(stone === undefined){
+      print("stone is undefined");
+    }
     b.itemArray.sort((item1, item2) => {
       var type = Boolean.compare(item1 != Items.sand || item1 != stone, item2 != Items.sand || item2 != stone);
       if(type != 0){return type;}
@@ -54,4 +58,5 @@ Vars.content.blocks().each(boolf(b => b.entityType instanceof Drill.DrillEntity)
     b.returnItem = b.itemArray.peek();
     b.returnCount = b.oreCount.get(b.itemArray.peek(), 0);
   }
+  print(b.name + " override end");
 }));

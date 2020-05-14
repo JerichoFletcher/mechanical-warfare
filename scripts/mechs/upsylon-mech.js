@@ -48,6 +48,7 @@ upsylonPlasma.hitEffect = newEffect(20, e => {
   elib.fillCircle(e.x, e.y, Pal.lancerLaser, 0.2 + e.fout() * 0.8, Mathf.lerp(upsylonPlasma.splashDamageRadius, 0.2, e.fin()));
 });
 upsylonPlasma.despawnEffect = upsylonPlasma.hitEffect;
+upsylonPlasma.hitSound = Sounds.explosion;
 
 const upsylon = extendContent(Mech, "upsylon-mech", {
   load(){
@@ -65,12 +66,14 @@ const upsylon = extendContent(Mech, "upsylon-mech", {
           player.x + this.pl1.x, player.y + this.pl1.y,
           dir, 1, 1
         );
+        this.secondaryShootSound.at(player.x, player.y, Mathf.random(0.9, 1.1));
       }));
     }
   }
 });
 upsylon.pl1 = new Vec2();
 upsylon._shots = 0;
+upsylon.secondaryShootSound = Sounds.missile;
 upsylon.secondaryAngle = 45;
 upsylon.secondaryReload = 60;
 upsylon.speed = 0.5;

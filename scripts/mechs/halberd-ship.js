@@ -102,6 +102,7 @@ const halberd = extendContent(Mech, "halberd-ship", {
           player.x + this.pl2.x, player.y + this.pl2.y,
           dir, 1, 1
         );
+        this.plasmaShootSound.at(player.x, player.y, Mathf.random(0.9, 1.1))
       }
     }
   },
@@ -127,6 +128,7 @@ halberd.trailEffectC = newEffect(30, e => {
   Draw.blend();
   Draw.color();
 });
+halberd.plasmaShootSound = Sounds.missile;
 halberd.plasmaCone = 30;
 halberd.pl1 = new Vec2();
 halberd.pl2 = new Vec2();

@@ -40,11 +40,14 @@ const upsylonPlasma = extend(BasicBulletType, {
     }
   }
 });
+upsylonPlasma.bulletSprite = "clear";
 upsylonPlasma.splashDamage = Vars.state.rules.playerDamageMultiplier * 27;
 upsylonPlasma.splashDamageRadius = 20;
 upsylonPlasma.speed = 12;
 upsylonPlasma.lifetime = 60;
 upsylonPlasma.drag = 0.05;
+upsylonPlasma.homingRange = 120;
+upsylonPlasma.homingPower = 0.01;
 upsylonPlasma.shootEffect = Fx.shootBig;
 upsylonPlasma.smokeEffect = Fx.shootBigSmoke;
 upsylonPlasma.trailEffect = newEffect(30, e => {
@@ -70,7 +73,7 @@ const upsylon = extendContent(Mech, "upsylon-mech", {
         this._shots++;
         var i = Mathf.signs[this._shots % 2];
         this.pl1.trns(player.rotation - 90, i * this.weaponOffsetX, this.weaponOffsetY);
-        var dir = player.rotation + i * this.secondaryAngle;
+        var dir = player.rotation + i * (this.secondaryAngle / 2);
         Calls.createBullet(upsylonPlasma, player.getTeam(),
           player.x + this.pl1.x, player.y + this.pl1.y,
           dir, 1, 1
@@ -82,7 +85,7 @@ const upsylon = extendContent(Mech, "upsylon-mech", {
 });
 upsylon.pl1 = new Vec2();
 upsylon._shots = 0;
-upsylon.secondaryShootSound = Sounds.missile;
+upsylon.secondaryShootSound = Sounds.artillery;
 upsylon.secondaryAngle = 45;
 upsylon.secondaryReload = 60;
 upsylon.speed = 0.5;

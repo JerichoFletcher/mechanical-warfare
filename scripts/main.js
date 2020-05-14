@@ -7,3 +7,4 @@ require("blocks/defense")
 
 //mechs
 require("mechs/ship")
+require("mechs/mech")

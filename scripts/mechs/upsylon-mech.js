@@ -73,7 +73,7 @@ const upsylon = extendContent(Mech, "upsylon-mech", {
       if(player.timer.get(player.timerAbility, this.secondaryReload / 2)){
         this._shots++;
         var i = Mathf.signs[this._shots % 2];
-        this.pl1.trns(player.rotation - 90, i * this.weaponOffsetX, this.weaponOffsetY);
+        this.pl1.trns(player.rotation - 90, i * this.weaponOffsetX, 0);
         var dir = player.rotation + i * (this.secondaryAngle / 2);
         Calls.createBullet(upsylonPlasma, player.getTeam(),
           player.x + this.pl1.x, player.y + this.pl1.y,

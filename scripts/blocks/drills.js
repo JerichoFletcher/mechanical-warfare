@@ -27,7 +27,5 @@ const chemicalDrill = extendContent(Drill, "chemical-drill", {
 });
 
 Vars.content.blocks().each(boolf(b => b instanceof Drill), cons(b => {
-  b.countOre = function(tile){
-    
-  }
+  
 });

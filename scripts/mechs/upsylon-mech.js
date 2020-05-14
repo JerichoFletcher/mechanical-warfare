@@ -37,25 +37,23 @@ shotgun.bullet = shotgunRound;
 const upsylonPlasma = extend(BasicBulletType, {
   update(b){
     this.super$update(b);
-    if(Mathf.chance(0.75)){
-      Effects.effect(this.trailEffect, b.x, b.y, b.rot());
-    }
+    Effects.effect(this.trailEffect, b.x, b.y, b.rot());
   }
 });
-upsylonPlasma.bulletSprite = Core.atlas.find("clear");
+upsylonPlasma.damage = Vars.state.rules.playerDamageMultiplier * 10;
 upsylonPlasma.splashDamage = Vars.state.rules.playerDamageMultiplier * 27;
 upsylonPlasma.splashDamageRadius = 20;
 upsylonPlasma.speed = 12;
-upsylonPlasma.lifetime = 60;
+upsylonPlasma.lifetime = 48;
 upsylonPlasma.drag = 0.08;
-upsylonPlasma.homingRange = 320;
+upsylonPlasma.homingRange = 240;
 upsylonPlasma.homingPower = 0.001;
 upsylonPlasma.shootEffect = Fx.shootBig;
 upsylonPlasma.smokeEffect = Fx.shootBigSmoke;
 upsylonPlasma.trailEffect = newEffect(30, e => {
   elib.fillCircle(e.x, e.y, Pal.lancerLaser, 1, Mathf.lerp(6, 0.2, e.fin()));
 });
-upsylonPlasma.hitEffect = newEffect(20, e => {
+upsylonPlasma.hitEffect = newEffect(16, e => {
   elib.outlineCircle(e.x, e.y, Pal.lancerLaser, e.fout() * 6, 1 + e.fin() * (upsylonPlasma.splashDamageRadius + 6));
   elib.fillCircle(e.x, e.y, Pal.lancerLaser, 0.2 + e.fout() * 0.8, Mathf.lerp(upsylonPlasma.splashDamageRadius, 0.2, e.fin()));
 });

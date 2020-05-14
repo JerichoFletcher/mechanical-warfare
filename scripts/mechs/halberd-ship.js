@@ -41,7 +41,7 @@ halberdBullet2.smokeEffect = Fx.shootBigSmoke;
 halberdBullet2.trailEffect = newEffect(30, e => {
   elib.fillCircle(e.x, e.y, Pal.lancerLaser, 1, Mathf.lerp(6, 0.2, e.fin()));
 });
-halberdBullet2.hitEffect = Fx.none;
+halberdBullet2.hitEffect = halberdBullet2.despawnEffect;
 halberdBullet2.despawnEffect = newEffect(20, e => {
   elib.outlineCircle(e.x, e.y, Pal.lancerLaser, e.fout() * 6, 1 + e.fin() * 14);
   elib.fillCircle(e.x, e.y, Pal.lancerLaser, 0.2 + e.fout() * 0.8, Mathf.lerp(12, 0.2, e.fin()));

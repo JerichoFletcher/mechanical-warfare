@@ -32,14 +32,14 @@ Vars.content.blocks().each(boolf(b => b instanceof Drill), cons(b => {
     b.returnCount = 0;
     b.oreCount.clear();
     b.itemArray.clear();
-    for(const other of tile.getLinkedTilesAs(b, b.tempTiles)){
+    tile.getLinkedTilesAs(b, b.tempTiles).each(cons(other => {
       if(b.isValid(other)){
         b.oreCount.getAndIncrement(b.getDrop(other), 0, 1);
       }
-    }
-    for(const item of b.oreCount.keys()){
+    }}));
+    b.oreCount.keys().toArray().each(cons(item => {
       b.itemArray.add(item);
-    }
+    }));
     const stone = Vars.content.getByName(ContentType.item, modName + "-cobblestone");
     b.itemArray.sort((item1, item2) => {
       var type = Boolean.compare(item1 != Items.sand || item1 != stone, item2 != Items.sand || item2 != stone);

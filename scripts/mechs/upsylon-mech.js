@@ -66,7 +66,7 @@ const upsylon = extendContent(Mech, "upsylon-mech", {
   },
   updateAlt(player){
     if(player.isShooting()){
-      if(player.timer.get(this.timerAbility, this.secondaryReload / 2)){
+      if(player.timer.get(player.timerAbility, this.secondaryReload / 2)){
         this._shots++;
         var i = Mathf.signs[this._shots % 2];
         this.pl1.trns(player.rotation - 90, i * this.weaponOffsetX, this.weaponOffsetY);

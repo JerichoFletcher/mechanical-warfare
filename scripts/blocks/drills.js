@@ -26,7 +26,7 @@ const chemicalDrill = extendContent(Drill, "chemical-drill", {
   },
 });
 
-Vars.content.blocks().eachFilter(boolf(b => b instanceof Drill)).each(cons(b => {
+Vars.content.blocks().each(boolf(b => b.entityType instanceof Drill.DrillEntity), cons(b => {
   b.countOre = function(tile){
     b.returnItem = null;
     b.returnCount = 0;

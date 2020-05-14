@@ -37,7 +37,7 @@ halberdBullet2.lightningDamage = 12
 halberdBullet2.lightningCone = 45;
 halberdBullet2.damage = 0;
 halberdBullet2.pierce = true;
-halberdBullet2.speed = 7;
+halberdBullet2.speed = 12;
 halberdBullet2.drag = 0.05;
 halberdBullet2.lifetime = 60;
 halberdBullet2.hitEffect = Fx.none;
@@ -79,20 +79,31 @@ const halberd = extendContent(Mech, "halberd-ship", {
     Draw.color();
   },
   updateAlt(player){
-    this.vec2.trns(player.rotation - 90, 0, -this.engineOffset);
-    var scl = player.velocity().len() / this.maxSpeed;
-    if(scl <= 0.33){
-      Effects.effect(this.trailEffectA, player.x + this.vec2.x, player.y + this.vec2.y, player.rotation);
-    }else if(scl <= 0.67){
-      Effects.effect(this.trailEffectB, player.x + this.vec2.x, player.y + this.vec2.y, player.rotation);
-    }else if(scl <= 1){
-      Effects.effect(this.trailEffectC, player.x + this.vec2.x, player.y + this.vec2.y, player.rotation);
+    for(var i = 0; i < 2; i++){
+      this.pl1.trns(player.rotation - 90, Mathf.signs[i] * -22, -21);
+      var scl = player.velocity().len() / this.maxSpeed;
+      if(scl <= 0.33){
+        Effects.effect(this.trailEffectA,
+          player.x + this.pl1.x + player.velocity().x * 5 / 6,
+          player.y + this.pl1.y + player.velocity().y * 5 / 6,
+          player.rotation);
+      }else if(scl <= 0.67){
+        Effects.effect(this.trailEffectB,
+          player.x + this.pl1.x + player.velocity().x * 5 / 6,
+          player.y + this.pl1.y + player.velocity().y * 5 / 6,
+          player.rotation);
+      }else if(scl <= 1){
+        Effects.effect(this.trailEffectC,
+          player.x + this.pl1.x + player.velocity().x * 5 / 6,
+          player.y + this.pl1.y + player.velocity().y * 5 / 6,
+          player.rotation);
+      }
     }
     if(Mathf.chance((player.velocity().len() / this.maxSpeed * 0.08))){
-      this.vec2.trns(player.rotation - 90, 0, this.weaponOffsetY);
+      this.pl2.trns(player.rotation - 90, 0, this.weaponOffsetY);
       var dir = player.rotation + Mathf.random(-this.plasmaCone, this.plasmaCone);
       Calls.createBullet(halberdBullet2, player.getTeam(),
-        player.x + this.vec2.x, player.y + this.vec2.y,
+        player.x + this.pl2.x, player.y + this.pl2.y,
         dir, 1, 1
       );
     }
@@ -120,13 +131,14 @@ halberd.trailEffectC = newEffect(30, e => {
   Draw.color();
 });
 halberd.plasmaCone = 30;
-halberd.vec2 = new Vec2();
+halberd.pl1 = new Vec2();
+halberd.pl2 = new Vec2();
 halberd.flying = true;
 halberd.drillPower = 4;
 halberd.mineSpeed = 1.4;
-halberd.speed = 0.2;
-halberd.maxSpeed = 15;
-halberd.drag = 0.01;
+halberd.speed = 0.16;
+halberd.maxSpeed = 12;
+halberd.drag = 0.008;
 halberd.mass = 4;
 halberd.health = 420; // WEED
 halberd.itemCapacity = 80;

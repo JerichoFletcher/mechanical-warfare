@@ -69,6 +69,14 @@ const halberd = extendContent(Mech, "halberd-ship", {
   load(){
     this.weapon.load();
     this.region = Core.atlas.find(this.name);
+    this.heatRegion = Core.atlas.find(this.name + "-heat");
+  },
+  draw(player){
+    Draw.color(plib.frontColorCyan, plib.backColorCyan, Mathf.absin(3 ,1));
+    Draw.blend(Blending.additive);
+    Draw.rect(this.heatRegion, player.x, player.y, player.rotation - 90);
+    Draw.blend();
+    Draw.color();
   },
   updateAlt(player){
     this.vec2.trns(player.rotation - 90, 0, -this.engineOffset);

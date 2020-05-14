@@ -14,6 +14,7 @@ halberdBullet.shootEffect = Fx.shootBig;
 halberdBullet.smokeEffect = Fx.shootBigSmoke;
 
 const halberdBullet2 = extend(BasicBulletType, {
+  draw(b){},
   update(b){
     Effects.effect(this.trailEffect, b.x, b.y, b.rot());
     if(Mathf.chance(0.1)){

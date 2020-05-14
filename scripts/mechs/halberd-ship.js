@@ -29,14 +29,9 @@ const halberdBullet2 = extend(BasicBulletType, {
     }
   }
 });
-halberdBullet2.collides = false;
-halberdBullet2.collidesTile = false;
-halberdBullet2.collidesAir = false;
-halberdBullet2.collidesTeam = false;
 halberdBullet2.lightningDamage = 12
 halberdBullet2.lightningCone = 45;
 halberdBullet2.damage = 0;
-halberdBullet2.pierce = true;
 halberdBullet2.speed = 12;
 halberdBullet2.drag = 0.05;
 halberdBullet2.lifetime = 60;

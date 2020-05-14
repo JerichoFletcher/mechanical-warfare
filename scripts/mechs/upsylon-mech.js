@@ -3,8 +3,8 @@ const plib = require("plib");
 
 const shotgunRound = extend(BasicBulletType, {});
 shotgunRound.damage = 8;
-shotgunRound.bulletWidth = 5;
-shotgunRound.bulletHeight = 12;
+shotgunRound.bulletWidth = 6;
+shotgunRound.bulletHeight = 9;
 shotgunRound.bulletShrink = 0.3;
 shotgunRound.frontColor = plib.frontColorCyan;
 shotgunRound.backColor = plib.backColorCyan;

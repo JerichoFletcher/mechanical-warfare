@@ -1,7 +1,6 @@
 // Mechanical Warfare extra pallette lib.
 // Lib by JerichoFletcher
 module.exports = {
-  // Bullet Color
   frontColorHE: Color.valueOf("ffd385"),
   backColorHE: Color.valueOf("b6573a"),
   frontColorAP: Color.valueOf("fbff85"),

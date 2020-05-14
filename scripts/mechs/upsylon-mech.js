@@ -35,7 +35,9 @@ shotgun.bullet = shotgunRound;
 const upsylonPlasma = extend(BasicBulletType, {
   update(b){
     this.super$update(b);
-    
+    if(Mathf.chance(0.75)){
+      Effects.effect(this.trailEffect, b.x, b.y, b.rot());
+    }
   }
 });
 upsylonPlasma.splashDamage = Vars.state.rules.playerDamageMultiplier * 27;

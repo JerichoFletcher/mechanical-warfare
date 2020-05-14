@@ -72,7 +72,7 @@ const halberd = extendContent(Mech, "halberd-ship", {
     this.heatRegion = Core.atlas.find(this.name + "-heat");
   },
   draw(player){
-    Draw.color(plib.frontColorCyan, plib.backColorCyan, Mathf.absin(3, 1));
+    Draw.color(plib.frontColorCyan, plib.backColorCyan, Mathf.absin(4, 1));
     Draw.blend(Blending.additive);
     Draw.alpha(player.velocity().len() / this.maxSpeed);
     Draw.rect(this.heatRegion, player.x, player.y, player.rotation - 90);
@@ -81,32 +81,34 @@ const halberd = extendContent(Mech, "halberd-ship", {
   },
   updateAlt(player){
     for(var i = 0; i < 2; i++){
-      this.pl1.trns(player.rotation - 90, Mathf.signs[i] * -22, -21);
+      this.pl1.trns(player.rotation - 90, Mathf.signs[i] * -22 / 4, -21 / 4);
       var scl = player.velocity().len() / this.maxSpeed;
       if(scl <= 0.33){
         Effects.effect(this.trailEffectA,
           player.x + this.pl1.x + player.velocity().x * 5 / 6,
           player.y + this.pl1.y + player.velocity().y * 5 / 6,
-          player.rotation);
+          player.velocity().angle());
       }else if(scl <= 0.67){
         Effects.effect(this.trailEffectB,
           player.x + this.pl1.x + player.velocity().x * 5 / 6,
           player.y + this.pl1.y + player.velocity().y * 5 / 6,
-          player.rotation);
+          player.velocity().angle());
       }else if(scl <= 1){
         Effects.effect(this.trailEffectC,
           player.x + this.pl1.x + player.velocity().x * 5 / 6,
           player.y + this.pl1.y + player.velocity().y * 5 / 6,
-          player.rotation);
+          player.velocity().angle());
       }
     }
-    if(Mathf.chance((player.velocity().len() / this.maxSpeed * 0.08))){
-      this.pl2.trns(player.rotation - 90, 0, this.weaponOffsetY);
-      var dir = player.rotation + Mathf.random(-this.plasmaCone, this.plasmaCone);
-      Calls.createBullet(halberdBullet2, player.getTeam(),
-        player.x + this.pl2.x, player.y + this.pl2.y,
-        dir, 1, 1
-      );
+    if(scl >= 0.75){
+      if(Mathf.chance((player.velocity().len() / this.maxSpeed * 0.08))){
+        this.pl2.trns(player.rotation - 90, 0, this.weaponOffsetY);
+        var dir = player.velocity().angle() + Mathf.random(-this.plasmaCone, this.plasmaCone);
+        Calls.createBullet(halberdBullet2, player.getTeam(),
+          player.x + this.pl2.x, player.y + this.pl2.y,
+          dir, 1, 1
+        );
+      }
     }
   },
 });

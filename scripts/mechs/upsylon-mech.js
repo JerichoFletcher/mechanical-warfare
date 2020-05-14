@@ -32,7 +32,12 @@ shotgun.velocityRnd = 0.5;
 shotgun.shootSound = Sounds.shootBig;
 shotgun.bullet = shotgunRound;
 
-const upsylonPlasma = extend(BasicBulletType, {});
+const upsylonPlasma = extend(BasicBulletType, {
+  update(b){
+    this.super$update(b);
+    
+  }
+});
 upsylonPlasma.splashDamage = Vars.state.rules.playerDamageMultiplier * 27;
 upsylonPlasma.splashDamageRadius = 20;
 upsylonPlasma.speed = 12;
@@ -58,8 +63,8 @@ const upsylon = extendContent(Mech, "upsylon-mech", {
     this.legRegion = Core.atlas.find(this.name + "-leg");
   },
   updateAlt(player){
-    if(player.shootHeat > 0.01){
-      Time.run(this.secondaryReload / 2, run(() => {
+    if(player.isShooting()){
+      if(player.timer.get(this.timerAbility, this.secondaryReload / 2)){
         this._shots++;
         var i = Mathf.signs[this._shots % 2];
         this.pl1.trns(player.rotation - 90, i * this.weaponOffsetX, this.weaponOffsetY);
@@ -69,7 +74,7 @@ const upsylon = extendContent(Mech, "upsylon-mech", {
           dir, 1, 1
         );
         this.secondaryShootSound.at(player.x, player.y, Mathf.random(0.9, 1.1));
-      }));
+      }
     }
   }
 });
@@ -79,8 +84,9 @@ upsylon.secondaryShootSound = Sounds.missile;
 upsylon.secondaryAngle = 45;
 upsylon.secondaryReload = 60;
 upsylon.speed = 0.5;
-upsylon.boostSpeed = 1.2;
-upsylon.drag = 0.1;
+upsylon.maxSpeed = 2;
+upsylon.boostSpeed = 0.8;
+upsylon.drag = 0.05;
 upsylon.mass = 3.5;
 upsylon.drillPower = 6;
 upsylon.mineSpeed = 1.2;

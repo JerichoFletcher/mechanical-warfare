@@ -19,13 +19,13 @@ const halberdBullet2 = extend(BasicBulletType, {
     if(Mathf.chance(0.1)){
       var cone = this.lightningCone;
       var rot = b.rot() + Mathf.random(-cone, cone);
-      Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.lancerLaser, this.lightningDamage, b.x, b.y, rot, 10);
+      Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.lancerLaser, Vars.state.rules.playerDamageMultiplier * this.lightningDamage, b.x, b.y, rot, 10);
     }
   },
   hit(b, x, y){
     this.super$hit(b, b.x, b.y);
     for(var i = 0; i < 3; i++){
-      Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.lancerLaser, this.lightningDamage, b.x, b.y, Mathf.random(360), 15);
+      Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.lancerLaser, Vars.state.rules.playerDamageMultiplier * this.lightningDamage, b.x, b.y, Mathf.random(360), 15);
     }
   }
 });

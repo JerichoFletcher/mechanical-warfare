@@ -30,7 +30,7 @@ shotgun.inaccuracy = 12;
 shotgun.alternate = true;
 shotgun.ejectEffect = Fx.shellEjectBig;
 shotgun.shake = 2;
-shotgun.velocityRnd = 0.5;
+shotgun.velocityRnd = 0.3;
 shotgun.shootSound = Sounds.shootBig;
 shotgun.bullet = shotgunRound;
 
@@ -96,7 +96,7 @@ upsylon.drillPower = 6;
 upsylon.mineSpeed = 1.2;
 upsylon.itemCapacity = 70;
 upsylon.shake = 2;
-upsylon.engineColor = plib.frontColorCyan;
+upsylon.engineColor = plib.engineColorCyan;
 upsylon.engineOffset = 5.6;
 upsylon.health = 250;
 upsylon.buildPower = 1.8;

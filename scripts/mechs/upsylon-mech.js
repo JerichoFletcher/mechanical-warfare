@@ -42,7 +42,7 @@ const upsylonPlasma = extend(BasicBulletType, {
     }
   }
 });
-upsylonPlasma.bulletSprite = "clear";
+upsylonPlasma.bulletSprite = Core.atlas.find("clear");
 upsylonPlasma.splashDamage = Vars.state.rules.playerDamageMultiplier * 27;
 upsylonPlasma.splashDamageRadius = 20;
 upsylonPlasma.speed = 12;

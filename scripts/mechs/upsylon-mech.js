@@ -35,6 +35,7 @@ shotgun.shootSound = Sounds.shootBig;
 shotgun.bullet = shotgunRound;
 
 const upsylonPlasma = extend(BasicBulletType, {
+  draw(b){},
   update(b){
     this.super$update(b);
     Effects.effect(this.trailEffect, b.x, b.y, b.rot());

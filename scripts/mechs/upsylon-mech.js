@@ -90,3 +90,6 @@ upsylon.health = 250;
 upsylon.buildPower = 1.8;
 upsylon.weaponOffsetX = 2;
 upsylon.weapon = shotgun;
+
+const upsylonPad = extendContent(MechPad, "upsylon-mech-pad", {});
+upsylonPad.mech = upsylon;

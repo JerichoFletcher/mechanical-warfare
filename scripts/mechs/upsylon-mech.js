@@ -54,6 +54,8 @@ const upsylon = extendContent(Mech, "upsylon-mech", {
   load(){
     this.weapon.load();
     this.region = Core.atlas.find(this.name);
+    this.baseRegion = Core.atlas.find(this.name + "-base");
+    this.legRegion = Core.atlas.find(this.name + "-leg");
   },
   updateAlt(player){
     if(player.shootHeat > 0.01){

@@ -54,4 +54,4 @@ Vars.content.blocks().each(boolf(b => b instanceof Drill), cons(b => {
     b.returnItem = b.itemArray.peek();
     b.returnCount = b.oreCount.get(b.itemArray.peek(), 0);
   }
-});
+}));

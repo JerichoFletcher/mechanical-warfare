@@ -36,8 +36,26 @@ const upsylon = extendContent(Mech, "upsylon-mech", {
   load(){
     this.weapon.load();
     this.region = Core.atlas.find(this.name);
+  },
+  updateAlt(player){
+    if(player.shootHeat > 0.01){
+      Time.run(this.secondaryReload / 2, run(() => {
+        this._shots++;
+        var i = Mathf.signs[this._shots % 2];
+        this.pl1.trns(player.rotation - 90, i * this.weaponOffsetX, this.weaponOffsetY);
+        var dir = player.rotation + i * this.secondaryAngle;
+        Calls.createBullet(BulletType, player.getTeam(),
+          player.x + this.pl1.x, player.y + this.pl1.y,
+          dir, 1, 1
+        );
+      }));
+    }
   }
 });
+upsylon.pl1 = new Vec2();
+upsylon._shots = 0;
+upsylon.secondaryAngle = 45;
+upsylon.secondaryReload = 60;
 upsylon.speed = 0.5;
 upsylon.boostSpeed = 1.2;
 upsylon.drag = 0.1;

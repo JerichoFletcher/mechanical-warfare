@@ -19,9 +19,9 @@ module.exports = {
     Fill.circle(x, y, radius);
     Draw.color();
   },
-	fillCircle(x, y, radius){
-		Fill.circle(x, y, radius);
-	},
+  fillCircle(x, y, radius){
+    Fill.circle(x, y, radius);
+  },
   splashLines(x, y, col, thickness, distance, length, count, seed){
     Draw.color(col);
     Lines.stroke(thickness);

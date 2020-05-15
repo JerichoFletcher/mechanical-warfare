@@ -2,7 +2,7 @@ const elib = require("effectlib");
 const plib = require("plib");
 
 const shotgunRound = extend(BasicBulletType, {});
-shotgunRound.damage = 8;
+shotgunRound.damage = 9;
 shotgunRound.bulletWidth = 6;
 shotgunRound.bulletHeight = 9;
 shotgunRound.bulletShrink = 0.3;
@@ -41,8 +41,8 @@ const upsylonPlasma = extend(BasicBulletType, {
     Effects.effect(this.trailEffect, b.x, b.y, b.rot());
   }
 });
-upsylonPlasma.damage = Vars.state.rules.playerDamageMultiplier * 10;
-upsylonPlasma.splashDamage = Vars.state.rules.playerDamageMultiplier * 27;
+upsylonPlasma.damage = Vars.state.rules.playerDamageMultiplier * 15;
+upsylonPlasma.splashDamage = Vars.state.rules.playerDamageMultiplier * 30;
 upsylonPlasma.splashDamageRadius = 20;
 upsylonPlasma.speed = 12;
 upsylonPlasma.lifetime = 48;

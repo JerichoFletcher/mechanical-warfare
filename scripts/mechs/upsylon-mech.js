@@ -35,7 +35,9 @@ shotgun.shootSound = Sounds.shootBig;
 shotgun.bullet = shotgunRound;
 
 const upsylonPlasma = extend(BasicBulletType, {
-  draw(b){},
+  draw(b){
+	elib.fillCircle(b.x, b.y, Pal.lancerLaser, 1, 6);
+  },
   update(b){
     this.super$update(b);
     Effects.effect(this.trailEffect, b.x, b.y, b.rot());
@@ -51,11 +53,12 @@ upsylonPlasma.homingRange = upsylonPlasma.range();
 upsylonPlasma.homingPower = 0.001;
 upsylonPlasma.shootEffect = Fx.shootBig;
 upsylonPlasma.smokeEffect = Fx.shootBigSmoke;
+upsylonPlasma._size = 6;
 upsylonPlasma.trailEffect = newEffect(30, e => {
-  elib.fillCircle(e.x, e.y, Pal.lancerLaser, 1, Mathf.lerp(6, 0.2, e.fin()));
+  elib.fillCircle(e.x, e.y, Pal.lancerLaser, 1, Mathf.lerp(upsylonPlasma._size, 0.2, e.fin()));
 });
 upsylonPlasma.hitEffect = newEffect(16, e => {
-  elib.outlineCircle(e.x, e.y, Pal.lancerLaser, e.fout() * 6, 1 + e.fin() * (upsylonPlasma.splashDamageRadius + 6));
+  elib.outlineCircle(e.x, e.y, Pal.lancerLaser, e.fout() * upsylonPlasma._size, 1 + e.fin() * (upsylonPlasma.splashDamageRadius + 6));
   elib.fillCircle(e.x, e.y, Pal.lancerLaser, 0.2 + e.fout() * 0.8, Mathf.lerp(upsylonPlasma.splashDamageRadius, 0.2, e.fin()));
 });
 upsylonPlasma.despawnEffect = upsylonPlasma.hitEffect;

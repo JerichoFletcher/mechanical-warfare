@@ -6,7 +6,7 @@ const groundUnit = prov(() => extend(GroundUnit, {}));
 const nullBullet = extend(BasicBulletType, {
   draw(b){
     elib.fillCircle(b.x, b.y, this.backColor, 1, this.bulletWidth);
-    elib.fillCircle(b.x, b.y, this.frontColor, 1, this.bulletWidth - 1.5);
+    elib.fillCircle(b.x, b.y, this.frontColor, 1, this.bulletWidth - 2);
   },
   update(b){
     if(b.timer.get(0, 4)){
@@ -14,13 +14,14 @@ const nullBullet = extend(BasicBulletType, {
     }
   }
 });
+nullBullet.hitSize = 8;
 nullBullet.damage = 700;
 nullBullet.speed = 4;
 nullBullet.knockback = 3;
 nullBullet.lifetime = 75;
 nullBullet.backColor = Color.white;
 nullBullet.frontColor = Color.black;
-nullBullet.bulletWidth = nullBullet.bulletHeight = 10;
+nullBullet.bulletWidth = nullBullet.bulletHeight = 9;
 nullBullet.trailEffect = newEffect(30, e => {
   var thickness = e.fout() * 3;
   var radius = 0.2 + e.fout() * 6;

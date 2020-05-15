@@ -6,10 +6,10 @@ const groundUnit = prov(() => extend(GroundUnit, {}));
 const nullBullet = extend(BasicBulletType, {
   draw(b){
     elib.fillCircle(b.x, b.y, this.backColor, 1, this.bulletWidth);
-    elib.fillCircle(b.x, b.y, this.frontColor, 1, this.bulletWidth - 3);
+    elib.fillCircle(b.x, b.y, this.frontColor, 1, this.bulletWidth - 1.5);
   },
   update(b){
-    if(b.timer.get(0, 6)){
+    if(b.timer.get(0, 4)){
       Effects.effect(this.trailEffect, b.x, b.y, b.rot());
     }
   }
@@ -20,13 +20,13 @@ nullBullet.knockback = 3;
 nullBullet.lifetime = 75;
 nullBullet.backColor = Color.white;
 nullBullet.frontColor = Color.black;
-nullBullet.bulletWidth = nullBullet.bulletHeight = 8;
+nullBullet.bulletWidth = nullBullet.bulletHeight = 10;
 nullBullet.trailEffect = newEffect(30, e => {
-  var thickness = e.fout() * 4;
-  var radius = 0.2 + e.fout() * 10;
+  var thickness = e.fout() * 3;
+  var radius = 0.2 + e.fout() * 6;
   elib.outlineCircle(e.x, e.y, nullBullet.backColor, thickness, radius);
 });
-nullBullet.hitEffect = newEffect(20, e => {
+nullBullet.hitEffect = newEffect(18, e => {
   elib.fillCircle(e.x, e.y, nullBullet.frontColor, 0.2 + e.fin() * 0.8, 0.2 + e.fout() * 19.8);
   
   var thickness = e.fout() * 4;

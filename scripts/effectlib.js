@@ -43,9 +43,9 @@ module.exports = {
       this.fillCircle(x + a, y + b, col, alpha, radius);
     }});
   },
-	splashCircles(x, y, radius, distance, count, seed){
-		Angles.randLenVectors(seed, count, distance, new Floatc2(){get: (a, b) => {
+  splashCircles(x, y, radius, distance, count, seed){
+    Angles.randLenVectors(seed, count, distance, new Floatc2(){get: (a, b) => {
       this.fillCircle(x + a, y + b, radius);
     }});
-	},
+  },
 };

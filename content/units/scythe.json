@@ -7,6 +7,7 @@ health: 1760
 hitsize: 25
 drag: 0.02
 range: 160
+attackLength: 130
 shootCone: 150
 rotateWeapon: true
 engineOffset: 20

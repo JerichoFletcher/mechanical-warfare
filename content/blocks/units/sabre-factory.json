@@ -4,7 +4,7 @@ description: Assembles armored ground units equipped with acid-frag rockets.
 unitType: sabre
 size: 3
 produceTime: 2000
-maxSpawn: 3
+maxSpawn: 4
 consumes: {
   power: 1.5
   items: {
@@ -13,7 +13,12 @@ consumes: {
 	  graphite/15
 	]
   }
+  liquid: {
+    liquid: liquid-acid
+    amount: 0.05
+  }
 }
+hasLiquids: true
 category: units
 research: titan-factory
 requirements: [

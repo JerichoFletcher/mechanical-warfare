@@ -20,3 +20,5 @@ requirements: [
 ]
 category: crafting
 research: pulverizer
+idleSound: drill
+idleSoundVolume: 0.003

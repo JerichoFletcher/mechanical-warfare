@@ -1,0 +1,30 @@
+type: UnitFactory
+name: Battleaxe Fighter Factory
+description: Assembles Battleaxe, an armored fighter ship equipped with rocket launcher.
+unitType: battleaxe
+size: 5
+produceTime: 3500
+maxSpawn: 4
+consumes: {
+  power: 2.4
+  items: {
+    items: [
+      silicon/80
+      titanium/50
+      steel/65
+    ]
+  }
+  liquid: {
+    liquid: liquid-lava
+    amount: 0.05
+  }
+}
+hasLiquids: true
+category: units
+research: shadow-factory
+requirements: [
+  uranium/200
+  titanium/325
+  lead/350
+  silicon/300
+]

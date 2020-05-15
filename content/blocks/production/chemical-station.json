@@ -20,7 +20,6 @@ consumes: {
 }
 outputLiquid: {
   liquid: liquid-acid
-	amount: 24
 }
 requirements: [
   iron/80
@@ -30,5 +29,3 @@ requirements: [
 ]
 category: crafting
 research: oil-refinery
-idleSound: respawning
-idleSoundVolume: 0.5

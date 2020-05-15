@@ -14,9 +14,7 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     if (!this.validateTarget(tile)){
       entity.target = null;
     }
-    entity.heat = Mathf.lerpDelta(entity.heat, entity.cons.valid() ? baseHeat : 0, 
-      this.cooldown > (boltWarmup * entity.efficiency()) ? (boltWarmup * entity.efficiency()) : this.cooldown
-    );
+	entity.heat = Mathf.lerpDelta(entity.heat, entity.cons.valid() ? baseHeat : 0, this.cooldown);
     entity.recoil = 0;
     if (this.hasAmmo(tile)){
       if(entity.timer.get(this.timerTarget, this.targetInterval)){
@@ -73,7 +71,7 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     // bolts
     Draw.blend(Blending.additive);
     for (var i = 1; i <= 6; i++){
-      if (!Mathf.randomBoolean(heat)){continue;}
+      if (Mathf.randomSeed(Mathf.round(Time.time() * (6 * i * tile.drawx() + 3 * i * tile.drawy()))) > heat){continue;}
       var j = i - 1;
       var rawrot = Time.time() * boltrotspeed[j] * boltrotdir[j];
       var truerot =

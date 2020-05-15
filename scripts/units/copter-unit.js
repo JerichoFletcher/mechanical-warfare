@@ -26,9 +26,9 @@ serpentMissile.smokeEffect = Fx.shootBigSmoke;
 const serpentWeapon = extendContent(Weapon, "serpent-gun", {
   load(){
     this.region = Core.atlas.find(modName + "-serpent-gun-equip");
-  },
+  }
 });
-serpentWeapon.width = 10;
+serpentWeapon.width = 8;
 serpentWeapon.length = 5;
 serpentWeapon.reload = 12;
 serpentWeapon.alternate = true;

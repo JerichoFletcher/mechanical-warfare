@@ -1,4 +1,4 @@
-const debugBlock = extendContent(CoreBlock, "debug", {
+const debugBlock = extendContent(Drill, "debug", {
   init(){
     Vars.content.blocks().each(boolf(b => b.entityType instanceof Drill.DrillEntity), cons(b => {
       print(b.name + " override start");
@@ -36,4 +36,4 @@ const debugBlock = extendContent(CoreBlock, "debug", {
 });
 //debugBlock.buildVisibility = BuildVisibility.hidden;
 debugBlock.alwaysUnlocked = false;
-debugBlock.category = Category.effect;
+debugBlock.category = Category.production;

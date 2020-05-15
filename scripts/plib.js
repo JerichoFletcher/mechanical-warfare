@@ -8,5 +8,7 @@ module.exports = {
   frontColorCyan: Color.valueOf("c4fdfd"),
   backColorCyan: Color.valueOf("4be3ca"),
   
-  engineColorCyan: Color.valueOf("7efdfd")
+  engineColorCyan: Color.valueOf("7efdfd"),
+  
+  fireAuraFlame: Color.valueOf("ffaa44"),
 }

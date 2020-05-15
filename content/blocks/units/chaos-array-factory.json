@@ -16,9 +16,9 @@ consumes: {
 category: units
 research: fortress-factory
 requirements: [
+  mk2-module/10
   thorium/450
   lead/350
   silicon/375
   steel/300
 ]
-// will require mk2-module soon

@@ -1,26 +1,12 @@
 health: 1440
 size: 3
-reload: 10
+reload: 40
 ammoUseEffect: shellEjectBig
 inaccuracy: 5
 rotatespeed: 1.25
 shotWidth: 3
 range: 180
-recoil: 4
-ammo: {
-  ap-shell: {
-    damage: 30
-	speed: 12
-	lifetime: 20
-	pierce: true
-	hitEffect: hitLancer
-	bulletWidth: 9
-	bulletHeight: 21
-	backColor: 1fa7a5
-	frontColor: 92fffd
-	ammoMultiplier: 8
-  }
-}
+recoil: 3.5
 requirements: [
   titanium/125
   surge-alloy/100

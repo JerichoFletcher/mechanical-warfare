@@ -1,0 +1,21 @@
+health: 4500
+size: 5
+reload: 360
+ammoUseEffect: shellEjectBig
+inaccuracy: 2
+rotatespeed: 0.24
+shootCone: 5
+range: 420 //lmfao
+recoil: 6.5
+restitution: 0.02
+cooldown: 0.02
+shootSound: quakemk2shot
+requirements: [
+  mk2-module/10
+  steel/350
+  plastanium/425
+  surge-alloy/375
+  uranium/325
+]
+category: turret
+research: quake

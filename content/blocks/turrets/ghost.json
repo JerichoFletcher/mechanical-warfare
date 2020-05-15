@@ -1,147 +1,15 @@
-type: DoubleTurret
 health: 1350
 size: 3
 reload: 15
 ammoUseEffect: shellEjectBig
+shootEffect: shootBig
+smokeEffect: shootBigSmoke
 inaccuracy: 0
 rotatespeed: 4
 shotWidth: 2
 range: 240
 recoil: 3.5
 targetGround: false
-ammo: {
-  metaglass: {
-    type: FlakBulletType
-    damage: 12
-    splashDamage: 48
-    splashDamageRadius: 18
-    speed: 18
-    lifetime: 14
-    bulletWidth: 3
-    bulletHeight: 15
-    frontColor: ffe0bb
-    backColor: d3b189
-    ammoMultiplier: 2
-    hitEffect: flakExplosion
-    fragBullets: 12
-    fragBullet: {
-      type: BasicBulletType
-      damage: 9
-      bulletWidth: 5
-      bulletHeight: 12
-      bulletShrink: 1
-      lifetime: 20
-      frontColor: ee8d18
-      backColor: d66410
-      despawnEffect: none
-    }
-  }
-  pyratite: {
-    type: FlakBulletType
-    damage: 12
-    splashDamage: 48
-    splashDamageRadius: 18
-    speed: 16
-    lifetime: 16
-    bulletWidth: 4
-    bulletHeight: 18
-    frontColor: ee8d18
-    backColor: d66410
-    ammoMultiplier: 2
-    hitEffect: flakExplosion
-    status: burning
-    fragBullets: 12
-    fragBullet: {
-      type: BasicBulletType
-      damage: 9
-      bulletWidth: 5
-      bulletHeight: 12
-      bulletShrink: 1
-      lifetime: 20
-      frontColor: ee8d18
-      backColor: d66410
-      despawnEffect: none
-    }
-  }
-  blast-compound: {
-    type: FlakBulletType
-    damage: 20
-    splashDamage: 68
-    splashDamageRadius: 42
-    speed: 17
-    lifetime: 14
-    bulletWidth: 3
-    bulletHeight: 15
-    frontColor: e5b9a8
-    backColor: c68686
-    ammoMultiplier: 2
-    hitEffect: blastExplosion
-    fragBullets: 12
-    fragBullet: {
-      type: BasicBulletType
-      damage: 14
-      bulletWidth: 5
-      bulletHeight: 12
-      bulletShrink: 1
-      lifetime: 20
-      frontColor: e5b9a8
-      backColor: c68686
-      despawnEffect: none
-    }
-  }
-  plastanium: {
-    type: FlakBulletType
-    damage: 18
-    splashDamage: 64
-    splashDamageRadius: 24
-    speed: 18
-    lifetime: 14
-    bulletWidth: 4
-    bulletHeight: 18
-    frontColor: e1ffbb
-    backColor: 9ad284
-    ammoMultiplier: 3
-    hitEffect: plasticExplosion
-    fragBullets: 12
-    fragBullet: {
-      type: BasicBulletType
-      damage: 12
-      bulletWidth: 5
-      bulletHeight: 12
-      bulletShrink: 1
-      lifetime: 20
-      frontColor: e1ffbb
-      backColor: 9ad284
-      despawnEffect: none
-    }
-  }
-  he-shell: {
-    type: FlakBulletType
-    damage: 23
-    splashDamage: 72
-    splashDamageRadius: 42
-    speed: 20
-    lifetime: 13
-    bulletWidth: 5
-    bulletHeight: 21
-    frontColor: e5b9a8
-    backColor: c68686
-    ammoMultiplier: 5
-    hitEffect: blastExplosion
-    fragBullets: 12
-    fragBullet: {
-      type: BasicBulletType
-      damage: 17
-      bulletWidth: 5
-      bulletHeight: 12
-      bulletShrink: 1
-      lifetime: 20
-      frontColor: e5b9a8
-      backColor: c68686
-      despawnEffect: none
-    }
-  }
-}
 requirements: [
   plastanium/75
   steel/100

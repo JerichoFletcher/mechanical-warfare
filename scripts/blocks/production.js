@@ -1,5 +1,5 @@
 // Chemical Station
-const chemicalStation = extendContent(GenericCrafter, "chemical-station", {
+const chemicalStation = extendContent(LiquidConverter, "chemical-station", {
   load(){
     this.region = Core.atlas.find(this.name);
     this.liquidRegion = Core.atlas.find(this.name + "-liquid");
@@ -12,9 +12,10 @@ const chemicalStation = extendContent(GenericCrafter, "chemical-station", {
     ];
   },
   draw(tile){
+    const entity = tile.ent();
     Draw.rect(this.region, tile.drawx(), tile.drawy());
     Draw.color(this.outputLiquid.liquid.color);
-    Draw.alpha(tile.entity.liquids.get(this.outputLiquid.liquid) / this.liquidCapacity);
+    Draw.alpha(entity.liquids.get(this.outputLiquid.liquid) / this.liquidCapacity);
     Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());
     Draw.color();
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
@@ -71,29 +72,31 @@ const stoneGrinder = extendContent(GenericCrafter, "stone-grinder", {
 const mk2Assembler = extendContent(GenericCrafter, "mk2-assembler", {
   load(){
     this.region = Core.atlas.find(this.name);
+    this.bottomRegion = Core.atlas.find(this.name + "-bottom");
     this.liquidRegion = Core.atlas.find(this.name + "-liquid");
-    this.heatRegion = Core.atlas.find(this.name + "-heat");
-    this.topRegion = Core.atlas.find(this.name + "-top");
   },
   generateIcons: function(){
     return [
-      Core.atlas.find(this.name),
-      Core.atlas.find(this.name + "-top")
+      Core.atlas.find(this.name + "-bottom"),
+      Core.atlas.find(this.name)
     ];
   },
   draw(tile){
     const entity = tile.ent();
+    Draw.rect(this.bottomRegion, tile.drawx(), tile.drawy());
+    Draw.color(Pal.accent);
+    Draw.alpha(entity.warmup);
+    Lines.lineAngleCenter(
+      tile.drawx(),
+      tile.drawy() + Mathf.sin(entity.totalProgress, 8, (Vars.tilesize - 1) * this.size / 2),
+      0,
+      (Vars.tilesize - 1) * this.size
+    );
+    Draw.reset();
     Draw.rect(this.region, tile.drawx(), tile.drawy());
     Draw.color(entity.liquids.current().color);
     Draw.alpha(entity.liquids.total() / this.liquidCapacity);
     Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());
-    if (entity.cons.valid()){
-      Draw.color(Color.valueOf("000000"), Color.valueOf("181809"), Mathf.absin(Time.time(), 5 - entity.efficiency() * 2, 1) * entity.warmup);
-      Draw.blend(Blending.additive);
-      Draw.rect(this.heatRegion, tile.drawx(), tile.drawy());
-      Draw.blend();
-    }
-    Draw.color();
-    Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
-  },
+    Draw.reset();
+  }
 });

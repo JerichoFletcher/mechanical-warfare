@@ -9,7 +9,9 @@ const nullBullet = extend(BasicBulletType, {
     elib.fillCircle(b.x, b.y, this.frontColor, 1, this.bulletWidth - 3);
   },
   update(b){
-    Effects.effect(this.trailEffect, b.x, b.y, b.rot());
+    if(b.timer.get(0, 6)){
+      Effects.effect(this.trailEffect, b.x, b.y, b.rot());
+    }
   }
 });
 nullBullet.damage = 700;
@@ -21,11 +23,11 @@ nullBullet.frontColor = Color.black;
 nullBullet.bulletWidth = nullBullet.bulletHeight = 8;
 nullBullet.trailEffect = newEffect(30, e => {
   var thickness = e.fout() * 4;
-  var radius = 0.2 + e.fout() * 12;
+  var radius = 0.2 + e.fout() * 10;
   elib.outlineCircle(e.x, e.y, nullBullet.backColor, thickness, radius);
 });
 nullBullet.hitEffect = newEffect(20, e => {
-  elib.fillCircle(e.x, e.y, nullBullet.frontColor, 0.2 + e.fin() * 0.8, 0.2 + e.fout() * 15.8);
+  elib.fillCircle(e.x, e.y, nullBullet.frontColor, 0.2 + e.fin() * 0.8, 0.2 + e.fout() * 19.8);
   
   var thickness = e.fout() * 4;
   var radius = e.fin() * 20;

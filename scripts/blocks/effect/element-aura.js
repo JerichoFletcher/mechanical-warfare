@@ -10,13 +10,15 @@ const fireAuraEffect = newEffect(40, e => {
 });
 
 /* Aura bullet */
-const fireAuraBullet = extend(BasicBulletType, {});
-fireAuraBullet.bulletSprite = Core.atlas.find("clear");
+const fireAuraBullet = extend(BasicBulletType, {
+  draw(b){}
+});
 fireAuraBullet.speed = 0.001;
 fireAuraBullet.lifetime = 1;
 fireAuraBullet.damage = 1;
 fireAuraBullet.status = StatusEffects.melting;
 fireAuraBullet.hitEffect = Fx.none;
+fireAuraBullet.despawnEffect = Fx.none;
 
 /* Fire Aura */
 const fireAura = extendContent(PowerTurret, "fire-aura", {

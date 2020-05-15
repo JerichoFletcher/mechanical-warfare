@@ -91,6 +91,7 @@ seismAP.despawnEffect = seismAP.hitEffect;
 const seism = extendContent(ArtilleryTurret, "seism", {
   load(){
     this.super$load();
+    this.baseRegion = Core.atlas.find("block-5");
   },
   init(){
     this.ammo(

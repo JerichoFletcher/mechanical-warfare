@@ -34,6 +34,6 @@ const debugBlock = extendContent(CoreBlock, "debug", {
     }));
   }
 });
-debugBlock.buildVisibility = BuildVisibility.hidden;
+//debugBlock.buildVisibility = BuildVisibility.hidden;
 debugBlock.alwaysUnlocked = false;
 debugBlock.category = Category.effect;

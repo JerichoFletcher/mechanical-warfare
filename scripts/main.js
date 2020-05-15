@@ -7,6 +7,7 @@ require("blocks/defense")
 
 //units
 require("units/ground-unit")
+require("units/copter-unit")
 
 //mechs
 require("mechs/ship")

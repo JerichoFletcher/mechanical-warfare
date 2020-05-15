@@ -66,10 +66,10 @@ const serpentUnit = extendContent(UnitType, "serpent", {
     return 1.4;
   },
   rotorSpeed: function(){
-    return 10;
+    return 8;
   },
   rotorOffset: function(){
-    return 3;
+    return 5;
   },
   rotorWidth: function(){
     return 0;

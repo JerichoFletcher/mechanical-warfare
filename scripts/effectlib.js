@@ -23,4 +23,9 @@ module.exports = {
     Draw.color();
     Lines.stroke(1);
   },
+  splashCircles(x, y, col, alpha, radius, distance, count, seed){
+	Angles.randLenVectors(seed, count, distance, new Floatc2(){get: (a, b) => {
+	  this.fillCircle(x + a, y + b, col, alpha, radius);
+	}});
+  },
 };

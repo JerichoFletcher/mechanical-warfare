@@ -85,7 +85,6 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
         }
       }
     }));
-
   },
   effects(tile){
     var shootEffect = this.shootEffect == Fx.none ? (this.peekAmmo(tile)).shootEffect : this.shootEffect;
@@ -111,6 +110,10 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
         entity.rotation
       );
     }
+  },
+  findTarget(tile){
+	var entity = tile.ent();
+	entity.target = Units.closestEnemy(tile.getTeam(), tile.drawx(), tile.drawy(), this.range, boolf(e => !e.isDead()));
   },
   setStats(){
     this.super$setStats();

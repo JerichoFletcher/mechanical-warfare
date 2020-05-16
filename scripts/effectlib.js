@@ -8,7 +8,7 @@ module.exports = {
     Draw.color();
     Lines.stroke(1);
   },
-  outlineCircle(x, y, thickness, radius){
+  outlineCircleWCol(x, y, thickness, radius){
     Lines.stroke(thickness);
     Lines.circle(x, y, radius);
     Lines.stroke(1);
@@ -19,7 +19,7 @@ module.exports = {
     Fill.circle(x, y, radius);
     Draw.color();
   },
-  fillCircle(x, y, radius){
+  fillCircleWCol(x, y, radius){
     Fill.circle(x, y, radius);
   },
   splashLines(x, y, col, thickness, distance, length, count, seed){
@@ -31,7 +31,7 @@ module.exports = {
     Draw.color();
     Lines.stroke(1);
   },
-  splashLines(x, y, thickness, distance, length, count, seed){
+  splashLinesWCol(x, y, thickness, distance, length, count, seed){
     Lines.stroke(thickness);
     Angles.randLenVectors(seed, count, distance, new Floatc2(){get: (a, b) => {
       Lines.lineAngle(x + a, y + b, Mathf.angle(a, b), length);
@@ -43,7 +43,7 @@ module.exports = {
       this.fillCircle(x + a, y + b, col, alpha, radius);
     }});
   },
-  splashCircles(x, y, radius, distance, count, seed){
+  splashCirclesWCol(x, y, radius, distance, count, seed){
     Angles.randLenVectors(seed, count, distance, new Floatc2(){get: (a, b) => {
       this.fillCircle(x + a, y + b, radius);
     }});

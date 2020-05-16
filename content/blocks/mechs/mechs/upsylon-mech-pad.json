@@ -1,5 +1,3 @@
-type: MechPad
-mech: upsylon-mech
 size: 3
 consumes: {
   power: 1.4

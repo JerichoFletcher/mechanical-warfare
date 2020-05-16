@@ -1,4 +1,3 @@
-type: GroundUnit
 health: 18000
 speed: 0.1
 maxVelocity: 0.6
@@ -6,28 +5,3 @@ mass: 6
 drag: 0.4
 hitsize: 25
 rotatespeed: 0.05
-// Raw DPS: 1400
-weapon: {
-  name: null-pointer
-  length: 18
-  width: 30
-  reload: 60
-  alternate: true
-  recoil: 6
-  shake: 2.2
-  inaccuracy: 2
-  ejectEffect: shellEjectBig
-  shootSound: artillery
-  bullet: {
-	hitEffect: blastExplosion
-	damage: 700
-	speed: 4
-	knockback: 3
-	lifetime: 75
-	bulletWidth: 20
-	bulletHeight: 23
-	bulletSprite: shell
-	backColor: ffffff
-	frontColor: 000000
-  }
-}

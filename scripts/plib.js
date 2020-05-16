@@ -7,8 +7,11 @@ module.exports = {
   backColorAP: Color.valueOf("b68f3a"),
   frontColorCyan: Color.valueOf("c4fdfd"),
   backColorCyan: Color.valueOf("4be3ca"),
+  frontColorPurple: Color.valueOf("f8c5fd"),
+  backColorPurple: Color.valueOf("d699dc"),
   
   engineColorCyan: Color.valueOf("7efdfd"),
+  engineColorPurple: Color.valueOf("e487ed"),
   
   fireAuraFlame: Color.valueOf("ffaa44"),
 }

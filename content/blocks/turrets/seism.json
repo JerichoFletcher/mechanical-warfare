@@ -1,9 +1,9 @@
 health: 4500
 size: 5
-reload: 360
+reload: 300
 ammoUseEffect: shellEjectBig
 inaccuracy: 2
-rotatespeed: 0.24
+rotatespeed: 0.5
 shootCone: 5
 range: 420 //lmfao
 recoil: 6.5

@@ -1,11 +1,11 @@
 health: 1440
 size: 3
-reload: 40
+reload: 30
 ammoUseEffect: shellEjectBig
 inaccuracy: 5
 rotatespeed: 1.25
 shotWidth: 3
-range: 180
+range: 200
 recoil: 3.5
 requirements: [
   titanium/125

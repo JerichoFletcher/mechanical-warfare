@@ -1,0 +1,39 @@
+loadout: basicNucleus
+startingItems: [
+  copper/500
+  lead/750
+  graphite/500
+  silicon/500
+  iron/500
+]
+conditionWave: 20
+configureObjective: {
+  type: Launched
+  zone: front-gate
+}
+launchPeriod: 10
+requirements: [
+  {
+    type: ZoneWave
+    zone: desolateRift
+    wave: 30
+  }
+  {
+    type: Launched
+    zone: overgrowth
+  }
+  {
+    type: Unlock
+    block: nighthawk
+  }
+]
+resources: [
+  copper
+  lead
+  coal
+  titanium
+  iron
+  thorium
+  sand
+  cobblestone
+]

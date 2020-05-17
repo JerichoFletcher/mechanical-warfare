@@ -2,15 +2,15 @@ const elib = require("effectlib");
 const plib = require("plib");
 
 const quakeHE = extend(BasicBulletType, {
-  update(b){
-    this.super$update(b);
+  draw(b){
+    this.super$draw(b);
     if(Mathf.chance(0.75)){
       Effects.effect(this.trailEffect, b.x, b.y, b.rot());
     }
   },
 });
-quakeHE.damage = 180;
-quakeHE.splashDamage = 390;
+quakeHE.damage = 240;
+quakeHE.splashDamage = 500;
 quakeHE.splashDamageRadius = 40;
 quakeHE.speed = 10;
 quakeHE.lifetime = 40;
@@ -50,15 +50,15 @@ quakeHE.hitEffect = newEffect(13, e => {
 quakeHE.despawnEffect = quakeHE.hitEffect;
 
 const quakeAP = extend(BasicBulletType, {
-  update(b){
-    this.super$update(b);
+  draw(b){
+    this.super$draw(b);
     if(Mathf.chance(0.75)){
       Effects.effect(this.trailEffect, b.x, b.y, b.rot());
     }
   },
 });
-quakeAP.damage = 1700;
-quakeAP.splashDamage = 90;
+quakeAP.damage = 2210;
+quakeAP.splashDamage = 120;
 quakeAP.splashDamageRadius = 10;
 quakeAP.speed = 10;
 quakeAP.lifetime = 40;

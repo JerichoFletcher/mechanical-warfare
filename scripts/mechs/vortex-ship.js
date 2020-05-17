@@ -5,8 +5,6 @@ const vortexBullet = extend(BasicBulletType, {
 	draw(b){
 		elib.fillCircle(b.x, b.y, this.frontColor, 1, this.bulletWidth);
 		elib.outlineCircle(b.x, b.y, this.backColor, 1, this.bulletWidth);
-	},
-	update(b){
 		if(b.timer.get(0, 3)){
 			Effects.effect(this.trailEffectA, b.x, b.y, b.rot());
 		}
@@ -14,8 +12,9 @@ const vortexBullet = extend(BasicBulletType, {
 	}
 });
 vortexBullet.damage = 100;
-vortexBullet.speed = 4;
+vortexBullet.speed = 6;
 vortexBullet.lifetime = 60;
+vortexBullet.drag = 0.008;
 vortexBullet.bulletWidth = vortexBullet.bulletHeight = 6;
 vortexBullet.frontColor = plib.frontColorPurple;
 vortexBullet.backColor = plib.backColorPurple;
@@ -73,11 +72,9 @@ const vortex = extendContent(Mech, "vortex-ship", {
 			Draw.blend();
 			Draw.color();
 		}
-	},
-	updateAlt(player){
-		if(player.timer.get(4, (10 - (player.velocity().len() / this.maxSpeed) * 9) / 60)){
-			Effects.effect(this.trailEffect, player.x, player.y, player.rotation);
-		}
+		Draw.blend(Blending.additive);
+		Effects.effect(this.trailEffect, player.x, player.y, player.rotation);
+		Draw.blend();
 	},
 	getExtraArmor: function(player){
 		return player.shootHeat * 60;
@@ -93,17 +90,17 @@ vortex.speed = 0.3;
 vortex.maxSpeed = 4.33;
 vortex.drag = 0.01;
 vortex.mass = 4.5;
-vortex.health = 420; // WEED
+vortex.health = 420;
 vortex.itemCapacity = 50;
 vortex.engineColor = plib.engineColorPurple;
 vortex.cellTrnsY = 2;
 vortex.buildPower = 1.2;
 vortex.weapon = vortexLance;
-vortex.trailEffect = newEffect(16, e => {
+vortex.trailEffect = newEffect(20, e => {
 	var angle = Mathf.randomSeed(e.id, 360);
 	var offset = 0.3 + e.fin() * 0.4;
 	Draw.color(vortex.engineColor);
-	Draw.alpha(0.33 + e.fout() * 0.33);
+	Draw.alpha(e.fout() * 0.67);
 	Draw.rect(Core.atlas.find(modName + "-vortex-ship-trail"), e.x + Angles.trnsx(angle, offset), e.y + Angles.trnsy(angle, offset), e.rotation - 90);
 	Draw.color();
 });

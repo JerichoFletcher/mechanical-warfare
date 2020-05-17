@@ -2,15 +2,15 @@ const elib = require("effectlib");
 const plib = require("plib");
 
 const seismHE = extend(BasicBulletType, {
-  update(b){
-    this.super$update(b);
+  draw(b){
+    this.super$draw(b);
     if(Mathf.chance(0.75)){
       Effects.effect(this.trailEffect, b.x, b.y, b.rot());
     }
   },
 });
-seismHE.damage = 270;
-seismHE.splashDamage = 560;
+seismHE.damage = 350;
+seismHE.splashDamage = 720;
 seismHE.splashDamageRadius = 60;
 seismHE.speed = 12;
 seismHE.lifetime = 40;
@@ -50,15 +50,15 @@ seismHE.hitEffect = newEffect(18, e => {
 seismHE.despawnEffect = seismHE.hitEffect;
 
 const seismAP = extend(BasicBulletType, {
-  update(b){
-    this.super$update(b);
+  draw(b){
+    this.super$draw(b);
     if(Mathf.chance(0.75)){
       Effects.effect(this.trailEffect, b.x, b.y, b.rot());
     }
   },
 });
-seismAP.damage = 2550;
-seismAP.splashDamage = 120;
+seismAP.damage = 3300;
+seismAP.splashDamage = 160;
 seismAP.splashDamageRadius = 15;
 seismAP.speed = 12;
 seismAP.lifetime = 40;
@@ -90,8 +90,19 @@ seismAP.despawnEffect = seismAP.hitEffect;
 
 const seism = extendContent(ArtilleryTurret, "seism", {
   load(){
-    this.super$load();
+    this.region = Core.atlas.find(this.name);
     this.baseRegion = Core.atlas.find("block-5");
+	this.heatRegion = Core.atlas.find(this.name + "-heat");
+  },
+  draw(tile){
+	Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
+	Draw.color();
+  },
+  generateIcons: function(){
+	return [
+	  Core.atlas.find("block-5"),
+	  Core.atlas.find(this.name)
+	];
   },
   init(){
     this.ammo(

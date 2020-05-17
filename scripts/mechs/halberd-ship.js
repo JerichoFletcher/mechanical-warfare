@@ -16,9 +16,9 @@ halberdBullet.smokeEffect = Fx.shootBigSmoke;
 const halberdBullet2 = extend(BasicBulletType, {
   draw(b){
 	elib.fillCircle(b.x, b.y, Pal.lancerLaser, 1, this._size);
+	Effects.effect(this.trailEffect, b.x, b.y, b.rot());
   },
   update(b){
-    Effects.effect(this.trailEffect, b.x, b.y, b.rot());
     if(Mathf.chance(0.1)){
       var cone = this.lightningCone;
       var rot = b.rot() + Mathf.random(-cone, cone);
@@ -78,41 +78,29 @@ const halberd = extendContent(Mech, "halberd-ship", {
     Draw.alpha(player.velocity().len() / this.maxSpeed);
     Draw.rect(this.heatRegion, player.x, player.y, player.rotation - 90);
     Draw.color();
-  },
-  updateAlt(player){
-    for(var i = 0; i < 2; i++){
-      this.pl1.trns(player.rotation - 90, Mathf.signs[i] * -22 / 4, -21 / 4);
-      var scl = player.velocity().len() / this.maxSpeed;
-      /*if(scl <= 0.33){
-        Effects.effect(this.trailEffectA,
-          player.x + this.pl1.x + player.velocity().x * 5 / 6,
-          player.y + this.pl1.y + player.velocity().y * 5 / 6,
-          player.velocity().angle());
-      }else if(scl <= 0.67){
-        Effects.effect(this.trailEffectB,
-          player.x + this.pl1.x + player.velocity().x * 5 / 6,
-          player.y + this.pl1.y + player.velocity().y * 5 / 6,
-          player.velocity().angle());
-      }else if(scl <= 1){
-        Effects.effect(this.trailEffectC,
-          player.x + this.pl1.x + player.velocity().x * 5 / 6,
-          player.y + this.pl1.y + player.velocity().y * 5 / 6,
-          player.velocity().angle());
-      }*/
+	
+	var scl = player.velocity().len() / this.maxSpeed;
+	for(var i = 0; i < 2; i++){
+	  var angle = player.rotation - 90;
+	  var cx = Angles.trnsx(angle, Mathf.signs[i] * -22 / 4, -21 / 4);
+	  var cy = Angles.trnsy(angle, Mathf.signs[i] * -22 / 4, -21 / 4);
 	  if(scl > 0.5){
 		Effects.effect(this._trailEffect,
-		  player.x + this.pl1.x + player.velocity().x * 5 / 6,
-		  player.y + this.pl1.y + player.velocity().y * 5 / 6,
+		  player.x + cx + player.velocity().x * 5 / 6,
+		  player.y + cy + player.velocity().y * 5 / 6,
 		  player.velocity().angle(), scl
 		);
 	  }else{
 		Effects.effect(this._trailEffect,
-		  player.x + this.pl1.x + player.velocity().x * 5 / 6,
-		  player.y + this.pl1.y + player.velocity().y * 5 / 6,
+		  player.x + cx + player.velocity().x * 5 / 6,
+		  player.y + cy + player.velocity().y * 5 / 6,
 		  player.velocity().angle(), this._trailMinSize / this._trailSize
 		);
 	  }
     }
+  },
+  updateAlt(player){
+    var scl = player.velocity().len() / this.maxSpeed;
     if(scl >= 0.75){
       if(Mathf.chance((player.velocity().len() / this.maxSpeed * 0.08))){
         this.pl2.trns(player.rotation - 90, 0, this.weaponOffsetY);
@@ -135,30 +123,8 @@ halberd._trailEffect = newEffect(30, e => {
 });
 halberd._trailMinSize = 1.25;
 halberd._trailSize = 4;
-/*halberd.trailEffectA = newEffect(30, e => {
-  Draw.blend(Blending.additive);
-  Draw.color(plib.frontColorCyan, plib.backColorCyan, e.fin());
-  Fill.circle(e.x, e.y, e.fout() * 0.5 * halberd.engineSize);
-  Draw.blend();
-  Draw.color();
-});
-halberd.trailEffectB = newEffect(30, e => {
-  Draw.blend(Blending.additive);
-  Draw.color(plib.frontColorCyan, plib.backColorCyan, e.fin());
-  Fill.circle(e.x, e.y, e.fout() * halberd.engineSize);
-  Draw.blend();
-  Draw.color();
-});
-halberd.trailEffectC = newEffect(30, e => {
-  Draw.blend(Blending.additive);
-  Draw.color(plib.frontColorCyan, plib.backColorCyan, e.fin());
-  Fill.circle(e.x, e.y, e.fout() * 1.5 * halberd.engineSize);
-  Draw.blend();
-  Draw.color();
-});*/
 halberd.plasmaShootSound = Sounds.missile;
 halberd.plasmaCone = 30;
-halberd.pl1 = new Vec2();
 halberd.pl2 = new Vec2();
 halberd.flying = true;
 halberd.drillPower = 4;
@@ -167,7 +133,7 @@ halberd.speed = 0.16;
 halberd.maxSpeed = 12;
 halberd.drag = 0.008;
 halberd.mass = 4;
-halberd.health = 420; // WEED
+halberd.health = 420;
 halberd.itemCapacity = 80;
 halberd.engineColor = plib.engineColorCyan;
 halberd.cellTrnsY = 1;

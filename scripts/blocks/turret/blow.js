@@ -2,7 +2,8 @@ const elib = require("effectlib");
 const plib = require("plib");
 
 const blowShell = extend(BasicBulletType, {
-  update(b){
+  draw(b){
+	this.super$draw(b);
     if(Mathf.chance(0.3)){
       Effects.effect(this.trailEffect, b.x, b.y, b.rot());
     }
@@ -39,7 +40,7 @@ const blow = extendContent(DoubleTurret, "blow", {
   },
   init(){
     this.ammo(
-      Vars.content.getByName(ContentType.item, modName + "-ap-shell"), blowShell // Raw DPS: 360
+      Vars.content.getByName(ContentType.item, modName + "-ap-shell"), blowShell // Raw DPS: 480
     );
     this.super$init();
   },

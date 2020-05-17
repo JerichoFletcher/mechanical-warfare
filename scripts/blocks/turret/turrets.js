@@ -10,9 +10,7 @@ require("blocks/turret/ghost")
 require("blocks/turret/incandescence")
 
 // Nighthawk
-const nighthawk = extendContent(ItemTurret, "nighthawk", {
-  
-});
+require("blocks/turret/nighthawk")
 
 //Voltmeter
 require("blocks/turret/voltmeter")

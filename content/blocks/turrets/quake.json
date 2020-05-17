@@ -1,9 +1,9 @@
 health: 2400
 size: 4
-reload: 500
+reload: 420
 ammoUseEffect: shellEjectBig
 inaccuracy: 2
-rotatespeed: 0.25
+rotatespeed: 0.5
 shootCone: 5
 range: 360
 recoil: 6

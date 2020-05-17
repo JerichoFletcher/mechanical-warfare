@@ -19,18 +19,9 @@ ghostGlass.hitEffect = Fx.flakExplosion;
 ghostGlass.fragBullets = 12;
 ghostGlass.fragBullet = ghostGlassFrag;
 
-const ghostPyratiteFrag = extend(BasicBulletType, {});
-ghostPyratiteFrag.damage = 9;
-ghostPyratiteFrag.bulletWidth = 5;
-ghostPyratiteFrag.bulletHeight = 12;
-ghostPyratiteFrag.bulletShrink = 1;
-ghostPyratiteFrag.lifetime = 20;
-ghostPyratiteFrag.status = StatusEffects.burning;
-ghostPyratiteFrag.despawnEffect = Fx.none;
-
 const ghostPyratite = extend(FlakBulletType, {});
-ghostPyratite.damage = 12;
-ghostPyratite.splashDamage = 48;
+ghostPyratite.damage = 66;
+ghostPyratite.splashDamage = 102;
 ghostPyratite.splashDamageRadius = 18;
 ghostPyratite.speed = 16;
 ghostPyratite.lifetime = 16;
@@ -39,20 +30,10 @@ ghostPyratite.bulletHeight = 18;
 ghostPyratite.ammoMultiplier = 2;
 ghostPyratite.hitEffect = Fx.flakExplosion;
 ghostPyratite.status = StatusEffects.burning;
-ghostPyratite.fragBullets = 12;
-ghostPyratite.fragBullet = ghostPyratiteFrag;
-
-const ghostBlastCompoundFrag = extend(BasicBulletType, {});
-ghostBlastCompoundFrag.damage = 14;
-ghostBlastCompoundFrag.bulletWidth = 5;
-ghostBlastCompoundFrag.bulletHeight = 12;
-ghostBlastCompoundFrag.bulletShrink = 1;
-ghostBlastCompoundFrag.lifetime = 20;
-ghostBlastCompoundFrag.despawnEffect = Fx.none;
 
 const ghostBlastCompound = extend(FlakBulletType, {});
-ghostBlastCompound.damage = 20;
-ghostBlastCompound.splashDamage = 68;
+ghostBlastCompound.damage = 104;
+ghostBlastCompound.splashDamage = 152;
 ghostBlastCompound.splashDamageRadius = 42;
 ghostBlastCompound.speed = 15;
 ghostBlastCompound.lifetime = 16;
@@ -61,8 +42,6 @@ ghostBlastCompound.bulletHeight = 15;
 ghostBlastCompound.ammoMultiplier = 2;
 ghostBlastCompound.hitEffect = Fx.blastExplosion;
 ghostBlastCompound.reloadMultiplier = 0.6;
-ghostBlastCompound.fragBullets = 12;
-ghostBlastCompound.fragBullet = ghostBlastCompoundFrag;
 
 const ghostPlastaniumFrag = extend(BasicBulletType, {});
 ghostPlastaniumFrag.damage = 12;
@@ -115,17 +94,9 @@ ghostSurge.reloadMultiplier = 1.2;
 ghostSurge.lightningCone = 45;
 ghostSurge.status = StatusEffects.shocked;
 
-const ghostShellFrag = extend(BasicBulletType, {});
-ghostShellFrag.damage = 17;
-ghostShellFrag.bulletWidth = 5;
-ghostShellFrag.bulletHeight = 12;
-ghostShellFrag.bulletShrink = 1;
-ghostShellFrag.lifetime = 20;
-ghostShellFrag.despawnEffect = Fx.none;
-
 const ghostShell = extend(FlakBulletType, {});
-ghostShell.damage = 23;
-ghostShell.splashDamage = 72;
+ghostShell.damage = 125;
+ghostShell.splashDamage = 174;
 ghostShell.splashDamageRadius = 42;
 ghostShell.speed = 20;
 ghostShell.lifetime = 13;
@@ -133,8 +104,6 @@ ghostShell.bulletWidth = 5;
 ghostShell.bulletHeight = 21;
 ghostShell.ammoMultiplier = 5;
 ghostShell.hitEffect = Fx.blastExplosion;
-ghostShell.fragBullets = 12;
-ghostShell.fragBullet = ghostShellFrag;
 
 const ghost = extendContent(DoubleTurret, "ghost", {
   init(){

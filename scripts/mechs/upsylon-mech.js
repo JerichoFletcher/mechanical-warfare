@@ -37,9 +37,6 @@ shotgun.bullet = shotgunRound;
 const upsylonPlasma = extend(BasicBulletType, {
   draw(b){
 	elib.fillCircle(b.x, b.y, Pal.lancerLaser, 1, 6);
-  },
-  update(b){
-    this.super$update(b);
     Effects.effect(this.trailEffect, b.x, b.y, b.rot());
   }
 });

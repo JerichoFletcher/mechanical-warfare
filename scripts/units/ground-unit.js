@@ -7,8 +7,6 @@ const nullBullet = extend(BasicBulletType, {
   draw(b){
 	elib.fillCircle(b.x, b.y, this.frontColor, 1, this.bulletWidth);
 	elib.outlineCircle(b.x, b.y, this.backColor, 0.5, this.bulletWidth);
-  },
-  update(b){
 	if(Mathf.chance(0.67)){
 	  Effects.effect(this.trailEffectB, b.x, b.y, b.rot());
 	}

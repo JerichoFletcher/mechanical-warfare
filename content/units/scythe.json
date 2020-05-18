@@ -14,7 +14,7 @@ engineOffset: 20
 engineSize: 4.5
 rotatespeed: 0.01
 baseRotateSpeed: 0.05
-// Raw DPS: 1080
+// Raw DPS: 576
 weapon: {
   name: scythe-launcher
   width: 9
@@ -22,7 +22,7 @@ weapon: {
   reload: 50
   alternate: true
   inaccuracy: 2
-  shots: 15
+  shots: 8
   spacing: 0.5
   shotDelay: 0
   shootSound: artillery

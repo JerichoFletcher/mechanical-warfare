@@ -10,7 +10,7 @@ recoil: 3.5
 requirements: [
   titanium/125
   surge-alloy/100
-  uranium/150
+  uranium/90
 ]
 category: turret
 research: fuse

@@ -10,7 +10,7 @@ const blowShell = extend(BasicBulletType, {
   }
 });
 blowShell.pierce = false;
-blowShell.damage = 54;
+blowShell.damage = 84;
 blowShell.speed = 12;
 blowShell.lifetime = 20;
 blowShell.bulletWidth = 6;

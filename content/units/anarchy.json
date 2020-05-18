@@ -21,9 +21,8 @@ weapon: {
   shotDelay: 0
   spacing: 0
   ejectEffect: shellEjectBig
-  shootSound: quakeshot
+  shootSound: artillery
   bullet: {
-    type: ArtilleryBulletType
     bulletWidth: 17
     bulletHeight: 22
     lifetime: 50
@@ -37,9 +36,6 @@ weapon: {
     smokeEffect: shootBigSmoke
     hitSound: explosion
     inaccuracy: 2
-    collidesTiles: true
-    collidesAir: false
-    collides: true
     hitShake: 3
     frontColor: ddeeff
     backColor: aabbcc

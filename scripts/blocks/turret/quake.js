@@ -26,10 +26,12 @@ quakeHE.trailEffect = newEffect(27, e => {
   elib.fillCircle(e.x, e.y, quakeHE.frontColor, 1, Mathf.lerp(1.8, 0.2, e.fin()));
 });
 // Hit effect
-quakeHE.hitEffect = newEffect(13, e => {
-  var c1Thickness = 4 * e.fout();
-  var c1Radius = Mathf.lerp(3, 40, e.fin());
-  elib.outlineCircle(e.x, e.y, Pal.missileYellow, c1Thickness, c1Radius);
+quakeHE.hitEffect = newEffect(27, e => {
+  e.scaled(6, cons(i => {
+    var c1Thickness = 4 * i.fout();
+	var c1Radius = Mathf.lerp(3, 40, i.fin());
+	elib.outlineCircle(e.x, e.y, Pal.missileYellow, c1Thickness, c1Radius);
+  }));
   
   var c2Alpha = 0.3 + e.fin() * 0.7;
   var c2Radius = Mathf.lerp(40, 0.5, e.fin());
@@ -44,8 +46,7 @@ quakeHE.hitEffect = newEffect(13, e => {
   var lThickness = e.fout() * 2.7;
   var lDistance = Mathf.lerp(13, 80, e.finpow());
   var lLength = Mathf.lerp(10, 1, e.fin());
-  var lCount = 12;
-  elib.splashLines(e.x, e.y, Pal.missileYellow, lThickness, lDistance, lLength, lCount, e.id);
+  elib.splashLines(e.x, e.y, Pal.missileYellow, lThickness, lDistance, lLength, 12, e.id);
 });
 quakeHE.despawnEffect = quakeHE.hitEffect;
 
@@ -75,16 +76,17 @@ quakeAP.trailEffect = newEffect(27, e => {
   elib.fillCircle(e.x, e.y, quakeAP.frontColor, 1, Mathf.lerp(1.8, 0.2, e.fin()));
 });
 // Hit effect
-quakeAP.hitEffect = newEffect(9, e => {
-  var cThickness = 4 * e.fout();
-  var cRadius = Mathf.lerp(1.5, 20, e.fin());
-  elib.outlineCircle(e.x, e.y, quakeAP.frontColor, cThickness, cRadius);
+quakeAP.hitEffect = newEffect(13, e => {
+  e.scaled(6, cons(i => {
+    var cThickness = 4 * i.fout();
+    var cRadius = Mathf.lerp(1.5, 20, i.fin());
+    elib.outlineCircle(e.x, e.y, quakeAP.frontColor, cThickness, cRadius);
+  }));
   
   var lThickness = e.fout() * 2.5;
   var lDistance = Mathf.lerp(1, 25, e.finpow());
   var lLength = Mathf.lerp(4, 1, e.fin());
-  var lCount = 4;
-  elib.splashLines(e.x, e.y, quakeAP.backColor, lThickness, lDistance, lLength, lCount, e.id);
+  elib.splashLines(e.x, e.y, quakeAP.backColor, lThickness, lDistance, lLength, 10, e.id);
 });
 quakeAP.despawnEffect = quakeAP.hitEffect;
 

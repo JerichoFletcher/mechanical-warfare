@@ -10,7 +10,7 @@ const blowShell = extend(BasicBulletType, {
   }
 });
 blowShell.pierce = false;
-blowShell.damage = 40;
+blowShell.damage = 54;
 blowShell.speed = 12;
 blowShell.lifetime = 20;
 blowShell.bulletWidth = 6;
@@ -21,16 +21,17 @@ blowShell.ammoMultiplier = 3;
 blowShell.trailEffect = newEffect(30, e => {
   elib.fillCircle(e.x, e.y, blowShell.frontColor, 1, Mathf.lerp(1.5, 0.2, e.fin()));
 });
-blowShell.hitEffect = newEffect(17, e => {
-  var cThickness = e.fout * 1.2;
-  var cRadius = Mathf.lerp(0, 10, e.fin());
-  elib.outlineCircle(e.x, e.y, blowShell.frontColor, cThickness, cRadius);
+blowShell.hitEffect = newEffect(18, e => {
+  e.scaled(6, cons(i => {
+    var cThickness = i.fout() * 2;
+    var cRadius = i.fin() * 8;
+    elib.outlineCircle(e.x, e.y, blowShell.frontColor, cThickness, cRadius);
+  }));
   
   var lThickness = e.fout() * 1.2;
   var lDistance = Mathf.lerp(0, 20, e.finpow());
   var lLength = Mathf.lerp(2, 0.2, e.fin());
-  var lCount = 6;
-  elib.splashLines(e.x, e.y, blowShell.frontColor, lThickness, lDistance, lLength, lCount, e.id);
+  elib.splashLines(e.x, e.y, blowShell.frontColor, lThickness, lDistance, lLength, 6, e.id);
 });
 blowShell.despawnEffect = blowShell.hitEffect;
 
@@ -73,4 +74,4 @@ const blow = extendContent(DoubleTurret, "blow", {
   },
 });
 blow.shots = 3;
-blow.burstSpacing = 2;
+blow.burstSpacing = 3;

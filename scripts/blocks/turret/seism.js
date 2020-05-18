@@ -26,10 +26,12 @@ seismHE.trailEffect = newEffect(30, e => {
   elib.fillCircle(e.x, e.y, seismHE.frontColor, 1, Mathf.lerp(2, 0.2, e.fin()));
 });
 // Hit effect
-seismHE.hitEffect = newEffect(18, e => {
-  var c1Thickness = 6 * e.fout();
-  var c1Radius = Mathf.lerp(3, 60, e.fin());
-  elib.outlineCircle(e.x, e.y, Pal.missileYellow, c1Thickness, c1Radius);
+seismHE.hitEffect = newEffect(27, e => {
+  e.scaled(6, cons(i => {
+	var c1Thickness = 6 * i.fout();
+	var c1Radius = Mathf.lerp(3, 60, i.fin());
+	elib.outlineCircle(e.x, e.y, Pal.missileYellow, c1Thickness, c1Radius);
+  }));
   
   var c2Alpha = 0.3 + e.fin() * 0.7;
   var c2Radius = Mathf.lerp(60, 0.5, e.fin());
@@ -44,8 +46,7 @@ seismHE.hitEffect = newEffect(18, e => {
   var lThickness = e.fout() * 3;
   var lDistance = Mathf.lerp(20, 120, e.finpow());
   var lLength = Mathf.lerp(14, 1, e.fin());
-  var lCount = 15;
-  elib.splashLines(e.x, e.y, Pal.missileYellow, lThickness, lDistance, lLength, lCount, e.id);
+  elib.splashLines(e.x, e.y, Pal.missileYellow, lThickness, lDistance, lLength, 15, e.id);
 });
 seismHE.despawnEffect = seismHE.hitEffect;
 
@@ -76,15 +77,16 @@ seismAP.trailEffect = newEffect(30, e => {
 });
 // Hit effect
 seismAP.hitEffect = newEffect(13, e => {
-  var cThickness = 4 * e.fout();
-  var cRadius = Mathf.lerp(2, 30, e.fin());
-  elib.outlineCircle(e.x, e.y, seismAP.frontColor, cThickness, cRadius);
+  e.scaled(6, cons(i => {
+    var cThickness = 4 * i.fout();
+    var cRadius = Mathf.lerp(2, 30, i.fin());
+    elib.outlineCircle(e.x, e.y, seismAP.frontColor, cThickness, cRadius);
+  }));
   
   var lThickness = e.fout() * 3;
   var lDistance = Mathf.lerp(3, 45, e.finpow());
   var lLength = Mathf.lerp(5, 1, e.fin());
-  var lCount = 6;
-  elib.splashLines(e.x, e.y, seismAP.backColor, lThickness, lDistance, lLength, lCount, e.id);
+  elib.splashLines(e.x, e.y, seismAP.backColor, lThickness, lDistance, lLength, 12, e.id);
 });
 seismAP.despawnEffect = seismAP.hitEffect;
 

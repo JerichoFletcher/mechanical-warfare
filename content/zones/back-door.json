@@ -14,13 +14,13 @@ configureObjective: {
 launchPeriod: 10
 requirements: [
   {
+    type: Launched
+    zone: overgrowth
+  }
+  {
     type: ZoneWave
     zone: desolateRift
     wave: 30
-  }
-  {
-    type: Launched
-    zone: overgrowth
   }
   {
     type: Unlock

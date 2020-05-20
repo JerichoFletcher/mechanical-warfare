@@ -14,7 +14,7 @@ engineOffset: 11
 engineSize: 4
 rotatespeed: 0.01
 baseRotateSpeed: 0.06
-// Raw DPS: 288
+// Raw DPS: 216
 weapon: {
   name: shadow-caster
   width: 7
@@ -22,9 +22,9 @@ weapon: {
   reload: 30
   alternate: true
   inaccuracy: 0
-  shots: 6
+  shots: 3
   spacing: 0
-  shotDelay: 2
+  shotDelay: 3
   shootSound: artillery
   bullet: {
     type: BasicBulletType
@@ -33,7 +33,7 @@ weapon: {
     bulletHeight: 12
     speed: 10
     lifetime: 20
-    damage: 12
+    damage: 18
     shootEffect: shootBig
   }
 }

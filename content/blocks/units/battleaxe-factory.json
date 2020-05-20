@@ -1,7 +1,3 @@
-type: UnitFactory
-name: Battleaxe Fighter Factory
-description: Assembles Battleaxe, an armored fighter ship equipped with rocket launcher.
-unitType: battleaxe
 size: 5
 produceTime: 3500
 maxSpawn: 4

@@ -5,6 +5,8 @@ module.exports = {
   backColorHE: Color.valueOf("b6573a"),
   frontColorAP: Color.valueOf("fbff85"),
   backColorAP: Color.valueOf("b68f3a"),
+  frontColorLava: Color.valueOf("ffddcc"),
+  backColorLava: Color.valueOf("ccaa99"),
   frontColorCyan: Color.valueOf("c4fdfd"),
   backColorCyan: Color.valueOf("4be3ca"),
   frontColorPurple: Color.valueOf("f8c5fd"),

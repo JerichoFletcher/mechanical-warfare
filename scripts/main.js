@@ -7,6 +7,7 @@ require("blocks/effect/element-aura")
 
 //units
 require("units/ground-unit")
+require("units/hover-unit")
 require("units/copter-unit")
 
 //mechs

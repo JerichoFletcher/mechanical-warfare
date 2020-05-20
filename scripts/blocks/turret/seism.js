@@ -93,7 +93,7 @@ seismAP.despawnEffect = seismAP.hitEffect;
 const seism = extendContent(ArtilleryTurret, "seism", {
   load(){
     this.region = Core.atlas.find(this.name);
-    this.baseRegion = Core.atlas.find("block-5");
+    this.baseRegion = Core.atlas.find(modName + "-block-5");
 	this.heatRegion = Core.atlas.find(this.name + "-heat");
   },
   draw(tile){
@@ -102,7 +102,7 @@ const seism = extendContent(ArtilleryTurret, "seism", {
   },
   generateIcons: function(){
 	return [
-	  Core.atlas.find("block-5"),
+	  Core.atlas.find(modName + "-block-5"),
 	  Core.atlas.find(this.name)
 	];
   },

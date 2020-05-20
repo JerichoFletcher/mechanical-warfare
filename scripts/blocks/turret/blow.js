@@ -10,7 +10,7 @@ const blowShell = extend(BasicBulletType, {
   }
 });
 blowShell.pierce = false;
-blowShell.damage = 54;
+blowShell.damage = 84;
 blowShell.speed = 12;
 blowShell.lifetime = 20;
 blowShell.bulletWidth = 6;
@@ -41,7 +41,7 @@ const blow = extendContent(DoubleTurret, "blow", {
   },
   init(){
     this.ammo(
-      Vars.content.getByName(ContentType.item, modName + "-ap-shell"), blowShell // Raw DPS: 480
+      Vars.content.getByName(ContentType.item, modName + "-ap-shell"), blowShell // Raw DPS: 756
     );
     this.super$init();
   },

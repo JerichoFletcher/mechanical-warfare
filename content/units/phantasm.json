@@ -7,17 +7,17 @@ health: 900
 hitsize: 15
 drag: 0.02
 range: 140
-attackLength: 110
+attackLength: 125
 shootCone: 5
 rotateWeapon: true
 engineOffset: 9
 engineSize: 2.5
 rotatespeed: 0.1
-baseRotateSpeed: 0.5
-// Raw DPS: 60
+baseRotateSpeed: 0.2
+// Raw DPS: 30
 weapon: {
   name: phantasmal-gun
-  reload: 10
+  reload: 20
   alternate: true
   inaccuracy: 2
   ejectEffect: shellEjectSmall
@@ -29,5 +29,6 @@ weapon: {
     speed: 12
     lifetime: 15
     damage: 5
+    explodeRange: 12
   }
 }

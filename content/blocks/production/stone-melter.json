@@ -22,5 +22,3 @@ requirements: [
 ]
 research: melter
 category: crafting
-idleSound: respawning
-idleSoundVolume: 0.5

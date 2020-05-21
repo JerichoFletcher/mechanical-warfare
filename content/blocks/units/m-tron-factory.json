@@ -1,0 +1,22 @@
+type: UnitFactory
+unitType: m-tron
+size: 4
+produceTime: 3000
+maxSpawn: 3
+consumes: {
+  power: 1.8
+  items: {
+    items: [
+      silicon/50
+      graphite/35
+      iron/20
+    ]
+  }
+}
+category: units
+research: sabre-factory
+requirements: [
+  uranium/50
+  lead/175
+  silicon/150
+]

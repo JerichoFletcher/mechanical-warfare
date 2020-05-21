@@ -1,0 +1,33 @@
+type: GroundUnit
+health: 1280
+speed: 0.08
+drag: 0.3
+mass: 5
+hitsize: 16
+rotatespeed: 0.07
+// Raw DPS: 230.4
+weapon: {
+  name: m-rifle
+  length: 1
+  reload: 50
+  width: 14
+  alternate: true
+  recoil: 4
+  shake: 2
+  shots: 3
+  spacing: 0
+  shotDelay: 2
+  ejectEffect: shellEjectBig
+  shootSound: missile
+  bullet: {
+    type: BasicBulletType
+    bulletSprite: mechanical-warfare-energybullet1
+    bulletWidth: 7
+    bulletHeight: 16
+    speed: 3.5
+    lifetime: 60
+    damage: 32
+    frontColor: ddeeff
+    backColor: aabbcc
+  }
+}

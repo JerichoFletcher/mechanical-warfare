@@ -6,13 +6,14 @@ mass: 4
 health: 900
 hitsize: 15
 drag: 0.02
-range: 120
-shootCone: 40
+range: 140
+attackLength: 125
+shootCone: 5
 rotateWeapon: true
 engineOffset: 9
 engineSize: 2.5
 rotatespeed: 0.1
-baseRotateSpeed: 0.08
+baseRotateSpeed: 0.2
 // Raw DPS: 30
 weapon: {
   name: phantasmal-gun

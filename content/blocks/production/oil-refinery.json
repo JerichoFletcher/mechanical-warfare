@@ -22,5 +22,3 @@ requirements: [
 ]
 category: crafting
 research: coal-centrifuge
-idleSound: respawning
-idleSoundVolume: 0.5

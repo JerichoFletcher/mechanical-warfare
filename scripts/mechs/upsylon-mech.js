@@ -36,8 +36,10 @@ shotgun.bullet = shotgunRound;
 
 const upsylonPlasma = extend(BasicBulletType, {
   draw(b){
-	elib.fillCircle(b.x, b.y, Pal.lancerLaser, 1, 6);
-    Effects.effect(this.trailEffect, b.x, b.y, b.rot());
+    elib.fillCircle(b.x, b.y, Pal.lancerLaser, 1, 6);
+	  if(Time.delta() > 0){
+      Effects.effect(this.trailEffect, b.x, b.y, b.rot());
+    }
   }
 });
 upsylonPlasma.damage = Vars.state.rules.playerDamageMultiplier * 15;
@@ -70,15 +72,8 @@ const upsylon = extendContent(Mech, "upsylon-mech", {
   },
   updateAlt(player){
     if(player.isShooting()){
-      if(player.timer.get(player.timerAbility, this.secondaryReload / 2)){
-        this._shots++;
-        var i = Mathf.signs[this._shots % 2];
-        this.pl1.trns(player.rotation - 90, i * this.weaponOffsetX, 0);
-        var dir = player.rotation + i * (this.secondaryAngle / 2);
-        Calls.createBullet(upsylonPlasma, player.getTeam(),
-          player.x + this.pl1.x, player.y + this.pl1.y,
-          dir, 1, 1
-        );
+      if(player.timer.get(player.timerAbility, this.secondaryReload)){
+        Calls.createBullet(upsylonPlasma, player.getTeam(), player.x, player.y, player.rotation + Mathf.range(this.secondaryAngle / 2), 1, 1);
         this.secondaryShootSound.at(player.x, player.y, Mathf.random(0.9, 1.1));
       }
     }
@@ -88,7 +83,7 @@ upsylon.pl1 = new Vec2();
 upsylon._shots = 0;
 upsylon.secondaryShootSound = Sounds.artillery;
 upsylon.secondaryAngle = 45;
-upsylon.secondaryReload = 60;
+upsylon.secondaryReload = 30;
 upsylon.speed = 0.5;
 upsylon.maxSpeed = 2;
 upsylon.boostSpeed = 1;

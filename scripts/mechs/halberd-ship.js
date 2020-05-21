@@ -15,8 +15,10 @@ halberdBullet.smokeEffect = Fx.shootBigSmoke;
 
 const halberdBullet2 = extend(BasicBulletType, {
   draw(b){
-	elib.fillCircle(b.x, b.y, Pal.lancerLaser, 1, this._size);
-	Effects.effect(this.trailEffect, b.x, b.y, b.rot());
+		elib.fillCircle(b.x, b.y, Pal.lancerLaser, 1, this._size);
+		if(Time.delta() > 0){
+			Effects.effect(this.trailEffect, b.x, b.y, b.rot());
+		}
   },
   update(b){
     if(Mathf.chance(0.1)){
@@ -78,33 +80,34 @@ const halberd = extendContent(Mech, "halberd-ship", {
     Draw.alpha(player.velocity().len() / this.maxSpeed);
     Draw.rect(this.heatRegion, player.x, player.y, player.rotation - 90);
     Draw.color();
-	
-	var scl = player.velocity().len() / this.maxSpeed;
-	for(var i = 0; i < 2; i++){
-	  var angle = player.rotation - 90;
-	  var cx = Angles.trnsx(angle, Mathf.signs[i] * -22 / 4, -21 / 4);
-	  var cy = Angles.trnsy(angle, Mathf.signs[i] * -22 / 4, -21 / 4);
-	  if(scl > 0.5){
-		Effects.effect(this._trailEffect,
-		  player.x + cx + player.velocity().x * 5 / 6,
-		  player.y + cy + player.velocity().y * 5 / 6,
-		  player.velocity().angle(), scl
-		);
-	  }else{
-		Effects.effect(this._trailEffect,
-		  player.x + cx + player.velocity().x * 5 / 6,
-		  player.y + cy + player.velocity().y * 5 / 6,
-		  player.velocity().angle(), this._trailMinSize / this._trailSize
-		);
-	  }
-    }
+		if(Time.delta() > 0){
+			var scl = player.velocity().len() / this.maxSpeed;
+			for(var i = 0; i < 2; i++){
+		  	var angle = player.rotation - 90;
+		  	var cx = Angles.trnsx(angle, Mathf.signs[i] * -22 / 4, -21 / 4);
+		  	var cy = Angles.trnsy(angle, Mathf.signs[i] * -22 / 4, -21 / 4);
+		  	if(scl > 0.5){
+					Effects.effect(this._trailEffect,
+						player.x + cx + player.velocity().x * 5 / 6,
+			  		player.y + cy + player.velocity().y * 5 / 6,
+			  		player.velocity().angle(), scl
+					);
+		  	}else{
+					Effects.effect(this._trailEffect,
+			  		player.x + cx + player.velocity().x * 5 / 6,
+			  		player.y + cy + player.velocity().y * 5 / 6,
+			  		player.velocity().angle(), this._trailMinSize / this._trailSize
+					);
+	  		}
+    	}
+		}
   },
   updateAlt(player){
     var scl = player.velocity().len() / this.maxSpeed;
     if(scl >= 0.75){
       if(Mathf.chance((player.velocity().len() / this.maxSpeed * 0.08))){
         this.pl2.trns(player.rotation - 90, 0, this.weaponOffsetY);
-        var dir = player.velocity().angle() + Mathf.random(-this.plasmaCone, this.plasmaCone);
+        var dir = player.velocity().angle() + Mathf.range(this.plasmaCone);
         Calls.createBullet(halberdBullet2, player.getTeam(),
           player.x + this.pl2.x, player.y + this.pl2.y,
           dir, 1, 1

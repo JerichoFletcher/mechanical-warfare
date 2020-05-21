@@ -4,8 +4,8 @@ const turretLength = 6;
 const heatRay = extendContent(PowerTurret, "incandescence", {
   load(){
     this.super$load();
-    this.beamRegion = Core.atlas.find("mechanical-warfare-heat-ray-beam");
-    this.beamEndRegion = Core.atlas.find("mechanical-warfare-heat-ray-beam-end");
+    this.beamRegion = Core.atlas.find(modName + "-heat-ray-beam");
+    this.beamEndRegion = Core.atlas.find(modName + "-heat-ray-beam-end");
     this.layer2 = Layer.power;
   },
   shoot(tile, type){

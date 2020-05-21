@@ -2,11 +2,11 @@ const elib = require("effectlib");
 const plib = require("plib");
 
 const blowShell = extend(BasicBulletType, {
-  draw(b){
-	this.super$draw(b);
-    if(Mathf.chance(0.3)){
-      Effects.effect(this.trailEffect, b.x, b.y, b.rot());
-    }
+	draw(b){
+		this.super$draw(b);
+  	if(Time.delta() > 0 && Mathf.chance(0.3)){
+    	Effects.effect(this.trailEffect, b.x, b.y, b.rot());
+  	}
   }
 });
 blowShell.pierce = false;

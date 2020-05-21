@@ -1,7 +1,5 @@
 // Aegis
-const aegis = extendContent(ItemTurret, "aegis", {
-  
-});
+const aegis = extendContent(ItemTurret, "aegis", {});
 
 // Ghost
 require("blocks/turret/ghost")

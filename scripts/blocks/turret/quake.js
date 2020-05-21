@@ -4,7 +4,7 @@ const plib = require("plib");
 const quakeHE = extend(BasicBulletType, {
   draw(b){
     this.super$draw(b);
-    if(Mathf.chance(0.75)){
+    if(Time.delta() > 0 && Mathf.chance(0.75)){
       Effects.effect(this.trailEffect, b.x, b.y, b.rot());
     }
   },
@@ -53,7 +53,7 @@ quakeHE.despawnEffect = quakeHE.hitEffect;
 const quakeAP = extend(BasicBulletType, {
   draw(b){
     this.super$draw(b);
-    if(Mathf.chance(0.75)){
+    if(Time.delta() > 0 && Mathf.chance(0.75)){
       Effects.effect(this.trailEffect, b.x, b.y, b.rot());
     }
   },

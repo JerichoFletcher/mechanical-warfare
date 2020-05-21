@@ -8,13 +8,15 @@ const vortexBullet = extend(BasicBulletType, {
 		if(b.timer.get(0, 3)){
 			Effects.effect(this.trailEffectA, b.x, b.y, b.rot());
 		}
-		Effects.effect(this.trailEffectB, b.x, b.y, b.rot());
+    if(Time.delta() > 0){
+		  Effects.effect(this.trailEffectB, b.x, b.y, b.rot());
+    }
 	}
 });
 vortexBullet.damage = 100;
 vortexBullet.speed = 6;
 vortexBullet.lifetime = 60;
-vortexBullet.drag = 0.008;
+vortexBullet.drag = 0.01;
 vortexBullet.bulletWidth = vortexBullet.bulletHeight = 6;
 vortexBullet.frontColor = plib.frontColorPurple;
 vortexBullet.backColor = plib.backColorPurple;
@@ -72,9 +74,11 @@ const vortex = extendContent(Mech, "vortex-ship", {
 			Draw.blend();
 			Draw.color();
 		}
-		Draw.blend(Blending.additive);
-		Effects.effect(this.trailEffect, player.x, player.y, player.rotation);
-		Draw.blend();
+    if(Time.delta() > 0){
+		  Draw.blend(Blending.additive);
+		  Effects.effect(this.trailEffect, player.x, player.y, player.rotation);
+		  Draw.blend();
+    }
 	},
 	getExtraArmor: function(player){
 		return player.shootHeat * 60;

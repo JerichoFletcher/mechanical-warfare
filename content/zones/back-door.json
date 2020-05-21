@@ -7,10 +7,10 @@ startingItems: [
   iron/500
 ]
 conditionWave: 20
-configureObjective: {
+/*configureObjective: {
   type: Launched
   zone: front-gate
-}
+}*/
 launchPeriod: 10
 requirements: [
   {

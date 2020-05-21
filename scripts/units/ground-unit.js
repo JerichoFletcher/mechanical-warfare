@@ -7,13 +7,15 @@ const nullBullet = extend(BasicBulletType, {
   draw(b){
 	elib.fillCircle(b.x, b.y, this.frontColor, 1, this.bulletWidth);
 	elib.outlineCircle(b.x, b.y, this.backColor, 0.5, this.bulletWidth);
-	if(Mathf.chance(0.67)){
-	  Effects.effect(this.trailEffectB, b.x, b.y, b.rot());
-	}
-    if(b.timer.get(0, 4)){
+	if(b.timer.get(0, 4)){
       Effects.effect(this.trailEffectA, b.x, b.y, b.rot());
-    }
-	Effects.effect(this.trailEffectC, b.x, b.y, b.rot());
+	}
+	if(Time.delta() > 0){
+	  if(Mathf.chance(0.67)){
+		Effects.effect(this.trailEffectB, b.x, b.y, b.rot());
+	  }
+	  Effects.effect(this.trailEffectC, b.x, b.y, b.rot());
+	}
   }
 });
 nullBullet.hitSize = 8;

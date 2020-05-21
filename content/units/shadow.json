@@ -21,7 +21,7 @@ weapon: {
   recoil: 2
   reload: 30
   alternate: true
-  inaccuracy: 0
+  inaccuracy: 2
   shots: 3
   spacing: 0
   shotDelay: 3

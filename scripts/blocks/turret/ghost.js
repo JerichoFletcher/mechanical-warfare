@@ -73,7 +73,7 @@ const ghostSurge = extend(FlakBulletType, {
     }
   },
   hit(b, x, y){
-    if(typeof(x) !== "undefined" && typeof(y) !== "undefined"){this.super$hit(b, x, y)}
+    this.super$hit(b, b.x, b.y);
     for(var i = 0; i < this.lightningHitCount; i++){
       Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.surge, this.lightningDamage, b.x, b.y, Mathf.random(360), 15);
     }

@@ -1,0 +1,16 @@
+size: 2
+hasItems: false
+hasLiquids: true
+minLiquidEfficiency: 0.2
+maxLiquidGenerate: 0.08
+powerProduction: 3
+generateEffect: redgeneratespark
+heatColor: ff9b59
+requirements: [
+	titanium/75
+	silicon/50
+	iron/50
+	metaglass/25
+]
+category: power
+research: turbine-generator

@@ -1,6 +1,7 @@
 //blocks
 require("blocks/production")
 require("blocks/drills")
+require("mechanical-warfare/blocks/power")
 require("blocks/turret/turrets")
 require("blocks/defense")
 require("blocks/effect/element-aura")

@@ -1,5 +1,5 @@
-const elib = require("effectlib");
-const plib = require("plib");
+const elib = require("mechanical-warfare/effectlib");
+const plib = require("mechanical-warfare/plib");
 
 const halberdBullet = extend(BasicBulletType, {});
 halberdBullet.damage = 12;
@@ -57,7 +57,7 @@ halberdBullet2.hitEffect = halberdBullet2.despawnEffect;
 
 const halberdGun = extendContent(Weapon, "gatling", {
   load(){
-    this.region = Core.atlas.find(modName + "-gatling-equip");
+    this.region = Core.atlas.find("mechanical-warfare-gatling-equip");
   }
 });
 halberdGun.length = 1.2;

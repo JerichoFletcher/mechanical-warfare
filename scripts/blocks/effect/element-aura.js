@@ -1,4 +1,4 @@
-const plib = require("plib");
+const plib = require("mechanical-warfare/plib");
 
 const fireAuraRange = 15 * Vars.tilesize;
 

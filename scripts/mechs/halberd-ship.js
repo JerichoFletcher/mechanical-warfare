@@ -1,5 +1,5 @@
-const elib = require("effectlib");
-const plib = require("plib");
+const elib = require("mechanical-warfare/effectlib");
+const plib = require("mechanical-warfare/plib");
 
 const halberdBullet = extend(BasicBulletType, {});
 halberdBullet.damage = 12;

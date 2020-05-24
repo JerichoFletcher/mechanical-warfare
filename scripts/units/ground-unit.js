@@ -61,7 +61,7 @@ nullBullet.despawnEffect = nullBullet.hitEffect;
 
 const nullPointer = extendContent(Weapon, "null-pointer", {
   load(){
-    this.region = Core.atlas.find(modName + "-null-pointer-equip");
+    this.region = Core.atlas.find("mechanical-warfare-null-pointer-equip");
   }
 });
 nullPointer.length = 18;
@@ -135,7 +135,7 @@ anarchyShell.despawnEffect = anarchyShell.hitEffect;
 
 const anarchyBlaster = extendContent(Weapon, "anarchy-blaster", {
 	load(){
-		this.region = Core.atlas.find(modName + "-anarchy-blaster-equip");
+		this.region = Core.atlas.find("mechanical-warfare-anarchy-blaster-equip");
 	}
 });
 anarchyBlaster.length = 15;

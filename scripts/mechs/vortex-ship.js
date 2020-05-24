@@ -62,7 +62,7 @@ const vortex = extendContent(Mech, "vortex-ship", {
 	},
 	draw(player){
 		this.pl1.trns(player.rotation - 90, 0, -(this.weapon.getRecoil(player, true) + this.weapon.getRecoil(player, false)));
-		Draw.rect(Core.atlas.find(modName + "-vortex-lance-equip"), player.x + this.pl1.x, player.y + this.pl1.y, player.rotation - 90);
+		Draw.rect(Core.atlas.find("mechanical-warfare-vortex-lance-equip"), player.x + this.pl1.x, player.y + this.pl1.y, player.rotation - 90);
 		
 		if(player.shootHeat > 0.01){
 			Draw.color(Color.black, this.engineColor, player.shootHeat / 3);
@@ -105,7 +105,7 @@ vortex.trailEffect = newEffect(20, e => {
 	var offset = 0.3 + e.fin() * 0.4;
 	Draw.color(vortex.engineColor);
 	Draw.alpha(e.fout() * 0.67);
-	Draw.rect(Core.atlas.find(modName + "-vortex-ship-trail"), e.x + Angles.trnsx(angle, offset), e.y + Angles.trnsy(angle, offset), e.rotation - 90);
+	Draw.rect(Core.atlas.find("mechanical-warfare-vortex-ship-trail"), e.x + Angles.trnsx(angle, offset), e.y + Angles.trnsy(angle, offset), e.rotation - 90);
 	Draw.color();
 });
 

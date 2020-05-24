@@ -40,7 +40,7 @@ const nighthawk = extendContent(ItemTurret, "nighthawk", {
 		this.ammo(
 			Items.graphite, nhGraphite,
 			Items.titanium, nhTitanium,
-			Vars.content.getByName(ContentType.item, modName + "-ap-shell"), nhShell
+			Vars.content.getByName(ContentType.item, "mechanical-warfare-ap-shell"), nhShell
 		);
 		this.super$init();
 	}

@@ -113,7 +113,7 @@ const ghost = extendContent(DoubleTurret, "ghost", {
       Items.blastCompound, ghostBlastCompound, // Raw DPS: 731
       Items.plastanium, ghostPlastanium, // Raw DPS: 872
       Items.surgealloy, ghostSurge, // Raw DPS: 640
-      Vars.content.getByName(ContentType.item, modName + "-he-shell"), ghostShell // Raw DPS: 1196
+      Vars.content.getByName(ContentType.item, "mechanical-warfare-he-shell"), ghostShell // Raw DPS: 1196
     );
     this.super$init();
   },

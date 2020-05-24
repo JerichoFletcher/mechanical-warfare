@@ -1,5 +1,5 @@
-const elib = require("effectlib");
-const plib = require("plib");
+const elib = require("mechanical-warfare/effectlib");
+const plib = require("mechanical-warfare/plib");
 
 const shotgunRound = extend(BasicBulletType, {});
 shotgunRound.damage = 9;
@@ -17,7 +17,7 @@ shotgunRound.smokeEffect = Fx.shootBigSmoke;
 
 const shotgun = extendContent(Weapon, "shotgun", {
   load(){
-    this.region = Core.atlas.find(modName + "-shotgun-equip");
+    this.region = Core.atlas.find("mechanical-warfare-shotgun-equip");
   }
 });
 shotgun.width = 5;

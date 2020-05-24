@@ -1,16 +1,16 @@
 //blocks
-require("blocks/production")
-require("blocks/drills")
+require("mechanical-warfare/blocks/production")
+require("mechanical-warfare/blocks/drills")
 require("mechanical-warfare/blocks/power")
-require("blocks/turret/turrets")
-require("blocks/defense")
-require("blocks/effect/element-aura")
+require("mechanical-warfare/blocks/turret/turrets")
+require("mechanical-warfare/blocks/defense")
+require("mechanical-warfare/blocks/effect/element-aura")
 
 //units
-require("units/ground-unit")
-require("units/hover-unit")
-require("units/copter-unit")
+require("mechanical-warfare/units/ground-unit")
+require("mechanical-warfare/units/hover-unit")
+require("mechanical-warfare/units/copter-unit")
 
 //mechs
-require("mechs/ship")
-require("mechs/mech")
+require("mechanical-warfare/mechs/ship")
+require("mechanical-warfare/mechs/mech")

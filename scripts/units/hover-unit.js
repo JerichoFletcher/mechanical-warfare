@@ -1,5 +1,5 @@
-const elib = require("effectlib");
-const plib = require("plib");
+const elib = require("mechanical-warfare/effectlib");
+const plib = require("mechanical-warfare/plib");
 
 const hoverUnit = prov(() => extend(HoverUnit, {
 	drawEngine(){
@@ -21,7 +21,7 @@ const hoverUnit = prov(() => extend(HoverUnit, {
 // Battleaxe
 const axeLava = extend(LiquidBulletType, {
 	init(){
-		this.liquid = Vars.content.getByName(ContentType.liquid, modName + "-liquid-lava");
+		this.liquid = Vars.content.getByName(ContentType.liquid, "mechanical-warfare-liquid-lava");
 		this.super$init();
 	}
 });
@@ -51,7 +51,7 @@ axe.fragBullet = axeLava;
 
 const axeLauncher = extendContent(Weapon, "axe-launcher", {
 	load(){
-		this.region = Core.atlas.find(modName + "-axe-launcher-equip");
+		this.region = Core.atlas.find("mechanical-warfare-axe-launcher-equip");
 	}
 });
 axeLauncher.width = 7;
@@ -128,7 +128,7 @@ scytheShell.despawnEffect = scytheShell.hitEffect;
 
 const scytheLauncher = extendContent(Weapon, "scythe-launcher", {
 	load(){
-		this.region = Core.atlas.find(modName + "-scythe-launcher-equip");
+		this.region = Core.atlas.find("mechanical-warfare-scythe-launcher-equip");
 	}
 });
 scytheLauncher.width = 9;

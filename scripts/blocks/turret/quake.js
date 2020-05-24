@@ -1,5 +1,5 @@
-const elib = require("effectlib");
-const plib = require("plib");
+const elib = require("mechanical-warfare/effectlib");
+const plib = require("mechanical-warfare/plib");
 
 const quakeHE = extend(BasicBulletType, {
   draw(b){
@@ -96,8 +96,8 @@ const quake = extendContent(ArtilleryTurret, "quake", {
   },
   init(){
     this.ammo(
-      Vars.content.getByName(ContentType.item, modName + "-he-shell"), quakeHE,
-      Vars.content.getByName(ContentType.item, modName + "-ap-shell"), quakeAP
+      Vars.content.getByName(ContentType.item, "mechanical-warfare-he-shell"), quakeHE,
+      Vars.content.getByName(ContentType.item, "mechanical-warfare-ap-shell"), quakeAP
     );
     this.super$init();
   }

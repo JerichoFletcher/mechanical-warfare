@@ -1,5 +1,5 @@
-const elib = require("effectlib");
-const plib = require("plib");
+const elib = require("mechanical-warfare/effectlib");
+const plib = require("mechanical-warfare/plib");
 
 const seismHE = extend(BasicBulletType, {
   draw(b){
@@ -93,7 +93,7 @@ seismAP.despawnEffect = seismAP.hitEffect;
 const seism = extendContent(ArtilleryTurret, "seism", {
   load(){
     this.region = Core.atlas.find(this.name);
-    this.baseRegion = Core.atlas.find(modName + "-block-5");
+	this.baseRegion = Core.atlas.find("mechanical-warfare-block-5");
 	this.heatRegion = Core.atlas.find(this.name + "-heat");
   },
   draw(tile){
@@ -102,14 +102,14 @@ const seism = extendContent(ArtilleryTurret, "seism", {
   },
   generateIcons: function(){
 	return [
-	  Core.atlas.find(modName + "-block-5"),
+	  Core.atlas.find("mechanical-warfare-block-5"),
 	  Core.atlas.find(this.name)
 	];
   },
   init(){
     this.ammo(
-      Vars.content.getByName(ContentType.item, modName + "-he-shell"), seismHE,
-      Vars.content.getByName(ContentType.item, modName + "-ap-shell"), seismAP
+      Vars.content.getByName(ContentType.item, "mechanical-warfare-he-shell"), seismHE,
+      Vars.content.getByName(ContentType.item, "mechanical-warfare-ap-shell"), seismAP
     );
     this.super$init();
   },

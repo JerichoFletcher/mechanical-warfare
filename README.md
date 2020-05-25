@@ -16,3 +16,6 @@ Cheers,
 
 Translators:
 - French - [feu-follet](https://github.com/feu-follet)
+
+Contributors:
+- [kapzduke](https://github.com/kapzduke)

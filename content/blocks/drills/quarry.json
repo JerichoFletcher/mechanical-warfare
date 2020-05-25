@@ -4,6 +4,7 @@ hasItems: true
 updateEffect: pulverizeMedium
 updateEffectChance: 0.05
 craftEffect: mineBig
+craftTime: 30
 consumes: {
 	power: 1
 }
@@ -14,5 +15,7 @@ requirements: [
 	silicon/60
 	iron/45
 ]
+idleSound: drill
+idleSoundVolume: 0.003
 category: production
 research: pneumatic-drill

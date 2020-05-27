@@ -8,9 +8,9 @@ module.exports = {
   },
   drawRotor(base){
     var bladeRegion = Core.atlas.isFound(base.type.rotorBladeRegion()) ?
-      base.type.rotorBladeRegion() : Core.atlas.find(modName + "-rotor-blade");
+      base.type.rotorBladeRegion() : Core.atlas.find("mechanical-warfare-rotor-blade");
     var topRegion = Core.atlas.isFound(base.type.rotorTopRegion()) ?
-      base.type.rotorTopRegion() : Core.atlas.find(modName + "-rotor-top");
+      base.type.rotorTopRegion() : Core.atlas.find("mechanical-warfare-rotor-top");
     var offx = Angles.trnsx(base.rotation, base.type.rotorOffset(), base.type.rotorWidth());
     var offy = Angles.trnsy(base.rotation, base.type.rotorOffset(), base.type.rotorWidth());
     var w = bladeRegion.getWidth() * base.type.rotorScale() * Draw.scl;

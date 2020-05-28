@@ -2,22 +2,25 @@
 const aegis = extendContent(ItemTurret, "aegis", {});
 
 // Ghost
-require("blocks/turret/ghost")
+require("mechanical-warfare/blocks/turret/ghost")
 
 // Incandescence
-require("blocks/turret/incandescence")
+require("mechanical-warfare/blocks/turret/incandescence")
+
+// Storm
+require("mechanical-warfare/blocks/turret/storm")
 
 // Nighthawk
-require("blocks/turret/nighthawk")
+require("mechanical-warfare/blocks/turret/nighthawk")
 
 //Voltmeter
-require("blocks/turret/voltmeter")
+require("mechanical-warfare/blocks/turret/voltmeter")
 
 // Blow
-require("blocks/turret/blow")
+require("mechanical-warfare/blocks/turret/blow")
 
 // Quake
-require("blocks/turret/quake")
+require("mechanical-warfare/blocks/turret/quake")
 
 // Seism
-require("blocks/turret/seism")
+require("mechanical-warfare/blocks/turret/seism")

@@ -10,11 +10,11 @@ consumes: {
   power: 3
   items: {
     items: [
-	  iron/2
+	  sulfur/2
 	]
   }
   liquid: {
-    liquid: liquid-gas
+    liquid: water
 	amount: 0.4
   }
 }

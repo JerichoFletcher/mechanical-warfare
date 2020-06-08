@@ -1,0 +1,13 @@
+health: 1260
+size: 3
+reload: 60
+chargeTime: 40
+range: 240
+powerUse: 3
+shootSound: laser
+requirements: [
+	copper/1
+]
+heatColor: turretHeat
+category: turret
+research: incandescence

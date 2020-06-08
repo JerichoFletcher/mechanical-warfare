@@ -1,0 +1,23 @@
+size: 2
+hasPower: true
+hasItems: true
+hasLiquids: false
+craftTime: 45
+craftEffect: producesmoke
+update: true
+consumes: {
+	power: 0.2
+	items: {
+		items: [
+			scrap/1
+		]
+	}
+}
+outputItem: scrap-plate/1
+requirements: [
+	copper/75
+	lead/40
+	silicon/25
+]
+category: crafting
+research: silicon-smelter

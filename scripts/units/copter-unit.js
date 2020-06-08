@@ -124,7 +124,7 @@ const serpentFactory = extendContent(UnitFactory, "serpent-factory", {
     this.topRegion = Core.atlas.find("clear");
   },
   generateIcons: function(){
-    return [this.region];
+    return [Core.atlas.find(this.name)];
   }
 });
 serpentFactory.unitType = serpentUnit;

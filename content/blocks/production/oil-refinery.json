@@ -1,6 +1,7 @@
-type: LiquidConverter
+type: GenericCrafter
 size: 2
 hasPower: true
+hasLiquids: true
 liquidCapacity: 50
 craftTime: 60
 updateEffect: producesmoke
@@ -13,6 +14,10 @@ consumes: {
 }
 outputLiquid: {
   liquid: liquid-gas
+  amount: 0.1
+}
+outputItem: {
+  sulfur/1
 }
 requirements: [
   titanium/80

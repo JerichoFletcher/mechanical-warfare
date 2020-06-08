@@ -1,0 +1,6 @@
+type: resource
+cost: 0.75
+hardness: 1
+explosiveness: 0.2
+flammability: 1.2
+color: cfcc5a

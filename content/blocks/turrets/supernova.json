@@ -17,5 +17,6 @@ category: turret
 research: meltdown
 idleSound: machine
 idleSoundVolume: 0.5
-activeSound: beam
-activeSoundVolume: 2
+shootSound: supernovaShoot
+activeSound: supernovaActive
+activeSoundVolume: 1.5

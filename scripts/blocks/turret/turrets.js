@@ -24,3 +24,6 @@ require("mechanical-warfare/blocks/turret/quake")
 
 // Seism
 require("mechanical-warfare/blocks/turret/seism")
+
+// Supernova
+require("mechanical-warfare/blocks/turret/supernova")

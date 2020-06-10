@@ -47,6 +47,10 @@ supernovaLaser.length = laserLen;
 supernovaLaser.pierce = true;
 
 const supernova = extendContent(ChargeTurret, "supernova", {
+	load(){
+		this.super$load();
+		this.baseRegion = Core.atlas.find("mechanical-warfare-block-6");
+	},
 	setStats(){
 		this.super$setStats();
 		this.stats.remove(BlockStat.booster);

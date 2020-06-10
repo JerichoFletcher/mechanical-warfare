@@ -5,6 +5,7 @@ require("mechanical-warfare/blocks/power")
 require("mechanical-warfare/blocks/turret/turrets")
 require("mechanical-warfare/blocks/defense")
 require("mechanical-warfare/blocks/effect/element-aura")
+require("mechanical-warfare/blocks/effect/spotlight")
 
 //units
 require("mechanical-warfare/units/ground-unit")

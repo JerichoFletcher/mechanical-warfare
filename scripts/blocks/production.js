@@ -39,6 +39,40 @@ const chemicalStation = extendContent(LiquidConverter, "chemical-station", {
       Core.atlas.find(this.name + "-top")
     ];
   },
+  setStats(){
+	this.super$setStats();
+	this.stats.add(BlockStat.booster, new ItemListValue(ItemStack.with(Vars.content.getByName(ContentType.item, "mechanical-warfare-iron"), 1)));
+  },
+  update(tile){
+	  this.super$update(tile);
+	  var entity = tile.ent();
+	  if(entity.cons.valid() && entity.items.get(Vars.content.getByName(ContentType.item, "mechanical-warfare-iron")) > 0){
+		  if(entity.getBoosterProgress() < 1){
+			  entity.setBoosterProgress(entity.getBoosterProgress() + this.getProgressIncrease(entity, this.boosterTime));
+		  }else{
+			  entity.setBoosterProgress(0);
+		  }
+	  }else{
+		  entity.setBoosterProgress(0);
+	  }
+	  if(this.canBoost(tile)){
+		if(entity.getBoosterProgress() >= 1){
+			entity.items.remove(Vars.content.getByName(ContentType.item, "mechanical-warfare-iron"), 1);
+		}
+		entity.timeScaleDuration = Math.max(entity.timeScaleDuration, this.boosterTime + 1);
+		entity.timeScale = Math.max(entity.timeScale, this.speedBoost);
+	  }
+  },
+  getProgressIncrease(entity, baseTime){
+	  var progress = 1 / baseTime * entity.delta() * entity.efficiency();
+	  return progress;
+  },
+  canBoost(tile){
+	  return tile != null && tile.entity.cons.valid() && tile.entity.items.get(Vars.content.getByName(ContentType.item, "mechanical-warfare-iron")) > 0;
+  },
+  acceptItem(item, tile, source){
+	  return (Vars.content.getByName(ContentType.item, "mechanical-warfare-sulfur") == item || Vars.content.getByName(ContentType.item, "mechanical-warfare-iron") == item) && tile.entity.items.get(item) < this.itemCapacity;
+  },
   draw(tile){
 	this.drawer = cons(tile => {
 		var entity = tile.ent();
@@ -51,6 +85,27 @@ const chemicalStation = extendContent(LiquidConverter, "chemical-station", {
 	});
 	this.super$draw(tile);
   },
+});
+chemicalStation.speedBoost = 1.5;
+chemicalStation.boosterTime = chemicalStation.craftTime * 1.5;
+chemicalStation.entityType = prov(() => {
+	const entity = extend(GenericCrafter.GenericCrafterEntity, {
+		getBoosterProgress: function(){
+			return typeof(this._progress) === "undefined" ? 0 : this._progress;
+		},
+		setBoosterProgress: function(val){
+			this._progress = val;
+		},
+		write(stream){
+			this.super$write(stream);
+			stream.writeFloat(this._progress);
+		},
+		read(stream, revision){
+			this.super$read(stream, revision);
+			this.setBoosterProgress(stream.readFloat());
+		}
+	});
+	return entity;
 });
 
 // Stone Centrifuge

@@ -4,7 +4,6 @@ hasPower: true
 hasLiquids: true
 liquidCapacity: 50
 craftTime: 60
-updateEffect: producesmoke
 consumes: {
   power: 1.5
   liquid: {
@@ -16,9 +15,7 @@ outputLiquid: {
   liquid: liquid-gas
   amount: 0.1
 }
-outputItem: {
-  sulfur/1
-}
+outputItem: sulfur/1
 requirements: [
   titanium/80
   steel/60

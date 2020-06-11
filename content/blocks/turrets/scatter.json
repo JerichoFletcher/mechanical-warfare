@@ -1,0 +1,10 @@
+ammo: {
+  gravel : {
+    type: BasicBulletType
+    damage: 4
+    speed: 3.3
+    lifetime: 36
+    inaccuracy: 9
+    ammoMultiplier: 2
+  }
+}

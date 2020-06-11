@@ -1,0 +1,49 @@
+loadout: basicFoundation
+startingItems: [
+  copper/1000
+  lead/300
+  metaglass/200
+  graphite/200
+  titanium/100
+  silicon/200
+  iron/100
+  steel/100
+]
+conditionWave: 25
+configureObjective: {
+  type: Launched
+  zone: derelict-outpost
+}
+launchPeriod: 15
+requirements: [
+  {
+    type: Launched
+    zone: front-gate
+  }
+  {
+    type: ZoneWave
+    zone: nuclearComplex
+    wave: 45  
+  }
+  {
+    type: Unlock
+    block: phantasm-factory
+  }
+  {
+    type: Unlock
+    block: fortress-factory
+  }
+]
+resources: [
+  copper
+  lead
+  coal
+  titanium
+  iron
+  thorium
+  uranium
+  sand
+  scrap
+  cobblestone
+]  
+  

@@ -9,12 +9,10 @@ startingItems: [
   iron/100
   steel/100
 ]
-conditionWave: 25
 configureObjective: {
   type: Launched
   zone: derelict-outpost
 }
-launchPeriod: 15
 requirements: [
   {
     type: Launched

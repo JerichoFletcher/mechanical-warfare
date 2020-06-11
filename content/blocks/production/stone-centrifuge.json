@@ -11,7 +11,7 @@ consumes: {
     amount: 0.07
   }
 }
-outputItem: cobblestone/1
+outputItem: gravel/1
 requirements: [
   copper/45
   graphite/20

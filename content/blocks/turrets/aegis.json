@@ -9,6 +9,14 @@ recoil: 1.2
 shootCone: 10
 shots: 5
 ammo: {
+  gravel : {
+    type: BasicBulletType
+    damage: 4
+    speed: 3.3
+    lifetime: 36
+    inaccuracy: 9
+    ammoMultiplier: 2
+  }
   copper: {
     type: BasicBulletType
     damage: 7

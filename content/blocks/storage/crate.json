@@ -1,0 +1,10 @@
+type: Block
+size: 1
+health: 80
+itemCapacity: 50
+requirements: [
+  titanium/20
+  steel/10
+]
+category: effect
+research: container

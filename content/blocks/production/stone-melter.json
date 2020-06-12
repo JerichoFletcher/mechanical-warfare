@@ -7,7 +7,7 @@ consumes: {
   power: 1
   items: {
     items: [
-      gravel/1
+      cobblestone/1
     ]
   }
 }

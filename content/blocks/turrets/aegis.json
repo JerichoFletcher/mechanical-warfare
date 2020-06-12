@@ -9,7 +9,7 @@ recoil: 1.2
 shootCone: 10
 shots: 5
 ammo: {
-  gravel : {
+  cobblestone : {
     type: BasicBulletType
     damage: 4
     speed: 3.3

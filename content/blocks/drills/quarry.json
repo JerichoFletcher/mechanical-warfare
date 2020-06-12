@@ -8,7 +8,7 @@ craftTime: 30
 consumes: {
 	power: 1
 }
-outputItem: gravel/1
+outputItem: cobblestone/1
 requirements: [
 	copper/70
 	lead/50

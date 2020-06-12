@@ -69,13 +69,13 @@ const ghostSurge = extend(FlakBulletType, {
     if(Mathf.chance(0.5)){
       var cone = this.lightningCone;
       var rot = b.velocity().angle() + Mathf.random(-cone, cone);
-      Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.surge, this.lightningDamage, b.x, b.y, rot, 10);
+      Lightning.create(b.getTeam(), Pal.surge, this.lightningDamage, b.x, b.y, rot, 10);
     }
   },
   hit(b, x, y){
     this.super$hit(b, b.x, b.y);
     for(var i = 0; i < this.lightningHitCount; i++){
-      Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.surge, this.lightningDamage, b.x, b.y, Mathf.random(360), 15);
+      Lightning.create(b.getTeam(), Pal.surge, this.lightningDamage, b.x, b.y, Mathf.random(360), 15);
     }
   }
 });

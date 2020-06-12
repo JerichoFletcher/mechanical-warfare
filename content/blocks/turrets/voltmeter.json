@@ -10,6 +10,8 @@ rotatespeed: 0
 heatColor: a9d8ff
 targetAir: true
 range: 140
+shootEffect: producesmoke
+smokeEffect: none
 requirements: [
   copper/250
   lead/225

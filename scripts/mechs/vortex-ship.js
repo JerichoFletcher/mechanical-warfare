@@ -8,7 +8,7 @@ const vortexBullet = extend(BasicBulletType, {
 		if(b.timer.get(0, 3)){
 			Effects.effect(this.trailEffectA, b.x, b.y, b.rot());
 		}
-    if(Time.delta() > 0){
+    if(!Vars.state.isPaused()){
 		  Effects.effect(this.trailEffectB, b.x, b.y, b.rot());
     }
 	}
@@ -74,7 +74,7 @@ const vortex = extendContent(Mech, "vortex-ship", {
 			Draw.blend();
 			Draw.color();
 		}
-    if(Time.delta() > 0){
+    if(!Vars.state.isPaused()){
 		  Draw.blend(Blending.additive);
 		  Effects.effect(this.trailEffect, player.x, player.y, player.rotation);
 		  Draw.blend();

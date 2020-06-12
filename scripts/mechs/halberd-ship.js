@@ -16,7 +16,7 @@ halberdBullet.smokeEffect = Fx.shootBigSmoke;
 const halberdBullet2 = extend(BasicBulletType, {
   draw(b){
 		elib.fillCircle(b.x, b.y, Pal.lancerLaser, 1, this._size);
-		if(Time.delta() > 0){
+		if(!Vars.state.isPaused()){
 			Effects.effect(this.trailEffect, b.x, b.y, b.rot());
 		}
   },
@@ -24,13 +24,13 @@ const halberdBullet2 = extend(BasicBulletType, {
     if(Mathf.chance(0.1)){
       var cone = this.lightningCone;
       var rot = b.rot() + Mathf.random(-cone, cone);
-      Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.lancerLaser, Vars.state.rules.playerDamageMultiplier * this.lightningDamage, b.x, b.y, rot, 10);
-    }
+      Lightning.create(b.getTeam(), Pal.lancerLaser, Vars.state.rules.playerDamageMultiplier * this.lightningDamage, b.x, b.y, rot, 10);
+	}
   },
   hit(b, x, y){
     this.super$hit(b, b.x, b.y);
     for(var i = 0; i < 3; i++){
-      Calls.createLighting(b.id + Mathf.random(50), b.getTeam(), Pal.lancerLaser, Vars.state.rules.playerDamageMultiplier * this.lightningDamage, b.x, b.y, Mathf.random(360), 15);
+      Lightning.create(b.getTeam(), Pal.lancerLaser, Vars.state.rules.playerDamageMultiplier * this.lightningDamage, b.x, b.y, Mathf.random(360), 15);
     }
   }
 });
@@ -80,7 +80,7 @@ const halberd = extendContent(Mech, "halberd-ship", {
     Draw.alpha(player.velocity().len() / this.maxSpeed);
     Draw.rect(this.heatRegion, player.x, player.y, player.rotation - 90);
     Draw.color();
-		if(Time.delta() > 0){
+		if(!Vars.state.isPaused()){
 			var scl = player.velocity().len() / this.maxSpeed;
 			for(var i = 0; i < 2; i++){
 		  	var angle = player.rotation - 90;
@@ -108,7 +108,7 @@ const halberd = extendContent(Mech, "halberd-ship", {
       if(Mathf.chance((player.velocity().len() / this.maxSpeed * 0.08))){
         this.pl2.trns(player.rotation - 90, 0, this.weaponOffsetY);
         var dir = player.velocity().angle() + Mathf.range(this.plasmaCone);
-        Calls.createBullet(halberdBullet2, player.getTeam(),
+        Bullet.create(halberdBullet2, player, player.getTeam(),
           player.x + this.pl2.x, player.y + this.pl2.y,
           dir, 1, 1
         );

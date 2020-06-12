@@ -4,7 +4,7 @@ const plib = require("mechanical-warfare/plib");
 const blowShell = extend(BasicBulletType, {
 	draw(b){
 		this.super$draw(b);
-  	if(Time.delta() > 0 && Mathf.chance(0.3)){
+  	if(!Vars.state.isPaused() && Mathf.chance(0.3)){
     	Effects.effect(this.trailEffect, b.x, b.y, b.rot());
   	}
   }

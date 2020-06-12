@@ -23,7 +23,7 @@ const heatRay = extendContent(PowerTurret, "incandescence", {
     var ex = entity.target.getX();
     var ey = entity.target.getY();
     var rot = Mathf.angle(ex - tx, ey - ty);
-    Calls.createBullet(type, tile.getTeam(), entity.target.getX(), entity.target.getY(), 0, 1, 1);
+    Bullet.create(type, tile.entity, tile.getTeam(), entity.target.getX(), entity.target.getY(), 0, 1, 1);
   },
   // draw heat laser
   drawLayer2(tile){

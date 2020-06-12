@@ -1,17 +1,17 @@
 loadout: basicFoundation
 startingItems: [
-  copper/1000
-  lead/300
-  metaglass/200
-  graphite/200
-  titanium/100
-  silicon/200
-  iron/100
-  steel/100
+  copper/500
+  lead/500
+  metaglass/500
+  graphite/300
+  titanium/50
+  silicon/100
+  iron/150
+  steel/125
 ]
 configureObjective: {
   type: Launched
-  zone: derelict-outpost
+  zone: derelict-desert-outpost
 }
 requirements: [
   {

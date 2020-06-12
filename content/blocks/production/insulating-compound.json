@@ -1,0 +1,25 @@
+size: 2
+hasPower: true
+hasItems: true
+hasLiquids: false
+craftTime: 85
+update: true
+consumes: {
+	items: {
+		items: [
+			plastanium/2
+			surge-alloy/1
+		]
+	}
+	power: 4.5
+}
+outputItem: insulator-alloy/1
+requirements: [
+	lead/75
+	titanium/50
+	uranium/25
+	surge-alloy/50
+	plastanium/30
+]
+category: crafting
+research: alloy-smelter

@@ -8,8 +8,8 @@ drag: 0.01
 range: 150
 attackLength: 135
 shootCone: 60
-rotateWeapon: false
-engineOffset: 15
+rotateWeapon: true
+engineOffset: 9.5
 engineSize: 3
 rotatespeed: 0.02
 baseRotateSpeed: 0.07

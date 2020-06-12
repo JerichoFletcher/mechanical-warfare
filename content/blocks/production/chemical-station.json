@@ -5,17 +5,20 @@ hasItems: true
 hasLiquids: true
 liquidCapacity: 60
 craftTime: 60
+update: true
 updateEffect: producesmoke
 consumes: {
   power: 3
   items: {
-    items: [
-	  iron/2
+	items: [
+	  sulfur/1
 	]
   }
   liquid: {
-    liquid: liquid-gas
-	amount: 0.4
+    liquid: water
+	amount: 0.25
+	optional: false
+	booster: false
   }
 }
 outputLiquid: {

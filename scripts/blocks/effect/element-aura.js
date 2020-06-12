@@ -118,6 +118,7 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
   },
   setStats(){
     this.super$setStats();
+    this.stats.remove(BlockStat.booster);
     this.stats.add(BlockStat.input, new LiquidValue(this.liquidAsAmmo(), this.shootType.ammoMultiplier * 60 / this.reload, true));
   },
   useAmmo: function(tile){

@@ -1,0 +1,12 @@
+outlineIcon: true
+health: 200
+consumes: {
+	power: 0.08
+}
+expanded: true
+requirements: [
+	graphite/10
+	silicon/4
+]
+category: effect
+buildVisibility: lightingOnly

@@ -9,7 +9,7 @@ range: 160
 attackLength: 145
 shootCone: 150
 rotateWeapon: true
-engineOffset: 20
-engineSize: 4.5
+engineOffset: 14.5
+engineSize: 5.25
 rotatespeed: 0.01
 baseRotateSpeed: 0.05

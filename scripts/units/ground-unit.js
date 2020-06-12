@@ -10,7 +10,7 @@ const nullBullet = extend(BasicBulletType, {
 	if(b.timer.get(0, 4)){
       Effects.effect(this.trailEffectA, b.x, b.y, b.rot());
 	}
-	if(Time.delta() > 0){
+	if(!Vars.state.isPaused()){
 	  if(Mathf.chance(0.67)){
 		Effects.effect(this.trailEffectB, b.x, b.y, b.rot());
 	  }

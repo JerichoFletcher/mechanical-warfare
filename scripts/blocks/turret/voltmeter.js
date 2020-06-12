@@ -29,7 +29,7 @@ const voltmeter = extendContent(PowerTurret, "voltmeter", {
     var entity = tile.ent();
     var targetRot = entity.angleTo(entity.target);
     for (var i = 0; i < this.shots; i++){
-      Calls.createBullet(type, tile.getTeam(), tile.drawx(), tile.drawy(), targetRot, 1, 1);
+      Bullet.create(type, tile.entity, tile.getTeam(), tile.drawx(), tile.drawy(), targetRot, 1, 1);
     }
     this.effects(tile);
     this.useAmmo(tile);

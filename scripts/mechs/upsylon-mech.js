@@ -37,7 +37,7 @@ shotgun.bullet = shotgunRound;
 const upsylonPlasma = extend(BasicBulletType, {
   draw(b){
     elib.fillCircle(b.x, b.y, Pal.lancerLaser, 1, 6);
-	  if(Time.delta() > 0){
+	  if(!Vars.state.isPaused()){
       Effects.effect(this.trailEffect, b.x, b.y, b.rot());
     }
   }
@@ -73,7 +73,7 @@ const upsylon = extendContent(Mech, "upsylon-mech", {
   updateAlt(player){
     if(player.isShooting()){
       if(player.timer.get(player.timerAbility, this.secondaryReload)){
-        Calls.createBullet(upsylonPlasma, player.getTeam(), player.x, player.y, player.rotation + Mathf.range(this.secondaryAngle / 2), 1, 1);
+        Bullet.create(upsylonPlasma, player, player.getTeam(), player.x, player.y, player.rotation + Mathf.range(this.secondaryAngle / 2), 1, 1);
         this.secondaryShootSound.at(player.x, player.y, Mathf.random(0.9, 1.1));
       }
     }

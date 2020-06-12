@@ -1,10 +1,17 @@
 ammo: {
+  scrap: flakScrap
+  lead: flakLead
+  metaglass: flakGlass
   cobblestone : {
-    type: BasicBulletType
-    damage: 4
-    speed: 3.3
-    lifetime: 36
+    type: FlakBulletType
+    damage: 2
+    speed: 3
+    lifetime: 30
     inaccuracy: 9
     ammoMultiplier: 2
+    splashDamage: 15
+    bulletWidth: 6
+    bulletHeight: 9
+    reloadMultiplier: 0.5
   }
 }

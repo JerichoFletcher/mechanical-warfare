@@ -1,3 +1,16 @@
+// Crusher Drill
+const crusherDrill = extendContent(Drill, "crusher-drill", {
+	draw(tile){
+		this.super$draw(tile);
+		var entity = tile.ent();
+		if(entity.dominantItem != null){
+			Draw.color(entity.dominantItem.color);
+			Draw.rect(Core.atlas.find(this.name + "-item"), tile.drawx(), tile.drawy());
+			Draw.color();
+		}
+	},
+});
+
 // Chemical Drill
 const chemicalDrill = extendContent(Drill, "chemical-drill", {
   load(){

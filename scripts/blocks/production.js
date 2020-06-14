@@ -105,6 +105,7 @@ chemicalStation.entityType = prov(() => {
 			this.setBoosterProgress(stream.readFloat());
 		}
 	});
+	entity.setBoosterProgress(0);
 	return entity;
 });
 

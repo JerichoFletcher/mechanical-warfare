@@ -47,6 +47,18 @@ supernovaLaser.length = laserLen;
 supernovaLaser.pierce = true;
 
 const supernova = extendContent(ChargeTurret, "supernova", {
+	placed(tile){
+		this.super$placed(tile);
+		tile.ent().startLoop();
+	},
+	removed(tile){
+		tile.ent().stopLoop();
+		this.super$removed(tile);
+	},
+	onDestroyed(tile){
+		tile.ent().stopLoop();
+		this.super$onDestroyed(tile);
+	},
 	load(){
 		this.super$load();
 		this.baseRegion = Core.atlas.find("mechanical-warfare-block-6");
@@ -105,6 +117,7 @@ const supernova = extendContent(ChargeTurret, "supernova", {
 				entity.setBullet(null);
 			}
 		}
+		entity.updateLoop(entity.getCharge(), entity.getCharge());
 	},
 	updateShooting(tile){
 		var entity = tile.ent();
@@ -139,7 +152,8 @@ const supernova = extendContent(ChargeTurret, "supernova", {
 		return tile.entity.cons.valid();
 	},
 	shouldIdleSound(tile){
-		return this.hasAmmo(tile) && !this.shouldActiveSound(tile);
+		//return this.hasAmmo(tile) && !this.shouldActiveSound(tile);
+		return false;
 	},
 	shouldActiveSound(tile){
 		var entity = tile.ent();
@@ -183,6 +197,20 @@ supernova.entityType = prov(() => {
 		setBulletLife(val){
 			this._bulletLife = val;
 		},
+		startLoop(){
+			this._loopId = this.block.idleSound.loop(0, 1, this.block.idleSound.calcPan(this.tile.drawx(), this.tile.drawy()));
+		},
+		updateLoop(vol, pitch){
+			var loop = this.block.idleSound;
+			var x = this.tile.drawx();
+			var y = this.tile.drawy();
+			loop.setVolume(this._loopId, loop.calcVolume(x, y) * vol);
+			loop.setPitch(this._loopId, Mathf.clamp(0.5 + 1.5 * pitch, 0.5, 2));
+			loop.setPan(this._loopId, loop.calcPan(x, y), 1);
+		},
+		stopLoop(){
+			this.block.idleSound.stop(this._loopId);
+		}
 	});
 	entity.setCharge(0.0);
 	entity.setBullet(null);

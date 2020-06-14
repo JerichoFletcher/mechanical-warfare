@@ -1,0 +1,14 @@
+outlineIcon: true
+layer: turret
+priority: turret
+update: true
+solid: true
+configurable: true
+size: 3
+health: 4000
+itemCapacity: 4000
+requirements: [
+	copper/1
+]
+buildVisibility: shown
+category: effect

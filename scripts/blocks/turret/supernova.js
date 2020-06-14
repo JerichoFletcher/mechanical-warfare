@@ -1,3 +1,4 @@
+const elib = require("mechanical-warfare/effectlib");
 const plib = require("mechanical-warfare/plib");
 
 const laserLen = 240;
@@ -45,23 +46,35 @@ supernovaLaser.strokes = [2, 1.5, 1, 0.3];
 supernovaLaser.lenscales = [1, 1.12, 1.15, 1.17];
 supernovaLaser.length = laserLen;
 supernovaLaser.pierce = true;
+supernovaLaser.despawnEffect = Fx.none;
+
+const supernovaStar = newEffect(45, e => {
+	var a = Mathf.randomSeed(e.id, 360);
+	var d = 0.5 + e.fout() * 0.5;
+	const r = e.data;
+	elib.fillCircle(e.x + Angles.trnsx(a, d), e.y + Angles.trnsy(a, d), plib.frontColorCyan, 0.6 * e.fout(), r);
+});
 
 const supernova = extendContent(ChargeTurret, "supernova", {
-	placed(tile){
-		this.super$placed(tile);
-		tile.ent().startLoop();
-	},
-	removed(tile){
-		tile.ent().stopLoop();
-		this.super$removed(tile);
-	},
-	onDestroyed(tile){
-		tile.ent().stopLoop();
-		this.super$onDestroyed(tile);
-	},
 	load(){
 		this.super$load();
 		this.baseRegion = Core.atlas.find("mechanical-warfare-block-6");
+	},
+	generateIcons(){
+		return [Core.atlas.find("mechanical-warfare-block-6"), Core.atlas.find(this.name)];
+	},
+	draw(tile){
+		Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
+		Draw.color();
+	},
+	drawLayer2(tile){
+		var entity = tile.ent();
+		elib.fillCircle(tile.drawx() - Angles.trnsx(entity.rotation, this.starOffset), tile.drawy() - Angles.trnsy(entity.rotation, this.starOffset), plib.frontColorCyan, 1, entity.getSmoothCharge() * this.starRadius);
+		if(!Vars.state.isPaused()){
+			var a = Mathf.random(360);
+			var d = 0.3;
+			Effects.effect(supernovaStar, tile.drawx() - Angles.trnsx(entity.rotation, this.starOffset) + Angles.trnsx(a, d), tile.drawy() - Angles.trnsy(entity.rotation, this.starOffset) + Angles.trnsy(a, d), entity.rotation, entity.getSmoothCharge() * this.starRadius);
+		}
 	},
 	setStats(){
 		this.super$setStats();
@@ -86,6 +99,7 @@ const supernova = extendContent(ChargeTurret, "supernova", {
 			}
 			if(this.validateTarget(tile)){
 				var targetRot = entity.angleTo(entity.target);
+				this.updateCharge(tile);
 				if(typeof(entity.rotation) === "undefined" || entity.rotation == null){
 					entity.rotation = 0;
 				}
@@ -104,6 +118,11 @@ const supernova = extendContent(ChargeTurret, "supernova", {
 			entity.getBullet().time(0);
 			entity.heat = 1;
 			entity.recoil = this.recoil;
+			Lightning.create(tile.getTeam(), plib.frontColorCyan, 18,
+				tile.drawx() - Angles.trnsx(entity.rotation, this.starOffset),
+				tile.drawy() - Angles.trnsy(entity.rotation, this.starOffset),
+				Mathf.random(360), Mathf.round(Mathf.randomTriangular(7, 17))
+			);
 			if(Mathf.chance(0.33)){
 				var start = Mathf.random(laserLen);
 				Lightning.create(tile.getTeam(), plib.frontColorCyan, 12,
@@ -117,7 +136,20 @@ const supernova = extendContent(ChargeTurret, "supernova", {
 				entity.setBullet(null);
 			}
 		}
+		entity.updateSmoothCharge();
 		entity.updateLoop(entity.getCharge(), entity.getCharge());
+	},
+	updateCharge(tile){
+		var entity = tile.ent();
+		if(entity.getBulletLife() > 0 && entity.getBullet() != null){return;}
+		var liquid = entity.liquids.current();
+		var maxUsed = this.consumes.get(ConsumeType.liquid).amount;
+		var used = this.baseReloadSpeed(tile) * (tile.isEnemyCheat() ? maxUsed : Math.min(entity.liquids.get(liquid), maxUsed * Time.delta())) * liquid.heatCapacity * this.coolantMultiplier;
+		entity.setCharge(entity.getCharge() + this._chargeWarmup * (1 + used));
+		entity.liquids.remove(liquid, used);
+		if(Mathf.chance(0.06 * used)){
+			Effects.effect(this.coolEffect, tile.drawx() + Mathf.range(this.size * 8 / 2), tile.drawy() + Mathf.range(this.size * 8 / 2));
+		}
 	},
 	updateShooting(tile){
 		var entity = tile.ent();
@@ -128,15 +160,6 @@ const supernova = extendContent(ChargeTurret, "supernova", {
 			var type = this.peekAmmo(tile);
 			this.shoot(tile, type);
 			entity.setCharge(0.0);
-		}else{
-			var liquid = entity.liquids.current();
-			var maxUsed = this.consumes.get(ConsumeType.liquid).amount;
-			var used = this.baseReloadSpeed(tile) * (tile.isEnemyCheat() ? maxUsed : Math.min(entity.liquids.get(liquid), maxUsed * Time.delta())) * liquid.heatCapacity * this.coolantMultiplier;
-			entity.setCharge(entity.getCharge() + this._chargeWarmup * (1 + used));
-			entity.liquids.remove(liquid, used);
-			if(Mathf.chance(0.06 * used)){
-				Effects.effect(this.coolEffect, tile.drawx() + Mathf.range(this.size * 8 / 2), tile.drawy() + Mathf.range(this.size * 8 / 2));
-			}
 		}
 	},
 	turnToTarget(tile, targetRot){
@@ -157,9 +180,11 @@ const supernova = extendContent(ChargeTurret, "supernova", {
 	},
 	shouldActiveSound(tile){
 		var entity = tile.ent();
-		return entity.getBulletLife() > 0 && entity.getBullet() != null;
+		return tile != null && entity != null && entity.getBulletLife() > 0 && entity.getBullet() != null;
 	}
 });
+supernova.starRadius = 8;
+supernova.starOffset = 10;
 supernova.shootType = supernovaLaser;
 supernova.firingMoveFract = 0.167;
 supernova.shootDuration = 480;
@@ -176,12 +201,13 @@ supernova.entityType = prov(() => {
 		setCharge(val){
 			this._charge = Mathf.clamp(val, 0, 1);
 		},
-		getStarRadius(){
-			if(typeof(this._starRad) === "undefined"){this.setStarRadius(0.0);}
-			return this._starRad;
+		getSmoothCharge(){
+			if(typeof(this._scharge) === "undefined"){this._scharge = this.getCharge();}
+			return this._scharge;
 		},
-		setStarRadius(val){
-			this._starRad = Mathf.clamp(val, 0, 1);
+		updateSmoothCharge(){
+			this._scharge = Mathf.lerpDelta(this.getSmoothCharge(), this.getBullet() == null ? this.getCharge() : 1, supernova._chargeCooldown * 5);
+			if(this._scharge <= 0.0001){this._scharge = 0;}
 		},
 		getBullet(){
 			if(typeof(this._bullet) === "undefined"){this.setBullet(null);}
@@ -194,23 +220,53 @@ supernova.entityType = prov(() => {
 			if(typeof(this._bulletLife) === "undefined"){this.setBulletLife(0.0);}
 			return this._bulletLife;
 		},
+		init(tile, shouldAdd){
+			this.super$init(tile, shouldAdd);
+			this._loop = {
+				_sound: supernova.idleSound,
+				_baseVolume: supernova.idleSoundVolume,
+				_id: -1,
+				_update: function(x, y, vol, pitch, play){
+					if(this._baseVolume < 0){return;}
+					if(this._id < 0){
+						if(play){
+							this._id = this._sound.loop(this._sound.calcVolume(x, y) * this._baseVolume * vol, 0.5 + 1.5 * pitch, this._sound.calcPan(x, y));
+						}
+					}else{
+						if(!play && vol <= 0.001){
+							this._sound.stop(this._id);
+							this._id = -1;
+							return;
+						}
+						this._sound.setPan(this._id, this._sound.calcPan(x, y), this._sound.calcVolume(x, y) * this._baseVolume * vol);
+						this._sound.setPitch(this._id, 0.5 + 1.5 * pitch);
+					}
+				},
+				_stop: function(){
+					if(this._id != -1){
+						this._sound.stop(this._id);
+						this._id = -1;
+						this._baseVolume = -1.0;
+						this._volume = this._baseVolume;
+					}
+				}
+			};
+			return this;
+		},
+		updateLoop(vol, pitch){
+			if(this._loop != null){
+				this._loop._update(this.x, this.y, vol, pitch, true);
+			}
+		},
+		removed(){
+			this.super$removed();
+			if(this._loop != null){
+				this._loop._stop();
+			}
+		},
 		setBulletLife(val){
 			this._bulletLife = val;
 		},
-		startLoop(){
-			this._loopId = this.block.idleSound.loop(0, 1, this.block.idleSound.calcPan(this.tile.drawx(), this.tile.drawy()));
-		},
-		updateLoop(vol, pitch){
-			var loop = this.block.idleSound;
-			var x = this.tile.drawx();
-			var y = this.tile.drawy();
-			loop.setVolume(this._loopId, loop.calcVolume(x, y) * vol);
-			loop.setPitch(this._loopId, Mathf.clamp(0.5 + 1.5 * pitch, 0.5, 2));
-			loop.setPan(this._loopId, loop.calcPan(x, y), 1);
-		},
-		stopLoop(){
-			this.block.idleSound.stop(this._loopId);
-		}
 	});
 	entity.setCharge(0.0);
 	entity.setBullet(null);

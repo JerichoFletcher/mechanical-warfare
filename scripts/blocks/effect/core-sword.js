@@ -44,17 +44,23 @@ const coreSword = extendContent(CoreBlock, "core-sword", {
 		this.consumes.add(new ConsumeLiquidFilter(boolf(liquid => liquid.temperature <= 0.5 && liquid.flammability < 0.1), 0.2)).update(false).boost();
 		this.consumes.add(extendContent(ConsumeItemFilter, boolf(i => this.ammo.containsKey(i)), {
 			build(tile, table){
-				var image = new MultiReqImage();
+				//var image = new MultiReqImage();
 				Vars.content.items().each(
-				boolf(item => {
-					return this.filter.get(item) && (!Vars.world.isZone() || Vars.data.isUnlocked(item));
-				}),
-				cons(item => {
-					image.add(new ReqImage(new ItemImage(item.icon(Cicon.medium)),
-						boolp(() => tile.entity != null && !tile.ent().items.get(tile.ent().getItemAmmo()) <= 0 && tile.ent().getItemAmmo() == item))
-					);
-				}));
-				table.add(image).size(32);
+					boolf(item => {
+						return this.filter.get(item) && (!Vars.world.isZone() || Vars.data.isUnlocked(item));
+					}),
+					/*cons(item => {
+						image.add(new ReqImage(new ItemImage(item.icon(Cicon.medium)),
+							boolp(() => tile.entity != null && !tile.ent().items.get(tile.ent().getItemAmmo()) <= 0 && tile.ent().getItemAmmo() == item))
+						);
+					})*/
+					cons(item => {
+						table.add(new ReqImage(new ItemImage(item.icon(Cicon.medium)),
+							boolp(() => tile.entity != null && tile.entity.items.get(item) > 0)
+						)).size(32);
+					})
+				);
+				//table.add(image).size(32);
 			},
 			valid(entity){
 				return entity.items.get(entity.getItemAmmo()) > 0;
@@ -79,7 +85,10 @@ const coreSword = extendContent(CoreBlock, "core-sword", {
 		this.ammo.each(new Cons2(){get: (key, val) => {
 			var button = table.addImageButton(Tex.whiteui, Styles.clearToggleTransi, 30, run(() => {
 				tile.configure(key.id);
-			})).size(40).disabled(boolf(b => tile.entity != null && tile.entity.items.get(key) <= 0)).group(group).get();
+			}))
+				.size(40)
+				/*.disabled(boolf(b => tile.entity != null && tile.entity.items.get(key) <= 0))*/
+				.group(group).get();
 			button.getStyle().imageUp = new TextureRegionDrawable(key.icon(Cicon.small));
 			button.update(run(() => {
 				button.setChecked(entity.getItemAmmo() === key);
@@ -174,7 +183,8 @@ const coreSword = extendContent(CoreBlock, "core-sword", {
 		this.tr.trns(entity.getRot() - 90, 0, 2 * Vars.tilesize / 2);
 		for(var i = 0; i < this.shots; i++){
 			Time.run(this.burstSpacing * i, run(() => {
-				this.bullet(tile, type, entity.getRot() + Mathf.range(this.inaccuracy + type.inaccuracy) + (i - (Mathf.floor(this.shots / 2) + 0.5)) * this.spread);
+				if(!this.hasAmmo(tile)){return;}
+				this.bullet(tile, type, entity.getRot() + Mathf.range(this.inaccuracy + type.inaccuracy));
 				this.effects(tile);
 			}));
 		}
@@ -202,7 +212,6 @@ coreSword.coolEffect = Fx.fuelburn;
 coreSword.restitution = 0.03;
 coreSword.cooldown = 0.03;
 coreSword.shootCone = 8.0;
-coreSword.spread = 2;
 coreSword.rotatespeed = 5;
 coreSword.timerTarget = coreSword.timers++;
 coreSword.targetInterval = 20;

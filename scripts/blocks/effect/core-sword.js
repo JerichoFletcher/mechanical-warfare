@@ -9,36 +9,24 @@ const coreSword = extendContent(CoreBlock, "core-sword", {
 		this.super$init();
 	},
 	load(){
+		this.super$load();
 		this.region = Core.atlas.find("core-shard");
-		this.turretRegion = Core.atlas.find("salvo");
-		this.heatRegion = Core.atlas.find("salvo-heat");
+		this.turretRegion = Core.atlas.find(this.name + "-salvo");
+		this.heatRegion = Core.atlas.find(this.name + "-salvo-heat");
+		print(this.name);
 	},
 	generateIcons: function(){
 		return [
 			Core.atlas.find("core-shard"),
-			Core.atlas.find("salvo")
+			Core.atlas.find(this.name + "-salvo")
 		];
 	},
-	draw(tile){
-		Draw.rect(this.region, tile.drawx(), tile.drawy());
-		Draw.color();
-	},
 	drawLayer(tile){
-		this.super$drawLayer(tile);
 		var entity = tile.ent();
 		this.tr2.trns(entity.getRot() - 90, 0, -entity.getRec());
-		this.drawer = new Cons2(){get: (tile, entity) => {
-			Draw.rect(this.turretRegion, tile.drawx() + this.tr2.x, tile.drawy() + this.tr2.y, entity.getRot() - 90);
-		}}
-		this.heatDrawer = new Cons2(){get: (tile, entity) => {
-			Draw.color(this.heatColor, entity.getHeat());
-			Draw.blend(Blending.additive);
-			Draw.rect(this.heatRegion, tile.drawx() + this.tr2.x, tile.drawy() + this.tr2.y, entity.getRot() - 90);
-			Draw.blend();
-			Draw.color();
-		}}
-		this.drawer.get(tile, entity);
+		this.turretDrawer.get(tile, entity);
 		this.heatDrawer.get(tile, entity);
+		this.super$drawLayer(tile);
 	},
 	setStats(){
 		this.consumes.add(new ConsumeLiquidFilter(boolf(liquid => liquid.temperature <= 0.5 && liquid.flammability < 0.1), 0.2)).update(false).boost();
@@ -111,6 +99,7 @@ const coreSword = extendContent(CoreBlock, "core-sword", {
 		Drawf.dashCircle(tile.drawx(), tile.drawy(), this.range, tile.getTeam().color);
 	},
 	update(tile){
+		print("Updated");
 		this.super$update(tile);
 		var entity = tile.ent();
 		entity.setRec(Mathf.lerpDelta(entity.getRec(), 0, this.restitution));
@@ -206,6 +195,17 @@ const coreSword = extendContent(CoreBlock, "core-sword", {
 		entity.setRec(this.recoil);
 	}
 });
+coreSword.turretDrawer = new Cons2(){get: (tile, entity) => {
+	Draw.rect(Core.atlas.find("salvo"), tile.drawx() + coreSword.tr2.x, tile.drawy() + coreSword.tr2.y, entity.getRot() - 90);
+}}
+coreSword.heatDrawer = new Cons2(){get: (tile, entity) => {
+	if(entity.getHeat() <= 0.00001){return;}
+	Draw.color(coreSword.heatColor, entity.getHeat());
+	Draw.blend(Blending.additive);
+	Draw.rect(Core.atlas.find("salvo-heat"), tile.drawx() + coreSword.tr2.x, tile.drawy() + coreSword.tr2.y, entity.getRot() - 90);
+	Draw.blend();
+	Draw.color();
+}}
 coreSword.ammo = new ObjectMap();
 coreSword.coolantMultipler = 5;
 coreSword.coolEffect = Fx.fuelburn;

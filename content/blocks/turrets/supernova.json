@@ -13,10 +13,11 @@ requirements: [
 	surge-alloy/550
 	insulator-alloy/350
 ]
+layer2: power
 category: turret
 research: meltdown
 idleSound: machine
-idleSoundVolume: 0.5
+idleSoundVolume: 1
 shootSound: supernovaShoot
 activeSound: supernovaActive
-activeSoundVolume: 1.5
+activeSoundVolume: 1

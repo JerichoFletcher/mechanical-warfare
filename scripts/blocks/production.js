@@ -14,16 +14,16 @@ const compactor = extendContent(GenericCrafter, "scrap-compactor", {
 		];
 	},
 	draw(tile){
-		this.drawer = cons(tile => {
-			var entity = tile.ent();
-			Draw.rect(this.region, tile.drawx(), tile.drawy());
-			Draw.color(Color.valueOf("ff9b5900"), Color.valueOf("ff9b59"), entity.warmup * 0.7 + Mathf.absin(Time.time(), 8.0, 0.3) * entity.warmup);
-			Draw.rect(this.heatRegion, tile.drawx(), tile.drawy());
-			Draw.color();
-			Draw.rect(Core.atlas.find(this.name + "-frame" + Mathf.floor(Mathf.absin(entity.totalProgress, 3, 3.999))), tile.drawx(), tile.drawy());
-		});
-		this.super$draw(tile);
+		this.drawer.get(tile);
 	}
+});
+compactor.drawer = cons(tile => {
+	var entity = tile.ent();
+	Draw.rect(compactor.region, tile.drawx(), tile.drawy());
+	Draw.color(Color.valueOf("ff9b5900"), Color.valueOf("ff9b59"), entity.warmup * 0.7 + Mathf.absin(Time.time(), 8.0, 0.3) * entity.warmup);
+	Draw.rect(compactor.heatRegion, tile.drawx(), tile.drawy());
+	Draw.color();
+	Draw.rect(Core.atlas.find(compactor.name + "-frame" + Mathf.floor(Mathf.absin(entity.totalProgress, 3, 3.999))), tile.drawx(), tile.drawy());
 });
 
 // Chemical Station
@@ -74,17 +74,17 @@ const chemicalStation = extendContent(LiquidConverter, "chemical-station", {
 	  return (Vars.content.getByName(ContentType.item, "mechanical-warfare-sulfur") == item || Vars.content.getByName(ContentType.item, "mechanical-warfare-iron") == item) && tile.entity.items.get(item) < this.itemCapacity;
   },
   draw(tile){
-	this.drawer = cons(tile => {
-		var entity = tile.ent();
-		Draw.rect(this.region, tile.drawx(), tile.drawy());
-		Draw.color(this.outputLiquid.liquid.color);
-		Draw.alpha(entity.liquids.get(this.outputLiquid.liquid) / this.liquidCapacity);
-		Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());
-		Draw.color();
-		Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
-	});
-	this.super$draw(tile);
+	this.drawer.get(tile);
   },
+});
+chemicalStation.drawer = cons(tile => {
+	var entity = tile.ent();
+	Draw.rect(chemicalStation.region, tile.drawx(), tile.drawy());
+	Draw.color(chemicalStation.outputLiquid.liquid.color);
+	Draw.alpha(entity.liquids.get(chemicalStation.outputLiquid.liquid) / chemicalStation.liquidCapacity);
+	Draw.rect(chemicalStation.liquidRegion, tile.drawx(), tile.drawy());
+	Draw.color();
+	Draw.rect(chemicalStation.topRegion, tile.drawx(), tile.drawy());
 });
 chemicalStation.speedBoost = 1.5;
 chemicalStation.boosterTime = chemicalStation.craftTime * 1.5;
@@ -123,16 +123,16 @@ const stoneCentrifuge = extendContent(GenericCrafter, "stone-centrifuge", {
     ];
   },
   draw(tile){
-	this.drawer = cons(tile => {
-		Draw.rect(this.region, tile.drawx(), tile.drawy());
-		Draw.color(tile.entity.liquids.current().color);
-		Draw.alpha(tile.entity.liquids.total() / this.liquidCapacity);
-		Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());
-		Draw.color();
-		Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
-	});
-	this.super$draw(tile);
+	this.drawer.get(tile);
   },
+});
+stoneCentrifuge.drawer = cons(tile => {
+	Draw.rect(stoneCentrifuge.region, tile.drawx(), tile.drawy());
+	Draw.color(tile.entity.liquids.current().color);
+	Draw.alpha(tile.entity.liquids.total() / stoneCentrifuge.liquidCapacity);
+	Draw.rect(stoneCentrifuge.liquidRegion, tile.drawx(), tile.drawy());
+	Draw.color();
+	Draw.rect(stoneCentrifuge.topRegion, tile.drawx(), tile.drawy());
 });
 
 // Stone Grinder
@@ -149,16 +149,15 @@ const stoneGrinder = extendContent(GenericCrafter, "stone-grinder", {
     ];
   },
   draw(tile){
-	  this.drawer = cons(tile => {
-		const entity = tile.ent();
-		const f = Vars.tilesize;
-		Draw.rect(this.bottomRegion, tile.drawx(), tile.drawy());
-		Draw.rect(this.rightRotatorRegion, tile.drawx() + 22 / f, tile.drawy() - 22 / f, entity.totalProgress * 2);
-		Draw.rect(this.leftRotatorRegion, tile.drawx() - 20 / f, tile.drawy() + 20 / f, entity.totalProgress * -2);
-		Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
-	  });
-	  this.super$draw(tile);
+	  this.drawer.get(tile);
   },
+});
+stoneGrinder.drawer = cons(tile => {
+	var entity = tile.ent();
+	Draw.rect(stoneGrinder.bottomRegion, tile.drawx(), tile.drawy());
+	Draw.rect(stoneGrinder.rightRotatorRegion, tile.drawx() + 11 / 4, tile.drawy() - 11 / 1, entity.totalProgress * 2);
+	Draw.rect(stoneGrinder.leftRotatorRegion, tile.drawx() - 10 / 4, tile.drawy() + 10 / 4, entity.totalProgress * -2);
+	Draw.rect(stoneGrinder.topRegion, tile.drawx(), tile.drawy());
 });
 
 // Insulating Compound
@@ -172,18 +171,7 @@ const insulatingCompound = extendContent(GenericCrafter, "insulating-compound", 
 		this.topRegion = Core.atlas.find(this.name + "-top");
 	},
 	draw(tile){
-		this.drawer = cons(tile => {
-			var entity = tile.ent();
-			Draw.rect(this.region, tile.drawx(), tile.drawy());
-			Draw.alpha(entity.getBoltChance());
-			Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
-			var alpha = (1 - Mathf.absin(Time.time(), 5, 0.3)) * entity.getBoltChance();
-			var cr = Mathf.random(0.1);
-			elib.fillCircle(tile.drawx(), tile.drawy(), Pal.lancerLaser, alpha, 2 + Mathf.absin(Time.time(), 5, 2) + cr);
-			elib.fillCircle(tile.drawx(), tile.drawy(), Color.white, alpha, 0.7 + Mathf.absin(Time.time(), 5, 0.7) + cr);
-			Draw.color();
-		});
-		this.super$draw(tile);
+		this.drawer.get(tile);
 	},
 	update(tile){
 		this.super$update(tile);
@@ -220,6 +208,17 @@ const insulatingCompound = extendContent(GenericCrafter, "insulating-compound", 
 		Draw.reset();
 	}
 });
+insulatingCompound.drawer = cons(tile => {
+	var entity = tile.ent();
+	Draw.rect(insulatingCompound.region, tile.drawx(), tile.drawy());
+	Draw.alpha(entity.getBoltChance());
+	Draw.rect(insulatingCompound.topRegion, tile.drawx(), tile.drawy());
+	var alpha = (1 - Mathf.absin(Time.time(), 5, 0.3)) * entity.getBoltChance();
+	var cr = Mathf.random(0.1);
+	elib.fillCircle(tile.drawx(), tile.drawy(), Pal.lancerLaser, alpha, 2 + Mathf.absin(Time.time(), 5, 2) + cr);
+	elib.fillCircle(tile.drawx(), tile.drawy(), Color.white, alpha, 0.7 + Mathf.absin(Time.time(), 5, 0.7) + cr);
+	Draw.color();
+});
 insulatingCompound.layer2 = Layer.power;
 insulatingCompound.boltCount = 3;
 insulatingCompound.boltRotSpeed = [12, 9, 27, 23, 18, 15];
@@ -253,25 +252,24 @@ const mk2Assembler = extendContent(GenericCrafter, "mk2-assembler", {
     ];
   },
   draw(tile){
-	  this.drawer = cons(tile => {
-		const entity = tile.ent();
-		Draw.rect(this.bottomRegion, tile.drawx(), tile.drawy());
-		Draw.color(Pal.accent);
-		Draw.alpha(entity.warmup);
-		Lines.lineAngleCenter(
-			tile.drawx(),
-			tile.drawy() + Mathf.sin(entity.totalProgress, 8, (Vars.tilesize - 1) * this.size / 2),
-			0,
-			(Vars.tilesize - 1) * this.size
-		);
-		Draw.reset();
-		Draw.rect(this.region, tile.drawx(), tile.drawy());
-		Draw.color(entity.liquids.current().color);
-		Draw.alpha(entity.liquids.total() / this.liquidCapacity);
-		Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());
-		Draw.reset();
-	  });
-	  this.super$draw(tile);
+	  this.drawer.get(tile);
   }
 });
-
+mk2Assembler.drawer = cons(tile => {
+	const entity = tile.ent();
+	Draw.rect(mk2Assembler.bottomRegion, tile.drawx(), tile.drawy());
+	Draw.color(Pal.accent);
+	Draw.alpha(entity.warmup);
+	Lines.lineAngleCenter(
+		tile.drawx(),
+		tile.drawy() + Mathf.sin(entity.totalProgress, 8, (Vars.tilesize - 1) * mk2Assembler.size / 2),
+		0,
+		(Vars.tilesize - 1) * mk2Assembler.size
+	);
+	Draw.reset();
+	Draw.rect(mk2Assembler.region, tile.drawx(), tile.drawy());
+	Draw.color(entity.liquids.current().color);
+	Draw.alpha(entity.liquids.total() / mk2Assembler.liquidCapacity);
+	Draw.rect(mk2Assembler.liquidRegion, tile.drawx(), tile.drawy());
+	Draw.reset();
+});

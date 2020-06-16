@@ -12,6 +12,6 @@ requirements: [
 	steel/20
 ]
 category: production
-research: water-extractor
+research: quarry
 attribute: water
 pumpAmount: 0.25

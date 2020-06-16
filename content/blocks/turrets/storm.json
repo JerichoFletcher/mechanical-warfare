@@ -15,4 +15,4 @@ requirements: [
 ]
 heatColor: turretHeat
 category: turret
-research: incandescence
+research: voltmeter

@@ -1,3 +1,4 @@
+const elib = require("mechanical-warfare/effectlib");
 const plib = require("mechanical-warfare/plib");
 
 const fireAuraRange = 15 * Vars.tilesize;
@@ -6,8 +7,9 @@ const fireAuraRange = 15 * Vars.tilesize;
 const fireAuraEffect = newEffect(40, e => {
   Draw.color(plib.fireAuraFlame, Pal.darkFlame, e.fin());
   Angles.randLenVectors(e.id, 3, 2 + e.fin() * 9, new Floatc2(){get: (x, y) => {
-    Fill.circle(e.x + x, e.y + y, 0.2 + e.fout() * 1.5);
+	elib.fillCircleWCol(e.x + x, e.y + y, 0.2 + e.fout() * 1.5);
   }});
+  Draw.color();
 });
 
 /* Aura bullet */
@@ -23,11 +25,20 @@ fireAuraBullet.despawnEffect = Fx.none;
 
 /* Fire Aura */
 const fireAura = extendContent(PowerTurret, "fire-aura", {
+  init(){
+	this.super$init();
+	this.consumes.remove(ConsumeType.liquid);
+  },
   load(){
     this.super$load();
-    this.region = Core.atlas.find(this.name + "-block");
+    this.region = Core.atlas.find(this.name);
+	this.heatRegion = Core.atlas.find(this.name + "-heat");
     this.liquidRegion = Core.atlas.find(this.name + "-liquid");
-    this.topRegion = Core.atlas.find(this.name + "-top");
+  },
+  generateIcons: function(){
+	  return [
+		Core.atlas.find(this.name)
+	  ];
   },
   update(tile){
     var entity = tile.ent();
@@ -50,14 +61,21 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
       }
     }
   },
-  drawLayer(tile){
-    this.super$drawLayer(tile);
+  draw(tile){
     var entity = tile.ent();
+	Draw.rect(this.region, tile.drawx(), tile.drawy());
     Draw.color(entity.liquids.current().color);
     Draw.alpha(entity.liquids.total() / this.liquidCapacity);
     Draw.rect(this.liquidRegion, tile.drawx(), tile.drawy());
     Draw.color();
-    Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
+  },
+  drawLayer(tile){
+	  var entity = tile.ent();
+	  Draw.color(Color.black, this.heatColor, entity.heat * 0.7 + Mathf.absin(Time.time(), 3, 0.3) * entity.heat);
+	  Draw.blend(Blending.additive);
+	  Draw.rect(this.heatRegion, tile.drawx(), tile.drawy());
+	  Draw.blend();
+	  Draw.color();
   },
   updateShooting(tile){
     var entity = tile.ent();
@@ -93,7 +111,6 @@ const fireAura = extendContent(PowerTurret, "fire-aura", {
     var entity = tile.ent();
     Effects.effect(shootEffect, tile.drawx(), tile.drawy(), entity.rotation);
     Effects.effect(smokeEffect, tile.drawx(), tile.drawy(), entity.rotation);
-    //this.shootSound.at(tile, Mathf.random(0.9, 1.1));
   },
   effectsArea(tile, count){
     var shootEffect = this.shootEffect == Fx.none ? (this.peekAmmo(tile)).shootEffect : this.shootEffect;
@@ -157,7 +174,7 @@ fireAura.range = fireAuraRange;
 fireAura.areaEffectCount = 3;
 fireAura.hasItems = false;
 fireAura.hasLiquids = true;
-fireAura.liquidAmmoName = "mechanical-warfare-liquid-lava"
+fireAura.liquidAmmoName = "mechanical-warfare-liquid-lava";
 fireAura.liquidCapacity = 60;
 fireAura.shootEffect = fireAuraEffect;
 fireAura.smokeEffect = Fx.fireSmoke;

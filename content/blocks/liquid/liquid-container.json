@@ -1,0 +1,10 @@
+type: LiquidTank
+health: 250
+size: 2
+liquidCapacity: 650
+requirements: [
+  titanium/11
+  metaglass/11
+]
+category: liquid
+research: liquid-router

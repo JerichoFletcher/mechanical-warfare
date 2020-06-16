@@ -27,4 +27,5 @@ module.exports = {
   
   // Misc
   fireAuraFlame: Color.valueOf("ffaa44"),
+  frostAuraIce: Color.valueOf("cceeff"),
 }

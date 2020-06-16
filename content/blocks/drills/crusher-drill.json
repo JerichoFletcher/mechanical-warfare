@@ -6,10 +6,10 @@ updateEffect: pulverizeSmall
 drillEffect: mine
 consumes: {
   liquid: {
-	liquid: water
-	amount: 0.03
-	optional: true
-	booster: true
+  	liquid: water
+  	amount: 0.03
+  	optional: true
+  	booster: true
   }
 }
 requirements: [
@@ -17,4 +17,4 @@ requirements: [
   scrap-plate/2
 ]
 category: production
-research: scrap-compactor
+research: laser-drill

@@ -18,4 +18,4 @@ requirements: [
 idleSound: drill
 idleSoundVolume: 0.003
 category: production
-research: pneumatic-drill
+research: water-extractor

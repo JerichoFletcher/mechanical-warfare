@@ -1,5 +1,5 @@
 // Aegis
-const aegis = extendContent(ItemTurret, "aegis", {});
+require("mechanical-warfare/blocks/turret/aegis")
 
 // Ghost
 require("mechanical-warfare/blocks/turret/ghost")

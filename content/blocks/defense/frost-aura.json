@@ -1,0 +1,13 @@
+size: 2
+health: 320
+powerUse: 1.5
+outlineIcon: false
+//activeSound: fireAuraActive
+requirements: [
+  silicon/150
+  steel/50
+  metaglass/60
+  phase-fabric/20
+]
+category: effect
+research: fire-aura

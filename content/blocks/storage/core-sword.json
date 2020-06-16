@@ -1,14 +1,17 @@
 outlineIcon: true
+hasLiquids: true
+liquidCapacity: 20
 layer: turret
 priority: turret
 update: true
 solid: true
 configurable: true
 size: 3
-health: 4000
+health: 1100
 itemCapacity: 4000
 requirements: [
-	copper/1
+	silicon/1000
+	titanium/750
 ]
-buildVisibility: shown
+buildVisibility: debugOnly
 category: effect

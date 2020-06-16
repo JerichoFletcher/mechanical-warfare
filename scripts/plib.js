@@ -1,4 +1,4 @@
-// Mechanical Warfare extra pallette lib.
+// Mechanical Warfare extra palette lib.
 // Lib by JerichoFletcher
 module.exports = {
   // HE
@@ -10,6 +10,9 @@ module.exports = {
   // Lava
   frontColorLava: Color.valueOf("ffddcc"),
   backColorLava: Color.valueOf("ccaa99"),
+  // Acid
+  frontColorAcid: Color.valueOf("eaffbf"),
+  backColorAcid: Color.valueOf("97b064"),
   // Cyan
   frontColorCyan: Color.valueOf("c4fdfd"),
   midColorCyan: Color.valueOf("91eede"),
@@ -24,4 +27,5 @@ module.exports = {
   
   // Misc
   fireAuraFlame: Color.valueOf("ffaa44"),
+  frostAuraIce: Color.valueOf("cceeff"),
 }

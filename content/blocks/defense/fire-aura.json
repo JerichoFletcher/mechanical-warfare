@@ -1,6 +1,7 @@
 size: 2
 health: 320
 powerUse: 1.5
+outlineIcon: false
 activeSound: fireAuraActive
 requirements: [
   lead/125
@@ -9,4 +10,4 @@ requirements: [
   phase-fabric/25
 ]
 category: effect
-research: mend-projector
+research: force-projector

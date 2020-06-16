@@ -8,6 +8,8 @@ range: 120
 recoil: 1.2
 shootCone: 10
 shots: 5
+layer: turret
+outlineIcon: false
 ammo: {
   cobblestone : {
     type: BasicBulletType

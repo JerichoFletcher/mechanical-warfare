@@ -28,19 +28,19 @@ requirements : [
   }
   {
     type : unlock
-    block : steel-wall-large
+    block: steel-wall-large
   }
   {
     type : unlock
-    block : halberd-ship-pad
+    block: halberd-ship-pad
   }
   {
     type : unlock
-    block : quarry
+    block: quarry
   }
   {
     type : unlock
-    block : stone-grinder
+    block: stone-grinder
   }
 ]
 resources : [

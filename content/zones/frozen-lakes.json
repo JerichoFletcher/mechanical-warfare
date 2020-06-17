@@ -7,24 +7,24 @@ startingItems : [
 ]
 configureObjective : {
   type : Launched
-  zone : frozen-lake
+  zone: frozen-lake
 }
 requirements : [
   {
     type : Launched
-    zone : derelict-desert-outpost
+    zone: derelict-desert-outpost
   }
   {
     type : unlock
-    block : iron-conveyor.json
+    block: iron-conveyor.json
   }
   {
     type : unlock
-    block : spotlight
+    block: spotlight
   }
   {
     type : unlock
-    block : steel-wall
+    block: steel-wall
   }
   {
     type : unlock

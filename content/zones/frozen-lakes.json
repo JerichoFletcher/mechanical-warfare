@@ -1,0 +1,58 @@
+loadout : basicFoundation
+startingItems : [
+  copper/300
+  lead/450
+  metaglass/300
+  graphite/450
+]
+configureObjective : {
+  type : Launched
+  zone : frozen-lake
+}
+requirements : [
+  {
+    type : Launched
+    zone : derelict-desert-outpost
+  }
+  {
+    type : unlock
+    block : iron-conveyor.json
+  }
+  {
+    type : unlock
+    block : spotlight
+  }
+  {
+    type : unlock
+    block : steel-wall
+  }
+  {
+    type : unlock
+    block : steel-wall-large
+  }
+  {
+    type : unlock
+    block : halberd-ship-pad
+  }
+  {
+    type : unlock
+    block : quarry
+  }
+  {
+    type : unlock
+    block : stone-grinder
+  }
+]
+resources : [
+  copper
+  lead
+  coal
+  titanium
+  iron
+  thorium
+  uranium
+  sand
+  scrap
+  cobblestone
+]
+  

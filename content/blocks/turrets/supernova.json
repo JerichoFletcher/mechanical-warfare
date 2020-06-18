@@ -4,7 +4,7 @@ reload: 40
 rotatespeed: 8
 recoil: 4
 powerUse: 24
-shootCone: 40
+shootCone: 15
 range: 210
 requirements: [
 	steel/800

@@ -13,7 +13,6 @@ const coreSword = extendContent(CoreBlock, "core-sword", {
 		this.region = Core.atlas.find("core-shard");
 		this.turretRegion = Core.atlas.find(this.name + "-salvo");
 		this.heatRegion = Core.atlas.find(this.name + "-salvo-heat");
-		print(this.name);
 	},
 	generateIcons: function(){
 		return [
@@ -99,7 +98,6 @@ const coreSword = extendContent(CoreBlock, "core-sword", {
 		Drawf.dashCircle(tile.drawx(), tile.drawy(), this.range, tile.getTeam().color);
 	},
 	update(tile){
-		print("Updated");
 		this.super$update(tile);
 		var entity = tile.ent();
 		entity.setRec(Mathf.lerpDelta(entity.getRec(), 0, this.restitution));

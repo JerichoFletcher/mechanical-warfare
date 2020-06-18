@@ -16,7 +16,7 @@ requirements: [
   }
   {
     type: unlock
-    block: iron-conveyor.json
+    block: iron-conveyor
   }
   {
     type: unlock

@@ -15,7 +15,7 @@ const supernovaLaser = extend(BasicBulletType, {
 			Effects.effect(this.flameEffect,
 				b.x + Angles.trnsx(b.rot(), f) + Mathf.range(6),
 				b.y + Angles.trnsy(b.rot(), f) + Mathf.range(6),
-				b.rot() + Mathf.range(30)
+				b.rot() + Mathf.range(85)
 			);
 		}
 	},
@@ -74,6 +74,27 @@ const supernovaStar = newEffect(45, e => {
 	const r = e.data;
 	elib.fillCircle(e.x + Angles.trnsx(a, d), e.y + Angles.trnsy(a, d), plib.frontColorCyan, 0.6 * e.fout(), r);
 });
+const supernovaStarHeatwave = newEffect(36, e => {
+	elib.outlineCircle(e.x, e.y, plib.frontColorCyan, e.fout() * 3, 75 * e.fin());
+});
+const supernovaCharge = newEffect(20, e => {
+	const r = e.data;
+	elib.fillCircle(e.x, e.y, plib.frontColorCyan, 0.6 * e.fout(), Mathf.lerp(0.2, 1, e.fout()) * r);
+});
+const supernovaChargeBegin = newEffect(27, e => {
+	Draw.color(plib.frontColorCyan);
+	Angles.randLenVectors(e.id, Mathf.round(2 * e.data), 1 + 27 * e.fout(), new Floatc2(){get: (x, y) => {
+		Lines.lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), (1 + e.fslope() * 6) * e.data);
+	}});
+	Draw.color();
+});
+const supernovaChargeStar = newEffect(30, e => {
+	elib.outlineCircle(e.x, e.y, plib.frontColorCyan, e.fin() * 3 * e.data, 90 * (1 - e.finpow()) * Mathf.lerp(0.2, 1, e.data));
+});
+const supernovaChargeStar2 = newEffect(27, e => {
+	const r = e.data;
+	elib.splashCircles(e.x, e.y, plib.frontColorCyan, 1, 2 * e.fin(), (1 - e.finpow()) * ((60 + r * 30) * (0.3 + Mathf.randomSeed(e.id, 0.7))), Mathf.round(3 * r), e.id);
+});
 
 const supernova = extendContent(ChargeTurret, "supernova", {
 	load(){
@@ -125,11 +146,13 @@ const supernova = extendContent(ChargeTurret, "supernova", {
 			tile.drawy() - Angles.trnsy(entity.rotation, this.starOffset + entity.recoil),
 			plib.frontColorCyan, 1, entity.getSmoothCharge() * this.starRadius
 		);
-		elib.fillCircle(
-			tile.drawx() + this.tr.x,
-			tile.drawy() + this.tr.y,
-			plib.frontColorCyan, 1, entity.getSmoothCharge() * this.starRadius * 0.67
-		);
+		if(entity.getBulletLife() <= 0 || entity.getBullet() == null){
+			elib.fillCircle(
+				tile.drawx() + Angles.trnsx(entity.rotation, this.size * this.turretLength - entity.recoil),
+				tile.drawy() + Angles.trnsy(entity.rotation, this.size * this.turretLength - entity.recoil),
+				plib.frontColorCyan, 1, entity.getSmoothCharge() * this.starRadius * 0.67
+			);
+		}
 		if(!Vars.state.isPaused()){
 			var a = Mathf.random(360);
 			var d = 0.3;
@@ -138,7 +161,46 @@ const supernova = extendContent(ChargeTurret, "supernova", {
 				tile.drawy() - Angles.trnsy(entity.rotation, this.starOffset + entity.recoil) + Angles.trnsy(a, d),
 				entity.rotation, entity.getSmoothCharge() * this.starRadius
 			);
+			Effects.effect(supernovaCharge,
+				tile.drawx() + Angles.trnsx(entity.rotation, this.size * this.turretLength - entity.recoil),
+				tile.drawy() + Angles.trnsy(entity.rotation, this.size * this.turretLength - entity.recoil),
+				entity.rotation, entity.getSmoothCharge() * this.starRadius * 0.67
+			);
+			if(entity.getBullet() == null && entity.getBulletLife() <= 0){
+				if(entity.getCharge() > 0.1 && entity.timer.get(this.timerChargeStar, 20)){
+					Effects.effect(supernovaChargeStar,
+						tile.drawx() - Angles.trnsx(entity.rotation, this.starOffset + entity.recoil),
+						tile.drawy() - Angles.trnsy(entity.rotation, this.starOffset + entity.recoil),
+						entity.rotation, entity.getSmoothCharge()
+					);
+				}
+				if(Mathf.chance(entity.getCharge())){
+					Effects.effect(supernovaChargeBegin,
+						tile.drawx() + Angles.trnsx(entity.rotation, this.size * this.turretLength - entity.recoil),
+						tile.drawy() + Angles.trnsy(entity.rotation, this.size * this.turretLength - entity.recoil),
+						entity.rotation, entity.getSmoothCharge()
+					);
+					Effects.effect(supernovaChargeStar2,
+						tile.drawx() - Angles.trnsx(entity.rotation, this.starOffset + entity.recoil),
+						tile.drawy() - Angles.trnsy(entity.rotation, this.starOffset + entity.recoil),
+						entity.rotation, entity.getSmoothCharge()
+					);
+				}
+			}else{
+				if(entity.timer.get(this.timerChargeStar, 20)){
+					Effects.effect(supernovaStarHeatwave,
+						tile.drawx() - Angles.trnsx(entity.rotation, this.starOffset + entity.recoil),
+						tile.drawy() - Angles.trnsy(entity.rotation, this.starOffset + entity.recoil),
+						entity.rotation
+					);
+				}
+			}
 		}
+	},
+	drawLight(tile){
+		this.super$drawLight(tile);
+		var entity = tile.ent();
+		Vars.renderer.lights.add(tile.drawx(), tile.drawy(), entity.getSmoothCharge() * 120, plib.frontColorCyan, entity.getSmoothCharge());
 	},
 	setStats(){
 		this.super$setStats();
@@ -146,6 +208,33 @@ const supernova = extendContent(ChargeTurret, "supernova", {
 		this.stats.add(BlockStat.input, new BoosterListValue(this.reload, (this.consumes.get(ConsumeType.liquid)).amount, this.coolantMultiplier, false, boolf(l => this.consumes.liquidfilters.get(l.id))));
 		this.stats.remove(BlockStat.damage);
 		this.stats.add(BlockStat.damage, this.shootType.damage * 60 / 5, StatUnit.perSecond);
+	},
+	onDestroyed(tile){
+		var entity = tile.ent();
+		entity.liquids.each(new LiquidModule.LiquidConsumer(){accept: (liquid, amount) => {
+			var splash = Mathf.clamp(amount / 4, 0, 10);
+			for(var i = 0; i < Mathf.clamp(amount / 5, 0, 30); i++){
+				Time.run(i / 2, run(() => {
+					var other = Vars.world.tile(tile.x + Mathf.range(this.size / 2), tile.y + Mathf.range(this.size / 2));
+					if(other != null){
+						Puddle.deposit(other, liquid, splash);
+					}
+				}));
+			}
+		}});
+		Damage.dynamicExplosion(tile.worldx(), tile.worldy(), 20, this.baseExplosiveness + entity.getCharge() * 30, 0, (8 * (this.size + entity.getCharge() * 4)) / 2, plib.midColorCyan);
+		for(var i = 0; i < 40; i++){
+			if(Mathf.chance(entity.getCharge())){
+				Lightning.create(tile.getTeam(), plib.frontColorCyan, 16,
+					tile.drawx() - Angles.trnsx(entity.rotation, this.starOffset + entity.recoil),
+					tile.drawy() - Angles.trnsy(entity.rotation, this.starOffset + entity.recoil),
+					Mathf.random(360), Mathf.round(Mathf.randomTriangular(32, 48) * entity.getCharge())
+				);
+			}
+		}
+		if(!tile.floor().solid && !tile.floor().isLiquid){
+			RubbleDecal.create(tile.drawx(), tile.drawy(), this.size);
+		}
 	},
 	update(tile){
 		var entity = tile.ent();
@@ -272,38 +361,38 @@ const supernova = extendContent(ChargeTurret, "supernova", {
 supernova.drawer = new Cons2(){get: (tile, entity) => {
 	Draw.rect(supernova.coreBottomRegion, tile.drawx() + supernova.tr2.x, tile.drawy() + supernova.tr2.y, entity.rotation - 90);
 	Draw.rect(supernova.panelOutLeftRegion,
-		tile.drawx() + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, -17 / 4 * matlib.lerpThreshold(0.2, 0, 0.8, 1, entity.getSpriteCharge())) + Angles.trnsx(entity.rotation - 90, 0, -6 / 4 * matlib.lerpThreshold(0, 0, 0.2, 1, entity.getSpriteCharge())) + Angles.trnsx(entity.rotation - 90, 0, 6 / 4 * matlib.lerpThreshold(0.4, 0, 0.8, 1, entity.getSpriteCharge())),
-		tile.drawy() + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, -17 / 4 * matlib.lerpThreshold(0.2, 0, 0.8, 1, entity.getSpriteCharge())) + Angles.trnsy(entity.rotation - 90, 0, -6 / 4 * matlib.lerpThreshold(0, 0, 0.2, 1, entity.getSpriteCharge())) + Angles.trnsy(entity.rotation - 90, 0, 6 / 4 * matlib.lerpThreshold(0.4, 0, 0.8, 1, entity.getSpriteCharge())),
+		tile.drawx() + entity.getSpriteShake(0, 0.25) + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, -17 / 4 * matlib.lerpThreshold(0.2, 0, 0.8, 1, entity.getSpriteCharge())) + Angles.trnsx(entity.rotation - 90, 0, -6 / 4 * matlib.lerpThreshold(0, 0, 0.2, 1, entity.getSpriteCharge())) + Angles.trnsx(entity.rotation - 90, 0, 6 / 4 * matlib.lerpThreshold(0.4, 0, 0.8, 1, entity.getSpriteCharge())),
+		tile.drawy() + entity.getSpriteShake(1, 0.25) + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, -17 / 4 * matlib.lerpThreshold(0.2, 0, 0.8, 1, entity.getSpriteCharge())) + Angles.trnsy(entity.rotation - 90, 0, -6 / 4 * matlib.lerpThreshold(0, 0, 0.2, 1, entity.getSpriteCharge())) + Angles.trnsy(entity.rotation - 90, 0, 6 / 4 * matlib.lerpThreshold(0.4, 0, 0.8, 1, entity.getSpriteCharge())),
 		entity.rotation - 90
 	);
 	Draw.rect(supernova.panelOutRightRegion,
-		tile.drawx() + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, 17 / 4 * matlib.lerpThreshold(0.2, 0, 0.8, 1, entity.getSpriteCharge())) + Angles.trnsx(entity.rotation - 90, 0, -6 / 4 * matlib.lerpThreshold(0, 0, 0.2, 1, entity.getSpriteCharge())) + Angles.trnsx(entity.rotation - 90, 0, 6 / 4 * matlib.lerpThreshold(0.4, 0, 0.8, 1, entity.getSpriteCharge())),
-		tile.drawy() + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, 17 / 4 * matlib.lerpThreshold(0.2, 0, 0.8, 1, entity.getSpriteCharge())) + Angles.trnsy(entity.rotation - 90, 0, -6 / 4 * matlib.lerpThreshold(0, 0, 0.2, 1, entity.getSpriteCharge())) + Angles.trnsy(entity.rotation - 90, 0, 6 / 4 * matlib.lerpThreshold(0.4, 0, 0.8, 1, entity.getSpriteCharge())),
+		tile.drawx() + entity.getSpriteShake(2, 0.25) + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, 17 / 4 * matlib.lerpThreshold(0.2, 0, 0.8, 1, entity.getSpriteCharge())) + Angles.trnsx(entity.rotation - 90, 0, -6 / 4 * matlib.lerpThreshold(0, 0, 0.2, 1, entity.getSpriteCharge())) + Angles.trnsx(entity.rotation - 90, 0, 6 / 4 * matlib.lerpThreshold(0.4, 0, 0.8, 1, entity.getSpriteCharge())),
+		tile.drawy() + entity.getSpriteShake(3, 0.25) + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, 17 / 4 * matlib.lerpThreshold(0.2, 0, 0.8, 1, entity.getSpriteCharge())) + Angles.trnsy(entity.rotation - 90, 0, -6 / 4 * matlib.lerpThreshold(0, 0, 0.2, 1, entity.getSpriteCharge())) + Angles.trnsy(entity.rotation - 90, 0, 6 / 4 * matlib.lerpThreshold(0.4, 0, 0.8, 1, entity.getSpriteCharge())),
 		entity.rotation - 90
 	);
 	Draw.rect(supernova.panelBottomLeftRegion,
-		tile.drawx() + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, -4 / 4 * matlib.lerpThreshold(0.2, 0, 0.7, 1, entity.getSpriteCharge())),
-		tile.drawy() + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, -4 / 4 * matlib.lerpThreshold(0.2, 0, 0.7, 1, entity.getSpriteCharge())),
+		tile.drawx() + entity.getSpriteShake(4, 0.25) + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, -4 / 4 * matlib.lerpThreshold(0.2, 0, 0.7, 1, entity.getSpriteCharge())),
+		tile.drawy() + entity.getSpriteShake(5, 0.25) + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, -4 / 4 * matlib.lerpThreshold(0.2, 0, 0.7, 1, entity.getSpriteCharge())),
 		entity.rotation - 90
 	);
 	Draw.rect(supernova.panelBottomRightRegion,
-		tile.drawx() + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, 4 / 4 * matlib.lerpThreshold(0.2, 0, 0.7, 1, entity.getSpriteCharge())),
-		tile.drawy() + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, 4 / 4 * matlib.lerpThreshold(0.2, 0, 0.7, 1, entity.getSpriteCharge())),
+		tile.drawx() + entity.getSpriteShake(6, 0.25) + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, 4 / 4 * matlib.lerpThreshold(0.2, 0, 0.7, 1, entity.getSpriteCharge())),
+		tile.drawy() + entity.getSpriteShake(7, 0.25) + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, 4 / 4 * matlib.lerpThreshold(0.2, 0, 0.7, 1, entity.getSpriteCharge())),
 		entity.rotation - 90
 	);
 	Draw.rect(supernova.panelMidBottomRegion,
-		tile.drawx() + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, 0, -4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
-		tile.drawy() + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, 0, -4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
+		tile.drawx() + entity.getSpriteShake(8, 0.125) + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, 0, -4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
+		tile.drawy() + entity.getSpriteShake(9, 0.125) + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, 0, -4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
 		entity.rotation - 90
 	);
 	Draw.rect(supernova.panelMidLeftRegion,
-		tile.drawx() + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, -4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
-		tile.drawy() + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, -4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
+		tile.drawx() + entity.getSpriteShake(10, 0.125) + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, -4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
+		tile.drawy() + entity.getSpriteShake(11, 0.125) + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, -4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
 		entity.rotation - 90
 	);
 	Draw.rect(supernova.panelMidRightRegion,
-		tile.drawx() + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, 4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
-		tile.drawy() + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, 4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
+		tile.drawx() + entity.getSpriteShake(12, 0.125) + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, 4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
+		tile.drawy() + entity.getSpriteShake(13, 0.125) + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, 4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
 		entity.rotation - 90
 	);
 	Draw.rect(supernova.barrelRegion,
@@ -316,38 +405,38 @@ supernova.drawer = new Cons2(){get: (tile, entity) => {
 supernova.outlineDrawer = new Cons2(){get: (tile, entity) => {
 	Draw.rect(supernova.coreBottomOutlineRegion, tile.drawx() + supernova.tr2.x, tile.drawy() + supernova.tr2.y, entity.rotation - 90);
 	Draw.rect(supernova.panelOutLeftOutlineRegion,
-		tile.drawx() + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, -17 / 4 * matlib.lerpThreshold(0.2, 0, 0.8, 1, entity.getSpriteCharge())) + Angles.trnsx(entity.rotation - 90, 0, -6 / 4 * matlib.lerpThreshold(0, 0, 0.2, 1, entity.getSpriteCharge())) + Angles.trnsx(entity.rotation - 90, 0, 6 / 4 * matlib.lerpThreshold(0.4, 0, 0.8, 1, entity.getSpriteCharge())),
-		tile.drawy() + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, -17 / 4 * matlib.lerpThreshold(0.2, 0, 0.8, 1, entity.getSpriteCharge())) + Angles.trnsy(entity.rotation - 90, 0, -6 / 4 * matlib.lerpThreshold(0, 0, 0.2, 1, entity.getSpriteCharge())) + Angles.trnsy(entity.rotation - 90, 0, 6 / 4 * matlib.lerpThreshold(0.4, 0, 0.8, 1, entity.getSpriteCharge())),
+		tile.drawx() + entity.getSpriteShake(0, 0.25) + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, -17 / 4 * matlib.lerpThreshold(0.2, 0, 0.8, 1, entity.getSpriteCharge())) + Angles.trnsx(entity.rotation - 90, 0, -6 / 4 * matlib.lerpThreshold(0, 0, 0.2, 1, entity.getSpriteCharge())) + Angles.trnsx(entity.rotation - 90, 0, 6 / 4 * matlib.lerpThreshold(0.4, 0, 0.8, 1, entity.getSpriteCharge())),
+		tile.drawy() + entity.getSpriteShake(1, 0.25) + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, -17 / 4 * matlib.lerpThreshold(0.2, 0, 0.8, 1, entity.getSpriteCharge())) + Angles.trnsy(entity.rotation - 90, 0, -6 / 4 * matlib.lerpThreshold(0, 0, 0.2, 1, entity.getSpriteCharge())) + Angles.trnsy(entity.rotation - 90, 0, 6 / 4 * matlib.lerpThreshold(0.4, 0, 0.8, 1, entity.getSpriteCharge())),
 		entity.rotation - 90
 	);
 	Draw.rect(supernova.panelOutRightOutlineRegion,
-		tile.drawx() + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, 17 / 4 * matlib.lerpThreshold(0.2, 0, 0.8, 1, entity.getSpriteCharge())) + Angles.trnsx(entity.rotation - 90, 0, -6 / 4 * matlib.lerpThreshold(0, 0, 0.2, 1, entity.getSpriteCharge())) + Angles.trnsx(entity.rotation - 90, 0, 6 / 4 * matlib.lerpThreshold(0.4, 0, 0.8, 1, entity.getSpriteCharge())),
-		tile.drawy() + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, 17 / 4 * matlib.lerpThreshold(0.2, 0, 0.8, 1, entity.getSpriteCharge())) + Angles.trnsy(entity.rotation - 90, 0, -6 / 4 * matlib.lerpThreshold(0, 0, 0.2, 1, entity.getSpriteCharge())) + Angles.trnsy(entity.rotation - 90, 0, 6 / 4 * matlib.lerpThreshold(0.4, 0, 0.8, 1, entity.getSpriteCharge())),
+		tile.drawx() + entity.getSpriteShake(2, 0.25) + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, 17 / 4 * matlib.lerpThreshold(0.2, 0, 0.8, 1, entity.getSpriteCharge())) + Angles.trnsx(entity.rotation - 90, 0, -6 / 4 * matlib.lerpThreshold(0, 0, 0.2, 1, entity.getSpriteCharge())) + Angles.trnsx(entity.rotation - 90, 0, 6 / 4 * matlib.lerpThreshold(0.4, 0, 0.8, 1, entity.getSpriteCharge())),
+		tile.drawy() + entity.getSpriteShake(3, 0.25) + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, 17 / 4 * matlib.lerpThreshold(0.2, 0, 0.8, 1, entity.getSpriteCharge())) + Angles.trnsy(entity.rotation - 90, 0, -6 / 4 * matlib.lerpThreshold(0, 0, 0.2, 1, entity.getSpriteCharge())) + Angles.trnsy(entity.rotation - 90, 0, 6 / 4 * matlib.lerpThreshold(0.4, 0, 0.8, 1, entity.getSpriteCharge())),
 		entity.rotation - 90
 	);
 	Draw.rect(supernova.panelBottomLeftOutlineRegion,
-		tile.drawx() + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, -4 / 4 * matlib.lerpThreshold(0.2, 0, 0.7, 1, entity.getSpriteCharge())),
-		tile.drawy() + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, -4 / 4 * matlib.lerpThreshold(0.2, 0, 0.7, 1, entity.getSpriteCharge())),
+		tile.drawx() + entity.getSpriteShake(4, 0.25) + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, -4 / 4 * matlib.lerpThreshold(0.2, 0, 0.7, 1, entity.getSpriteCharge())),
+		tile.drawy() + entity.getSpriteShake(5, 0.25) + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, -4 / 4 * matlib.lerpThreshold(0.2, 0, 0.7, 1, entity.getSpriteCharge())),
 		entity.rotation - 90
 	);
 	Draw.rect(supernova.panelBottomRightOutlineRegion,
-		tile.drawx() + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, 4 / 4 * matlib.lerpThreshold(0.2, 0, 0.7, 1, entity.getSpriteCharge())),
-		tile.drawy() + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, 4 / 4 * matlib.lerpThreshold(0.2, 0, 0.7, 1, entity.getSpriteCharge())),
+		tile.drawx() + entity.getSpriteShake(6, 0.25) + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, 4 / 4 * matlib.lerpThreshold(0.2, 0, 0.7, 1, entity.getSpriteCharge())),
+		tile.drawy() + entity.getSpriteShake(7, 0.25) + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, 4 / 4 * matlib.lerpThreshold(0.2, 0, 0.7, 1, entity.getSpriteCharge())),
 		entity.rotation - 90
 	);
 	Draw.rect(supernova.panelMidBottomOutlineRegion,
-		tile.drawx() + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, 0, -4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
-		tile.drawy() + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, 0, -4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
+		tile.drawx() + entity.getSpriteShake(8, 0.125) + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, 0, -4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
+		tile.drawy() + entity.getSpriteShake(9, 0.125) + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, 0, -4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
 		entity.rotation - 90
 	);
 	Draw.rect(supernova.panelMidLeftOutlineRegion,
-		tile.drawx() + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, -4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
-		tile.drawy() + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, -4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
+		tile.drawx() + entity.getSpriteShake(10, 0.125) + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, -4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
+		tile.drawy() + entity.getSpriteShake(11, 0.125) + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, -4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
 		entity.rotation - 90
 	);
 	Draw.rect(supernova.panelMidRightOutlineRegion,
-		tile.drawx() + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, 4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
-		tile.drawy() + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, 4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
+		tile.drawx() + entity.getSpriteShake(12, 0.125) + supernova.tr2.x + Angles.trnsx(entity.rotation - 90, 4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
+		tile.drawy() + entity.getSpriteShake(13, 0.125) + supernova.tr2.y + Angles.trnsy(entity.rotation - 90, 4 / 4 * matlib.lerpThreshold(0.4, 0, 0.9, 1, entity.getSpriteCharge())),
 		entity.rotation - 90
 	);
 	Draw.rect(supernova.barrelOutlineRegion,
@@ -382,6 +471,8 @@ supernova.heatDrawer = new Cons2(){get: (tile, entity) => {
 	Draw.blend();
 	Draw.color();
 }}
+supernova.baseExplosiveness = 15;
+supernova.timerChargeStar = supernova.timers++;
 supernova.turretLength = 7 / 2;
 supernova.outlineIcon = false;
 supernova.starRadius = 8;
@@ -414,8 +505,8 @@ supernova.entityType = prov(() => {
 			if(typeof(this._pcharge) === "undefined"){this._pcharge = 0;}
 			return this._pcharge;
 		},
-		getScaledSpriteCharge(scl){
-			return Mathf.clamp(this.getSpriteCharge() * scl, 0, 1);
+		getSpriteShake(id, scl){
+			return (this._bulletLife > 0 && this._bullet != null) ? Angles.trnsx(Mathf.randomSeed(this.id + id + Mathf.round(Time.time()), 360), scl) : 0;
 		},
 		updateSpriteCharge(up){
 			this._pcharge = this.getSpriteCharge() + (up ? 0.008 : -0.008);

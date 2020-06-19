@@ -10,3 +10,4 @@ requirements: [
 ]
 category: effect
 buildVisibility: lightingOnly
+research: mender

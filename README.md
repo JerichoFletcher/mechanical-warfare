@@ -21,3 +21,4 @@ Contributors:
 - [kapzduke](https://github.com/kapzduke)
 - [dsethlewis](https://github.com/dsethlewis)
 - GlitchyShipBoi a.k.a. [DatOnePlayer](https://github.com/DatOnePlayer)
+- [Gdeft](https://github.com/Gdeft)

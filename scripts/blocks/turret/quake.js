@@ -14,7 +14,7 @@ quakeHE.hitSound = Sounds.boom;
 quakeHE.trailEffect = newEffect(27, e => {
   elib.fillCircle(e.x, e.y, quakeHE.frontColor, 1, Mathf.lerp(1.8, 0.2, e.fin()));
 });
-quakeHE.hitEffect = newEffect(27, e => {
+quakeHE.hitEffect = newEffect(36, e => {
   e.scaled(4, cons(i => {
     c1Thickness = 4 * i.fout();
 	c1Radius = Mathf.lerp(3, 40, i.fin());
@@ -22,8 +22,8 @@ quakeHE.hitEffect = newEffect(27, e => {
   }));
   
   sAlpha = 0.3 + e.fout() * 0.2
-  sRadius = Mathf.lerp(12, 1, e.fin());
-  Angles.randLenVectors(e.id, 16, Mathf.lerp(5, 56, e.finpow()), new Floatc2(){get: (a, b) => {
+  sRadius = Mathf.lerp(8, 1, e.fin());
+  Angles.randLenVectors(e.id, 12, Mathf.lerp(5, 56, e.finpow()), new Floatc2(){get: (a, b) => {
     elib.fillCircle(e.x + a, e.y + b, Color.gray, sAlpha, sRadius);
   }});
   

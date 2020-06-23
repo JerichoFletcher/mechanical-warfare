@@ -14,7 +14,7 @@ seismHE.hitSound = Sounds.boom;
 seismHE.trailEffect = newEffect(30, e => {
   elib.fillCircle(e.x, e.y, seismHE.frontColor, 1, Mathf.lerp(2, 0.2, e.fin()));
 });
-seismHE.hitEffect = newEffect(27, e => {
+seismHE.hitEffect = newEffect(42, e => {
   e.scaled(4, cons(i => {
 	c1Thickness = 6 * i.fout();
 	c1Radius = Mathf.lerp(3, 60, i.fin());
@@ -22,8 +22,8 @@ seismHE.hitEffect = newEffect(27, e => {
   }));
   
   sAlpha = 0.3 + e.fout() * 0.7;
-  sRadius = Mathf.lerp(15, 1, e.fin());
-  Angles.randLenVectors(e.id, 20, Mathf.lerp(5, 84, e.finpow()), new Floatc2(){get: (a, b) => {
+  sRadius = Mathf.lerp(10, 1, e.fin());
+  Angles.randLenVectors(e.id, 15, Mathf.lerp(5, 84, e.finpow()), new Floatc2(){get: (a, b) => {
     elib.fillCircle(e.x + a, e.y + b, Color.gray, sAlpha, sRadius);
   }});
   

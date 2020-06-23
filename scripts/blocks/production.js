@@ -155,7 +155,7 @@ const stoneGrinder = extendContent(GenericCrafter, "stone-grinder", {
 stoneGrinder.drawer = cons(tile => {
 	var entity = tile.ent();
 	Draw.rect(stoneGrinder.bottomRegion, tile.drawx(), tile.drawy());
-	Draw.rect(stoneGrinder.rightRotatorRegion, tile.drawx() + 11 / 4, tile.drawy() - 11 / 1, entity.totalProgress * 2);
+	Draw.rect(stoneGrinder.rightRotatorRegion, tile.drawx() + 11 / 4, tile.drawy() - 11 / 4, entity.totalProgress * 2);
 	Draw.rect(stoneGrinder.leftRotatorRegion, tile.drawx() - 10 / 4, tile.drawy() + 10 / 4, entity.totalProgress * -2);
 	Draw.rect(stoneGrinder.topRegion, tile.drawx(), tile.drawy());
 });

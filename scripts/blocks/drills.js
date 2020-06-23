@@ -88,10 +88,13 @@ const quarry = extendContent(GenericCrafter, "quarry", {
 	},
 	drawPlace(x, y, rotation, valid){
 		var c = 0;
-		Vars.world.tile(x, y).getLinkedTilesAs(this, this.tempTiles).each(
-			boolf(other => isStone(other.floor())),
-			cons(other => c++)
-		);
+		var t = Vars.world.tile(x, y);
+		if(t != null){
+			t.getLinkedTilesAs(this, this.tempTiles).each(
+				boolf(other => isStone(other.floor())),
+				cons(other => c++)
+			);
+		}
 		this.drawPlaceText(Core.bundle.formatFloat("bar.efficiency", c / 9 * 100, 1), x, y, valid);
 	},
 	setBars(){

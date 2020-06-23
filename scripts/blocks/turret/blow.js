@@ -1,39 +1,18 @@
 const elib = require("mechanical-warfare/effectlib");
 const plib = require("mechanical-warfare/plib");
+const bulletLib = require("mechanical-warfare/bulletlib");
 
-const blowShell = extend(BasicBulletType, {
-	draw(b){
-		this.super$draw(b);
-  	if(!Vars.state.isPaused() && Mathf.chance(0.3)){
-    	Effects.effect(this.trailEffect, b.x, b.y, b.rot());
-  	}
-  }
-});
-blowShell.pierce = false;
-blowShell.damage = 84;
-blowShell.speed = 12;
-blowShell.lifetime = 20;
-blowShell.bulletWidth = 6;
-blowShell.bulletHeight = 14;
+const blowShell = bulletLib.bullet(BasicBulletType, 8, 14, 0, 0, 84, 0, -1, 0, 12, 20, null, cons(b => {
+	if(Mathf.chance(0.3)){
+		Effects.effect(blowShell.trailEffect, b.x, b.y, b.rot());
+	}
+}), null, null);
+blowShell.ammoMultiplier = 3;
 blowShell.frontColor = plib.frontColorAP;
 blowShell.backColor = plib.backColorAP;
-blowShell.ammoMultiplier = 3;
 blowShell.trailEffect = newEffect(30, e => {
-  elib.fillCircle(e.x, e.y, blowShell.frontColor, 1, Mathf.lerp(1.5, 0.2, e.fin()));
+	elib.fillCircle(e.x, e.y, blowShell.frontColor, 1, 0.2 + e.fout() * 1.5);
 });
-blowShell.hitEffect = newEffect(18, e => {
-  e.scaled(6, cons(i => {
-    var cThickness = i.fout() * 2;
-    var cRadius = i.fin() * 8;
-    elib.outlineCircle(e.x, e.y, blowShell.frontColor, cThickness, cRadius);
-  }));
-  
-  var lThickness = e.fout() * 1.2;
-  var lDistance = Mathf.lerp(0, 20, e.finpow());
-  var lLength = Mathf.lerp(2, 0.2, e.fin());
-  elib.splashLines(e.x, e.y, blowShell.frontColor, lThickness, lDistance, lLength, 6, e.id);
-});
-blowShell.despawnEffect = blowShell.hitEffect;
 
 const blow = extendContent(DoubleTurret, "blow", {
   load(){

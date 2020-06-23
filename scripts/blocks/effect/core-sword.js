@@ -10,16 +10,14 @@ const coreSword = extendContent(CoreBlock, "core-sword", {
 	},
 	load(){
 		this.super$load();
-		this.region = Core.atlas.find("core-shard");
-		this.turretRegion = Core.atlas.find(this.name + "-salvo");
-		this.heatRegion = Core.atlas.find(this.name + "-salvo-heat");
-		print(this.name);
+		this.region = Core.atlas.find(this.name);
+		this.turretRegion = Core.atlas.find(this.name + "-mount");
+		this.heatRegion = Core.atlas.find(this.name + "-mount-heat");
 	},
-	generateIcons: function(){
-		return [
-			Core.atlas.find("core-shard"),
-			Core.atlas.find(this.name + "-salvo")
-		];
+	// Do not add generateIcons(), it breaks the draw() and drawLayer() method for some mysterious reasons
+	draw(tile){
+		Draw.rect(this.region, tile.drawx(), tile.drawy());
+		Draw.color();
 	},
 	drawLayer(tile){
 		var entity = tile.ent();
@@ -32,23 +30,16 @@ const coreSword = extendContent(CoreBlock, "core-sword", {
 		this.consumes.add(new ConsumeLiquidFilter(boolf(liquid => liquid.temperature <= 0.5 && liquid.flammability < 0.1), 0.2)).update(false).boost();
 		this.consumes.add(extendContent(ConsumeItemFilter, boolf(i => this.ammo.containsKey(i)), {
 			build(tile, table){
-				//var image = new MultiReqImage();
 				Vars.content.items().each(
 					boolf(item => {
 						return this.filter.get(item) && (!Vars.world.isZone() || Vars.data.isUnlocked(item));
 					}),
-					/*cons(item => {
-						image.add(new ReqImage(new ItemImage(item.icon(Cicon.medium)),
-							boolp(() => tile.entity != null && !tile.ent().items.get(tile.ent().getItemAmmo()) <= 0 && tile.ent().getItemAmmo() == item))
-						);
-					})*/
 					cons(item => {
 						table.add(new ReqImage(new ItemImage(item.icon(Cicon.medium)),
 							boolp(() => tile.entity != null && tile.entity.items.get(item) > 0)
 						)).size(32);
 					})
 				);
-				//table.add(image).size(32);
 			},
 			valid(entity){
 				return entity.items.get(entity.getItemAmmo()) > 0;
@@ -75,7 +66,6 @@ const coreSword = extendContent(CoreBlock, "core-sword", {
 				tile.configure(key.id);
 			}))
 				.size(40)
-				/*.disabled(boolf(b => tile.entity != null && tile.entity.items.get(key) <= 0))*/
 				.group(group).get();
 			button.getStyle().imageUp = new TextureRegionDrawable(key.icon(Cicon.small));
 			button.update(run(() => {
@@ -99,7 +89,6 @@ const coreSword = extendContent(CoreBlock, "core-sword", {
 		Drawf.dashCircle(tile.drawx(), tile.drawy(), this.range, tile.getTeam().color);
 	},
 	update(tile){
-		print("Updated");
 		this.super$update(tile);
 		var entity = tile.ent();
 		entity.setRec(Mathf.lerpDelta(entity.getRec(), 0, this.restitution));
@@ -196,13 +185,13 @@ const coreSword = extendContent(CoreBlock, "core-sword", {
 	}
 });
 coreSword.turretDrawer = new Cons2(){get: (tile, entity) => {
-	Draw.rect(Core.atlas.find("salvo"), tile.drawx() + coreSword.tr2.x, tile.drawy() + coreSword.tr2.y, entity.getRot() - 90);
+	Draw.rect(coreSword.turretRegion, tile.drawx() + coreSword.tr2.x, tile.drawy() + coreSword.tr2.y, entity.getRot() - 90);
 }}
 coreSword.heatDrawer = new Cons2(){get: (tile, entity) => {
 	if(entity.getHeat() <= 0.00001){return;}
 	Draw.color(coreSword.heatColor, entity.getHeat());
 	Draw.blend(Blending.additive);
-	Draw.rect(Core.atlas.find("salvo-heat"), tile.drawx() + coreSword.tr2.x, tile.drawy() + coreSword.tr2.y, entity.getRot() - 90);
+	Draw.rect(coreSword.heatRegion, tile.drawx() + coreSword.tr2.x, tile.drawy() + coreSword.tr2.y, entity.getRot() - 90);
 	Draw.blend();
 	Draw.color();
 }}

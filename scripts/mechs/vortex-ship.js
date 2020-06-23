@@ -1,22 +1,16 @@
 const elib = require("mechanical-warfare/effectlib");
 const plib = require("mechanical-warfare/plib");
+const bulletLib = require("mechanical-warfare/bulletlib");
 
-const vortexBullet = extend(BasicBulletType, {
-	draw(b){
-		elib.fillCircle(b.x, b.y, this.frontColor, 1, this.bulletWidth);
-		elib.outlineCircle(b.x, b.y, this.backColor, 1, this.bulletWidth);
-		if(b.timer.get(0, 3)){
-			Effects.effect(this.trailEffectA, b.x, b.y, b.rot());
-		}
-    if(!Vars.state.isPaused()){
-		  Effects.effect(this.trailEffectB, b.x, b.y, b.rot());
-    }
+const vortexBullet = bulletLib.bullet(BasicBulletType, 6, 6, 0, 0.01, 100, 0, -1, 0, 6, 60, cons(b => {
+	elib.fillCircle(b.x, b.y, vortexBullet.frontColor, 1, vortexBullet.bulletWidth);
+	elib.outlineCircle(b.x, b.y, vortexBullet.backColor, 1, vortexBullet.bulletWidth);
+}), cons(b => {
+	if(b.timer.get(0, 3)){
+		Effects.effect(vortexBullet.trailEffectA, b.x, b.y, b.rot());
 	}
-});
-vortexBullet.damage = 100;
-vortexBullet.speed = 6;
-vortexBullet.lifetime = 60;
-vortexBullet.drag = 0.01;
+	Effects.effect(vortexBullet.trailEffectB, b.x, b.y, b.rot());
+}), null, null);
 vortexBullet.bulletWidth = vortexBullet.bulletHeight = 6;
 vortexBullet.frontColor = plib.frontColorPurple;
 vortexBullet.backColor = plib.backColorPurple;
@@ -33,9 +27,11 @@ vortexBullet.trailEffectB = newEffect(48, e => {
 vortexBullet.hitEffect = newEffect(18, e => {
 	elib.fillCircle(e.x, e.y, vortexBullet.frontColor, 0.2 + e.fin() * 0.8, 0.2 + e.fout() * 11.8);
 	
-	var thickness = e.fout() * 3;
-	var radius = e.fin() * 15;
-	elib.outlineCircle(e.x, e.y, vortexBullet.backColor, thickness, radius);
+	e.scaled(1.2, cons(i => {
+		thickness = 0.5 + i.fout() * 2.5;
+		radius = i.fin() * 15;
+		elib.outlineCircle(e.x, e.y, vortexBullet.backColor, thickness, radius);
+	}));
 });
 vortexBullet.despawnEffect = vortexBullet.hitEffect;
 
@@ -85,7 +81,6 @@ const vortex = extendContent(Mech, "vortex-ship", {
 	}
 });
 vortex.shieldRotSpeed = [20, 50, 100];
-//vortex.shieldWarmup = 0.008;
 vortex.pl1 = new Vec2();
 vortex.flying = true;
 vortex.drillPower = 6;

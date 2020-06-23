@@ -1,91 +1,62 @@
 const elib = require("mechanical-warfare/effectlib");
 const plib = require("mechanical-warfare/plib");
+const bulletLib = require("mechanical-warfare/bulletlib");
 
-const seismHE = extend(BasicBulletType, {
-  draw(b){
-    this.super$draw(b);
-    if(!Vars.state.isPaused() && Mathf.chance(0.75)){
-      Effects.effect(this.trailEffect, b.x, b.y, b.rot());
-    }
-  },
-});
-seismHE.damage = 350;
-seismHE.splashDamage = 720;
-seismHE.splashDamageRadius = 60;
-seismHE.speed = 12;
-seismHE.lifetime = 40;
-seismHE.knockback = 4;
-seismHE.bulletWidth = 20;
-seismHE.bulletHeight = 26;
+const seismHE = bulletLib.bullet(BasicBulletType, 20, 26, 0, 0, 350, 720, 60, 4, 12, 40, null, cons(b => {
+	if(Mathf.chance(0.75)){
+		Effects.effect(seismHE.trailEffect, b.x, b.y, b.rot());
+	}
+}), null, null);
 seismHE.frontColor = plib.frontColorHE;
 seismHE.backColor = plib.backColorHE;
 seismHE.ammoMultiplier = 2;
 seismHE.hitSound = Sounds.boom;
-// Trail effect
 seismHE.trailEffect = newEffect(30, e => {
   elib.fillCircle(e.x, e.y, seismHE.frontColor, 1, Mathf.lerp(2, 0.2, e.fin()));
 });
-// Hit effect
 seismHE.hitEffect = newEffect(27, e => {
-  e.scaled(6, cons(i => {
-	var c1Thickness = 6 * i.fout();
-	var c1Radius = Mathf.lerp(3, 60, i.fin());
+  e.scaled(4, cons(i => {
+	c1Thickness = 6 * i.fout();
+	c1Radius = Mathf.lerp(3, 60, i.fin());
 	elib.outlineCircle(e.x, e.y, Pal.missileYellow, c1Thickness, c1Radius);
   }));
   
-  var c2Alpha = 0.3 + e.fin() * 0.7;
-  var c2Radius = Mathf.lerp(60, 0.5, e.fin());
-  elib.fillCircle(e.x, e.y, Pal.missileYellowBack, c2Alpha, c2Radius);
-  
-  var sAlpha = 0.3 + e.fout() * 0.7;
-  var sRadius = Mathf.lerp(6, 1, e.fin());
-  Angles.randLenVectors(e.id, 10, Mathf.lerp(5, 40, e.finpow()), new Floatc2(){get: (a, b) => {
+  sAlpha = 0.3 + e.fout() * 0.7;
+  sRadius = Mathf.lerp(15, 1, e.fin());
+  Angles.randLenVectors(e.id, 20, Mathf.lerp(5, 84, e.finpow()), new Floatc2(){get: (a, b) => {
     elib.fillCircle(e.x + a, e.y + b, Color.gray, sAlpha, sRadius);
   }});
   
-  var lThickness = e.fout() * 3;
-  var lDistance = Mathf.lerp(20, 120, e.finpow());
-  var lLength = Mathf.lerp(14, 1, e.fin());
+  lThickness = e.fout() * 3;
+  lDistance = Mathf.lerp(20, 120, e.finpow());
+  lLength = Mathf.lerp(14, 1, e.fin());
   elib.splashLines(e.x, e.y, Pal.missileYellow, lThickness, lDistance, lLength, 15, e.id);
 });
 seismHE.despawnEffect = seismHE.hitEffect;
 
-const seismAP = extend(BasicBulletType, {
-  draw(b){
-    this.super$draw(b);
-    if(!Vars.state.isPaused() && Mathf.chance(0.75)){
-      Effects.effect(this.trailEffect, b.x, b.y, b.rot());
-    }
-  },
-});
-seismAP.damage = 3300;
-seismAP.splashDamage = 160;
-seismAP.splashDamageRadius = 15;
-seismAP.speed = 12;
-seismAP.lifetime = 40;
-seismAP.knockback = 8;
-seismAP.bulletWidth = 20;
-seismAP.bulletHeight = 26;
+const seismAP = bulletLib.bullet(BasicBulletType, 20, 26, 0, 0, 3300, 160, 15, 8, 20, 26, null, cons(b => {
+	if(Mathf.chance(0.75)){
+		Effects.effect(seismHE.trailEffect, b.x, b.y, b.rot());
+	}
+}), null, null);
 seismAP.frontColor = plib.frontColorAP;
 seismAP.backColor = plib.backColorAP;
 seismAP.ammoMultiplier = 2;
 seismAP.reloadMultiplier = 1.2;
 seismAP.hitSound = Sounds.boom;
-// Trail effect
 seismAP.trailEffect = newEffect(30, e => {
   elib.fillCircle(e.x, e.y, seismAP.frontColor, 1, Mathf.lerp(2, 0.2, e.fin()));
 });
-// Hit effect
 seismAP.hitEffect = newEffect(13, e => {
-  e.scaled(6, cons(i => {
-    var cThickness = 4 * i.fout();
-    var cRadius = Mathf.lerp(2, 30, i.fin());
+  e.scaled(4, cons(i => {
+    cThickness = 4 * i.fout();
+    cRadius = Mathf.lerp(2, 30, i.fin());
     elib.outlineCircle(e.x, e.y, seismAP.frontColor, cThickness, cRadius);
   }));
   
-  var lThickness = e.fout() * 3;
-  var lDistance = Mathf.lerp(3, 45, e.finpow());
-  var lLength = Mathf.lerp(5, 1, e.fin());
+  lThickness = e.fout() * 3;
+  lDistance = Mathf.lerp(3, 45, e.finpow());
+  lLength = Mathf.lerp(5, 1, e.fin());
   elib.splashLines(e.x, e.y, seismAP.backColor, lThickness, lDistance, lLength, 12, e.id);
 });
 seismAP.despawnEffect = seismAP.hitEffect;

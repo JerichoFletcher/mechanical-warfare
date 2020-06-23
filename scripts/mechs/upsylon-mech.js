@@ -1,16 +1,10 @@
 const elib = require("mechanical-warfare/effectlib");
 const plib = require("mechanical-warfare/plib");
+const bulletLib = require("mechanical-warfare/bulletlib");
 
-const shotgunRound = extend(BasicBulletType, {});
-shotgunRound.damage = 9;
-shotgunRound.bulletWidth = 6;
-shotgunRound.bulletHeight = 9;
-shotgunRound.bulletShrink = 0.3;
+const shotgunRound = bulletLib.bullet(BasicBulletType, 6, 9, 0.3, 0, 9, 0, -1, 0, 6, 17, null, null, null, null);
 shotgunRound.frontColor = plib.frontColorCyan;
 shotgunRound.backColor = plib.backColorCyan;
-shotgunRound.drag = 0.01;
-shotgunRound.speed = 6;
-shotgunRound.lifetime = 17;
 shotgunRound.hitEffect = Fx.hitBulletSmall;
 shotgunRound.shootEffect = Fx.shootBig;
 shotgunRound.smokeEffect = Fx.shootBigSmoke;
@@ -34,30 +28,22 @@ shotgun.velocityRnd = 0.3;
 shotgun.shootSound = Sounds.shootBig;
 shotgun.bullet = shotgunRound;
 
-const upsylonPlasma = extend(BasicBulletType, {
-  draw(b){
-    elib.fillCircle(b.x, b.y, Pal.lancerLaser, 1, 6);
-	  if(!Vars.state.isPaused()){
-      Effects.effect(this.trailEffect, b.x, b.y, b.rot());
-    }
-  }
-});
-upsylonPlasma.damage = Vars.state.rules.playerDamageMultiplier * 15;
-upsylonPlasma.splashDamage = Vars.state.rules.playerDamageMultiplier * 30;
-upsylonPlasma.splashDamageRadius = 20;
-upsylonPlasma.speed = 12;
-upsylonPlasma.lifetime = 48;
-upsylonPlasma.drag = 0.08;
+const upsylonPlasma = bulletLib.bullet(BasicBulletType, 1, 1, 0, 0.08, Vars.state.rules.playerDamageMultiplier * 15, Vars.state.rules.playerDamageMultiplier * 30, 20, 0, 12, 48, cons(b => {
+	elib.fillCircle(b.x, b.y, Pal.lancerLaser, 1, 6);
+}), cons(b => {
+	Effects.effect(upsylonPlasma.trailEffect, b.x, b.y, b.rot());
+}), null, null);
 upsylonPlasma.homingRange = upsylonPlasma.range();
 upsylonPlasma.homingPower = 0.001;
 upsylonPlasma.shootEffect = Fx.shootBig;
 upsylonPlasma.smokeEffect = Fx.shootBigSmoke;
-upsylonPlasma._size = 6;
 upsylonPlasma.trailEffect = newEffect(30, e => {
-  elib.fillCircle(e.x, e.y, Pal.lancerLaser, 1, Mathf.lerp(upsylonPlasma._size, 0.2, e.fin()));
+  elib.fillCircle(e.x, e.y, Pal.lancerLaser, 1, Mathf.lerp(6, 0.2, e.fin()));
 });
 upsylonPlasma.hitEffect = newEffect(16, e => {
-  elib.outlineCircle(e.x, e.y, Pal.lancerLaser, e.fout() * upsylonPlasma._size, 1 + e.fin() * (upsylonPlasma.splashDamageRadius + 6));
+  e.scaled(1.2, cons(i => {
+	elib.outlineCircle(e.x, e.y, Pal.lancerLaser, i.fout() * 6, 1 + i.fin() * (upsylonPlasma.splashDamageRadius + 6));
+  }));
   elib.fillCircle(e.x, e.y, Pal.lancerLaser, 0.2 + e.fout() * 0.8, Mathf.lerp(upsylonPlasma.splashDamageRadius, 0.2, e.fin()));
 });
 upsylonPlasma.despawnEffect = upsylonPlasma.hitEffect;

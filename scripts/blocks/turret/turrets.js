@@ -19,6 +19,9 @@ require("mechanical-warfare/blocks/turret/voltmeter")
 // Blow
 require("mechanical-warfare/blocks/turret/blow")
 
+// Windstorm
+require("mechanical-warfare/blocks/turret/windstorm")
+
 // Quake
 require("mechanical-warfare/blocks/turret/quake")
 

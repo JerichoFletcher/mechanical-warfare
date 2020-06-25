@@ -1,6 +1,29 @@
 const elib = require("mechanical-warfare/effectlib");
 const plib = require("mechanical-warfare/plib");
 
+// Magnetic Sieve
+const magnet = extendContent(GenericCrafter, "magnetic-sieve", {
+	load(){
+		this.region = Core.atlas.find(this.name);
+		this.spinnerRegion = Core.atlas.find(this.name + "-spinner");
+	},
+	generateIcons: function(){
+		return [
+			Core.atlas.find(this.name),
+			Core.atlas.find(this.name + "-spinner")
+		];
+	},
+	draw(tile){
+		this.drawer.get(tile);
+	}
+});
+magnet.drawer = cons(tile => {
+	var entity = tile.ent();
+	Draw.rect(magnet.region, tile.drawx(), tile.drawy());
+	Draw.color();
+	Draw.rect(magnet.spinnerRegion, tile.drawx(), tile.drawy(), entity.totalProgress);
+});
+
 // Scrap Compactor
 const compactor = extendContent(GenericCrafter, "scrap-compactor", {
 	load(){

@@ -7,7 +7,7 @@ smokeEffect: shootBigSmoke
 inaccuracy: 3
 rotatespeed: 4.5
 range: 215
-recoil: 1.4
+recoil: 2.6
 shootCone: 12
 requirements: [
 	scrap-plate/35

@@ -1,3 +1,6 @@
+// Lobber
+require("mechanical-warfare/blocks/turret/lobber")
+
 // Aegis
 require("mechanical-warfare/blocks/turret/aegis")
 

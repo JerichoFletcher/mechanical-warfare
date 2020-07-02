@@ -57,6 +57,9 @@ lobberCoal.hitSound = Sounds.explosion;
 lobberCoal.ammoMultiplier = 2;
 lobberCoal.relaodMultiplier = 0.8;
 lobberCoal.status = StatusEffects.burning;
+lobberCoal.incendChance = 1;
+lobberCoal.incendAmount = 3;
+lobberCoal.incendSpread = 10;
 
 const lobberHoming = bulletLib.bullet(ArtilleryBulletType, 12, 12, 0.3, 0, 0, 50, 16, 0, 3, 80, null, cons(b => {
 	Effects.effect(trailEffect, b.x, b.y, b.rot(), {

@@ -13,6 +13,9 @@ require("mechanical-warfare/blocks/turret/incandescence")
 // Storm
 require("mechanical-warfare/blocks/turret/storm")
 
+// Spectrum
+require("mechanical-warfare/blocks/turret/spectrum")
+
 // Nighthawk
 require("mechanical-warfare/blocks/turret/nighthawk")
 

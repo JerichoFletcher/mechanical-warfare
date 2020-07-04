@@ -18,6 +18,69 @@ const hoverUnit = prov(() => extend(HoverUnit, {
 	}
 }));
 
+// Phantasm
+const phantasmalFlak = extend(FlakBulletType, {});
+phantasmalFlak.bulletSprite = "shell";
+phantasmalFlak.bulletWidth = 6;
+phantasmalFlak.bulletHeight = 10;
+phantasmalFlak.bulletShrink = 0.3;
+phantasmalFlak.speed = 12;
+phantasmalFlak.lifetime = 15;
+phantasmalFlak.damage = 5;
+phantasmalFlak.explodeRange = 12;
+phantasmalFlak.shootEffect = Fx.shootSmall;
+phantasmalFlak.smokeEffect = Fx.shootSmallSmoke;
+phantasmalFlak.hitEffect = Fx.flakExplosion;
+
+const phantasmalGun = extendContent(Weapon, "phantasmal-gun", {
+	load(){
+		this.region = Core.atlas.find("mechanical-warfare-phantasmal-gun-equip");
+	}
+});
+phantasmalGun.width = 4.5;
+phantasmalGun.reload = 20;
+phantasmalGun.alternate = true;
+phantasmalGun.inaccuracy = 2;
+phantasmalGun.ejectEffect = Fx.shellEjectSmall;
+phantasmalGun.shootSound = Sounds.shootBig;
+phantasmalGun.bullet = phantasmalFlak;
+
+const phantasm = extendContent(UnitType, "phantasm", {
+	load(){
+		this.weapon.load();
+		this.region = Core.atlas.find(this.name);
+	}
+});
+phantasm.weapon = phantasmalGun;
+phantasm.create(prov(() => {
+	const unit = extend(HoverUnit, {
+		draw(){
+			Draw.mixcol(Color.white, this.hitTime / this.hitDuration);
+			this.drawWeapons();
+			Draw.rect(this.type.region, this.x, this.y, this.rotation - 90);
+			Draw.mixcol();
+		},
+		drawWeapons(){
+			for(var j = 0; j < 2; j++){
+				i = Mathf.signs[j];
+				angle = this.rotation - 90;
+				trY = this.type.weaponOffsetY - this.type.weapon.getRecoil(this, (i > 0));
+				w = -i * this.type.weapon.region.getWidth() * Draw.scl;
+				h = this.type.weapon.region.getHeight() * Draw.scl;
+				Draw.rect(this.type.weapon.region,
+					this.x + Angles.trnsx(angle, this.getWeapon().width * i, trY),
+					this.y + Angles.trnsy(angle, this.getWeapon().width * i, trY),
+					w, h, angle
+				);
+			}
+		}
+	});
+	return unit;
+}));
+
+const phantasmFactory = extendContent(UnitFactory, "phantasm-factory", {});
+phantasmFactory.unitType = phantasm;
+
 // Shadow
 const shadowSalvo = extend(BasicBulletType, {});
 shadowSalvo.inaccuracy = 0.5;

@@ -2,8 +2,6 @@ module.exports = {
   drawBase(base){
     Draw.mixcol(Color.white, base.hitTime / base.hitDuration);
     Draw.rect(base.type.region, base.x, base.y, base.rotation - 90);
-    base.drawWeapons();
-    base.drawRotor();
     Draw.mixcol();
   },
   drawRotor(base){
@@ -45,6 +43,5 @@ module.exports = {
         w, h, angle
       );
     }
-    //print(Core.atlas.isFound(Core.atlas.find(base.type.weapon.name + "-equip")));
-  },
+  }
 };

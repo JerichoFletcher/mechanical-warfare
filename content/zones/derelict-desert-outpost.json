@@ -1,13 +1,13 @@
 loadout: basicFoundation
 startingItems: [
   copper/500
-  lead/500
+  lead/250
   metaglass/500
   graphite/300
   titanium/50
-  silicon/100
   iron/150
-  steel/125
+  steel/50
+  scrap-plate/100
 ]
 configureObjective: {
   type: Launched
@@ -42,6 +42,5 @@ resources: [
   uranium
   sand
   scrap
-  cobblestone
 ]  
   

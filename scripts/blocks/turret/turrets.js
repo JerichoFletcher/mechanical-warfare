@@ -1,3 +1,6 @@
+// Lobber
+require("mechanical-warfare/blocks/turret/lobber")
+
 // Aegis
 require("mechanical-warfare/blocks/turret/aegis")
 
@@ -10,6 +13,9 @@ require("mechanical-warfare/blocks/turret/incandescence")
 // Storm
 require("mechanical-warfare/blocks/turret/storm")
 
+// Spectrum
+require("mechanical-warfare/blocks/turret/spectrum")
+
 // Nighthawk
 require("mechanical-warfare/blocks/turret/nighthawk")
 
@@ -18,6 +24,9 @@ require("mechanical-warfare/blocks/turret/voltmeter")
 
 // Blow
 require("mechanical-warfare/blocks/turret/blow")
+
+// Windstorm
+require("mechanical-warfare/blocks/turret/windstorm")
 
 // Quake
 require("mechanical-warfare/blocks/turret/quake")

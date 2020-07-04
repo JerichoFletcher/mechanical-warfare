@@ -3,8 +3,8 @@ const copterLib = require("units/copter-base");
 // Serpent
 // Raw DPS: 80
 const serpentBullet = extend(BasicBulletType, {});
-serpentBullet.width = 9;
-serpentBullet.height = 12;
+serpentBullet.bulletWidth = 6;
+serpentBullet.bulletHeight = 9;
 serpentBullet.speed = 9;
 serpentBullet.lifetime = 21;
 serpentBullet.damage = 5;
@@ -12,8 +12,8 @@ serpentBullet.shootEffect = Fx.shootSmall;
 serpentBullet.smokeEffect = Fx.shootSmallSmoke;
 
 const serpentMissile = extend(MissileBulletType, {});
-serpentMissile.width = 18;
-serpentMissile.height = 24;
+serpentMissile.bulletWidth = 9;
+serpentMissile.bulletHeight = 12;
 serpentMissile.speed = 2.8;
 serpentMissile.lifetime = 50;
 serpentMissile.damage = 20;
@@ -22,13 +22,14 @@ serpentMissile.homingPower = 0.075;
 serpentMissile.homingRange = 120;
 serpentMissile.shootEffect = Fx.shootBig;
 serpentMissile.smokeEffect = Fx.shootBigSmoke;
+serpentMissile.hitEffect = Fx.blastExplosion;
 
 const serpentWeapon = extendContent(Weapon, "serpent-gun", {
   load(){
     this.region = Core.atlas.find("mechanical-warfare-serpent-gun-equip");
   }
 });
-serpentWeapon.width = 8;
+serpentWeapon.width = 6.5;
 serpentWeapon.length = 5;
 serpentWeapon.reload = 12;
 serpentWeapon.alternate = true;
@@ -47,9 +48,6 @@ const serpentUnit = extendContent(UnitType, "serpent", {
   secondaryReload: function(){
     return 40;
   },
-  /*secondaryRange: function(){
-    return 100;
-  },*/
   secondaryShootCone: function(){
     return 45;
   },
@@ -93,11 +91,8 @@ serpentUnit.create(prov(() => extend(HoverUnit, {
     }
     if(this.target != null && this.target.getTeam().isEnemy(this.getTeam()) && Angles.near(this.angleTo(this.target), this.rotation, this.type.secondaryShootCone()) && this.dst(this.target) < serpentMissile.range()){
       if(this.missileTimer++ >= this.type.secondaryReload()){
-        var offx = Angles.trnsx(this.rotation - 90, this.getWeapon().width * this.currentLauncher / 2, 1);
-        var offy = Angles.trnsy(this.rotation - 90, this.getWeapon().width * this.currentLauncher / 2, 1);
-        Bullet.create(serpentMissile, this, this.getTeam(), this.x + offx, this.y + offy, this.rotation, 1 - Mathf.random(0.1), 1);
-        this.type.secondaryShootSound().at(this.x, this.y, Mathf.random(0.9, 1.1));
-        this.missileTimer = 0;
+        this.secondaryShoot(serpentMissile);
+		this.missileTimer = 0;
         if(this.currentLauncher < 0){
           this.currentLauncher = 1;
         }else{
@@ -106,16 +101,26 @@ serpentUnit.create(prov(() => extend(HoverUnit, {
       }
     }
   },
+  secondaryShoot(bullet){
+    this.offx = this.x + Angles.trnsx(this.rotation - 90, this.getWeapon().width * this.currentLauncher / 2, 1);
+    this.offy = this.y + Angles.trnsy(this.rotation - 90, this.getWeapon().width * this.currentLauncher / 2, 1);
+    Bullet.create(bullet, this, this.getTeam(), this.offx, this.offy, this.rotation, 1 - Mathf.random(0.1), 1);
+	this.type.secondaryShootSound().at(this.x, this.y, Mathf.random(0.9, 1.1));
+	Effects.effect(bullet.shootEffect, this.offx, this.offy, this.rotation);
+	Effects.effect(bullet.smokeEffect, this.offx, this.offy, this.rotation);
+  },
   draw(){
+	this.drawWeapons();
     copterLib.drawBase(this);
   },
   drawWeapons(){
     copterLib.drawWeapons(this);
   },
-  drawRotor(){
-    copterLib.drawRotor(this);
+  drawStats(){
+	this.super$drawStats();
+	copterLib.drawRotor(this);
   },
-  drawEngine(){},
+  drawEngine(){}
 })));
 
 const serpentFactory = extendContent(UnitFactory, "serpent-factory", {

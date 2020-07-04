@@ -1,0 +1,24 @@
+size: 3
+health: 1440
+reload: 30
+recoil: 6
+ammoUseEffect: none
+inaccuracy: 0
+rotatespeed: 4.5
+range: 140
+targetGround: true
+targetAir: true
+powerUse: 12
+shootEffect: none
+smokeEffect: none
+layer: power
+requirements: [
+	mk2-module/3
+	metaglass/100
+	insulator-alloy/75
+	silicon/200
+]
+category: turret
+research: voltmeter
+shootSound: shotgun
+

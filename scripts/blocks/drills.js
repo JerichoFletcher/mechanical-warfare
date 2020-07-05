@@ -216,6 +216,7 @@ const magnet = extendContent(Separator, "magnetic-sieve", {
 		)));
 	}
 });
+magnet.rotateSpeed = 3;
 magnet.entityType = prov(() => {
 	const entity = extend(GenericCrafter.GenericCrafterEntity, {
 		getRotation: function(){

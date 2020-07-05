@@ -160,8 +160,8 @@ function isSand(floor){
 const magnet = extendContent(Separator, "magnetic-sieve", {
 	load(){
 		this.region = Core.atlas.find(this.name);
-		this.rimRegion = Core.atlas.find(this.name + "-rim");
 		this.rotatorRegion = Core.atlas.find(this.name + "-rotator");
+		this.rimRegion = Core.atlas.find(this.name + "-rim");
 		this.topRegion = Core.atlas.find(this.name + "-top");
 	},
 	generateIcons: function(){

@@ -146,12 +146,3 @@ quarry.entityType = prov(() => {
 	entity.setEfficiency(0);
 	return entity;
 });
-
-// Sand Floors
-const sandFloor = [Blocks.sand, Blocks.darksand];
-function isSand(floor){
-	for(var i = 0; i < 2; i++){
-		if(floor === sandFloor[i]){return true;}
-	}
-	return false;
-}

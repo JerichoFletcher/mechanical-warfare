@@ -64,77 +64,7 @@ const serpentUnit = extendContent(UnitType, "serpent", {
 			bladeRegion: Core.atlas.find("mechanical-warfare-rotor-blade"),
 			topRegion: Core.atlas.find("mechanical-warfare-rotor-top")
 		}
-		att.weapon[0] = extendContent(Weapon, "serpent-launcher", {
-			getRegion(){
-				return Core.atlas.find("mechanical-warfare-serpent-launcher-equip");
-			},
-			update(shooter, pointerX, pointerY){
-				for(var i = 0; i < 2; i++){
-					j = Mathf.booleans[i];
-					Tmp.v1.set(pointerX, pointerY).sub(shooter.getX(), shooter.getY());
-					if(Tmp.v1.len() < this.minPlayerDist){Tmp.v1.setLength(this.minPlayerDist);}
-					cx = Tmp.v1.x + shooter.getX();
-					cy = Tmp.v1.y + shooter.getY();
-					ang = Tmp.v1.angle();
-					Tmp.v1.trns(ang - 90.0, this.width * Mathf.sign(j), this.length + Mathf.range(this.lengthRand));
-					this.updateB(shooter,
-						shooter.getX() + Tmp.v1.x,
-						shooter.getY() + Tmp.v1.y,
-						Angles.angle(shooter.getX() + Tmp.v1.x, shooter.getY() + Tmp.v1.y, cx, cy),
-						j
-					);
-				}
-			},
-			updateB(shooter, mountX, mountY, angle, left){
-				if(shooter.getTimer2().get(shooter.getShootTimer2(left), this.reload)){
-					shooter.getTimer2().reset(shooter.getShootTimer2(!left), this.reload / 2.0);
-					this.shootDirectB(shooter, mountX - shooter.getX(), mountY - shooter.getY(), angle, left);
-				}
-			},
-			shootDirectB(shooter, offsetX, offsetY, rotation, left){
-				x = shooter.getX() + offsetX;
-				y = shooter.getY() + offsetY;
-				baseX = shooter.getX();
-				baseY = shooter.getY();
-				
-				weap = shooter.type.getAttributes().weapon[0];
-				weap.shootSound.at(x, y, Mathf.random(0.8, 1.0));
-				Angles.shotgun(weap.shots, weap.spacing, rotation, new Floatc(){get: f => {
-					weap.bulletB(shooter, x, y, f + Mathf.range(weap.inaccuracy));
-				}});
-				ammo = weap.bullet;
-				Tmp.v1.trns(rotation + 180, ammo.recoil);
-				shooter.velocity().add(Tmp.v1);
-				Tmp.v1.trns(rotation, 3);
-				Effects.effect(weap.ejectEffect, x, y, rotation * -Mathf.sign(left));
-				Effects.effect(ammo.shootEffect, x + Tmp.v1.x, y + Tmp.v1.y, rotation, shooter);
-				Effects.effect(ammo.smokeEffect, x + Tmp.v1.x, y + Tmp.v1.y, rotation, shooter);
-				shooter.getTimer2().get(shooter.getShootTimer2(left), weap.reload);
-				// Synchronize
-				if(Vars.net.server()){
-					packet = Pools.obtain(Packets.invokePacket, prov(() => {return new Packets.invokePacket}));
-					packet.writeBuffer = tempBuffer;
-					packet.priotity = 0;
-					packet.type = 19;
-					tempBuffer.position(0);
-					TypeIO.writeShooter(tempBuffer, shooter);
-					tempBuffer.putFloat(x);
-					tempBuffer.putFloat(y);
-					tempBuffer.putFloat(rotation);
-					tempBuffer.put(left ? 1 : 0);
-					packet.writeLength = tempBuffer.position();
-					Vars.net.send(packet, Net.SendMode.udp);
-				}
-			},
-			bulletB(owner, x, y, angle){
-				if(owner == null){return;}
-				Tmp.v1.trns(angle, 3.0);
-				Bullet.create(this.bullet, owner, owner.getTeam(), x + Tmp.v1.x, y + Tmp.v1.y, angle, 1.0 - this.velocityRnd + Mathf.random(this.velocityRnd));
-			},
-			getRecoil(shooter, left){
-				return (1.0 - Mathf.clamp(shooter.getTimer2().getTime(shooter.getShootTimer2(left)) / this.reload)) * this.recoil;
-			}
-		});
+		att.weapon[0] = copterLib.weapon("serpent-launcher", 0);
 		att.weapon[0].width = 4.25;
 		att.weapon[0].length = 1;
 		att.weapon[0].recoil = 1.5;
@@ -177,21 +107,21 @@ serpentUnit.create(prov(() => {
 		setTimer2(val){
 			this._timer = val;
 		},
-		getShootTimer2(left){
-			return left ? this.getShootTimers2().timerShootLeft : this.getShootTimers2().timerShootRight;
+		getShootTimer2(index, left){
+			return left ? this.getShootTimers2()[index].timerShootLeft : this.getShootTimers2()[index].timerShootRight;
 		},
 		getShootTimers2(){
 			return this._timerShoot;
 		},
-		setShootTimers2(obj){
-			this._timerShoot = obj;
+		setShootTimers2(arr){
+			this._timerShoot = arr;
 		}
 	});
 	base.setTimer2(new Interval(2));
-	base.setShootTimers2({
+	base.setShootTimers2([{
 		timerShootLeft: 0,
 		timerShootRight: 1
-	});
+	}]);
 	return base;
 }));
 

@@ -1,14 +1,18 @@
 const copterLib = require("units/copter-base");
+importPackage(Packages.mindustry.net);
+importPackage(Packages.mindustry.io);
+tempBuffer = java.nio.ByteBuffer.allocate(4096);
 
 // Serpent
 const serpentBullet = extend(BasicBulletType, {});
 serpentBullet.bulletWidth = 6;
 serpentBullet.bulletHeight = 9;
 serpentBullet.speed = 9;
-serpentBullet.lifetime = 21;
+serpentBullet.lifetime = 14;
 serpentBullet.damage = 8;
 serpentBullet.shootEffect = Fx.shootSmall;
 serpentBullet.smokeEffect = Fx.shootSmallSmoke;
+serpentBullet.hitEffect = Fx.hitBulletSmall;
 
 const serpentMissile = extend(MissileBulletType, {});
 serpentMissile.bulletWidth = 9;
@@ -46,9 +50,8 @@ const serpentUnit = extendContent(UnitType, "serpent", {
 	},
 	getAttributes(){
 		att = {
-			secondaryReload: 40,
-			secondaryShootCone: 45,
-			secondaryShootSound: Sounds.missile,
+			weaponCount: 1,
+			weapon: [],
 			rotorCount: 1,
 			rotor: [],
 		}
@@ -61,46 +64,100 @@ const serpentUnit = extendContent(UnitType, "serpent", {
 			bladeRegion: Core.atlas.find("mechanical-warfare-rotor-blade"),
 			topRegion: Core.atlas.find("mechanical-warfare-rotor-top")
 		}
+		att.weapon[0] = extendContent(Weapon, "serpent-launcher", {
+			getRegion(){
+				return Core.atlas.find("mechanical-warfare-serpent-launcher-equip");
+			},
+			update(shooter, pointerX, pointerY){
+				for(var i = 0; i < 2; i++){
+					j = Mathf.booleans[i];
+					Tmp.v1.set(pointerX, pointerY).sub(shooter.getX(), shooter.getY());
+					if(Tmp.v1.len() < this.minPlayerDist){Tmp.v1.setLength(this.minPlayerDist);}
+					cx = Tmp.v1.x + shooter.getX();
+					cy = Tmp.v1.y + shooter.getY();
+					ang = Tmp.v1.angle();
+					Tmp.v1.trns(ang - 90.0, this.width * Mathf.sign(j), this.length + Mathf.range(this.lengthRand));
+					this.updateB(shooter,
+						shooter.getX() + Tmp.v1.x,
+						shooter.getY() + Tmp.v1.y,
+						Angles.angle(shooter.getX() + Tmp.v1.x, shooter.getY() + Tmp.v1.y, cx, cy),
+						j
+					);
+				}
+			},
+			updateB(shooter, mountX, mountY, angle, left){
+				if(shooter.getTimer2().get(shooter.getShootTimer2(left), this.reload)){
+					shooter.getTimer2().reset(shooter.getShootTimer2(!left), this.reload / 2.0);
+					this.shootDirectB(shooter, mountX - shooter.getX(), mountY - shooter.getY(), angle, left);
+				}
+			},
+			shootDirectB(shooter, offsetX, offsetY, rotation, left){
+				x = shooter.getX() + offsetX;
+				y = shooter.getY() + offsetY;
+				baseX = shooter.getX();
+				baseY = shooter.getY();
+				
+				weap = shooter.type.getAttributes().weapon[0];
+				weap.shootSound.at(x, y, Mathf.random(0.8, 1.0));
+				Angles.shotgun(weap.shots, weap.spacing, rotation, new Floatc(){get: f => {
+					weap.bulletB(shooter, x, y, f + Mathf.range(weap.inaccuracy));
+				}});
+				ammo = weap.bullet;
+				Tmp.v1.trns(rotation + 180, ammo.recoil);
+				shooter.velocity().add(Tmp.v1);
+				Tmp.v1.trns(rotation, 3);
+				Effects.effect(weap.ejectEffect, x, y, rotation * -Mathf.sign(left));
+				Effects.effect(ammo.shootEffect, x + Tmp.v1.x, y + Tmp.v1.y, rotation, shooter);
+				Effects.effect(ammo.smokeEffect, x + Tmp.v1.x, y + Tmp.v1.y, rotation, shooter);
+				shooter.getTimer2().get(shooter.getShootTimer2(left), weap.reload);
+				// Synchronize
+				if(Vars.net.server()){
+					packet = Pools.obtain(Packets.invokePacket, prov(() => {return new Packets.invokePacket}));
+					packet.writeBuffer = tempBuffer;
+					packet.priotity = 0;
+					packet.type = 19;
+					tempBuffer.position(0);
+					TypeIO.writeShooter(tempBuffer, shooter);
+					tempBuffer.putFloat(x);
+					tempBuffer.putFloat(y);
+					tempBuffer.putFloat(rotation);
+					tempBuffer.put(left ? 1 : 0);
+					packet.writeLength = tempBuffer.position();
+					Vars.net.send(packet, Net.SendMode.udp);
+				}
+			},
+			bulletB(owner, x, y, angle){
+				if(owner == null){return;}
+				Tmp.v1.trns(angle, 3.0);
+				Bullet.create(this.bullet, owner, owner.getTeam(), x + Tmp.v1.x, y + Tmp.v1.y, angle, 1.0 - this.velocityRnd + Mathf.random(this.velocityRnd));
+			},
+			getRecoil(shooter, left){
+				return (1.0 - Mathf.clamp(shooter.getTimer2().getTime(shooter.getShootTimer2(left)) / this.reload)) * this.recoil;
+			}
+		});
+		att.weapon[0].width = 4.25;
+		att.weapon[0].length = 1;
+		att.weapon[0].recoil = 1.5;
+		att.weapon[0].alternate = true;
+		att.weapon[0].inaccuracy = 3;
+		att.weapon[0].reload = 80;
+		att.weapon[0].shootCone = 45;
+		att.weapon[0].ejectEffect = Fx.shellEjectBig;
+		att.weapon[0].shootSound = Sounds.missile;
+		att.weapon[0].bullet = serpentMissile;
 		return att;
 	}
 });
 serpentUnit.weapon = serpentWeapon;
 serpentUnit.create(prov(() => {
 	const base = extend(HoverUnit, {
-		behavior(){
-			this.super$behavior();
-			att = this.type.getAttributes();
-			if(typeof(this.missileTimer) === "undefined"){
-				this.missileTimer = 0;
-			}
-			if(typeof(this.currentLauncher) === "undefined"){
-				this.currentLauncher = 0;
-			}
-			if(
-				this.target != null &&
-				this.target.getTeam().isEnemy(this.getTeam()) &&
-				Angles.near(this.angleTo(this.target), this.rotation, att.secondaryShootCone) &&
-				this.dst(this.target) < serpentMissile.range()
-			){
-				if(this.missileTimer++ >= att.secondaryReload){
-					this.secondaryShoot(serpentMissile);
-					this.missileTimer = 0;
-					if(this.currentLauncher < 0){
-						this.currentLauncher = 1;
-					}else{
-						this.currentLauncher = -1;
-					}
+		update(){
+			this.super$update();
+			if(this.target !== null){
+				if(this.target.getTeam().isEnemy(this.getTeam())){
+					copterLib.updateWeapons(this);
 				}
 			}
-		},
-		secondaryShoot(bullet){
-			att = this.type.getAttributes();
-			this.offx = this.x + Angles.trnsx(this.rotation - 90, this.getWeapon().width * this.currentLauncher / 2, 1);
-			this.offy = this.y + Angles.trnsy(this.rotation - 90, this.getWeapon().width * this.currentLauncher / 2, 1);
-			Bullet.create(bullet, this, this.getTeam(), this.offx, this.offy, this.rotation, 1 - Mathf.random(0.1), 1);
-			att.secondaryShootSound.at(this.x, this.y, Mathf.random(0.9, 1.1));
-			Effects.effect(bullet.shootEffect, this.offx, this.offy, this.rotation);
-			Effects.effect(bullet.smokeEffect, this.offx, this.offy, this.rotation);
 		},
 		draw(){
 			this.drawWeapons();
@@ -113,7 +170,27 @@ serpentUnit.create(prov(() => {
 			this.super$drawStats();
 			copterLib.drawRotor(this);
 		},
-		drawEngine(){}
+		drawEngine(){},
+		getTimer2(){
+			return this._timer;
+		},
+		setTimer2(val){
+			this._timer = val;
+		},
+		getShootTimer2(left){
+			return left ? this.getShootTimers2().timerShootLeft : this.getShootTimers2().timerShootRight;
+		},
+		getShootTimers2(){
+			return this._timerShoot;
+		},
+		setShootTimers2(obj){
+			this._timerShoot = obj;
+		}
+	});
+	base.setTimer2(new Interval(2));
+	base.setShootTimers2({
+		timerShootLeft: 0,
+		timerShootRight: 1
 	});
 	return base;
 }));
@@ -128,3 +205,38 @@ const serpentFactory = extendContent(UnitFactory, "serpent-factory", {
 	}
 });
 serpentFactory.unitType = serpentUnit;
+
+/*// Viper
+const viperBullet = extend(BasicBulletType, {});
+viperBullet.bulletWidth = 9;
+viperBullet.bulletHeight = 14;
+viperBullet.speed = 8;
+viperBullet.lifetime = 16;
+viperBullet.damage = 14;
+viperBullet.shootEffect = Fx.shootBig;
+viperBullet.smokeEffect = Fx.shootBigSmoke;
+viperBullet.hitEffect = Fx.hitBulletBig;
+
+const viperGun = extendContent(Weapon, "viper-gun", {
+	load(){
+		this.region = Core.atlas.find("clear");
+	}
+});
+viperGun.reload = 10;
+viperGun.alternate = true;
+viperGun.recoil = 1.5;
+viperGun.shake = 0;
+viperGun.inaccuracy = 3;
+viperGun.ejectEffect = Fx.shellEjectSmall;
+viperGun.shootSound = Sounds.shootSBig;
+viperGun.bullet = viperBullet;
+
+const viper = extendContent(UnitType, "viper", {
+	load(){
+		this.weapon.load();
+		this.region = Core.atlas.find(this.name);
+	},
+	getAttributes(){
+	}
+});
+viper.weapon = viperGun;*/

@@ -14,8 +14,8 @@ requirements: [
     zone: frozen-lake
   }
   {
-    type: unlock
-    block: slag-bomb
+	type: unlock
+	block: slag-bomb
   }
   {
     type: unlock

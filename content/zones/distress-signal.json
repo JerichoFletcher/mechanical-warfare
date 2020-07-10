@@ -1,0 +1,39 @@
+loadout: advancedSword
+startingItems: [
+  copper/250
+  lead/50
+  graphite/100
+  silicon/25
+  iron/25
+]
+conditionWave: 20
+launchPeriod: 15
+requirements: [
+  {
+    type: Launched
+    zone: frozen-lake
+  }
+  {
+    type: unlock
+    block: slag-bomb
+  }
+  {
+    type: unlock
+    block: melter
+  }
+  {
+    type: unlock
+    block: separator
+  }
+]
+resources: [
+  copper
+  lead
+  coal
+  titanium
+  thorium
+  iron
+  uranium
+  scrap
+  cobblestone
+]

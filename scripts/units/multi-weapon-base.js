@@ -3,9 +3,7 @@ importPackage(Packages.mindustry.io);
 importPackage(Packages.arc.util.pooling);
 tempBuffer = java.nio.ByteBuffer.allocate(4096);
 module.exports = {
-	drawWeapons(base){
-		att = base.type.getAttributes();
-		// Primary weapon
+	drawMainWeapons(base){
 		Draw.mixcol(Color.white, base.hitTime / base.hitDuration);
 		for(var i = 0; i < 2; i++){
 			sign = Mathf.signs[i];
@@ -22,25 +20,26 @@ module.exports = {
 				Draw.rect(base.type.weapon.region, wx, wy, w, h, tra);
 			}
 		}
-		
-		// Custom weapons
-		for(var i = 0; i < att.weaponCount; i++){
-			weap = att.weapon[i];
-			region = weap.getRegion();
-			tra = base.rotation - 90;
-			for(var j = 0; j < 2; j++){
-				sign = Mathf.signs[j];
-				trY = att.weaponOffsetY[i] - weap.getRecoil(base, (sign > 0));
-				w = -sign * region.getWidth() * Draw.scl;
-				h = region.getHeight() * Draw.scl;
-				wx = base.x + Angles.trnsx(tra, weap.width * sign, trY);
-				wy = base.y + Angles.trnsy(tra, weap.width * sign, trY);
-				if(att.rotateWeapon[i]){
-					wi = (sign + 1) / 2;
-					Draw.rect(region, wx, wy, w, h, att.weaponAngles[i][wi] - 90);
-				}else{
-					Draw.rect(region, wx, wy, w, h, tra);
-				}
+		Draw.mixcol();
+	},
+	drawSecWeapons(base, index){
+		Draw.mixcol(Color.white, base.hitTime / base.hitDuration);
+		att = base.type.getAttributes();
+		weap = att.weapon[index];
+		region = weap.getRegion();
+		tra = base.rotation - 90;
+		for(var i = 0; i < 2; i++){
+			sign = Mathf.signs[i];
+			trY = att.weaponOffsetY[index] - weap.getRecoil(base, (sign > 0));
+			w = -sign * region.getWidth() * Draw.scl;
+			h = region.getHeight() * Draw.scl;
+			wx = base.x + Angles.trnsx(tra, weap.width * sign, trY);
+			wy = base.y + Angles.trnsy(tra, weap.width * sign, trY);
+			if(att.rotateWeapon[index]){
+				wi = (sign + 1) / 2;
+				Draw.rect(region, wx, wy, w, h, att.weaponAngles[index][wi] - 90);
+			}else{
+				Draw.rect(region, wx, wy, w, h, tra);
 			}
 		}
 		Draw.mixcol();

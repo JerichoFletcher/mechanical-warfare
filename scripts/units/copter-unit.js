@@ -98,11 +98,9 @@ serpentUnit.create(prov(() => {
 			}
 		},
 		draw(){
-			this.drawWeapons();
+			multiWeap.drawMainWeapons(this);
+			multiWeap.drawSecWeapons(this, 0);
 			copterLib.drawBase(this);
-		},
-		drawWeapons(){
-			multiWeap.drawWeapons(this);
 		},
 		drawStats(){
 			this.super$drawStats();
@@ -309,11 +307,12 @@ viperUnit.create(prov(() => {
 			}
 		},
 		draw(){
-			this.drawWeapons();
+			att = this.type.getAttributes();
+			multiWeap.drawMainWeapons(this);
+			for(var i = 0; i < att.weaponCount; i++){
+				multiWeap.drawSecWeapons(this, i);
+			}
 			copterLib.drawBase(this);
-		},
-		drawWeapons(){
-			multiWeap.drawWeapons(this);
 		},
 		drawStats(){
 			this.super$drawStats();

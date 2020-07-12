@@ -12,6 +12,7 @@ require("mechanical-warfare/blocks/effect/core-sword")
 //units
 require("mechanical-warfare/units/ground-unit")
 require("mechanical-warfare/units/hover-unit")
+require("mechanical-warfare/units/flying-unit")
 require("mechanical-warfare/units/copter-unit")
 
 //mechs

@@ -1,0 +1,21 @@
+size: 3
+produceTime: 4000
+maxSpawn: 1
+consumes: {
+  power: 1.2
+  items: {
+    items: [
+	  lead/50
+	  silicon/30
+	  graphite/15
+	]
+  }
+}
+category: units
+research: draug-factory
+requirements: [
+  silicon/60
+  steel/60
+  aluminum/75
+  titanium/50
+]

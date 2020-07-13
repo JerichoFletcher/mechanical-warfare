@@ -31,6 +31,12 @@ bullhead.create(prov(() => {
 				unit.target = null;
 			},
 			update(){
+				targetEnemy = Units.closestEnemy(unit.team, unit.x, unit.y, unit.type.range, boolf(e => !e.isDead()));
+				if(targetEnemy != null){
+					unit.target = targetEnemy;
+					unit.setState(unit._attack);
+					return;
+				}
 				entity = unit.getClosestCore();
 				if(entity == null){return;}
 				unit.findItem();
@@ -41,12 +47,7 @@ bullhead.create(prov(() => {
 					unit.clearItem();
 					return;
 				}
-				targetEnemy = Units.closestEnemy(unit.team, unit.x, unit.y, unit.type.range, boolf(e => !e.isDead()));
-				if(targetEnemy != null){
-					unit.target = targetEnemy;
-					unit.setState(unit._attack);
-					return;
-				}else if(
+				if(
 					unit.item().amount >= unit.getItemCapacity() || 
 					(unit.targetItem != null && !unit.acceptsItem(unit.targetItem))
 				){
@@ -89,13 +90,14 @@ bullhead.create(prov(() => {
 					unit.setState(unit._mine);
 					return;
 				}
-				unit.target = unit.getClosestCore();
 				targetEnemy = Units.closestEnemy(unit.team, unit.x, unit.y, unit.type.range, boolf(e => !e.isDead()));
-				if(unit.target == null || targetEnemy != null){
+				if(targetEnemy != null){
 					unit.target = targetEnemy;
 					unit.setState(unit._attack);
 					return;
 				}
+				unit.target = unit.getClosestCore();
+				if(unit.target == null){return;}
 				entity = unit.target;
 				if(unit.dst(unit.target) < unit.type.range){
 					if(entity.block.acceptStack(unit.item().item, unit.item().amount, entity.tile, unit) > 0){

@@ -20,9 +20,9 @@ const supernovaLaser = extend(BasicBulletType, {
 		}
 	},
 	hit(b, x, y){
-		Effects.effect(this.hitEffect, this.colors[2], x, y);
+		Effects.effect(this.hitEffect, this.colors[2], b.x, b.y);
 		if(Mathf.chance(0.4)){
-			Fire.create(Vars.world.tileWorld(x + Mathf.range(5), y + Mathf.range(5)));
+			Fire.create(Vars.world.tileWorld(b.x + Mathf.range(5), b.y + Mathf.range(5)));
 		}
 	},
 	draw(b){
@@ -74,26 +74,27 @@ const supernovaStar = newEffect(45, e => {
 	const r = e.data;
 	elib.fillCircle(e.x + Angles.trnsx(a, d), e.y + Angles.trnsy(a, d), plib.frontColorCyan, 0.6 * e.fout(), r);
 });
-const supernovaStarHeatwave = newEffect(36, e => {
-	elib.outlineCircle(e.x, e.y, plib.frontColorCyan, e.fout() * 3, 75 * e.fin());
+const supernovaStarHeatwave = newEffect(40, e => {
+	elib.outlineCircle(e.x, e.y, plib.frontColorCyan, e.fout() * 3, 120 * e.fin());
 });
 const supernovaCharge = newEffect(20, e => {
 	const r = e.data;
 	elib.fillCircle(e.x, e.y, plib.frontColorCyan, 0.6 * e.fout(), Mathf.lerp(0.2, 1, e.fout()) * r);
 });
 const supernovaChargeBegin = newEffect(27, e => {
-	Draw.color(plib.frontColorCyan);
+	/*Draw.color(plib.frontColorCyan);
 	Angles.randLenVectors(e.id, Mathf.round(2 * e.data), 1 + 27 * e.fout(), new Floatc2(){get: (x, y) => {
 		Lines.lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), (1 + e.fslope() * 6) * e.data);
 	}});
-	Draw.color();
+	Draw.color();*/
+	elib.splashLines(e.x, e.y, plib.frontColorCyan, 1, 1 + 27 * e.fout(), (1 + e.fslope() * 6) * e.data, Mathf.round(2 * e.data), e.id);
 });
 const supernovaChargeStar = newEffect(30, e => {
-	elib.outlineCircle(e.x, e.y, plib.frontColorCyan, e.fin() * 3 * e.data, 90 * (1 - e.finpow()) * Mathf.lerp(0.2, 1, e.data));
+	elib.outlineCircle(e.x, e.y, plib.frontColorCyan, e.fin() * 2 * e.data, 150 * e.fout() * Mathf.lerp(0.1, 1, e.data));
 });
 const supernovaChargeStar2 = newEffect(27, e => {
 	const r = e.data;
-	elib.splashCircles(e.x, e.y, plib.frontColorCyan, 1, 2 * e.fin(), (1 - e.finpow()) * ((60 + r * 30) * (0.3 + Mathf.randomSeed(e.id, 0.7))), Mathf.round(3 * r), e.id);
+	elib.splashCircles(e.x, e.y, plib.frontColorCyan, 1, 2 * e.fin(), e.fout() * ((90 + r * 150) * (0.3 + Mathf.randomSeed(e.id, 0.7))), Mathf.round(3 * r), e.id);
 });
 
 const supernova = extendContent(ChargeTurret, "supernova", {
@@ -295,6 +296,7 @@ const supernova = extendContent(ChargeTurret, "supernova", {
 				entity.setBullet(null);
 			}
 		}else{
+			this.attractUnits(tile);
 			if(Mathf.chance(entity.getCharge() * entity.getCharge() * 0.75)){
 				Lightning.create(tile.getTeam(), plib.frontColorCyan, 8,
 					tile.drawx() - Angles.trnsx(entity.rotation, this.starOffset + entity.recoil),
@@ -313,6 +315,15 @@ const supernova = extendContent(ChargeTurret, "supernova", {
 	hasEnemyInProximity(tile){
 		var entity = tile.ent();
 		return Units.closestTarget(entity.getTeam(), tile.drawx(), tile.drawy(), this.range, boolf(unit => !unit.isDead())) != null;
+	},
+	attractUnits(tile){
+		var entity = tile.ent();
+		Units.nearby(tile.drawx() - this.range * 2, tile.drawy() - this.range * 2, this.range * 4, this.range * 4, cons(unit => {
+			if(!unit.isDead() && unit.withinDst(tile.drawx(), tile.drawy(), this.range * 2)){
+				Tmp.v1.set(tile.drawx() - unit.x, tile.drawy() - unit.y).rotate(10 * (1 - entity.getCharge())).setLength(this.attractionStrength * entity.getCharge() * Time.delta()).scl(unit.dst(tile) / this.range / 2);
+				unit.velocity().add(Tmp.v1);
+			}
+		}));
 	},
 	updateCharge(tile){
 		var entity = tile.ent();
@@ -471,14 +482,15 @@ supernova.heatDrawer = new Cons2(){get: (tile, entity) => {
 	Draw.blend();
 	Draw.color();
 }}
-supernova.baseExplosiveness = 15;
+supernova.attractionStrength = 0.85;
+supernova.baseExplosiveness = 25;
 supernova.timerChargeStar = supernova.timers++;
 supernova.turretLength = 7 / 2;
 supernova.outlineIcon = false;
 supernova.starRadius = 8;
 supernova.starOffset = 8 / 4;
 supernova.shootType = supernovaLaser;
-supernova.firingMoveFract = 0.167;
+supernova.firingMoveFract = 0.2;
 supernova.shootDuration = 480;
 supernova._chargeWarmup = 0.002;
 supernova._chargeCooldown = 0.01;

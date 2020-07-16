@@ -6,6 +6,7 @@ const spectrumLaser = extend(BasicBulletType, {
 		entity = b.getOwner();
 		tile = entity.tile;
 		block = entity.block;
+		if(entity == null || tile == null || tile.ent() == null){return;}
 		col = Color.valueOf("ffaaaa").shiftHue(entity.getPrismPeriod());
 		tx = tile.drawx() + Angles.trnsx(entity.rotation - 90, 0, block.getPrismTop(tile));
 		ty = tile.drawy() + Angles.trnsy(entity.rotation - 90, 0, block.getPrismTop(tile));

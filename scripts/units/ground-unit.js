@@ -153,8 +153,8 @@ const nullPointer = extendContent(Weapon, "null-pointer", {
     this.region = Core.atlas.find("mechanical-warfare-null-pointer-equip");
   }
 });
-nullPointer.length = 18;
-nullPointer.width = 30;
+nullPointer.length = 21.5;
+nullPointer.width = 30.25;
 nullPointer.reload = 60;
 nullPointer.alternate = true;
 nullPointer.recoil = 6;

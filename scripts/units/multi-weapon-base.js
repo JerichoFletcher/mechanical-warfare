@@ -58,20 +58,24 @@ module.exports = {
 						left = Mathf.booleans[j];
 						wi = Mathf.num(left);
 						wx = base.x + Angles.trnsx(base.rotation - 90, weap.width * Mathf.sign(left));
-						wy = base.y = Angles.trnsy(base.rotation - 90, weap.width * Mathf.sign(left));
-						if(base.target.getTeam().isEnemy(base.getTeam())){
-							if(base.target.withinDst(base.x, base.y, ammo.range())){
-								att.weaponAngles[i][wi] = Mathf.slerpDelta(att.weaponAngles[i][wi], Angles.angle(wx, wy, base.target.getX(), base.target.getY()), 0.1);
-							}else{
-								att.weaponAngles[i][wi] = Mathf.slerpDelta(att.weaponAngles[i][wi], base.rotation - 90, 0.1);
-							}
-						}
+						wy = base.y + Angles.trnsy(base.rotation - 90, weap.width * Mathf.sign(left));
+						att.weaponAngles[i][wi] = Mathf.clamp(
+							Mathf.slerpDelta(att.weaponAngles[i][wi], Angles.angle(wx, wy, base.target.getX(), base.target.getY()), 0.1),
+							base.rotation - att.shootCone[i] / 2,
+							base.rotation + att.shootCone[i] / 2
+						);
 						Tmp.v2.trns(att.weaponAngles[i][wi], weap.length);
 						weap.updateB(base, wx + Tmp.v2.x, wy + Tmp.v2.y, att.weaponAngles[i][wi], left);
 					}
 				}else{
 					to = Predict.intercept(base, base.target, ammo.speed);
 					weap.update(base, to.x, to.y);
+				}
+			}else if(att.rotateWeapon[i]){
+				for(var j = 0; j < 2; j++){
+					left = Mathf.booleans[j];
+					wi = Mathf.num(left);
+					att.weaponAngles[i][wi] = Mathf.slerpDelta(att.weaponAngles[i][wi], base.rotation, 0.1);
 				}
 			}
 		}
@@ -132,7 +136,7 @@ module.exports = {
 					customShoot(weap, shooter, x, y, rotation, left);
 				}
 				ammo = weap.bullet;
-				Tmp.v1.trns(rotation + 180, ammo.recoil);
+				Tmp.v1.trns(rotation + 180, ammo.recoil == null ? 0 : ammo.recoil);
 				shooter.velocity().add(Tmp.v1);
 				Tmp.v1.trns(rotation, 3);
 				Effects.effect(weap.ejectEffect, x, y, rotation * -Mathf.sign(left));
@@ -183,7 +187,11 @@ module.exports = {
 			bulletB(owner, x, y, angle){
 				if(owner == null){return;}
 				Tmp.v1.trns(angle, 3.0);
-				Bullet.create(this.bullet, owner, owner.getTeam(), x + Tmp.v1.x, y + Tmp.v1.y, angle, 1.0 - this.velocityRnd + Mathf.random(this.velocityRnd));
+				if(customBullet == null){
+					Bullet.create(this.bullet, owner, owner.getTeam(), x + Tmp.v1.x, y + Tmp.v1.y, angle, 1.0 - this.velocityRnd + Mathf.random(this.velocityRnd));
+				}else{
+					customBullet(owner, x, y, angle, Tmp.v1);
+				}
 			},
 			getRecoil(shooter, left){
 				return (1.0 - Mathf.clamp(shooter.getTimer2().getTime(shooter.getShootTimer2(index, left)) / this.reload)) * this.recoil;

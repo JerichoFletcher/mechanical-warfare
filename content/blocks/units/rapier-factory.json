@@ -1,0 +1,18 @@
+size: 3
+maxSpawn: 4
+consumes: {
+  power: 1.1
+  items: {
+    items: [
+	  silicon/12
+	  scrap-plate/10
+	]
+  }
+}
+category: units
+research: scrapper-factory
+requirements: [
+  lead/75
+  silicon/35
+  scrap-plate/50
+]

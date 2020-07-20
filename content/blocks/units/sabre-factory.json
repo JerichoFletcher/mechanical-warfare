@@ -16,7 +16,7 @@ consumes: {
 }
 hasLiquids: true
 category: units
-research: titan-factory
+research: rapier-factory
 requirements: [
   lead/95
   silicon/60

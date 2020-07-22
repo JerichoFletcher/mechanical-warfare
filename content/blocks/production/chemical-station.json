@@ -5,7 +5,6 @@ hasItems: true
 hasLiquids: true
 liquidCapacity: 60
 craftTime: 60
-update: true
 updateEffect: producesmoke
 consumes: {
   power: 3

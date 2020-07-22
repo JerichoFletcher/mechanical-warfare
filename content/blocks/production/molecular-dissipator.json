@@ -1,0 +1,26 @@
+size: 4
+hasPower: true
+hasLiquids: false
+craftTime: 60
+update: true
+consumes: {
+	items: {
+		items: [
+			radioactive-spore-pod/1
+		]
+	}
+	power: 30
+}
+outputItems: [
+	spore-pod/1
+	uranium/1
+	thorium/3
+]
+requirements: [
+	lead/100
+	silicon/120
+	uranium/80
+	aluminum/80
+]
+category: crafting
+research: dissolver

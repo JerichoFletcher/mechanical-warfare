@@ -238,6 +238,156 @@ insulatingCompound.entityType = prov(() => {
 	return entity;
 });
 
+// Polluter
+const polluter = extendContent(LiquidConverter, "polluter", {
+	load(){
+		this.super$load();
+		this.region = Core.atlas.find(this.name);
+		this.liquidRegion = Core.atlas.find(this.name + "-liquid");
+		this.rotatorRegion = Core.atlas.find(this.name + "-rotator");
+		this.topRegion = Core.atlas.find(this.name + "-top");
+	},
+	update(tile){
+		this.super$update(tile);
+		entity = tile.ent();
+		entity.setRot(entity.getRot() + entity.warmup * this.rotateSpeed);
+		print(entity.getRot());
+	},
+	generateIcons(){
+		return [
+			Core.atlas.find(this.name),
+			Core.atlas.find(this.name + "-rotator"),
+			Core.atlas.find(this.name + "-top")
+		];
+	}
+});
+polluter.drawer = cons(tile => {
+	entity = tile.ent();
+	Draw.rect(polluter.region, tile.drawx(), tile.drawy());
+	Draw.color(entity.liquids.current().color);
+	Draw.alpha(entity.liquids.total() / polluter.liquidCapacity);
+	Draw.rect(polluter.liquidRegion, tile.drawx(), tile.drawy());
+	Draw.color();
+	Draw.rect(polluter.rotatorRegion, tile.drawx(), tile.drawy(), entity.getRot() - 90);
+	Draw.rect(polluter.topRegion, tile.drawx(), tile.drawy());
+});
+polluter.rotateSpeed = 3;
+polluter.entityType = prov(() => {
+	const entity = extend(GenericCrafter.GenericCrafterEntity, {
+		setRot(val){
+			this._rot = val;
+		},
+		getRot(){
+			return this._rot;
+		}
+	});
+	entity.setRot(0);
+	return entity;
+});
+
+// Dissolver
+const dissolver = extendContent(LiquidConverter, "dissolver", {
+	load(){
+		this.super$load();
+		this.region = Core.atlas.find(this.name);
+		this.liquidRegion = Core.atlas.find(this.name + "-liquid");
+		this.rotatorRegion = Core.atlas.find(this.name + "-rotator");
+		this.topRegion = Core.atlas.find(this.name + "-top");
+	},
+	update(tile){
+		this.super$update(tile);
+		entity = tile.ent();
+		entity.setRot(entity.getRot() + entity.warmup * this.rotateSpeed);
+	},
+	generateIcons(){
+		return [
+			Core.atlas.find(this.name),
+			Core.atlas.find(this.name + "-rotator"),
+			Core.atlas.find(this.name + "-top")
+		];
+	}
+});
+dissolver.drawer = cons(tile => {
+	entity = tile.ent();
+	Draw.rect(dissolver.region, tile.drawx(), tile.drawy());
+	Draw.color(entity.liquids.current().color);
+	Draw.alpha(entity.liquids.total() / dissolver.liquidCapacity);
+	Draw.rect(dissolver.liquidRegion, tile.drawx(), tile.drawy());
+	Draw.color();
+	Draw.rect(dissolver.rotatorRegion, tile.drawx(), tile.drawy(), entity.getRot() - 90);
+	Draw.rect(dissolver.topRegion, tile.drawx(), tile.drawy());
+});
+dissolver.rotateSpeed = 4;
+dissolver.entityType = prov(() => {
+	const entity = extend(GenericCrafter.GenericCrafterEntity, {
+		setRot(val){
+			this._rot = val;
+		},
+		getRot(){
+			return this._rot;
+		}
+	});
+	entity.setRot(0);
+	return entity;
+});
+
+// Dissipator
+const dissipator = extendContent(GenericCrafter, "molecular-dissipator", {
+	load(){
+		this.super$load();
+		this.region = Core.atlas.find(this.name);
+		this.rotatorRegion = Core.atlas.find(this.name + "-rotator");
+		this.sporeRegion = Core.atlas.find(this.name + "-liquid");
+		this.topRegion = Core.atlas.find(this.name + "-top");
+	},
+	update(tile){
+		this.super$update(tile);
+		entity = tile.ent();
+		entity.setRot(entity.getRot() + entity.warmup * this.rotateSpeed);
+		entity.setAlpha(Mathf.lerpDelta(entity.getAlpha(), entity.items.get(Vars.content.getByName(ContentType.item, "mechanical-warfare-radioactive-spore-pod")) / this.itemCapacity, 0.01));
+	},
+	generateIcons(){
+		return [
+			Core.atlas.find(this.name),
+			Core.atlas.find(this.name + "-rotator"),
+			Core.atlas.find(this.name + "-top")
+		];
+	},
+	draw(tile){
+		this.drawer.get(tile);
+	}
+});
+dissipator.drawer = cons(tile => {
+	entity = tile.ent();
+	Draw.rect(dissipator.region, tile.drawx(), tile.drawy());
+	Draw.color(Vars.content.getByName(ContentType.item, "mechanical-warfare-radioactive-spore-pod").color);
+	Draw.alpha(entity.getAlpha());
+	Draw.rect(dissipator.sporeRegion, tile.drawx(), tile.drawy());
+	Draw.color();
+	Draw.rect(dissipator.rotatorRegion, tile.drawx(), tile.drawy(), entity.getRot() - 90);
+	Draw.rect(dissipator.topRegion, tile.drawx(), tile.drawy());
+});
+dissipator.rotateSpeed = 5;
+dissipator.entityType = prov(() => {
+	const entity = extend(GenericCrafter.GenericCrafterEntity, {
+		setRot(val){
+			this._rot = val;
+		},
+		getRot(){
+			return this._rot;
+		},
+		setAlpha(val){
+			this._alpha = val;
+		},
+		getAlpha(){
+			return this._alpha;
+		}
+	});
+	entity.setRot(0);
+	entity.setAlpha(0);
+	return entity;
+});
+
 // MK2 Module Assembler
 const mk2Assembler = extendContent(GenericCrafter, "mk2-assembler", {
   load(){

@@ -92,65 +92,72 @@ viperMissile.hitEffect = Fx.blastExplosion;
 viperMissile.trailColor = viperMissile.backColor;
 
 const att = {
-	weaponCount: 2,
-	rotateWeapon: [],
-	weaponAngles: [],
-	shootCone: [],
-	weaponOffsetY: [],
-	weapon: [],
-	rotorCount: 2,
-	rotor: [],
-}
-for(var i = 0; i < att.rotorCount; i++){
-	sign = Mathf.signs[i];
-	att.rotor[i] = {
-		offset: 4 + sign * 10.5,
-		width: 0,
-		speed: 39.11,
-		scale: 1.2,
-		bladeCount: 3,
-		bladeRegion: Core.atlas.find("mechanical-warfare-rotor-blade2"),
-		topRegion: Core.atlas.find("mechanical-warfare-rotor-top")
+	load(){
+		this.weaponCount = 2;
+		this.rotateWeapon = [];
+		this.weaponAngles = [];
+		this.shootCone = [];
+		this.weaponOffsetY = [];
+		this.weapon = [];
+		this.rotorCount = 2;
+		this.rotor = [];
+		
+		for(var i = 0; i < this.rotorCount; i++){
+			sign = Mathf.signs[i];
+			this.rotor[i] = {
+				offset: 4 + sign * 10.5,
+				width: 0,
+				speed: 39.11,
+				scale: 1.2,
+				bladeCount: 3,
+				bladeRegion: Core.atlas.find("mechanical-warfare-rotor-blade2"),
+				topRegion: Core.atlas.find("mechanical-warfare-rotor-top")
+			}
+		}
+		
+		for(var i = 0; i < this.weaponCount; i++){
+			this.weaponAngles[i] = [0.0, 0.0];
+			this.shootCone[i] = 30;
+			this.weaponOffsetY[i] = 0.0;
+			this.rotateWeapon[i] = false;
+		}
+		
+		this.weapon[0] = multiWeap.newWeapon("viper-lasergun", 0, (weap, shooter, x, y, rotation, left) => {
+			weap.shootSound.at(x, y, Mathf.random(1.8, 2.0));
+			Angles.shotgun(weap.shots, weap.spacing, rotation, new Floatc(){get: f => {
+				weap.bulletB(shooter, x, y, f);
+			}});
+		}, null);
+		
+		this.weapon[0].width = 7;
+		this.weapon[0].length = 8;
+		this.weapon[0].recoil = 2;
+		this.weapon[0].alternate = false;
+		this.weapon[0].inaccuracy = 0;
+		this.weapon[0].reload = 80;
+		this.weapon[0].ejectEffect = Fx.none;
+		this.weapon[0].shootSound = Sounds.shotgun;
+		this.weapon[0].bullet = viperLaser;
+
+		this.weapon[1] = multiWeap.newWeapon("viper-launcher", 1, null, null);
+		this.weapon[1].width = 7;
+		this.weapon[1].length = 3.5;
+		this.weapon[1].recoil = 2.3;
+		this.weapon[1].shots = 3;
+		this.weapon[1].alternate = true;
+		this.weapon[1].inaccuracy = 3;
+		this.weapon[1].reload = 60;
+		this.weapon[1].ejectEffect = Fx.shellEjectBig;
+		this.weapon[1].shootSound = Sounds.missile;
+		this.weapon[1].bullet = viperMissile;
 	}
 }
-for(var i = 0; i < att.weaponCount; i++){
-	att.weaponAngles[i] = [0.0, 0.0];
-	att.shootCone[i] = 30;
-	att.weaponOffsetY[i] = 0.0;
-	att.rotateWeapon[i] = false;
-}
-att.weapon[0] = multiWeap.newWeapon("viper-lasergun", 0, (weap, shooter, x, y, rotation, left) => {
-	weap.shootSound.at(x, y, Mathf.random(1.8, 2.0));
-	Angles.shotgun(weap.shots, weap.spacing, rotation, new Floatc(){get: f => {
-		weap.bulletB(shooter, x, y, f);
-	}});
-}, null);
-att.weapon[0].width = 7;
-att.weapon[0].length = 8;
-att.weapon[0].recoil = 2;
-att.weapon[0].alternate = false;
-att.weapon[0].inaccuracy = 0;
-att.weapon[0].reload = 80;
-att.weapon[0].ejectEffect = Fx.none;
-att.weapon[0].shootSound = Sounds.shotgun;
-att.weapon[0].bullet = viperLaser;
-
-att.weapon[1] = multiWeap.newWeapon("viper-launcher", 1, null, null);
-att.weapon[1].width = 7;
-att.weapon[1].length = 3.5;
-att.weapon[1].recoil = 2.3;
-att.weapon[1].shots = 3;
-att.weapon[1].alternate = true;
-att.weapon[1].inaccuracy = 3;
-att.weapon[1].reload = 60;
-att.weapon[1].ejectEffect = Fx.shellEjectBig;
-att.weapon[1].shootSound = Sounds.missile;
-att.weapon[1].bullet = viperMissile;
 
 const viperUnit = extendContent(UnitType, "viper", {
 	load(){
 		this.weapon.load();
 		this.region = Core.atlas.find(this.name);
+		att.load();
 	},
 	getAttributes(){
 		return att;

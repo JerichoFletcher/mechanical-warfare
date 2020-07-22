@@ -107,63 +107,66 @@ apollyonLauncher.shootSound = Sounds.artillery;
 apollyonLauncher.bullet = apollyonMissile;
 apollyonLauncher.velocityRnd = 0.2;
 
-const apollyonAtt = {
-	weaponCount: 3,
-	rotateWeapon: [false, true, true],
-	weaponAngles: [
-		[0.0, 0.0],
-		[0.0, 0.0],
-		[0.0, 0.0]
-	],
-	shootCone: [30, 20, 60],
-	weaponOffsetY: [0, -5.75, 12],
-	weapon: [],
+const att = {
+	load(){
+		this.weaponCount = 3;
+		this.rotateWeapon = [false, true, true];
+		this.weaponAngles = [
+			[0.0, 0.0],
+			[0.0, 0.0],
+			[0.0, 0.0]
+		];
+		this.shootCone = [30, 20, 60];
+		this.weaponOffsetY = [0, -5.75, 12];
+		this.weapon = [];
+		this.weapon[0] = multiWeap.newWeapon("apollyon-machine-gun", 0, null, null);
+		this.weapon[0].width = 8.25;
+		this.weapon[0].length = 16.75;
+		this.weapon[0].recoil = 1.8;
+		this.weapon[0].alternate = true;
+		this.weapon[0].inaccuracy = 3;
+		this.weapon[0].reload = 6;
+		this.weapon[0].ejectEffect = Fx.shellEjectBig;
+		this.weapon[0].shootSound = Sounds.shootBig;
+		this.weapon[0].bullet = apollyonBullet;
+		
+		this.weapon[1] = multiWeap.newWeapon("apollyon-sniper", 1, null, null);
+		this.weapon[1].width = 13;
+		this.weapon[1].length = 1;
+		this.weapon[1].recoil = 2.5;
+		this.weapon[1].alternate = true;
+		this.weapon[1].inaccuracy = 0;
+		this.weapon[1].reload = 50;
+		this.weapon[1].ejectEffect = Fx.shellEjectBig;
+		this.weapon[1].shootSound = Sounds.shootBig;
+		this.weapon[1].bullet = apollyonHVBullet;
+		
+		this.weapon[2] = multiWeap.newWeapon("apollyon-lasergun", 2, (weap, shooter, x, y, rotation, left) => {
+			weap.shootSound.at(x, y, Mathf.random(1.8, 2.0));
+				Angles.shotgun(weap.shots, weap.spacing, rotation, new Floatc(){get: f => {
+					weap.bulletB(shooter, x, y, f);
+				}});
+			}, null);
+		this.weapon[2].width = 18;
+		this.weapon[2].length = 19;
+		this.weapon[2].recoil = 2.5;
+		this.weapon[2].alternate = false;
+		this.weapon[2].inaccuracy = 0;
+		this.weapon[2].reload = 60;
+		this.weapon[2].ejectEffect = Fx.none;
+		this.weapon[2].shootSound = Sounds.shotgun;
+		this.weapon[2].bullet = apollyonLaser;
+	}
 }
-apollyonAtt.weapon[0] = multiWeap.newWeapon("apollyon-machine-gun", 0, null, null);
-apollyonAtt.weapon[0].width = 8.25;
-apollyonAtt.weapon[0].length = 16.75;
-apollyonAtt.weapon[0].recoil = 1.8;
-apollyonAtt.weapon[0].alternate = true;
-apollyonAtt.weapon[0].inaccuracy = 3;
-apollyonAtt.weapon[0].reload = 6;
-apollyonAtt.weapon[0].ejectEffect = Fx.shellEjectBig;
-apollyonAtt.weapon[0].shootSound = Sounds.shootBig;
-apollyonAtt.weapon[0].bullet = apollyonBullet;
-
-apollyonAtt.weapon[1] = multiWeap.newWeapon("apollyon-sniper", 1, null, null);
-apollyonAtt.weapon[1].width = 13;
-apollyonAtt.weapon[1].length = 1;
-apollyonAtt.weapon[1].recoil = 2.5;
-apollyonAtt.weapon[1].alternate = true;
-apollyonAtt.weapon[1].inaccuracy = 0;
-apollyonAtt.weapon[1].reload = 50;
-apollyonAtt.weapon[1].ejectEffect = Fx.shellEjectBig;
-apollyonAtt.weapon[1].shootSound = Sounds.shootBig;
-apollyonAtt.weapon[1].bullet = apollyonHVBullet;
-
-apollyonAtt.weapon[2] = multiWeap.newWeapon("apollyon-lasergun", 2, (weap, shooter, x, y, rotation, left) => {
-	weap.shootSound.at(x, y, Mathf.random(1.8, 2.0));
-	Angles.shotgun(weap.shots, weap.spacing, rotation, new Floatc(){get: f => {
-		weap.bulletB(shooter, x, y, f);
-	}});
-}, null);
-apollyonAtt.weapon[2].width = 18;
-apollyonAtt.weapon[2].length = 19;
-apollyonAtt.weapon[2].recoil = 2.5;
-apollyonAtt.weapon[2].alternate = false;
-apollyonAtt.weapon[2].inaccuracy = 0;
-apollyonAtt.weapon[2].reload = 60;
-apollyonAtt.weapon[2].ejectEffect = Fx.none;
-apollyonAtt.weapon[2].shootSound = Sounds.shotgun;
-apollyonAtt.weapon[2].bullet = apollyonLaser;
 
 const apollyon = extendContent(UnitType, "apollyon", {
 	load(){
 		this.weapon.load();
 		this.region = Core.atlas.find(this.name);
+		att.load();
 	},
 	getAttributes(){
-		return apollyonAtt;
+		return att;
 	},
 	getEngineColor(){
 		return plib.engineColorPurple;
@@ -174,7 +177,7 @@ apollyon.create(prov(() => {
 	base = extend(HoverUnit, {
 		update(){
 			this.super$update();
-			if(this.target !== null){
+			if(this.target != null){
 				multiWeap.updateWeapons(this);
 			}
 		},

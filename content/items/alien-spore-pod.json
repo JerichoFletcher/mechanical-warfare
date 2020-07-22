@@ -1,0 +1,5 @@
+type: resource
+cost: 1.7
+explosiveness: 1
+flammability: 0.5
+radioactivity: 6

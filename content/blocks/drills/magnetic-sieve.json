@@ -1,9 +1,6 @@
 size: 2
 hasItems: true
 hasPower: true
-updateEffect: generatespark
-updateEffectChance: 0.05
-craftEffect: mineBig
 craftTime: 20
 itemCapacity: 20
 consumes: {

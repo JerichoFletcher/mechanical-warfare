@@ -43,44 +43,45 @@ serpentWeapon.shootSound = Sounds.shootSnap;
 serpentWeapon.bullet = serpentBullet;
 
 const att = {
-	weaponCount: 1,
-	rotateWeapon: [],
-	weaponAngles: [],
-	shootCone: [],
-	weaponOffsetY: [],
-	weapon: [],
-	rotorCount: 1,
-	rotor: [],
+	load(){
+		this.weaponCount = 1;
+		this.rotateWeapon = [];
+		this.weaponAngles = [[0.0, 0.0]];
+		this.shootCone = [30];
+		this.weaponOffsetY = [0.0];
+		this.weapon = [];
+		this.rotorCount = 1;
+		this.rotor = [];
+		
+		this.weapon[0] = multiWeap.newWeapon("serpent-launcher", 0, null, null);
+		this.weapon[0].width = 4.25;
+		this.weapon[0].length = 1;
+		this.weapon[0].recoil = 1.5;
+		this.weapon[0].alternate = true;
+		this.weapon[0].inaccuracy = 3;
+		this.weapon[0].reload = 80;
+		this.weapon[0].shootCone = 45;
+		this.weapon[0].ejectEffect = Fx.shellEjectBig;
+		this.weapon[0].shootSound = Sounds.missile;
+		this.weapon[0].bullet = serpentMissile;
+		
+		this.rotor[0] = {
+			offset: 5,
+			width: 0,
+			speed: 39.11,
+			scale: 1.4,
+			bladeCount: 4,
+			bladeRegion: Core.atlas.find("mechanical-warfare-rotor-blade"),
+			topRegion: Core.atlas.find("mechanical-warfare-rotor-top")
+		}
+	}
 }
-att.rotor[0] = {
-	offset: 5,
-	width: 0,
-	speed: 39.11,
-	scale: 1.4,
-	bladeCount: 4,
-	bladeRegion: Core.atlas.find("mechanical-warfare-rotor-blade"),
-	topRegion: Core.atlas.find("mechanical-warfare-rotor-top")
-}
-att.weaponAngles[0] = [0.0, 0.0];
-att.shootCone[0] = 30;
-att.weaponOffsetY[0] = 0.0;
-att.rotateWeapon[0] = false;
-att.weapon[0] = multiWeap.newWeapon("serpent-launcher", 0, null, null);
-att.weapon[0].width = 4.25;
-att.weapon[0].length = 1;
-att.weapon[0].recoil = 1.5;
-att.weapon[0].alternate = true;
-att.weapon[0].inaccuracy = 3;
-att.weapon[0].reload = 80;
-att.weapon[0].shootCone = 45;
-att.weapon[0].ejectEffect = Fx.shellEjectBig;
-att.weapon[0].shootSound = Sounds.missile;
-att.weapon[0].bullet = serpentMissile;
 
 const serpentUnit = extendContent(UnitType, "serpent", {
 	load(){
 		this.weapon.load();
 		this.region = Core.atlas.find(this.name);
+		att.load();
 	},
 	getAttributes(){
 		return att;

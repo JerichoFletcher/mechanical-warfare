@@ -1,7 +1,7 @@
-importPackage(Packages.mindustry.net);
+/*importPackage(Packages.mindustry.net);
 importPackage(Packages.mindustry.io);
 importPackage(Packages.arc.util.pooling);
-tempBuffer = java.nio.ByteBuffer.allocate(4096);
+tempBuffer = java.nio.ByteBuffer.allocate(4096);*/
 module.exports = {
 	drawMainWeapons(base){
 		Draw.mixcol(Color.white, base.hitTime / base.hitDuration);
@@ -46,6 +46,7 @@ module.exports = {
 	},
 	updateWeapons(base){
 		att = base.type.getAttributes();
+		rotated = false;
 		for(var i = 0; i < att.weaponCount; i++){
 			weap = att.weapon[i];
 			ammo = weap.bullet;
@@ -54,6 +55,7 @@ module.exports = {
 				base.dst(base.target) < ammo.range()
 			){
 				if(att.rotateWeapon[i]){
+					rotated = true;
 					for(var j = 0; j < 2; j++){
 						left = Mathf.booleans[j];
 						wi = Mathf.num(left);
@@ -69,9 +71,10 @@ module.exports = {
 					}
 				}else{
 					to = Predict.intercept(base, base.target, ammo.speed);
-					weap.update(base, to.x, to.y);
+					weap.updateA(base, to.x, to.y);
 				}
-			}else if(att.rotateWeapon[i]){
+			}
+			if(rotated == false){
 				for(var j = 0; j < 2; j++){
 					left = Mathf.booleans[j];
 					wi = Mathf.num(left);
@@ -85,7 +88,7 @@ module.exports = {
 			getRegion(){
 				return Core.atlas.find("mechanical-warfare-" + name + "-equip");
 			},
-			update(shooter, pointerX, pointerY){
+			updateA(shooter, pointerX, pointerY){
 				for(var i = 0; i < 2; i++){
 					j = Mathf.booleans[i];
 					Tmp.v1.set(pointerX, pointerY).sub(shooter.getX(), shooter.getY());
@@ -143,14 +146,14 @@ module.exports = {
 				Effects.effect(ammo.shootEffect, x + Tmp.v1.x, y + Tmp.v1.y, rotation, shooter);
 				Effects.effect(ammo.smokeEffect, x + Tmp.v1.x, y + Tmp.v1.y, rotation, shooter);
 				shooter.getTimer2().get(shooter.getShootTimer2(index, left), weap.reload);
-				// Manual Synchronization
+				/*// Manual Synchronization
 				if(shooter instanceof BaseUnit){
 					this.syncUnit(shooter, offsetX, offsetY, rotation, left);
 				}else{
 					this.syncPlayer(shooter, offsetX, offsetY, rotation, left);
-				}
+				}*/
 			},
-			syncUnit(shooter, x, y, rotation, left){
+			/*syncUnit(shooter, x, y, rotation, left){
 				if(Vars.net.client()){return;}
 				if(shooter == null){return;}
 				if(shooter == Vars.player){return;}
@@ -183,9 +186,10 @@ module.exports = {
 				tempBuffer.put(left ? 0 : 1);
 				packet.writeLength = tempBuffer.position();
 				Vars.net.send(packet, Net.SendMode.udp);
-			},
+			},*/
 			bulletB(owner, x, y, angle){
 				if(owner == null){return;}
+				print("Bullet");
 				Tmp.v1.trns(angle, 3.0);
 				if(customBullet == null){
 					Bullet.create(this.bullet, owner, owner.getTeam(), x + Tmp.v1.x, y + Tmp.v1.y, angle, 1.0 - this.velocityRnd + Mathf.random(this.velocityRnd));

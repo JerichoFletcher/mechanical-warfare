@@ -30,8 +30,8 @@ const projGoogol = extendContent(UnitType, "project-googol", {
 
 const googolBullet = extend(BasicBulletType, {});
 googolBullet.keepVelocity = false;
-googolBullet.damage = 12;
-googolBullet.speed = 2.4;
+googolBullet.damage = 11;
+googolBullet.speed = 2.7;
 googolBullet.lifetime = 90;
 
 const googolBlaster = extendContent(Weapon, "googol-blaster", {
@@ -39,12 +39,12 @@ const googolBlaster = extendContent(Weapon, "googol-blaster", {
 		this.region = Core.atlas.find("clear");
 	}
 });
-googolBlaster.reload = 30;
+googolBlaster.reload = 45;
 googolBlaster.bullet = googolBullet;
 
 projGoogol.weapon = googolBlaster;
 projGoogol.shootCone = 90;
 projGoogol.create(prov(() => {
-	unit = wormlib.newBase(15, 11, 0.1, 48);
+	unit = wormlib.newBase(15, 11, 0.1, 48, true);
 	return unit;
 }));

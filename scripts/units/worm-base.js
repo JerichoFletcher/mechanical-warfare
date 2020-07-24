@@ -9,7 +9,7 @@ const flareEffect = newEffect(18, e => {
 });
 
 module.exports = {
-	newBase(segments, segmentOffset, turnSpeed, headDamage){
+	newBase(segments, segmentOffset, turnSpeed, headDamage, canSplit){
 		base = extend(FlyingUnit, {
 			added(){
 				this.super$added();
@@ -47,11 +47,13 @@ module.exports = {
 			behavior(){
 				this.super$behavior();
 				if(this.timer.get(4, 5)){
-					h = this.type.hitsize;
-					Damage.damage(this.getTeam(), this.x, this.y, h * 2, headDamage);
-					Units.nearbyEnemies(this.getTeam(), this.x - 2 * h, this.y - 2 * h, h * 4, h * 4, cons(other => {
-						if(other.withinDst(this, 2 * h)){
-							Effects.effect(flareEffect, (this.x + other.getX()) / 2, (this.y + other.getY()) / 2, this.rotation + this.angleTo(other) / 2);
+					h = this.type.hitsize * 1.4;
+					m = this.isHead() ? 1 : 0.25;
+					Damage.damage(this.getTeam(), this.x, this.y, h, headDamage * m);
+					Units.nearbyEnemies(this.getTeam(), this.x - h, this.y - h, h * 2, h * 2, cons(other => {
+						if(other.withinDst(this, h)){
+							Tmp.v1.trns(this.angleTo(other), this.dst(other) / 2);
+							Effects.effect(flareEffect, this.x + Tmp.v1.x, this.y + Tmp.v1.y, this.rotation);
 						}
 					}));
 				}
@@ -84,18 +86,21 @@ module.exports = {
 					}
 					Tmp.v1.trns(this.angleTo(this.parent()), this.parent().velocity().len());
 					if(!this.withinDst(this.parent(), segmentOffset)){
-						Tmp.v1.scl(1.01 * this.dst(this.parent()) / segmentOffset);
+						Tmp.v1.scl(1.02 * this.dst(this.parent()) / segmentOffset);
 					}
 					this.velocity().add(Tmp.v1);
 					//this.velocity().setLength(this.parent().velocity().len()).rotate(this.angleTo(this.parent())).scl(Time.delta() * segmentOffset / this.dst(this.parent()));
 				}
+				/*if(!this.isHead()){
+					this.velocity().trns(Mathf.slerpDelta(this.velocity().angle(), this.parent().rotation, 0.5), this.parent().velocity().len());
+				}*/
 			},
 			updateRotation(){
 				if(this.isHead()){
 					this.rotation = this.velocity().angle();
 					return;
 				}
-				Tmp.v2.trns(this.parent().rotation + 180, segmentOffset / 4);
+				Tmp.v2.trns(this.parent().rotation + 180, segmentOffset / 5);
 				this.rotation = this.angleTo(this.parent().x + Tmp.v2.x, this.parent().y + Tmp.v2.y);
 			},
 			circle(circleLength, speed){
@@ -115,11 +120,28 @@ module.exports = {
 					Tmp.v1.setAngle(this.velocity().angle());
 				}else{
 					var m = 1;
-					if(this.child() != null){m = this.childs().length / segments;}
+					if(this.child() != null){m = 1 - 0.33 * this.childs().length / segments;}
 					Tmp.v1.setAngle(Mathf.slerpDelta(this.velocity().angle(), Tmp.v1.angle(), m * turnSpeed));
 				}
 				Tmp.v1.setLength(this.type.speed * Time.delta());
 				this.velocity().add(Tmp.v1);
+			},
+			damage(amount){
+				if(canSplit){
+					this.super$damage(amount);
+				}else{
+					if(this.isHead()){
+						for(var i = this.childs().length - 1; i >= 0; i--){
+							Vars.unitGroup.getByID(this.childs()[i]).damageB(amount / (this.childs().length + 1));
+						}
+						this.super$damage(amount / (this.childs().length + 1));
+					}else{
+						this.head().damage(amount);
+					}
+				}
+			},
+			damageB(amount){
+				this.super$damage(amount);
 			},
 			onDeath(){
 				if(!this.isTail() && this.child() != null){
@@ -131,8 +153,12 @@ module.exports = {
 				this.super$onDeath();
 			},
 			draw(){
-				//if(!this.isTail()){return;}
-				this.drawB();
+				if(this.isTail() || (this.isHead() && this.child() == null)){
+					this.drawB();
+				}
+			},
+			drawSize(){
+				return !this.isTail() ? (this.type.hitsize * segments) : (segments * segmentOffset * 2);
 			},
 			drawB(){
 				Draw.mixcol(Color.white, this.hitTime / 9);
@@ -168,6 +194,9 @@ module.exports = {
 			segmentName(){
 				return this.isHead() ? "head" : (this.isBody() ? "body" : "tail");
 			},
+			setDraw(draw){
+				this._doDraw = draw;
+			},
 			parent(){
 				if(this._parent < 0){return null;}
 				return Vars.unitGroup.getByID(this._parent);
@@ -182,6 +211,7 @@ module.exports = {
 				e = 0;
 				while(!temp.isTail()){
 					temp = temp.child();
+					if(temp == null)break;
 					cgroup[e] = temp.id;
 					e++;
 				}
@@ -335,6 +365,7 @@ module.exports = {
 		base._child = -1;
 		base._head = -1;
 		base._healths = [];
+		base._doDraw = false;
 		return base;
 	},
 };

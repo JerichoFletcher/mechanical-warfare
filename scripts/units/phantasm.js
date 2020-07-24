@@ -3,23 +3,6 @@ const plib = require("mechanical-warfare/plib");
 const multiWeap = require("mechanical-warfare/units/multi-weapon-base");
 const bulletLib = require("mechanical-warfare/bulletlib");
 
-const hoverUnit = prov(() => extend(HoverUnit, {
-	drawEngine(){
-		Draw.color(this.type.getEngineColor());
-		var ox = Angles.trnsx(this.rotation + 180, this.type.engineOffset);
-		var oy = Angles.trnsy(this.rotation + 180, this.type.engineOffset);
-		var oSize = Mathf.absin(Time.time(), 2, this.type.engineSize / 4);
-		Fill.circle(this.x + ox, this.y + oy, this.type.engineSize + oSize);
-		
-		Draw.color(Color.white);
-		var ix = Angles.trnsx(this.rotation + 180, this.type.engineOffset - 1);
-		var iy = Angles.trnsy(this.rotation + 180, this.type.engineOffset - 1);
-		var iSize = Mathf.absin(Time.time(), 2, this.type.engineSize / 4);
-		Fill.circle(this.x + ix, this.y + iy, (this.type.engineSize + oSize) / 2);
-		Draw.color();
-	}
-}));
-
 const phantasmalFlak = extend(FlakBulletType, {});
 phantasmalFlak.bulletSprite = "shell";
 phantasmalFlak.bulletWidth = 6;
@@ -45,6 +28,16 @@ phantasmalGun.inaccuracy = 2;
 phantasmalGun.ejectEffect = Fx.shellEjectSmall;
 phantasmalGun.shootSound = Sounds.shootBig;
 phantasmalGun.bullet = phantasmalFlak;
+
+const teleportEffect1 = newEffect(48, e => {
+	x = Angles.trnsx(e.rotation, 0, e.finpow() * 8);
+	y = Angles.trnsy(e.rotation, 0, e.finpow() * 8);
+	Draw.blend(Blending.additive);
+	Draw.alpha(e.fout());
+	Draw.rect(phantasm.region, e.x + x, e.y + y, e.rotation - 90);
+	Draw.color();
+	Draw.blend();
+});
 
 const phantasm = extendContent(UnitType, "phantasm", {
 	load(){
@@ -74,8 +67,24 @@ phantasm.create(prov(() => {
 					w, h, angle
 				);
 			}
+		},
+		damage(amount){
+			this.super$damage(amount);
+			if(this.timer.get(this.timerTeleport, 60) && !this.isDead()){
+				this.teleport();
+			}
+		},
+		teleport(){
+			x = Angles.trnsx(this.rotation - 90, Mathf.randomSeed(this.id + Time.time(), 64) - 32, -Mathf.randomSeed(this.id + Time.time() + 1, 80));
+			y = Angles.trnsy(this.rotation - 90, Mathf.randomSeed(this.id + Time.time(), 64) - 32, -Mathf.randomSeed(this.id + Time.time() + 1, 80));
+			Effects.effect(teleportEffect1, this.x, this.y, this.rotation);
+			this.set(this.x + x, this.y + y);
+			Core.app.post(run(() => {
+				Effects.effect(teleportEffect1, this.x, this.y, this.rotation);
+			}));
 		}
 	});
+	unit.timerTeleport = unit.timerIndex++;
 	return unit;
 }));
 

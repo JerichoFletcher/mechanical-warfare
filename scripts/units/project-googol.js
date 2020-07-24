@@ -31,20 +31,21 @@ const projGoogol = extendContent(UnitType, "project-googol", {
 const googolBullet = extend(BasicBulletType, {});
 googolBullet.keepVelocity = false;
 googolBullet.damage = 11;
-googolBullet.speed = 2.7;
-googolBullet.lifetime = 90;
+googolBullet.speed = 5;
+googolBullet.lifetime = 30;
 
 const googolBlaster = extendContent(Weapon, "googol-blaster", {
 	load(){
 		this.region = Core.atlas.find("clear");
 	}
 });
+googolBlaster.alternate = false;
 googolBlaster.reload = 45;
 googolBlaster.bullet = googolBullet;
 
 projGoogol.weapon = googolBlaster;
 projGoogol.shootCone = 90;
 projGoogol.create(prov(() => {
-	unit = wormlib.newBase(15, 11, 0.1, 48, true);
+	unit = wormlib.newBase(15, 13, 0.1, 48, true);
 	return unit;
 }));

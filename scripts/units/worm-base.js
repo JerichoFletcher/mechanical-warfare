@@ -80,7 +80,7 @@ module.exports = {
 						this.child().velocity().add(Tmp.v1);
 					}
 				}*/
-				if(!this.isHead()){
+				/*if(!this.isHead()){
 					if(this.withinDst(this.parent(), segmentOffset * 0.95)){
 						this.velocity().add(Tmp.v1.trns(this.angleTo(this.parent()) + 180, (segmentOffset - this.dst(this.parent())) * Time.delta()));
 					}
@@ -90,18 +90,70 @@ module.exports = {
 					}
 					this.velocity().add(Tmp.v1);
 					//this.velocity().setLength(this.parent().velocity().len()).rotate(this.angleTo(this.parent())).scl(Time.delta() * segmentOffset / this.dst(this.parent()));
-				}
+				}*/
 				/*if(!this.isHead()){
 					this.velocity().trns(Mathf.slerpDelta(this.velocity().angle(), this.parent().rotation, 0.5), this.parent().velocity().len());
 				}*/
+				if(!this.isHead()){
+					/*Tmp.v1.trns(this.parent().velocity().angle(), -segmentOffset);
+					angle = Angles.angle(this.x, this.y, this.parent().x + Tmp.v1.x, this.parent().y + Tmp.v1.y);
+					dst = Mathf.dst(this.x, this.y, this.parent().x, this.parent().y) - segmentOffset;
+					if(!Mathf.within(this.x, this.y, this.parent().x, this.parent().y, segmentOffset * 5)){
+						this.set(this.parent().x, this.parent().y);
+					}
+					if(!Mathf.within(this.x, this.y, this.parent().x, this.parent().y, segmentOffset)){
+						Tmp.v2.trns(angle, dst);
+						Tmp.v3.trns(angle, Math.max(this.parent().velocity().len(), this.velocity().len()));
+						this.velocity().add(
+							Tmp.v3.x * Time.delta(),
+							Tmp.v3.y * Time.delta()
+						);
+						if(Mathf.within(this.x + this.velocity().x, this.y + this.velocity().y, this.parent().x, this.parent().y, segmentOffset)){
+							this.moveBy(Tmp.v2.x * 0.9, Tmp.v2.y * 0.9);
+						}
+						this.moveBy(Tmp.v2.x * 0.99, Tmp.v2.y * 0.99);
+						dst = Mathf.dst(this.x, this.y, this.parent().x, this.parent().y) - segmentOffset;
+						if(dst < 0){
+							angle = Angles.angle(this.x, this.y, this.parent().x, this.parent().y);
+							Tmp.v2.trns(angle, dst);
+							this.moveBy(Tmp.v2.x * 0.25, Tmp.v2.y * 0.25);
+						}
+					}*/
+					Tmp.v1.trns(this.parent().velocity().angle(), -segmentOffset / 2.5);
+					angle = Angles.angle(this.x, this.y, this.parent().x + Tmp.v1.x, this.parent().y + Tmp.v1.y);
+					dst = Mathf.dst(this.x, this.y, this.parent().x, this.parent().y) - segmentOffset;
+					if(this.dst(this.parent().x, this.parent().y) > segmentOffset){
+						Tmp.v2.trns(angle, dst);
+						this.velocity().add(Tmp.v3.trns(
+							angle,
+							Math.max(this.parent().velocity().len(), this.velocity().len())
+						));
+						if(Mathf.within(this.x + this.velocity().x, this.y + this.velocity().y, this.parent().x, this.parent().y, segmentOffset)){
+							this.moveBy(Tmp.v2.x, Tmp.v2.y);
+						}
+						dst = Mathf.dst(this.x, this.y, this.parent().x, this.parent().y) - segmentOffset;
+						if(dst < 0){
+							angle = Angles.angle(this.x, this.y, this.parent().x, this.parent().y);
+							Tmp.v2.trns(angle, dst);
+							this.moveBy(Tmp.v2.x * 0.25, Tmp.v2.y * 0.25);
+						}
+					}
+				}
+			},
+			collides(other){
+				if(this.isDead() || other.type == this.type){return false;}
+				return this.super$collides(other);
 			},
 			updateRotation(){
 				if(this.isHead()){
 					this.rotation = this.velocity().angle();
 					return;
 				}
-				Tmp.v2.trns(this.parent().rotation + 180, segmentOffset / 5);
-				this.rotation = this.angleTo(this.parent().x + Tmp.v2.x, this.parent().y + Tmp.v2.y);
+				/*Tmp.v2.trns(this.parent().rotation, -segmentOffset);
+				this.rotation = this.angleTo(this.parent().x + Tmp.v2.x, this.parent().y + Tmp.v2.y);*/
+				Tmp.v1.trns(this.parent().rotation, -segmentOffset / 4);
+				Tmp.v1.add(this.parent().x, this.parent().y);
+				this.rotation = Angles.angle(this.x, this.y, Tmp.v1.x, Tmp.v1.y);
 			},
 			circle(circleLength, speed){
 				if(!this.isHead()){return;}

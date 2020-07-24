@@ -391,7 +391,7 @@ const dissipator = extendContent(GenericCrafter, "molecular-dissipator", {
 			}
 		}
 		entity.setRot(entity.getRot() + entity.warmup * this.rotateSpeed);
-		entity.setAlpha(Mathf.lerpDelta(entity.getAlpha(), entity.items.get(Vars.content.getByName(ContentType.item, "mechanical-warfare-radioactive-spore-pod")), 0.05));
+		entity.setAlpha(Mathf.lerpDelta(entity.getAlpha(), entity.items.get(Vars.content.getByName(ContentType.item, "mechanical-warfare-radioactive-spore-pod")) / 10, 0.05));
 	}
 });
 dissipator.drawer = cons(tile => {

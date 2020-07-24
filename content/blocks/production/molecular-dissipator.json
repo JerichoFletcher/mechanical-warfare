@@ -9,13 +9,8 @@ consumes: {
 			radioactive-spore-pod/1
 		]
 	}
-	power: 30
+	power: 18
 }
-outputItems: [
-	spore-pod/1
-	uranium/1
-	thorium/3
-]
 requirements: [
 	lead/100
 	silicon/120

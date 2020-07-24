@@ -333,6 +333,14 @@ dissolver.entityType = prov(() => {
 
 // Dissipator
 const dissipator = extendContent(GenericCrafter, "molecular-dissipator", {
+	init(){
+		this.outputItems = [
+			new ItemStack(Items.sporePod, 1),
+			new ItemStack(Items.thorium, 3),
+			new ItemStack(Vars.content.getByName(ContentType.item, "mechanical-warfare-uranium"), 1)
+		];
+		this.super$init();
+	},
 	load(){
 		this.super$load();
 		this.region = Core.atlas.find(this.name);
@@ -355,6 +363,35 @@ const dissipator = extendContent(GenericCrafter, "molecular-dissipator", {
 	},
 	draw(tile){
 		this.drawer.get(tile);
+	},
+	update(tile){
+		entity = tile.ent();
+		if(entity.cons.valid()){
+			entity.progress += this.getProgressIncrease(entity, this.craftTime);
+			entity.totalProgress += entity.delta();
+			entity.warmup = Mathf.lerpDelta(entity.warmup, 1, 0.02);
+			
+		}else{
+			entity.warmup = Mathf.lerpDelta(entity.warmup, 0, 0.02);
+		}
+		if(entity.progress >= 1){
+			entity.cons.trigger();
+			for(var i = 0; i < this.outputItems.length; i++){
+				this.useContent(tile, this.outputItems[i].item);
+				for(var j = 0; j < this.outputItems[i].amount; j++){
+					this.offloadNear(tile, this.outputItems[i].item);
+				}
+			}
+			Effects.effect(this.craftEffect, tile.drawx(), tile.drawy());
+			entity.progress = 0;
+		}
+		if(entity.timer.get(this.timerDump, 5)){
+			for(var i = 0; i < this.outputItems.length; i++){
+				this.tryDump(tile, this.outputItems[i].item);
+			}
+		}
+		entity.setRot(entity.getRot() + entity.warmup * this.rotateSpeed);
+		entity.setAlpha(Mathf.lerpDelta(entity.getAlpha(), entity.items.get(Vars.content.getByName(ContentType.item, "mechanical-warfare-radioactive-spore-pod")), 0.05));
 	}
 });
 dissipator.drawer = cons(tile => {

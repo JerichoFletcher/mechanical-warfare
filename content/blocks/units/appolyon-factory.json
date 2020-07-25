@@ -13,7 +13,7 @@ consumes: {
   }
 }
 category: units
-showVisibility : debugOnly
+buildVisibility : debugOnly
 requirements: [
   uranium/200
   titanium/325

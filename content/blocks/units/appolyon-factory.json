@@ -1,0 +1,23 @@
+size: 6
+produceTime: 7200
+maxSpawn: 1
+consumes: {
+  power: 12
+  items: {
+    items: [
+      silicon/200
+      titanium/150
+      mk2-module/30
+      thorium/120
+    ]
+  }
+}
+category: units
+showVisibility : debugOnly
+requirements: [
+  uranium/200
+  titanium/325
+  lead/350
+  silicon/300
+  steel/100
+]

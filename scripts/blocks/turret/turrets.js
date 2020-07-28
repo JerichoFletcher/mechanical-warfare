@@ -36,3 +36,6 @@ require("mechanical-warfare/blocks/turret/seism")
 
 // Supernova
 require("mechanical-warfare/blocks/turret/supernova")
+
+// M.A.R.S
+require("mechanical-warfare/blocks/turret/mars");

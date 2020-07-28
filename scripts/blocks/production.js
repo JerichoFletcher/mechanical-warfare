@@ -250,8 +250,12 @@ const polluter = extendContent(LiquidConverter, "polluter", {
 	update(tile){
 		this.super$update(tile);
 		entity = tile.ent();
+		if(entity.cons.valid()){
+			entity.warmup = Mathf.lerpDelta(entity.warmup, 1, 0.02);
+		}else{
+			entity.warmup = Mathf.lerpDelta(entity.warmup, 0, 0.02);
+		}
 		entity.setRot(entity.getRot() + entity.warmup * this.rotateSpeed);
-		print(entity.getRot());
 	},
 	generateIcons(){
 		return [
@@ -297,6 +301,11 @@ const dissolver = extendContent(LiquidConverter, "dissolver", {
 	update(tile){
 		this.super$update(tile);
 		entity = tile.ent();
+		if(entity.cons.valid()){
+			entity.warmup = Mathf.lerpDelta(entity.warmup, 1, 0.02);
+		}else{
+			entity.warmup = Mathf.lerpDelta(entity.warmup, 0, 0.02);
+		}
 		entity.setRot(entity.getRot() + entity.warmup * this.rotateSpeed);
 	},
 	generateIcons(){
@@ -424,6 +433,8 @@ dissipator.entityType = prov(() => {
 	entity.setAlpha(0);
 	return entity;
 });
+
+const coilWinder = extendContent(GenericCrafter, "coil-winder", {});
 
 // MK2 Module Assembler
 const mk2Assembler = extendContent(GenericCrafter, "mk2-assembler", {

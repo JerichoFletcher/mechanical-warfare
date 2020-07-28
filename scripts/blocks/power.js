@@ -51,3 +51,28 @@ const liquidCombustion = extendContent(ItemLiquidGenerator, "liquid-combustion-e
 		}
 	},
 });
+
+// Power Amplifier
+const amplifier = extendContent(GenericCrafter, "power-amplifier", {
+	update(tile){
+		entity = tile.ent();
+		if(entity.isWorking()){
+			this.super$update(tile);
+		}
+		if(!entity.cons.valid()){
+			entity.setWorking(false);
+		}
+	}
+});
+amplifier.entityType = prov(() => {
+	const entity = extend(GenericCrafter.GenericCrafterEntity, {
+		setWorking(bool){
+			this._working = bool;
+		},
+		isWorking(){
+			return this._working;
+		}
+	});
+	entity.setWorking(false);
+	return entity;
+});

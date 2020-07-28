@@ -60,6 +60,20 @@ const mars = extendContent(ItemTurret, "mars", {
 		this.amplifier = Vars.content.getByName(ContentType.block, "mechanical-warfare-power-amplifier");
 		this.super$init();
 	},
+	onDestroyed(tile){
+		tile.ent().proximity().each(boolf(t => {
+			e = t.ent();
+			return t.block() == this.amplifier && e.cons.valid();
+		}), cons(t => t.ent().setWorking(false)));
+		this.super$onDestroyed(tile);
+	},
+	removed(tile){
+		tile.ent().proximity().each(boolf(t => {
+			e = t.ent();
+			return t.block() == this.amplifier && e.cons.valid();
+		}), cons(t => t.ent().setWorking(false)));
+		this.super$removed(tile);
+	},
 	load(){
 		this.super$load();
 		this.baseRegion = Core.atlas.find("mechanical-warfare-block-8");

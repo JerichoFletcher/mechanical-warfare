@@ -221,8 +221,8 @@ insulatingCompound.drawer = cons(tile => {
 });
 insulatingCompound.layer2 = Layer.power;
 insulatingCompound.boltCount = 3;
-insulatingCompound.boltRotSpeed = [12, 9, 27, 23, 18, 15];
-insulatingCompound.boltRotDir = [1, -1, -1, 1, 1, -1];
+insulatingCompound.boltRotSpeed = [12, 9, 27];
+insulatingCompound.boltRotDir = [1, -1, -1];
 insulatingCompound.updateEffect = electricBall;
 insulatingCompound.craftEffect = Fx.smeltsmoke;
 insulatingCompound.entityType = prov(() => {

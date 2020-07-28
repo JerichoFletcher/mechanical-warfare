@@ -79,6 +79,7 @@ const amplifier = extendContent(GenericCrafter, "power-amplifier", {
 		];
 	},
 	draw(tile){
+		entity = tile.ent();
 		Draw.rect(this.region, tile.drawx(), tile.drawy());
 		Draw.blend(Blending.additive);
 		for(var i = 0; i < this.boltCount; i++){

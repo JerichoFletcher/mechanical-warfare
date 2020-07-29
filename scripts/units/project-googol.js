@@ -42,10 +42,12 @@ const googolBlaster = extendContent(Weapon, "googol-blaster", {
 googolBlaster.alternate = false;
 googolBlaster.reload = 45;
 googolBlaster.bullet = googolBullet;
+googolBlaster.shootSound = Sounds.shootSnap;
 
 projGoogol.weapon = googolBlaster;
 projGoogol.shootCone = 90;
 projGoogol.create(prov(() => {
-	unit = wormlib.newBase(15, 13, 0.1, 48, true);
+	unit = wormlib.newBase(15, 13, 0.1, 48, true, null, null, null);
+	
 	return unit;
 }));

@@ -1,7 +1,7 @@
 const flareEffect = newEffect(18, e => {
 	Draw.color(Pal.lightFlame, Pal.darkFlame, e.fin());
 	Lines.stroke(e.fout());
-	Angles.randLenVectors(e.id, 4, 5 * e.fin(), e.rotation, 15, new Floatc2(){get: (x, y) => {
+	Angles.randLenVectors(e.id, 4, 6 * e.fin(), e.rotation, 15, new Floatc2(){get: (x, y) => {
 		Lines.lineAngle(e.x + x, e.y + y, Angles.angle(x, y), 6 * e.fin());
 	}});
 	Lines.stroke(1);
@@ -9,7 +9,7 @@ const flareEffect = newEffect(18, e => {
 });
 
 module.exports = {
-	newBase(segments, segmentOffset, turnSpeed, headDamage, canSplit){
+	newBase(segments, segmentOffset, turnSpeed, headDamage, canSplit, drawUnder, drawOver, customBehavior){
 		base = extend(FlyingUnit, {
 			added(){
 				this.super$added();
@@ -155,6 +155,10 @@ module.exports = {
 				Tmp.v1.add(this.parent().x, this.parent().y);
 				this.rotation = Angles.angle(this.x, this.y, Tmp.v1.x, Tmp.v1.y);
 			},
+			behavior(){
+				this.super$behavior();
+				if(customBehavior != null)customBehavior(this);
+			},
 			circle(circleLength, speed){
 				if(!this.isHead()){return;}
 				this.super$circle(circleLength, speed);
@@ -221,8 +225,10 @@ module.exports = {
 				}else if(this.isTail()){
 					Draw.rect(this.type.getTailReg(), this.x, this.y, this.rotation - 90);
 				}*/
+				if(drawUnder != null)drawUnder(this);
 				Draw.rect(this.type.getReg()[this.segmentName()], this.x, this.y, this.rotation - 90);
 				this.drawWeapons();
+				if(drawOver != null)drawOver(this);
 				Draw.mixcol();
 				this.drawStats();
 				if(!this.isHead()){this.parent().drawB();}
@@ -233,7 +239,7 @@ module.exports = {
 				}
 			},
 			drawUnder(){
-				if(this.isHead() && this._child < 0){
+				if(this.isSolitary()){
 					this.drawEngine();
 				}
 			},
@@ -325,6 +331,9 @@ module.exports = {
 			},
 			isTail(){
 				return !this.isHead() && this._child < 0;
+			},
+			isSolitary(){
+				return this.isHead() && this._child < 0;
 			},
 			write(data){
 				this.super$write(data);

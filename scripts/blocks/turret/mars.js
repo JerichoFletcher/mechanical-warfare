@@ -2,11 +2,11 @@ const elib = require("mechanical-warfare/effectlib");
 const bulletLib = require("mechanical-warfare/bulletlib");
 const prox = require("mechanical-warfare/prox-block-lib");
 
-const marsShootBlast = newEffect(20, e => {
+const marsShoot = newEffect(20, e => {
 	e.scaled(8, cons(i => {
-		Draw.color(Pal.lightOrange, Pal.lighterOrange, i.fslope());
+		Draw.color(Pal.lighterOrange, Pal.lightOrange, i.fslope());
 		Draw.alpha(e.fout());
-		Drawf.tri(e.x, e.y, i.fout() * 32, i.fslope() * 240, e.rotation);
+		Drawf.tri(e.x, e.y, i.fout() * 32, i.fout() * 240, e.rotation);
 	}));
 	e.scaled(16, cons(i => {
 		Draw.color(Color.white, Pal.lighterOrange, i.fin());
@@ -25,16 +25,27 @@ const marsShootBlast = newEffect(20, e => {
 	elib.fillCircle(e.x, e.y, Color.white.cpy().mul(0.6 + e.fout() * 0.4), 0.6 + e.fout() * 0.4, e.fout() * 8);
 });
 
-const marsSmokeBlast = newEffect(48, e => {
+const marsSmoke = newEffect(48, e => {
 	Angles.randLenVectors(e.id, 16, e.finpow() * 160, e.rotation, 12, new Floatc2(){get: (x, y) => {
 		elib.fillCircle(e.x + x, e.y + y, Color.lightGray.cpy().mul(0.4 + e.fout() * 0.6), 0.4 + e.fout() * 0.6, e.fout() * 8);
 	}});
 });
 
+const marsHitBlast = newEffect(30, e => {
+	e.scaled(10, cons(i => {
+		elib.outlineCircle(e.x, e.y, Pal.missileYellow, i.fout() * 2, i.fin() * 64);
+		elib.outlineCircle(e.x, e.y, Pal.missileYellow, i.fout() * 3, i.fin() * 48);
+	}));
+	elib.splashCircles(e.x, e.y, Color.gray, 1, 1 + e.fout() * 5, 12 + e.finpow() * 84, 8, e.id);
+	elib.splashLines(e.x, e.y, Pal.missileYellowBack, 1.5 * e.fout(), 12 + e.finpow() * 96, 1 + e.fout() * 5, 12, e.id + 1);
+});
+
 const marsBlast = bulletLib.bullet(BasicBulletType, 16, 16, 0, 0, 800, 8000, 56, 3, 37.5, 24, cons(b => {
 	Draw.color(marsBlast.backColor);
     Draw.rect(marsBlast.backRegion, b.x, b.y, marsBlast.bulletWidth, marsBlast.bulletHeight, b.rot() - 90);
-	Drawf.tri(b.x, b.y, marsBlast.bulletWidth * 0.8, b.velocity().len() * 5, b.rot() + 180);
+	angle = Angles.angle(b.x, b.y, b.getData().vec.x, b.getData().vec.y);
+	dst = Mathf.clamp(Mathf.dst(b.x, b.y, b.getData().vec.x, b.getData().vec.y), 0, b.velocity().len() * 5);
+	Drawf.tri(b.x, b.y, marsBlast.bulletWidth * 0.8, dst, angle);
 	
     Draw.color(marsBlast.frontColor);
     Draw.rect(marsBlast.frontRegion, b.x, b.y, marsBlast.bulletWidth, marsBlast.bulletHeight, b.rot() - 90);
@@ -45,30 +56,74 @@ const marsBlast = bulletLib.bullet(BasicBulletType, 16, 16, 0, 0, 800, 8000, 56,
 marsBlast.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsBlast.frontColor, 1, e.fout() * 4);
 });
-marsBlast.shootEffect = Fx.flakExplosionBig;
 marsBlast.ammoMultiplier = 1;
-marsBlast.shootEffect = marsShootBlast;
-marsBlast.smokeEffect = marsSmokeBlast;
 marsBlast.inaccuracy = 0;
+marsBlast.hitEffect = marsHitBlast;
+
+const tmpExplosion = extend(BulletType, {
+	draw(b){}
+});
+tmpExplosion.splashDamage = 16;
+tmpExplosion.splashDamageRadius = 24;
+tmpExplosion.hitEffect = Fx.blastExplosion;
+tmpExplosion.despawnEffect = Fx.blastExplosion;
+tmpExplosion.speed = 0.1;
+tmpExplosion.lifetime = 1;
+tmpExplosion.instantDisappear = true;
+
+const lightning1 = function(tile, vec){
+	if(tile == null){return;}
+	entity = tile.ent();
+	angle = Angles.angle(tile.drawx(), tile.drawy(), vec.x, vec.y);
+	dst = tile.block().size * 4;
+	for(var i = 0; i < 8; i++){
+		Time.run(i, run(() => {
+			if(entity == null){return}
+			x = Angles.trnsx(angle, dst);
+			y = Angles.trnsy(angle, dst);
+			Lightning.create(tile.getTeam(), Pal.surge, 12, tile.drawx() + x, tile.drawy() + y, angle, 10);
+		}));
+	}
+}
+
+const explosion = function(tile, vec){
+	if(tile == null){return;}
+	entity = tile.ent();
+	angle = Angles.angle(tile.drawx(), tile.drawy(), vec.x, vec.y);
+	dst = tile.block().size * 4;
+	for(var i = 0; i < 10; i++){
+		Time.run(i, run(() => {
+			if(entity == null){return;}
+			xRand = Mathf.randomSeed(entity.id + Time.time(), 24) - 12;
+			x = Angles.trnsx(angle - 90, xRand, dst);
+			y = Angles.trnsy(angle - 90, xRand, dst);
+			Bullet.create(tmpExplosion, entity, tile.getTeam(), tile.drawx() + x, tile.drawy() + y, angle, 1, 1);
+		}));
+		dst += 8;
+	}
+}
 
 const mars = extendContent(ItemTurret, "mars", {
 	init(){
 		this.ammo(
 			Items.blastCompound, marsBlast
 		);
+		this.shootAtt = OrderedMap.of([
+			marsBlast, explosion
+		]);
 		this.consumes.powerCond(this.powerUse, boolf(entity => entity.target != null));
 		this.amplifier = Vars.content.getByName(ContentType.block, "mechanical-warfare-power-amplifier");
 		this.super$init();
 	},
 	onDestroyed(tile){
-		tile.ent().proximity().each(boolf(t => {
+		prox.eachLinkedBlock(tile, boolf(t => {
 			e = t.ent();
 			return t.block() == this.amplifier && e.cons.valid();
 		}), cons(t => t.ent().setWorking(false)));
 		this.super$onDestroyed(tile);
 	},
 	removed(tile){
-		tile.ent().proximity().each(boolf(t => {
+		prox.eachLinkedBlock(tile, boolf(t => {
 			e = t.ent();
 			return t.block() == this.amplifier && e.cons.valid();
 		}), cons(t => t.ent().setWorking(false)));
@@ -149,13 +204,19 @@ const mars = extendContent(ItemTurret, "mars", {
 			if(entity.isCharging()){
 				entity.setLength(Mathf.clamp(entity.getLength() + ((this.lineLength / this.chargeTime) * entity.power.status * (prox.getLinkedBlock(tile, this.amplifier, boolf(tile => tile.block() == this.amplifier && tile.ent().isWorking())) / 3)), 0, this.lineLength));
 			}
-		}else{
-			entity.setLength(Mathf.lerpDelta(entity.getLength(), 0, this.cooldown));
 		}
-		entity.proximity().each(boolf(t => {
-			e = t.ent();
-			return t.block() == this.amplifier && e.cons.valid();
-		}), cons(t => t.ent().setWorking(true)));
+		if(!this.hasAmmo(tile) || !this.validateTarget(tile)){
+			entity.setLength(Mathf.lerpDelta(entity.getLength(), 0, this.cooldown));
+			prox.eachLinkedBlock(tile, boolf(t => {
+				e = t.ent();
+				return t.block() == this.amplifier && e.cons.valid();
+			}), cons(t => t.ent().setWorking(false)));
+		}else{
+			prox.eachLinkedBlock(tile, boolf(t => {
+				e = t.ent();
+				return t.block() == this.amplifier && e.cons.valid();
+			}), cons(t => t.ent().setWorking(true)));
+		}
 	},
 	updateCharging(tile, targetRot){
 		entity = tile.ent();
@@ -202,13 +263,29 @@ const mars = extendContent(ItemTurret, "mars", {
 		}
 		this.effects(tile);
 	},
+	bullet(tile, type, angle){
+		bullet = Bullet.create(type, tile.entity, tile.getTeam(), tile.drawx() + this.tr.x, tile.drawy() + this.tr.y, angle, 1, 1);
+		tx = tile.drawx() + this.tr.x;
+		ty = tile.drawy() + this.tr.y;
+		bullet.setData({vec: {
+			x: tx,
+			y: ty
+		}});
+		this.shootAtt.get(type)(tile, this.tr);
+	},
 	baseReloadSpeed(tile){
-		return tile.isEnemyCheat() ? 1 : tile.ent().power.status * (prox.getLinkedBlock(tile, this.amplifier, boolf(tile => tile.block() == this.amplifier && tile.ent().isWorking())) / 3);
+		return tile.isEnemyCheat() ? 1 : tile.ent().power.status * (
+			Mathf.clamp(prox.getLinkedBlock(tile, this.amplifier, boolf(t => {
+				return t.block() == this.amplifier && t.ent().isWorking();
+			})), 0, this.minAmplifier) / 3
+		);
+	},
+	hasAmmo(tile){
+		return this.super$hasAmmo(tile) && tile.ent().power.status > 0;
 	}
 });
-mars.tmpArray = new Packages.arc.struct.Array(64);
-mars.shootEffect = Fx.none;
-mars.smokeEffect = Fx.none;
+mars.shootEffect = marsShoot;
+mars.smokeEffect = marsSmoke;
 mars.lineOffset = -8;
 mars.lineLength = 33.75;
 mars.lineColors = [

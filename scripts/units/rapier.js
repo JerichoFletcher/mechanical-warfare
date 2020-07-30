@@ -52,7 +52,9 @@ const rapierBlade = extend(BasicBulletType, {
 				getY: () => {return b.getY()},
 				setX: (x) => {b.x = x},
 				setY: (y) => {b.y = y},
-				velocity: () => {return b.velocity()}
+				velocity: () => {return b.velocity()},
+				getTargetVelocityX: () => {return b.velocity().x},
+				getTargetVelocityY: () => {return b.velocity().y}
 			}
 			result = Predict.intercept(bullet, b.getData().target, this.speed);
 			targetRot = result.sub(b.x, b.y).angle();

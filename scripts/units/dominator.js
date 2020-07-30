@@ -31,7 +31,9 @@ const flakPopper = extend(FlakBulletType, {
 			getY: () => {return b.y},
 			setX: (x) => {b.x = x},
 			setY: (y) => {b.y = y},
-			velocity: () => {return b.velocity()}
+			velocity: () => {return b.velocity()},
+			getTargetVelocityX: () => {return b.velocity().x},
+			getTargetVelocityY: () => {return b.velocity().y}
 		}
 		result = Predict.intercept(bullet, b.getData().target, this.getBullet().speed);
 		targetRot = result.sub(b.x, b.y).angle();

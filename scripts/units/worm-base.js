@@ -2,7 +2,7 @@ const flareEffect = newEffect(18, e => {
 	Draw.color(Pal.lightFlame, Pal.darkFlame, e.fin());
 	Lines.stroke(e.fout());
 	Angles.randLenVectors(e.id, 4, 5 * e.fin(), e.rotation, 15, new Floatc2(){get: (x, y) => {
-		Lines.lineAngle(e.x + x, e.y + y, Angles.angle(x, y), 6 * e.fin());
+		Lines.lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 6 * e.fin());
 	}});
 	Lines.stroke(1);
 	Draw.color();

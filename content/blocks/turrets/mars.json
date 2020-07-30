@@ -9,7 +9,7 @@ rotatespeed: 0.5
 range: 840
 targetGround: true
 targetAir: true
-shootCone: 30
+shootCone: 4
 layer: turret
 layer2: power
 hasPower: true

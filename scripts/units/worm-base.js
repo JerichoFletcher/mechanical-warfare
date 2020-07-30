@@ -9,7 +9,7 @@ const flareEffect = newEffect(18, e => {
 });
 
 module.exports = {
-	newBase(segments, segmentOffset, turnSpeed, headDamage, canSplit){
+	newBase(segments, segmentOffset, turnSpeed, headDamage, canSplit, drawUnder, drawOver, customBehavior, customSave, customLoad, dataList){
 		base = extend(FlyingUnit, {
 			added(){
 				this.super$added();
@@ -39,6 +39,7 @@ module.exports = {
 								child[i - 1].setChild(child[i]);
 							}
 						}
+						if(this._postAddSchedule != null)this._postAddSchedule(child);
 					}else if(this.loaded){
 						this.remove();
 					}
@@ -57,6 +58,7 @@ module.exports = {
 						}
 					}));
 				}
+				if(customBehavior != null)customBehavior(this);
 			},
 			updateVelocityStatus(){
 				this.super$updateVelocityStatus();
@@ -221,8 +223,10 @@ module.exports = {
 				}else if(this.isTail()){
 					Draw.rect(this.type.getTailReg(), this.x, this.y, this.rotation - 90);
 				}*/
+				if(drawUnder != null)drawUnder(this);
 				Draw.rect(this.type.getReg()[this.segmentName()], this.x, this.y, this.rotation - 90);
 				this.drawWeapons();
+				if(drawOver != null)drawOver(this);
 				Draw.mixcol();
 				this.drawStats();
 				if(!this.isHead()){this.parent().drawB();}
@@ -233,7 +237,7 @@ module.exports = {
 				}
 			},
 			drawUnder(){
-				if(this.isHead() && this._child < 0){
+				if(this.isSolitary()){
 					this.drawEngine();
 				}
 			},
@@ -326,6 +330,9 @@ module.exports = {
 			isTail(){
 				return !this.isHead() && this._child < 0;
 			},
+			isSolitary(){
+				return this.isHead() && this._child < 0;
+			},
 			write(data){
 				this.super$write(data);
 				data.writeByte(this.isHead() ? 1 : 0);
@@ -335,6 +342,7 @@ module.exports = {
 						data.writeShort(Vars.unitGroup.getByID(this.childs()[i]).health());
 					}
 				}
+				if(customSave != null)customSave(this, data, false);
 			},
 			read(data){
 				this.super$read(data);
@@ -346,6 +354,7 @@ module.exports = {
 						this._healths[i] = data.readShort();
 					}
 				}
+				if(customLoad != null)customLoad(this, data, 0);
 			},
 			writeSave(stream, net){
 				//this.super$writeSave(stream, net);
@@ -372,6 +381,7 @@ module.exports = {
 						stream.writeShort(Vars.unitGroup.getByID(this.childs()[i]).health());
 					}
 				}
+				if(customSave != null)customSave(this, stream, net);
 			},
 			readSave(stream, version){
 				//this.super$readSave(stream, version);
@@ -410,7 +420,26 @@ module.exports = {
 					}
 				}
 				this.add();
-			}
+				if(customLoad != null)customLoad(this, stream, version);
+			},
+			savedAsHead(){
+				return this._savedAsHead;
+			},
+			dataObj(){
+				return this._data;
+			},
+			dat(name){
+				return this.dataObj()[name];
+			},
+			setDat(name, val){
+				this._data[name] = val;
+			},
+			provDat(name, provider){
+				this._data[name] = provider(this.dat(name));
+			},
+			postAdd(method){
+				this._postAddSchedule = method;
+			},
 		});
 		base._savedAsHead = false;
 		base._parent = -1;
@@ -418,6 +447,15 @@ module.exports = {
 		base._head = -1;
 		base._healths = [];
 		base._doDraw = false;
+		base._postAddSchedule = null;
+		base._data = {};
+		for(var i = 0; i < dataList.length; i += 2){
+			if(i + 1 >= dataList.length){
+				print("Warning: dataList with odd number of elements, ignoring: " + dataList[i]);
+				break;
+			}
+			base._data[dataList[i]] = dataList[i + 1];
+		}
 		return base;
 	},
 };

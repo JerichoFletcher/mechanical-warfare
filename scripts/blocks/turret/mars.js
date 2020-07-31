@@ -385,14 +385,20 @@ const mars = extendContent(ItemTurret, "mars", {
 		entity = tile.ent();
 		for(var i = 0; i < this.lineWidths.length; i++){
 			Tmp.v1.trns(entity.rotation, this.lineOffset - entity.recoil);
-			x = Angles.trnsx(entity.rotation, this.lineOffset - entity.recoil);
-			y = Angles.trnsy(entity.rotation, this.lineOffset - entity.recoil);
 			Draw.color(this.lineColors[i].r, this.lineColors[i].g, this.lineColors[i].b, (entity.getLength() / this.lineLength) * this.lineColors[i].a);
 			Draw.blend(Blending.additive);
 			Lines.stroke(this.lineWidths[i]);
 			Lines.precise(true);
-			Lines.lineAngle(tile.drawx() + x, tile.drawy() + y, entity.rotation, entity.getLength());
+			Lines.lineAngle(tile.drawx() + Tmp.v1.x, tile.drawy() + Tmp.v1.y, entity.rotation, entity.getLength());
 			Lines.precise(false);
+			Draw.blend();
+			Draw.reset();
+		}
+		for(var i = 0; i < this.circleScales.length; i++){
+			Tmp.v1.trns(entity.rotation, this.circleOffset - entity.recoil);
+			Draw.color(this.circleColors[i].r, this.circleColors[i].g, this.circleColors[i].b, (entity.getRadius() / this.circleRadius) * this.circleColors[i].a);
+			Draw.blend(Blending.additive);
+			elib.fillCircleWCol(tile.drawx() + Tmp.v1.x, tile.drawy() + Tmp.v1.y, entity.getRadius() * this.circleScales[i]);
 			Draw.blend();
 			Draw.reset();
 		}
@@ -440,14 +446,25 @@ const mars = extendContent(ItemTurret, "mars", {
 							prox.getLinkedBlock(tile, this.amplifier, boolf(tile => {
 								return tile.block() == this.amplifier && tile.ent().isWorking();
 							}))
-						/ 3)), 0, this.lineLength
+						/ 3)) * entity.timeScale, 0, this.lineLength
+					)
+				);
+				entity.setRadius(
+					Mathf.clamp(
+						entity.getRadius() + ((this.circleRadius / this.chargeTime) * entity.power.status * (
+							prox.getLinkedBlock(tile, this.amplifier, boolf(tile => {
+								return tile.block() == this.amplifier && tile.ent().isWorking();
+							}))
+						/ 3)) * entity.timeScale, 0, this.circleRadius
 					)
 				);
 			}else{
 				entity.setLength(Mathf.lerpDelta(entity.getLength(), 0, this.cooldown));
+				entity.setRadius(Mathf.lerpDelta(entity.getRadius(), 0, this.cooldown));
 			}
 		}else{
 			entity.setLength(Mathf.lerpDelta(entity.getLength(), 0, this.cooldown));
+			entity.setRadius(Mathf.lerpDelta(entity.getRadius(), 0, this.cooldown));
 			Core.app.post(run(() => {
 				if(tile == null || entity == null){return;}
 				prox.eachLinkedBlock(tile, boolf(t => {
@@ -463,12 +480,16 @@ const mars = extendContent(ItemTurret, "mars", {
 			entity.setCharging(true);
 			if(
 				Angles.angleDist(entity.rotation, targetRot) < this.shootCone &&
-				entity.getLength() >= this.lineLength
+				(
+					entity.getLength() >= this.lineLength ||
+					entity.getRadius() >= this.circleRadius
+				)
 			){
 				type = this.peekAmmo(tile);
 				this.shoot(tile, type);
 				entity.reload = 0;
 				entity.setLength(0);
+				entity.setRadius(0);
 				entity.setCharging(false);
 			}
 		}else if(!entity.isCharging()){
@@ -525,8 +546,16 @@ const mars = extendContent(ItemTurret, "mars", {
 });
 mars.shootEffect = marsShoot;
 mars.smokeEffect = marsSmoke;
-mars.lineOffset = -8;
-mars.lineLength = 33.75;
+mars.circleOffset = -8.75;
+mars.circleRadius = 16;
+mars.circleColors = [
+	Color.valueOf("bc4500cd"),
+	Color.valueOf("bc450064"),
+	Color.valueOf("bc450016")
+];
+mars.circleScales = [0.3, 0.6, 1];
+mars.lineOffset = 2.25;
+mars.lineLength = 22;
 mars.lineColors = [
 	Color.valueOf("bc4500cd"),
 	Color.valueOf("bc450080"),
@@ -550,9 +579,16 @@ mars.entityType = prov(() => {
 		},
 		getLength(){
 			return this._length;
+		},
+		setRadius(val){
+			this._radius = val;
+		},
+		getRadius(){
+			return this._radius;
 		}
 	});
 	entity.setCharging(false);
 	entity.setLength(0);
+	entity.setRadius(0);
 	return entity;
 });

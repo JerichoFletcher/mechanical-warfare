@@ -357,12 +357,6 @@ const dissipator = extendContent(GenericCrafter, "molecular-dissipator", {
 		this.sporeRegion = Core.atlas.find(this.name + "-liquid");
 		this.topRegion = Core.atlas.find(this.name + "-top");
 	},
-	update(tile){
-		this.super$update(tile);
-		entity = tile.ent();
-		entity.setRot(entity.getRot() + entity.warmup * this.rotateSpeed);
-		entity.setAlpha(Mathf.lerpDelta(entity.getAlpha(), entity.items.get(Vars.content.getByName(ContentType.item, "mechanical-warfare-radioactive-spore-pod")) / this.itemCapacity, 0.01));
-	},
 	generateIcons(){
 		return [
 			Core.atlas.find(this.name),

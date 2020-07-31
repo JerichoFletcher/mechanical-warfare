@@ -5,6 +5,7 @@ destructible: true
 sync: true
 update: true
 powerProduction: 4
+insulated: true
 requirements: [
 	insulator-alloy/24
 ]

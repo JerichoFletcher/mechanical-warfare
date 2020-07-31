@@ -40,16 +40,42 @@ const marsHitBlast = newEffect(30, e => {
 	elib.splashLines(e.x, e.y, Pal.missileYellowBack, 1.5 * e.fout(), 12 + e.finpow() * 96, 1 + e.fout() * 5, 12, e.id + 1);
 });
 
-const marsCopper = bulletLib.bullet(BasicBulletType, 12, 12, 0, 0, 720, 960, 24, 3, 37.5, 24, cons(b => {
-	Draw.color(marsCopper.backColor);
-    Draw.rect(marsCopper.backRegion, b.x, b.y, marsCopper.bulletWidth, marsCopper.bulletHeight, b.rot() - 90);
-	angle = Angles.angle(b.x, b.y, b.getData().vec.x, b.getData().vec.y);
+const marsSandSmoke = newEffect(64, e => {
+	Angles.randLenVectors(e.id, 24, e.finpow() * 240, e.rotation, 18, new Floatc2(){get: (x, y) => {
+		elib.fillCircle(e.x + x, e.y + y, Pal.lighterOrange.cpy().mul(0.4 + e.fout() * 0.6), 0.4 + e.fout() * 0.6, e.fout() * 4);
+	}});
+});
+
+const bulletDraw = function(b, type){
+	Draw.color(type.backColor);
+    Draw.rect(type.backRegion, b.x, b.y, type.bulletWidth, type.bulletHeight, b.rot() - 90);
 	dst = Mathf.clamp(Mathf.dst(b.x, b.y, b.getData().vec.x, b.getData().vec.y), 0, b.velocity().len() * 5);
-	Drawf.tri(b.x, b.y, marsCopper.bulletWidth * 0.8, dst, angle);
+	Drawf.tri(b.x, b.y, type.bulletWidth * 0.8, dst, b.rot() + 180);
 	
-    Draw.color(marsCopper.frontColor);
-    Draw.rect(marsCopper.frontRegion, b.x, b.y, marsCopper.bulletWidth, marsCopper.bulletHeight, b.rot() - 90);
+    Draw.color(type.frontColor);
+    Draw.rect(type.frontRegion, b.x, b.y, type.bulletWidth, type.bulletHeight, b.rot() - 90);
     Draw.color();
+}
+
+const marsSand = bulletLib.bullet(BasicBulletType, 10, 10, 0, 0, 320, 480, 27, 6, 37.5, 32, cons(b => {
+	bulletDraw(b, marsSand);
+}), cons(b => {
+	Effects.effect(marsSand.trailEffect, b.x, b.y, b.rot());
+}), null, null);
+marsSand.trailEffect = newEffect(60, e => {
+	elib.fillCircle(e.x, e.y, marsSand.frontColor, 1, e.fout() * 4);
+});
+marsSand.bulletSprite = "shell";
+marsSand.ammoMultiplier = 3;
+marsSand.inaccuracy = 10;
+marsSand.homingPower = 1;
+marsSand.homingRange = 120;
+marsSand.hitEffect = Fx.flakExplosion;
+marsSand.despawnEffect = Fx.flakExplosion;
+marsSand.hitSound = Sounds.explosion;
+
+const marsCopper = bulletLib.bullet(BasicBulletType, 12, 12, 0, 0, 1920, 960, 24, 3, 37.5, 32, cons(b => {
+	bulletDraw(b, marsCopper);
 }), cons(b => {
 	Effects.effect(marsCopper.trailEffect, b.x, b.y, b.rot());
 }), null, null);
@@ -63,16 +89,95 @@ marsCopper.hitEffect = Fx.blastExplosion;
 marsCopper.despawnEffect = Fx.blastExplosion;
 marsCopper.hitSound = Sounds.explosion;
 
-const marsBlast = bulletLib.bullet(BasicBulletType, 16, 16, 0, 0, 640, 9600, 56, 3, 37.5, 24, cons(b => {
-	Draw.color(marsBlast.backColor);
-    Draw.rect(marsBlast.backRegion, b.x, b.y, marsBlast.bulletWidth, marsBlast.bulletHeight, b.rot() - 90);
-	angle = Angles.angle(b.x, b.y, b.getData().vec.x, b.getData().vec.y);
-	dst = Mathf.clamp(Mathf.dst(b.x, b.y, b.getData().vec.x, b.getData().vec.y), 0, b.velocity().len() * 5);
-	Drawf.tri(b.x, b.y, marsBlast.bulletWidth * 0.8, dst, angle);
-	
-    Draw.color(marsBlast.frontColor);
-    Draw.rect(marsBlast.frontRegion, b.x, b.y, marsBlast.bulletWidth, marsBlast.bulletHeight, b.rot() - 90);
-    Draw.color();
+const marsSilicon = bulletLib.bullet(BasicBulletType, 13, 13, 0, 0, 2160, 720, 18, 4, 37.5, 32, cons(b => {
+	bulletDraw(b, marsSilicon);
+}), cons(b => {
+	Effects.effect(marsSilicon.trailEffect, b.x, b.y, b.rot());
+}), null, null);
+marsSilicon.trailEffect = newEffect(60, e => {
+	elib.fillCircle(e.x, e.y, marsSilicon.frontColor, 1, e.fout() * 3.2);
+});
+marsSilicon.bulletSprite = "shell";
+marsSilicon.ammoMultiplier = 1;
+marsSilicon.inaccuracy = 0;
+marsSilicon.homingPower = 1;
+marsSilicon.homingRange = 120;
+marsSilicon.hitEffect = Fx.blastExplosion;
+marsSilicon.despawnEffect = Fx.blastExplosion;
+marsSilicon.hitSound = Sounds.explosion;
+
+const marsGraphite = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 3000, 640, 12, 5, 37.5, 32, cons(b => {
+	bulletDraw(b, marsGraphite);
+}), cons(b => {
+	Effects.effect(marsGraphite.trailEffect, b.x, b.y, b.rot());
+}), null, null);
+marsGraphite.trailEffect = newEffect(60, e => {
+	elib.fillCircle(e.x, e.y, marsGraphite.frontColor, 1, e.fout() * 3.5);
+});
+marsGraphite.bulletSprite = "shell";
+marsGraphite.ammoMultiplier = 1;
+marsGraphite.inaccuracy = 0;
+marsGraphite.hitEffect = Fx.blastExplosion;
+marsGraphite.despawnEffect = Fx.blastExplosion;
+marsGraphite.hitSound = Sounds.explosion;
+
+const marsTitanium = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 4800, 480, 12, 5.5, 37.5, 32, cons(b => {
+	bulletDraw(b, marsTitanium);
+}), cons(b => {
+	Effects.effect(marsTitanium.trailEffect, b.x, b.y, b.rot());
+}), null, null);
+marsTitanium.trailEffect = newEffect(60, e => {
+	elib.fillCircle(e.x, e.y, marsTitanium.frontColor, 1, e.fout() * 4);
+});
+marsTitanium.bulletSprite = "shell";
+marsTitanium.ammoMultiplier = 1;
+marsTitanium.inaccuracy = 0;
+marsTitanium.hitEffect = Fx.blastExplosion;
+marsTitanium.despawnEffect = Fx.blastExplosion;
+marsTitanium.hitSound = Sounds.explosion;
+
+const marsCoal = bulletLib.bullet(BasicBulletType, 13, 13, 0, 0, 1280, 160, 24, 4, 37.5, 32, cons(b => {
+	bulletDraw(b, marsCoal);
+}), cons(b => {
+	Effects.effect(marsCoal.trailEffect, b.x, b.y, b.rot());
+}), null, null);
+marsCoal.trailEffect = newEffect(60, e => {
+	elib.fillCircle(e.x, e.y, marsCoal.frontColor, 1, e.fout() * 4);
+});
+marsCoal.bulletSprite = "shell";
+marsCoal.ammoMultiplier = 3;
+marsCoal.homingPower = 1;
+marsCoal.homingRange = 120;
+marsCoal.inaccuracy = 10;
+marsCoal.hitEffect = Fx.blastExplosion;
+marsCoal.despawnEffect = Fx.blastExplosion;
+marsCoal.hitSound = Sounds.explosion;
+marsCoal.status = StatusEffects.burning;
+marsCoal.frontColor = Pal.lighterOrange;
+marsCoal.backColor = Pal.lightOrange;
+
+const marsPyra = bulletLib.bullet(BasicBulletType, 13, 13, 0, 0, 1440, 240, 30, 4, 37.5, 32, cons(b => {
+	bulletDraw(b, marsPyra);
+}), cons(b => {
+	Effects.effect(marsPyra.trailEffect, b.x, b.y, b.rot());
+}), null, null);
+marsPyra.trailEffect = newEffect(60, e => {
+	elib.fillCircle(e.x, e.y, marsPyra.frontColor, 1, e.fout() * 4);
+});
+marsPyra.bulletSprite = "shell";
+marsPyra.ammoMultiplier = 3;
+marsPyra.homingPower = 1;
+marsPyra.homingRange = 120;
+marsPyra.inaccuracy = 10;
+marsPyra.hitEffect = Fx.blastExplosion;
+marsPyra.despawnEffect = Fx.blastExplosion;
+marsPyra.hitSound = Sounds.explosion;
+marsPyra.status = StatusEffects.burning;
+marsPyra.frontColor = Pal.lighterOrange;
+marsPyra.backColor = Pal.lightOrange;
+
+const marsBlast = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 1280, 7200, 56, 3, 37.5, 32, cons(b => {
+	bulletDraw(b, marsBlast);
 }), cons(b => {
 	Effects.effect(marsBlast.trailEffect, b.x, b.y, b.rot());
 }), null, null);
@@ -85,6 +190,28 @@ marsBlast.inaccuracy = 0;
 marsBlast.hitEffect = marsHitBlast;
 marsBlast.despawnEffect = marsHitBlast;
 marsBlast.hitSound = Sounds.explosion;
+marsBlast.frontColor = Pal.missileYellow;
+marsBlast.backColor = Pal.missileYellowBack;
+
+const marsSurge = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 9600, 1280, 27, 6, 37.5, 32, cons(b => {
+	bulletDraw(b, marsSurge);
+}), cons(b => {
+	Effects.effect(marsSurge.trailEffect, b.x, b.y, b.rot());
+}), cons(b => {
+	Lightning.create(b.getTeam(), Pal.surge, 17, b.x, b.y, b.rot(), 8);
+}), null);
+marsSurge.trailEffect = newEffect(60, e => {
+	elib.fillCircle(e.x, e.y, marsSurge.frontColor, 1, e.fout() * 4);
+});
+marsSurge.bulletSprite = "shell";
+marsSurge.ammoMultiplier = 1;
+marsSurge.inaccuracy = 0;
+marsSurge.hitEffect = Fx.flakExplosionBig;
+marsSurge.despawnEffect = Fx.flakExplosionBig;
+marsSurge.hitSound = Sounds.explosion;
+marsSurge.lightining = 6;
+marsSurge.lightningLength = 18;
+marsSurge.status = StatusEffects.shocked;
 
 const tmpExplosion = extend(BasicBulletType, {
 	draw(b){}
@@ -97,39 +224,31 @@ tmpExplosion.speed = 0.1;
 tmpExplosion.lifetime = 1;
 tmpExplosion.instantDisappear = true;
 
-/*const lightning1 = function(tile, vec){
+const lightning1 = function(tile, vec){
 	if(tile == null){return;}
 	entity = tile.ent();
-	angle = Angles.angle(tile.drawx(), tile.drawy(), tile.drawx() + vec.x, tile.drawy() + vec.y);
-	dst = tile.block().size * 4;
-	Sounds.laser.at(tile.drawx(), tile.drawy(), Mathf.random(0.6, 0.8));
-	for(var i = 0; i < 6; i++){
-		Time.run(i, run(() => {
-			if(entity == null){return}
-			x = Angles.trnsx(angle, dst);
-			y = Angles.trnsy(angle, dst);
-			Lightning.create(tile.getTeam(), Pal.surge, 12, tile.drawx() + x, tile.drawy() + y, angle, 20);
-			Sounds.spark.at(tile.drawx() + x, tile.drawy() + y, Mathf.random(0.9, 1.3));
-		}));
-	}
+	if(entity == null){return;}
+	block = tile.block();
+	dst = block.size * 4;
+	Sounds.laser.at(tile.drawx() + vec.x, tile.drawy() + vec.y, Mathf.random(0.7, 0.9));
+	Angles.randLenVectors(entity.id, 6, 48, entity.rotation, 30, new Floatc2(){get: (x, y) => {
+		Lightning.create(tile.getTeam(), Pal.surge, 12, tile.drawx() + vec.x + x, tile.drawy() + vec.y + y, entity.rotation, 18);
+		Sounds.spark.at(tile.drawx() + vec.x + x, tile.drawy() + vec.y + y, Mathf.random(0.7, 0.9));
+	}});
 }
 
 const lightning2 = function(tile, vec){
 	if(tile == null){return;}
 	entity = tile.ent();
-	angle = Angles.angle(tile.drawx(), tile.drawy(), tile.drawx() + vec.x, tile.drawy() + vec.y);
-	dst = tile.block().size * 4;
-	Sounds.laser.at(tile.drawx(), tile.drawy(), Mathf.random(0.4, 0.6));
-	for(var i = 0; i < 12; i++){
-		Time.run(i, run(() => {
-			if(entity == null){return;}
-			x = Angles.trnsx(angle, dst);
-			y = Angles.trnsy(angle, dst);
-			Lightning.create(tile.getTeam(), Pal.surge, 12, tile.drawx() + x, tile.drawy() + y, angle, 36);
-			Sounds.spark.at(tile.drawx() + x, tile.drawy() + y, Mathf.random(0.6, 0.8));
-		}));
-	}
-}*/
+	if(entity == null){return;}
+	block = tile.block();
+	dst = block.size * 4;
+	Sounds.laser.at(tile.drawx() + vec.x, tile.drawy() + vec.y, Mathf.random(0.5, 0.8));
+	Angles.randLenVectors(entity.id, 12, 64, entity.rotation, 30, new Floatc2(){get: (x, y) => {
+		Lightning.create(tile.getTeam(), Pal.surge, 17, tile.drawx() + vec.x + x, tile.drawy() + vec.y + y, entity.rotation, 36);
+		Sounds.spark.at(tile.drawx() + vec.x + x, tile.drawy() + vec.y + y, Mathf.random(0.5, 0.8));
+	}});
+}
 
 const explosion = function(tile, vec){
 	if(tile == null){return;}
@@ -139,19 +258,74 @@ const explosion = function(tile, vec){
 	dst = block.size * 4;
 	Angles.randLenVectors(entity.id, 10, 96, entity.rotation, 30, new Floatc2(){get: (x, y) => {
 		Bullet.create(tmpExplosion, entity, tile.getTeam(), tile.drawx() + vec.x + x, tile.drawy() + vec.y + y, entity.rotation, 1, 1);
-		Sounds.explosion.at(tile.drawx() + x, tile.drawy() + y, Mathf.random(0.8, 1.2));
+		Sounds.explosion.at(tile.drawx() + vec.x + x, tile.drawy() + vec.y + y, Mathf.random(0.8, 1.2));
 	}});
+}
+
+const sandSmoke = function(tile, vec){
+	if(tile == null){return;}
+	entity = tile.ent();
+	if(entity == null){return;}
+	block = tile.block();
+	dst = block.size * 4;
+	Effects.effect(marsSandSmoke, tile.drawx() + vec.x, tile.drawy() + vec.y, entity.rotation);
+}
+
+const fire1 = function(tile, vec){
+	if(tile == null){return;}
+	entity = tile.ent();
+	if(entity == null){return;}
+	block = tile.block();
+	dst = block.size * 4;
+	x = tile.drawx() + vec.x;
+	y = tile.drawy() + vec.y;
+	Angles.randLenVectors(entity.id, 12, 160, entity.rotation, 24, new Floatc2(){get: (a, b) => {
+		angle = Angles.angle(x, y, x + a, y + b);
+		velocityScl = Mathf.dst(x, y, x + a, y + b) / 80;
+		Bullet.create(Bullets.fireball, entity, tile.getTeam(), x, y, angle, velocityScl, 1);
+	}});
+	Sounds.flame.at(x, y, Mathf.random(0.8, 1.2));
+}
+
+const fire2 = function(tile, vec){
+	if(tile == null){return;}
+	entity = tile.ent();
+	if(entity == null){return;}
+	block = tile.block();
+	dst = block.size * 4;
+	x = tile.drawx() + vec.x;
+	y = tile.drawy() + vec.y;
+	Angles.randLenVectors(entity.id, 18, 240, entity.rotation, 30, new Floatc2(){get: (a, b) => {
+		angle = Angles.angle(x, y, x + a, y + b);
+		velocityScl = Mathf.dst(x, y, x + a, y + b) / 120;
+		Bullet.create(Bullets.fireball, entity, tile.getTeam(), x, y, angle, velocityScl, 1);
+	}});
+	Sounds.flame.at(x, y, Mathf.random(0.5, 0.8));
 }
 
 const mars = extendContent(ItemTurret, "mars", {
 	init(){
 		this.ammo(
+			Items.sand, marsSand,
 			Items.copper, marsCopper,
-			Items.blastCompound, marsBlast
+			Items.silicon, marsSilicon,
+			Items.graphite, marsGraphite,
+			Items.titanium, marsTitanium,
+			Items.coal, marsCoal,
+			Items.pyratite, marsPyra,
+			Items.blastCompound, marsBlast,
+			Items.surgealloy, marsSurge
 		);
 		this.shootAtt = OrderedMap.of([
-			marsCopper, /** lightning1*/explosion,
-			marsBlast, explosion
+			marsSand, sandSmoke,
+			marsCopper, lightning1,
+			marsSilicon, lightning1,
+			marsGraphite, lightning1,
+			marsTitanium, lightning1,
+			marsCoal, fire1,
+			marsPyra, fire2,
+			marsBlast, explosion,
+			marsSurge, lightning2
 		]);
 		this.consumes.powerCond(this.powerUse, boolf(entity => entity.target != null));
 		this.amplifier = Vars.content.getByName(ContentType.block, "mechanical-warfare-power-amplifier");
@@ -251,6 +425,13 @@ const mars = extendContent(ItemTurret, "mars", {
 				}), cons(t => t.ent().setWorking(true)));
 			}else{
 				entity.setCharging(false);
+				Core.app.post(run(() => {
+					if(tile == null || entity == null){return;}
+					prox.eachLinkedBlock(tile, boolf(t => {
+						e = t.ent();
+						return t.block() == this.amplifier && e.isWorking();
+					}), cons(t => t.ent().setWorking(false)));
+				}));
 			}
 			if(entity.isCharging()){
 				entity.setLength(

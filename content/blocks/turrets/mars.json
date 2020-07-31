@@ -14,12 +14,13 @@ layer: turret
 layer2: power
 hasPower: true
 requirements: [
-	mk2-module/25
-	uranium/500
-	surge-alloy/750
-	insulator-alloy/500
-	silicon/850
-	aluminum/900
+	mk2-module/30
+	lead/2300
+	uranium/800
+	surge-alloy/1500
+	insulator-alloy/1200
+	silicon/1800
+	aluminum/1600
 ]
 category: turret
 research: supernova

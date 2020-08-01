@@ -212,7 +212,12 @@ module.exports = {
 			},
 			head(){
 				if(this.isHead())return this;
-				return Vars.unitGroup.getByID(this._head);
+				temp = Vars.unitGroup.getByID(this._head);
+				if(temp == null){
+					this.findHead();
+					return Vars.unitGroup.getByID(this._head);
+				}
+				return temp;
 			},
 			tail(){
 				if(this.isTail())return this;

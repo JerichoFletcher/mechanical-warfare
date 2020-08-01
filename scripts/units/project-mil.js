@@ -5,7 +5,7 @@ const wormlib = require("mechanical-warfare/units/worm-base");
 const projMil = extendContent(UnitType, "project-mil", {
 	load(){
 		this.super$load();
-		this.region = Core.atlas.find(this.name + "-head");
+		this.region = Core.atlas.find(this.name);
 		this.bodyRegion = Core.atlas.find(this.name + "-body");
 		this.tailRegion = Core.atlas.find(this.name + "-body");
 	},
@@ -37,6 +37,6 @@ milBlaster.shootSound = Sounds.shootSnap;
 projMil.weapon = milBlaster;
 projMil.shootCone = 90;
 projMil.create(prov(() => {
-	unit = wormlib.newBase(7, 7, 0.12, 27, false, null, null, null, null, null, []);
+	unit = wormlib.newBase(11, 7, 0.12, 27, false, null, null, null, null, null, []);
 	return unit;
 }));

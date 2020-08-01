@@ -1,0 +1,10 @@
+flying: true
+health: 240
+mass: 3
+hitsize: 9
+speed: 2
+drag: 0.001
+maxVelocity: 2
+rotatespeed: 0.04
+baseRotateSpeed: 0.02
+attackLength: 140

@@ -47,7 +47,7 @@ googolBlaster.shootSound = Sounds.shootSnap;
 projGoogol.weapon = googolBlaster;
 projGoogol.shootCone = 90;
 projGoogol.create(prov(() => {
-	unit = wormlib.newBase(15, 13, 0.1, 48, true, base => {
+	unit = wormlib.newBase(23, 13, 0.1, 48, true, base => {
 		if(base.dat("carry") !== undefined && (base.dat("carryUnit") !== undefined || base.dat("carryUnit") !== null)){
 			for(var i = 0; i < 2; i++){
 				if(base.dat("carry")[i]){
@@ -120,7 +120,5 @@ projGoogol.create(prov(() => {
 			});
 		}
 	}, ["carryUnit", UnitTypes.wraith, "carry", [true, true], "relT", 0]);
-	//unit._carryUnit = UnitTypes.wraith;
-	//unit._carry = [true, true];
 	return unit;
 }));

@@ -10,7 +10,7 @@ require("mechanical-warfare/blocks/turret/ghost")
 // Incandescence
 require("mechanical-warfare/blocks/turret/incandescence")
 
-// Storm
+// Storm - NOT IMPLEMENTED
 require("mechanical-warfare/blocks/turret/storm")
 
 // Spectrum

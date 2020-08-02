@@ -20,7 +20,7 @@ const blow = extendContent(DoubleTurret, "blow", {
 		this.ammo(
 			Vars.content.getByName(ContentType.item, "mechanical-warfare-ap-shell"), blowShell // Raw DPS: 756
 		);
-    this.super$init();
+		this.super$init();
 	},
 	hasAmmo(tile){
 		var entity = tile.ent();

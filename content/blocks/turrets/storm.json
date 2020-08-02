@@ -16,3 +16,4 @@ requirements: [
 heatColor: turretHeat
 category: turret
 research: voltmeter
+buildVisibility: hidden

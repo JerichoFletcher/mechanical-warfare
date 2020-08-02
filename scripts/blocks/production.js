@@ -428,7 +428,46 @@ dissipator.entityType = prov(() => {
 	return entity;
 });
 
-const coilWinder = extendContent(GenericCrafter, "coil-winder", {});
+const coilWinder = extendContent(GenericCrafter, "coil-winder", {
+	load(){
+		this.super$load();
+		this.region = Core.atlas.find(this.name);
+		this.rotatorRegion = Core.atlas.find(this.name + "-rotator");
+		this.topRegion = Core.atlas.find(this.name + "-top");
+	},
+	generateIcons(){
+		return [
+			Core.atlas.find(this.name),
+			Core.atlas.find(this.name + "-rotator"),
+			Core.atlas.find(this.name + "-top")
+		];
+	},
+	update(tile){
+		this.super$update(tile);
+		entity = tile.ent();
+		entity.setRot(entity.getRot() + this.rotateSpeed * entity.warmup);
+	}
+});
+coilWinder.rotateSpeed = 8;
+coilWinder.drawer = cons(tile => {
+	entity = tile.ent();
+	block = coilWinder;
+	Draw.rect(block.region, tile.drawx(), tile.drawy());
+	Draw.rect(block.rotatorRegion, tile.drawx(), tile.drawy(), entity.getRot());
+	Draw.rect(block.topRegion, tile.drawx(), tile.drawy());
+});
+coilWinder.entityType = prov(() => {
+	const entity = extend(GenericCrafter.GenericCrafterEntity, {
+		setRot(val){
+			this._rot = val;
+		},
+		getRot(){
+			return this._rot;
+		}
+	});
+	entity.setRot(0);
+	return entity;
+});
 
 // MK2 Module Assembler
 const mk2Assembler = extendContent(GenericCrafter, "mk2-assembler", {

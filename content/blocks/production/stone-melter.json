@@ -13,7 +13,7 @@ consumes: {
 }
 outputLiquid: {
   liquid: liquid-lava
-  amount: 1.2
+  amount: 0.33
 }
 requirements: [
   lead/40

@@ -340,6 +340,30 @@ dissolver.entityType = prov(() => {
 	return entity;
 });
 
+const mutator = extendContent(GenericCrafter, "mutator", {
+	load(){
+		this.super$load();
+		this.region = Core.atlas.find(this.name);
+		this.liquidRegion = Core.atlas.find(this.name + "-liquid");
+		this.topRegion = Core.atlas.find(this.name + "-top");
+	},
+	generateIcons(){
+		return [
+			Core.atlas.find(this.name),
+			Core.atlas.find(this.name + "-top")
+		];
+	}
+});
+mutator.drawer = cons(tile => {
+	entity = tile.ent();
+	Draw.rect(mutator.region, tile.drawx(), tile.drawy());
+	Draw.color(entity.liquids.current().color);
+	Draw.alpha(entity.liquids.total() / mutator.liquidCapacity);
+	Draw.rect(mutator.liquidRegion, tile.drawx(), tile.drawy());
+	Draw.reset();
+	Draw.rect(mutator.topRegion, tile.drawx(), tile.drawy());
+});
+
 // Dissipator
 const dissipator = extendContent(GenericCrafter, "molecular-dissipator", {
 	init(){

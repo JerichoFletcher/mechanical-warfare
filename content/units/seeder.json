@@ -1,0 +1,13 @@
+flying: true
+speed: 1.3
+maxVelocity: 1.5
+mass: 5
+health: 1020
+hitsize: 16
+drag: 0.01
+attackLength: 160
+shootCone: 60
+engineOffset: 8
+engineSize: 3.2
+rotatespeed: 0.3
+baseRotateSpeed: 0.4

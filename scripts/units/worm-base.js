@@ -47,7 +47,7 @@ module.exports = {
 			},
 			behavior(){
 				this.super$behavior();
-				if(this.timer.get(4, 5)){
+				if(headDamage > 0 && this.timer.get(4, 5)){
 					h = this.type.hitsize * 1.4;
 					m = this.isHead() ? 1 : 0.25;
 					Damage.damage(this.getTeam(), this.x, this.y, h, headDamage * m);
@@ -62,65 +62,7 @@ module.exports = {
 			},
 			updateVelocityStatus(){
 				this.super$updateVelocityStatus();
-				/*if(!this.isTail() && this.child() != null){
-					if(!Mathf.equal(this.dst(this.parent()), segmentOffset, 0.01)){
-						Tmp.v1.set(this.parent().angleTo(this), segmentOffset);
-						this.x = Mathf.lerpDelta(this.x, this.parent().x + Tmp.v1.x * Vars.tilesize, 0.4);
-						this.y = Mathf.lerpDelta(this.y, this.parent().y + Tmp.v1.y * Vars.tilesize, 0.4);
-						//Tmp.v1.set(this.parent().x - this.x, this.parent().y - this.y);
-						//Tmp.v1.setLength(2 * this.type.speed * Time.delta());
-						//this.velocity().add(Tmp.v1);
-					}else if(!this.withinDst(this.parent(), segmentOffset * 0.9)){
-						this.velocity().add(Tmp.v1.trns(this.angleTo(this.parent()), this.type.speed * this.dst(this.parent()) * Time.delta()));
-					}
-					if(this.withinDst(this.parent(), segmentOffset / 3)){
-						this.velocity().add(Tmp.v1.trns(-this.angleTo(this.parent()), (segmentOffset / 3 - this.dst(this.parent())) * Time.delta()));
-					}*/
-					/*if(!Mathf.equal(this.dst(this.child()), segmentOffset, 0.01)){
-						Tmp.v1.set(this.angleTo(this.child()) + 180, this.dst(this.child()) - segmentOffset).scl(2 * Time.delta());
-						//this.child().moveBy(Tmp.v1.x, Tmp.v1.y);
-						this.child().velocity().add(Tmp.v1);
-					}
-				}*/
-				/*if(!this.isHead()){
-					if(this.withinDst(this.parent(), segmentOffset * 0.95)){
-						this.velocity().add(Tmp.v1.trns(this.angleTo(this.parent()) + 180, (segmentOffset - this.dst(this.parent())) * Time.delta()));
-					}
-					Tmp.v1.trns(this.angleTo(this.parent()), this.parent().velocity().len());
-					if(!this.withinDst(this.parent(), segmentOffset)){
-						Tmp.v1.scl(1.02 * this.dst(this.parent()) / segmentOffset);
-					}
-					this.velocity().add(Tmp.v1);
-					//this.velocity().setLength(this.parent().velocity().len()).rotate(this.angleTo(this.parent())).scl(Time.delta() * segmentOffset / this.dst(this.parent()));
-				}*/
-				/*if(!this.isHead()){
-					this.velocity().trns(Mathf.slerpDelta(this.velocity().angle(), this.parent().rotation, 0.5), this.parent().velocity().len());
-				}*/
 				if(!this.isHead()){
-					/*Tmp.v1.trns(this.parent().velocity().angle(), -segmentOffset);
-					angle = Angles.angle(this.x, this.y, this.parent().x + Tmp.v1.x, this.parent().y + Tmp.v1.y);
-					dst = Mathf.dst(this.x, this.y, this.parent().x, this.parent().y) - segmentOffset;
-					if(!Mathf.within(this.x, this.y, this.parent().x, this.parent().y, segmentOffset * 5)){
-						this.set(this.parent().x, this.parent().y);
-					}
-					if(!Mathf.within(this.x, this.y, this.parent().x, this.parent().y, segmentOffset)){
-						Tmp.v2.trns(angle, dst);
-						Tmp.v3.trns(angle, Math.max(this.parent().velocity().len(), this.velocity().len()));
-						this.velocity().add(
-							Tmp.v3.x * Time.delta(),
-							Tmp.v3.y * Time.delta()
-						);
-						if(Mathf.within(this.x + this.velocity().x, this.y + this.velocity().y, this.parent().x, this.parent().y, segmentOffset)){
-							this.moveBy(Tmp.v2.x * 0.9, Tmp.v2.y * 0.9);
-						}
-						this.moveBy(Tmp.v2.x * 0.99, Tmp.v2.y * 0.99);
-						dst = Mathf.dst(this.x, this.y, this.parent().x, this.parent().y) - segmentOffset;
-						if(dst < 0){
-							angle = Angles.angle(this.x, this.y, this.parent().x, this.parent().y);
-							Tmp.v2.trns(angle, dst);
-							this.moveBy(Tmp.v2.x * 0.25, Tmp.v2.y * 0.25);
-						}
-					}*/
 					Tmp.v1.trns(this.parent().velocity().angle(), -segmentOffset / 2.5);
 					angle = Angles.angle(this.x, this.y, this.parent().x + Tmp.v1.x, this.parent().y + Tmp.v1.y);
 					dst = Mathf.dst(this.x, this.y, this.parent().x, this.parent().y) - segmentOffset;
@@ -143,7 +85,7 @@ module.exports = {
 				}
 			},
 			collides(other){
-				if(this.isDead() || other.type == this.type){return false;}
+				if(this.isDead() || other.type == this.type)return false;
 				return this.super$collides(other);
 			},
 			updateRotation(){
@@ -216,20 +158,13 @@ module.exports = {
 			},
 			drawB(){
 				Draw.mixcol(Color.white, this.hitTime / 9);
-				/*if(this.isHead()){
-					Draw.rect(this.type.region, this.x, this.y, this.rotation - 90);
-				}else if(this.isBody()){
-					Draw.rect(this.type.getBodyReg(), this.x, this.y, this.rotation - 90);
-				}else if(this.isTail()){
-					Draw.rect(this.type.getTailReg(), this.x, this.y, this.rotation - 90);
-				}*/
 				if(drawUnder != null)drawUnder(this);
 				Draw.rect(this.type.getReg()[this.segmentName()], this.x, this.y, this.rotation - 90);
 				this.drawWeapons();
 				if(drawOver != null)drawOver(this);
 				Draw.mixcol();
 				this.drawStats();
-				if(!this.isHead()){this.parent().drawB();}
+				if(!this.isHead())this.parent().drawB();
 			},
 			drawAll(){
 				if(!this.isDead()){
@@ -242,7 +177,12 @@ module.exports = {
 				}
 			},
 			getPowerCellRegion(){
-				return this.type.getCellReg()[this.segmentName()];
+				cellReg = Core.atlas.find("power-cell");
+				if(typeof(this.type.getCellReg) !== "undefined"){
+					regObj = this.type.getCellReg();
+					if(regObj != null)cellReg = regObj[this.segmentName()];
+				}
+				return cellReg;
 			},
 			getIconRegion(){
 				return this.type.getReg()[this.segmentName()];
@@ -250,15 +190,12 @@ module.exports = {
 			segmentName(){
 				return this.isHead() ? "head" : (this.isBody() ? "body" : "tail");
 			},
-			setDraw(draw){
-				this._doDraw = draw;
-			},
 			parent(){
-				if(this._parent < 0){return null;}
+				if(this._parent < 0)return null;
 				return Vars.unitGroup.getByID(this._parent);
 			},
 			child(){
-				if(this._child < 0){return null;}
+				if(this._child < 0)return null;
 				return Vars.unitGroup.getByID(this._child);
 			},
 			childs(){
@@ -274,11 +211,16 @@ module.exports = {
 				return cgroup;
 			},
 			head(){
-				if(this.isHead()){return this;}
-				return Vars.unitGroup.getByID(this._head);
+				if(this.isHead())return this;
+				temp = Vars.unitGroup.getByID(this._head);
+				if(temp == null){
+					this.findHead();
+					return Vars.unitGroup.getByID(this._head);
+				}
+				return temp;
 			},
 			tail(){
-				if(this.isTail()){return this;}
+				if(this.isTail())return this;
 				temp = this;
 				while(!temp.isTail()){
 					temp = temp.child();
@@ -304,6 +246,7 @@ module.exports = {
 				}else if(this._head >= 0){
 					this.child().setHeadByID(this._head);
 				}else{
+					this.findHead();
 					this.child().findHead();
 				}
 			},
@@ -446,7 +389,6 @@ module.exports = {
 		base._child = -1;
 		base._head = -1;
 		base._healths = [];
-		base._doDraw = false;
 		base._postAddSchedule = null;
 		base._data = {};
 		for(var i = 0; i < dataList.length; i += 2){

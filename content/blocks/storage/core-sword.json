@@ -1,7 +1,7 @@
 outlineIcon: true
 hasLiquids: true
 liquidCapacity: 20
-layer: turret
+layer2: turret
 priority: turret
 update: true
 solid: true

@@ -14,17 +14,15 @@ const coreSword = extendContent(CoreBlock, "core-sword", {
 		this.turretRegion = Core.atlas.find(this.name + "-mount");
 		this.heatRegion = Core.atlas.find(this.name + "-mount-heat");
 	},
-	// Do not add generateIcons(), it breaks the draw() and drawLayer() method for some mysterious reasons
 	draw(tile){
 		Draw.rect(this.region, tile.drawx(), tile.drawy());
 		Draw.color();
 	},
-	drawLayer(tile){
+	drawLayer2(tile){
 		var entity = tile.ent();
 		this.tr2.trns(entity.getRot() - 90, 0, -entity.getRec());
 		this.turretDrawer.get(tile, entity);
 		this.heatDrawer.get(tile, entity);
-		this.super$drawLayer(tile);
 	},
 	setStats(){
 		this.consumes.add(new ConsumeLiquidFilter(boolf(liquid => liquid.temperature <= 0.5 && liquid.flammability < 0.1), 0.2)).update(false).boost();

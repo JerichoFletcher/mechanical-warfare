@@ -1,0 +1,11 @@
+health: 40
+tileDamage: 1000
+baseExplosiveness: 3
+hasShadow: false
+requirements: [
+	copper/20
+	metaglass/8
+	scrap-plate/15
+]
+category: effect
+research: shock-mine

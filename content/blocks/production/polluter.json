@@ -1,0 +1,32 @@
+size: 2
+update: true
+hasPower: true
+hasItems: false
+hasLiquids: true
+craftTime: 60
+itemCapacity: 20
+consumes: {
+	power: 1.2
+	items: {
+		items: [
+			thorium/10
+		]
+	}
+	liquid: {
+		liquid: water
+		amount: 0.25
+		optional: false
+		booster: false
+	}
+}
+outputLiquid:  {
+	liquid: liquid-contaminated-water
+}
+requirements: [
+	metaglass/25
+	silicon/75
+	graphite/50
+	aluminum/60
+]
+category: crafting
+research: water-extractor

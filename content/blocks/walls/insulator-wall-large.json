@@ -1,0 +1,13 @@
+size: 2
+health: 4000
+solid: true
+destructible: true
+sync: true
+update: true
+powerProduction: 4
+insulated: true
+requirements: [
+	insulator-alloy/24
+]
+category: defense
+research: insulator-wall

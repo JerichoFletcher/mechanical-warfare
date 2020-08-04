@@ -1,0 +1,20 @@
+size: 1
+tier: 2
+drillTime: 300
+drawMineItem: false
+updateEffect: pulverizeSmall
+drillEffect: mine
+consumes: {
+  liquid: {
+  	liquid: water
+  	amount: 0.03
+  	optional: true
+  	booster: true
+  }
+}
+requirements: [
+  copper/4
+  scrap-plate/2
+]
+category: production
+research: laser-drill

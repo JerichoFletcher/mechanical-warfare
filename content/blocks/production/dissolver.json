@@ -1,0 +1,32 @@
+size: 3
+update: true
+hasPower: true
+hasItems: false
+hasLiquids: true
+craftTime: 60
+consumes: {
+	power: 3
+	items: {
+		items: [
+			uranium/1
+		]
+	}
+	liquid: {
+		liquid: water
+		amount: 0.6
+		optional: false
+		booster: false
+	}
+}
+outputLiquid:  {
+	liquid: liquid-contaminated-water
+}
+requirements: [
+	metaglass/50
+	silicon/95
+	graphite/100
+	steel/85
+	thorium/50
+]
+category: crafting
+research: polluter

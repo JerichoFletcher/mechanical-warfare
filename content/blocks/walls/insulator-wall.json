@@ -1,0 +1,13 @@
+size: 1
+health: 1000
+solid: true
+destructible: true
+sync: true
+update: true
+powerProduction: 2
+requirements: [
+	insulator-alloy/6
+]
+insulated: true
+category: defense
+research: plastanium-wall

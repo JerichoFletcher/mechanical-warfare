@@ -13,12 +13,12 @@ consumes: {
 }
 outputLiquid: {
   liquid: liquid-lava
-  amount: 2
+  amount: 0.33
 }
 requirements: [
   lead/40
   titanium/25
   graphite/30
 ]
-research: melter
+research: cryofluidmixer
 category: crafting

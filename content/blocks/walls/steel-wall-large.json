@@ -1,0 +1,9 @@
+type: Wall
+size: 2
+update: true
+health: 2240
+requirements: [
+steel/24
+]
+category: defense
+research: steel-wall

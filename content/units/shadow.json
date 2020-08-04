@@ -1,4 +1,3 @@
-type: HoverUnit
 flying: true
 speed: 0.1
 maxVelocity: 0.8
@@ -10,30 +9,7 @@ range: 140
 attackLength: 125
 shootCone: 90
 rotateWeapon: true
-engineOffset: 11
+engineOffset: 16
 engineSize: 4
 rotatespeed: 0.01
 baseRotateSpeed: 0.06
-// Raw DPS: 216
-weapon: {
-  name: shadow-caster
-  width: 7
-  recoil: 2
-  reload: 30
-  alternate: true
-  inaccuracy: 2
-  shots: 3
-  spacing: 0
-  shotDelay: 3
-  shootSound: artillery
-  bullet: {
-    type: BasicBulletType
-    inaccuracy: 0.5
-    bulletWidth: 8
-    bulletHeight: 12
-    speed: 10
-    lifetime: 20
-    damage: 18
-    shootEffect: shootBig
-  }
-}

@@ -1,23 +1,41 @@
+// Lobber
+require("mechanical-warfare/blocks/turret/lobber")
+
 // Aegis
-const aegis = extendContent(ItemTurret, "aegis", {});
+require("mechanical-warfare/blocks/turret/aegis")
 
 // Ghost
-require("blocks/turret/ghost")
+require("mechanical-warfare/blocks/turret/ghost")
 
 // Incandescence
-require("blocks/turret/incandescence")
+require("mechanical-warfare/blocks/turret/incandescence")
+
+// Storm - NOT IMPLEMENTED
+require("mechanical-warfare/blocks/turret/storm")
+
+// Spectrum
+require("mechanical-warfare/blocks/turret/spectrum")
 
 // Nighthawk
-require("blocks/turret/nighthawk")
+require("mechanical-warfare/blocks/turret/nighthawk")
 
 //Voltmeter
-require("blocks/turret/voltmeter")
+require("mechanical-warfare/blocks/turret/voltmeter")
 
 // Blow
-require("blocks/turret/blow")
+require("mechanical-warfare/blocks/turret/blow")
+
+// Windstorm
+require("mechanical-warfare/blocks/turret/windstorm")
 
 // Quake
-require("blocks/turret/quake")
+require("mechanical-warfare/blocks/turret/quake")
 
 // Seism
-require("blocks/turret/seism")
+require("mechanical-warfare/blocks/turret/seism")
+
+// Supernova
+require("mechanical-warfare/blocks/turret/supernova")
+
+// M.A.R.S
+require("mechanical-warfare/blocks/turret/mars");

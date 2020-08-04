@@ -2,6 +2,6 @@ name: "mechanical-warfare"
 displayName: "[gold]Mechanical [accent]Warfare[]"
 author: "GlennFolker + JerichoFletcher"
 description: "Adds brand new [yellow]units[], [cyan]mechs[], [red]turrets[], and [accent]resources[] along with their respective crafters. \n\n[scarlet]Not for the faintest of engines.[] \n\nJoin our Discord server: https://discord.gg/K3uzNSD"
-version: "1.5.3"
+version: "1.6"
 minGameVersion: "104"
 dependencies: []

@@ -1,0 +1,23 @@
+health: 8100
+size: 6
+reload: 40
+rotatespeed: 8
+recoil: 4
+powerUse: 24
+shootCone: 15
+range: 210
+requirements: [
+	steel/800
+	graphite/750
+	silicon/800
+	surge-alloy/550
+	insulator-alloy/350
+]
+layer2: power
+category: turret
+research: meltdown
+idleSound: machine
+idleSoundVolume: 1
+shootSound: supernovaShoot
+activeSound: supernovaActive
+activeSoundVolume: 1

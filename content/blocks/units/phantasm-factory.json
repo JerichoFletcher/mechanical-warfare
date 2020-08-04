@@ -1,7 +1,3 @@
-type: UnitFactory
-name: Phantasm Destroyer Factory
-description: Assembles Phantasm, an armored destroyer ship equipped with flak gun.
-unitType: phantasm
 size: 4
 produceTime: 2000
 maxSpawn: 4

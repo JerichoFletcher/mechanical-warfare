@@ -1,0 +1,17 @@
+size: 2
+craftTime: 60
+consumes: {
+	items: {
+		items: [
+			coil/1
+		]
+	}
+}
+requirements: [
+	lead/85
+	silicon/125
+	insulator-alloy/60
+	metaglass/50
+]
+category: power
+research: diode

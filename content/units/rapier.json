@@ -1,0 +1,6 @@
+health: 360
+speed: 0.2
+maxVelocity: 1.1
+drag: 0.4
+mass: 2.3
+hitsize: 9

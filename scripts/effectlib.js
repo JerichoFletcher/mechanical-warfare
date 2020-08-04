@@ -22,6 +22,15 @@ module.exports = {
   fillCircleWCol(x, y, radius){
     Fill.circle(x, y, radius);
   },
+  fillPolygon(x, y, col, alpha, sides, size, rot){
+	Draw.color(col);
+	Draw.alpha(alpha);
+	Fill.poly(x, y, sides, size, rot);
+	Draw.color();
+  },
+  fillPolygonWCol(x, y, sides, size, rot){
+	Fill.poly(x, y, sides, size, rot);
+  },
   splashLines(x, y, col, thickness, distance, length, count, seed){
     Draw.color(col);
     Lines.stroke(thickness);

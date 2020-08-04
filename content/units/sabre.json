@@ -1,57 +1,9 @@
-type: GroundUnit
 health: 600
 speed: 0.12
 drag: 0.4
-mass: 5
+mass: 3
 hitsize: 9
 rotatespeed: 0.08
 immunities: [
   corroded
 ]
-// Raw DPS: 93.3
-weapon: {
-  name: sabre-launcher
-  length: 1
-  reload: 90
-  width: 9
-  alternate: true
-  recoil: 3
-  shake: 2
-  shots: 1
-  spacing: 0
-  shotDelay: 1
-  ejectEffect: shellEjectBig
-  shootSound: shootBig
-  bullet: {
-    type: MissileBulletType
-	bulletWidth: 9
-	bulletHeight: 13
-	lifetime: 64
-	speed: 2.5
-	damage: 20
-	frontColor: eaffbf
-	backColor: 97b064
-	homingPower: 0.5
-	homingRange: 50
-	fragBullets: 10
-	fragBullet: {
-      type: MissileBulletType
-	  lifetime: 24
-	  speed: 2.5
-	  splashDamageRadius: 20
-	  splashDamage: 5
-	  frontColor: eaffbf
-	  backColor: 97b064
-	  homingPower: 0.5
-	  homingRange: 50
-	  fragBullets: 3
-	  fragBullet: {
-	    type: LiquidBulletType
-		liquid: liquid-acid
-		lifetime: 2
-		speed: 1
-		damage: 2
-	  }
-	}
-  }
-}

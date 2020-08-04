@@ -1,0 +1,11 @@
+type: Conveyor
+requirements: [
+	copper/1
+	lead/1
+	aluminum/1
+]
+health: 15
+category: distribution
+speed: 0.123
+displayedSpeed: 16
+research: titanium-conveyor

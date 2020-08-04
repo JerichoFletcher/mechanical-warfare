@@ -1,0 +1,32 @@
+type: Separator
+size: 3
+hasPower: true
+craftTime: 60
+update: true
+consumes: {
+	liquid: {
+    	liquid: slag
+    	amount: 0.05
+  	}
+	power: 2
+}
+results: [
+	copper/5
+	lead/3
+	graphite/2
+	titanium/2
+	silicon/1
+	metaglass/1
+	plastanium/1
+	iron/2
+	steel/1
+	aluminum/1
+]
+requirements: [
+	copper/60
+	titanium/50
+	silicon/30
+	iron/20
+]
+category: crafting
+research: separator

@@ -52,7 +52,8 @@ module.exports = {
 			ammo = weap.bullet;
 			if(
 				(Angles.near(base.angleTo(base.target), base.rotation, att.shootCone[i]) || weap.ignoreRotation) &&
-				base.dst(base.target) < ammo.range()
+				base.dst(base.target) < ammo.range() &&
+				!base.target.getTeam().isEnemy(base.getTeam())
 			){
 				if(att.rotateWeapon[i]){
 					rotated = true;

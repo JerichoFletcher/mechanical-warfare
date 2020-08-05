@@ -95,13 +95,15 @@ module.exports = {
 				}
 				/*Tmp.v2.trns(this.parent().rotation, -segmentOffset);
 				this.rotation = this.angleTo(this.parent().x + Tmp.v2.x, this.parent().y + Tmp.v2.y);*/
-				Tmp.v1.trns(this.parent().rotation, -segmentOffset / 4);
-				Tmp.v1.add(this.parent().x, this.parent().y);
-				this.rotation = Angles.angle(this.x, this.y, Tmp.v1.x, Tmp.v1.y);
+				if(this.parent() != null){
+					Tmp.v1.trns(this.parent().rotation, -segmentOffset / 4);
+					Tmp.v1.add(this.parent().x, this.parent().y);
+					this.rotation = Angles.angle(this.x, this.y, Tmp.v1.x, Tmp.v1.y);
+				}
 			},
 			circle(circleLength, speed){
 				if(!this.isHead()){return;}
-				this.super$circle(circleLength, speed);
+				this.super$circle(circleLength, this.type.attackLength);
 			},
 			moveTo(circleLength){
 				if(!this.isHead()){return;}
@@ -128,11 +130,13 @@ module.exports = {
 				}else{
 					if(this.isHead()){
 						for(var i = this.childs().length - 1; i >= 0; i--){
-							Vars.unitGroup.getByID(this.childs()[i]).damageB(amount / (this.childs().length + 1));
+							h = Vars.unitGroup.getByID(this.childs()[i]);
+							if(h != null)h.damageB(amount / (this.childs().length + 1));
 						}
 						this.super$damage(amount / (this.childs().length + 1));
 					}else{
-						this.head().damage(amount);
+						h = this.head();
+						if(h != null)h.damage(amount);
 					}
 				}
 			},
@@ -142,6 +146,11 @@ module.exports = {
 			onDeath(){
 				if(!this.isTail() && this.child() != null){
 					this.child().setParent(null);
+					h = this.childs();
+					for(var i = 0; i < h.length; i++){
+						temp = Vars.unitGroup.getByID(h[i]);
+						if(temp != null)temp.setHead(this.child());
+					}
 				}
 				if(!this.isHead() && this.parent() != null){
 					this.parent().setChild(null);
@@ -258,6 +267,7 @@ module.exports = {
 			},
 			findHead(){
 				temp = this;
+				if(temp == null)return;
 				while(!temp.isHead()){
 					temp = temp.parent();
 				}
@@ -265,16 +275,16 @@ module.exports = {
 			},
 			isHead(){
 				if(this._savedAsHead){this._parent = -1;}
-				return this._parent < 0;
+				return this._parent < 0 || this.parent() == null;
 			},
 			isBody(){
 				return !this.isHead() && !this.isTail();
 			},
 			isTail(){
-				return !this.isHead() && this._child < 0;
+				return !this.isHead() && (this._child < 0 || this.child() == null);
 			},
 			isSolitary(){
-				return this.isHead() && this._child < 0;
+				return this.isHead() && (this._child < 0 || this.child() == null);
 			},
 			write(data){
 				this.super$write(data);

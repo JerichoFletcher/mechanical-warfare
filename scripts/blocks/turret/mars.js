@@ -66,10 +66,10 @@ marsSand.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsSand.frontColor, 1, e.fout() * 4);
 });
 marsSand.bulletSprite = "shell";
-marsSand.ammoMultiplier = 3;
-marsSand.inaccuracy = 10;
-marsSand.homingPower = 1;
-marsSand.homingRange = 120;
+marsSand.ammoMultiplier = 30;
+marsSand.inaccuracy = 15;
+marsSand.homingPower = 0;
+marsSand.homingRange = 0;
 marsSand.hitEffect = Fx.flakExplosion;
 marsSand.despawnEffect = Fx.flakExplosion;
 marsSand.hitSound = Sounds.explosion;
@@ -83,7 +83,7 @@ marsCopper.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsCopper.frontColor, 1, e.fout() * 3);
 });
 marsCopper.bulletSprite = "shell";
-marsCopper.ammoMultiplier = 1;
+marsCopper.ammoMultiplier = 30;
 marsCopper.inaccuracy = 0;
 marsCopper.hitEffect = Fx.blastExplosion;
 marsCopper.despawnEffect = Fx.blastExplosion;
@@ -98,10 +98,10 @@ marsSilicon.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsSilicon.frontColor, 1, e.fout() * 3.2);
 });
 marsSilicon.bulletSprite = "shell";
-marsSilicon.ammoMultiplier = 1;
+marsSilicon.ammoMultiplier = 30;
 marsSilicon.inaccuracy = 0;
-marsSilicon.homingPower = 1;
-marsSilicon.homingRange = 120;
+marsSilicon.homingPower = 0;
+marsSilicon.homingRange = 0;
 marsSilicon.hitEffect = Fx.blastExplosion;
 marsSilicon.despawnEffect = Fx.blastExplosion;
 marsSilicon.hitSound = Sounds.explosion;
@@ -115,7 +115,7 @@ marsGraphite.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsGraphite.frontColor, 1, e.fout() * 3.5);
 });
 marsGraphite.bulletSprite = "shell";
-marsGraphite.ammoMultiplier = 1;
+marsGraphite.ammoMultiplier = 30;
 marsGraphite.inaccuracy = 0;
 marsGraphite.hitEffect = Fx.blastExplosion;
 marsGraphite.despawnEffect = Fx.blastExplosion;
@@ -130,7 +130,7 @@ marsTitanium.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsTitanium.frontColor, 1, e.fout() * 4);
 });
 marsTitanium.bulletSprite = "shell";
-marsTitanium.ammoMultiplier = 1;
+marsTitanium.ammoMultiplier = 30;
 marsTitanium.inaccuracy = 0;
 marsTitanium.hitEffect = Fx.blastExplosion;
 marsTitanium.despawnEffect = Fx.blastExplosion;
@@ -145,10 +145,10 @@ marsCoal.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsCoal.frontColor, 1, e.fout() * 4);
 });
 marsCoal.bulletSprite = "shell";
-marsCoal.ammoMultiplier = 3;
-marsCoal.homingPower = 1;
-marsCoal.homingRange = 120;
-marsCoal.inaccuracy = 10;
+marsCoal.ammoMultiplier = 30;
+marsCoal.homingPower = 0;
+marsCoal.homingRange = 0;
+marsCoal.inaccuracy = 15;
 marsCoal.hitEffect = Fx.blastExplosion;
 marsCoal.despawnEffect = Fx.blastExplosion;
 marsCoal.hitSound = Sounds.explosion;
@@ -165,10 +165,10 @@ marsPyra.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsPyra.frontColor, 1, e.fout() * 4);
 });
 marsPyra.bulletSprite = "shell";
-marsPyra.ammoMultiplier = 3;
-marsPyra.homingPower = 1;
-marsPyra.homingRange = 120;
-marsPyra.inaccuracy = 10;
+marsPyra.ammoMultiplier = 30;
+marsPyra.homingPower = 0;
+marsPyra.homingRange = 0;
+marsPyra.inaccuracy = 18;
 marsPyra.hitEffect = Fx.blastExplosion;
 marsPyra.despawnEffect = Fx.blastExplosion;
 marsPyra.hitSound = Sounds.explosion;
@@ -176,7 +176,7 @@ marsPyra.status = StatusEffects.burning;
 marsPyra.frontColor = Pal.lighterOrange;
 marsPyra.backColor = Pal.lightOrange;
 
-const marsBlast = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 1280, 7200, 56, 3, 37.5, 32, cons(b => {
+const marsBlast = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 3300, 7200, 56, 3, 37.5, 32, cons(b => {
 	bulletDraw(b, marsBlast);
 }), cons(b => {
 	Effects.effect(marsBlast.trailEffect, b.x, b.y, b.rot());
@@ -193,7 +193,7 @@ marsBlast.hitSound = Sounds.explosion;
 marsBlast.frontColor = Pal.missileYellow;
 marsBlast.backColor = Pal.missileYellowBack;
 
-const marsSurge = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 9600, 1280, 27, 6, 37.5, 32, cons(b => {
+const marsSurge = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 15000, 1280, 27, 6, 37.5, 32, cons(b => {
 	bulletDraw(b, marsSurge);
 }), cons(b => {
 	Effects.effect(marsSurge.trailEffect, b.x, b.y, b.rot());
@@ -216,8 +216,8 @@ marsSurge.status = StatusEffects.shocked;
 const tmpExplosion = extend(BasicBulletType, {
 	draw(b){}
 });
-tmpExplosion.splashDamage = 16;
-tmpExplosion.splashDamageRadius = 24;
+tmpExplosion.splashDamage = 300;
+tmpExplosion.splashDamageRadius = 30;
 tmpExplosion.hitEffect = Fx.blastExplosion;
 tmpExplosion.despawnEffect = Fx.blastExplosion;
 tmpExplosion.speed = 0.1;

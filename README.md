@@ -19,6 +19,7 @@ Contributors:
 - [dsethlewis](https://github.com/dsethlewis)
 - [DatOnePlayer](https://github.com/DatOnePlayer)
 - [Gdeft](https://github.com/Gdeft)
+- [D.A.R.K](https://github.com/DARK0717)
 
 If you want to contribute to this mod, or simply just want to know more, also join our [Discord server](https://discord.gg/K3uzNSD)!
 

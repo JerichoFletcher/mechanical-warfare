@@ -17,7 +17,7 @@ Translators:
 Contributors:
 - [kapzduke](https://github.com/kapzduke)
 - [dsethlewis](https://github.com/dsethlewis)
-- GlitchyShipBoi a.k.a. [DatOnePlayer](https://github.com/DatOnePlayer)
+- [DatOnePlayer](https://github.com/DatOnePlayer)
 - [Gdeft](https://github.com/Gdeft)
 
 If you want to contribute to this mod, or simply just want to know more, also join our [Discord server](https://discord.gg/K3uzNSD)!

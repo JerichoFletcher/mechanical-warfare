@@ -1,7 +1,3 @@
-/*importPackage(Packages.mindustry.net);
-importPackage(Packages.mindustry.io);
-importPackage(Packages.arc.util.pooling);
-tempBuffer = java.nio.ByteBuffer.allocate(4096);*/
 module.exports = {
 	drawMainWeapons(base){
 		Draw.mixcol(Color.white, base.hitTime / base.hitDuration);
@@ -53,7 +49,7 @@ module.exports = {
 			if(
 				(Angles.near(base.angleTo(base.target), base.rotation, att.shootCone[i]) || weap.ignoreRotation) &&
 				base.dst(base.target) < ammo.range() &&
-				!base.target.getTeam().isEnemy(base.getTeam())
+				base.target.getTeam().isEnemy(base.getTeam())
 			){
 				if(att.rotateWeapon[i]){
 					rotated = true;

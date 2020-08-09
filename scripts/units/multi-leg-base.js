@@ -38,7 +38,7 @@ module.exports = {
 			Lines.stroke(region["legBase"].getHeight() * Draw.scl * flips);
 			Lines.line(region["legBase"], leg.joint.x, leg.joint.y, leg.base.x, leg.base.y, CapStyle.none, 0);
 			Draw.rect(region["joint"], leg.joint.x, leg.joint.y);
-			Draw.rect(region["baseJoint"], leg.joint.x, leg.joint.y);
+			Draw.rect(region["baseJoint"], position.x, position.y, rotation);
 		}
 		Draw.reset();
 	},

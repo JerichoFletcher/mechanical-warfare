@@ -74,8 +74,8 @@ const nightmare = extendContent(UnitType, "nightmare", {
 			foot: Core.atlas.find(name + "-foot"),
 			leg: Core.atlas.find(name + "-leg"),
 			legBase: Core.atlas.find(name + "-leg-base"),
-			joint: Core.atlas.find("clear"),
-			baseJoint: Core.atlas.find(name + "-joint-base")
+			joint: Core.atlas.find(name + "-joint"),
+			baseJoint: Core.atlas.find("clear")
 		}
 	}
 });

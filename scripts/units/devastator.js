@@ -49,7 +49,7 @@ devastator.create(prov(() => {
 			Draw.mixcol();
 		},
 		frame(){
-			return Math.floor(this.walkTime % 3);
+			return Math.floor(this.walkTime % 6);
 		},
 	});
 	return base;

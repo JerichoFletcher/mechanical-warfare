@@ -221,7 +221,10 @@ const spectrum = extendContent(PowerTurret, "spectrum", {
 		}));
 		if(targetFin === null){
 			target = Units.findEnemyTile(tile.getTeam(), tile.drawx(), tile.drawy(), this.range, boolf(t => !t.isDead()));
-			if(target === null)return;
+			if(target === null){
+				entity.target = null;
+				return;
+			}
 			if(!target.withinDst(tile.drawx(), tile.drawy(), this.getMinDst())){
 				entity.target = target;
 			}

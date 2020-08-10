@@ -29,15 +29,7 @@ module.exports = {
 		});
 		return state;
 	},
-	rallyState(base){
-		update(){
-			target = base.getClosest(BlockFlag.rally);
-			if(target != null && base.dst(target) > 80){
-				base.moveToCore(Pathfinder.PathTarget.rallyPoints);
-			}
-		}
-	},
-	drawBase(base){
+	drawTracks(base){
 		for(var i = 0; i < 2; i++){
 			sign = Mathf.signs[i];
 			tra = base.rotation - 90;

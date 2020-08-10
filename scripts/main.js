@@ -15,6 +15,7 @@ require("mechanical-warfare/units/hover-unit")
 require("mechanical-warfare/units/flying-unit")
 require("mechanical-warfare/units/copter-unit")
 require("mechanical-warfare/units/worm-unit")
+require("mechanical-warfare/units/tank-unit")
 
 //mechs
 require("mechanical-warfare/mechs/ship")

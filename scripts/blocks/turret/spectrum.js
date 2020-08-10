@@ -44,7 +44,7 @@ const spectrumLaser = extend(BasicBulletType, {
 		});
 	}
 });
-spectrumLaser.damage = 50;
+spectrumLaser.damage = 99;
 spectrumLaser.despawnEffect = Fx.none;
 spectrumLaser.hitEffect2 = newEffect(30, e => {
 	Draw.color(e.data.colorA, e.data.colorB, e.fin());

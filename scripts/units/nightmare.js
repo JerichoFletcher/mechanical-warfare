@@ -10,11 +10,11 @@ const att = {
 		this.legLength = 18;
 		this.legLengthScl = 1;
 		this.legTrns = 0.4;
-		this.legSpeed = 0.05;
+		this.legSpeed = 0.04;
 		this.legGroupSize = 3;
-		this.legMoveSpace = 8;
+		this.legMoveSpace = 6;
 		this.maxStretch = 1.75;
-		this.legPairOffset = 3;
+		this.legPairOffset = 0;
 		this.flipBackLegs = true;
 		this.landShake = 0;
 		this.kinematicScl = 1;
@@ -25,8 +25,8 @@ const nightmareShell = extend(ArtilleryBulletType, {});
 nightmareShell.bulletWidth = 20;
 nightmareShell.bulletHeight = 20;
 nightmareShell.bulletSprite = "shell";
-nightmareShell.speed = 3;
-nightmareShell.lifetime = 56;
+nightmareShell.speed = 5;
+nightmareShell.lifetime = 60;
 nightmareShell.inaccuracy = 2;
 nightmareShell.hitTiles = true;
 nightmareShell.collidesTiles = true;
@@ -130,7 +130,6 @@ nightmare.create(prov(() => {
 			this.super$update();
 			this.updateLastPosition();
 			legLib.updateLegs(this);
-			print(this.x + ", " + this.y + ";" + this._legs[1].joint.x + ", " + this._legs[1].joint.y + ";" + this._legs[1].base.x + ", " + this._legs[1].base.y);
 		},
 		updateLastPosition(){
 			this.setDelta({

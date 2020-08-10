@@ -49,6 +49,7 @@ nightmareCannon.length = 8;
 nightmareCannon.shots = 4;
 nightmareCannon.spacing = 1;
 nightmareCannon.inaccuracy = 2;
+nightmareCannon.shotDelay = 2;
 nightmareCannon.recoil = 2.4;
 nightmareCannon.ejectEffect = Fx.shellEjectBig;
 nightmareCannon.bullet = nightmareShell;

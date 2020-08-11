@@ -6,7 +6,7 @@ const seismHE = bulletLib.bullet(BasicBulletType, 20, 26, 0, 0, 350, 720, 60, 4,
 	if(Mathf.chance(0.75)){
 		Effects.effect(seismHE.trailEffect, b.x, b.y, b.rot());
 	}
-}), null, null);
+}), null, null, null);
 seismHE.frontColor = plib.frontColorHE;
 seismHE.backColor = plib.backColorHE;
 seismHE.ammoMultiplier = 2;
@@ -38,7 +38,7 @@ const seismAP = bulletLib.bullet(BasicBulletType, 20, 26, 0, 0, 3300, 160, 15, 8
 	if(Mathf.chance(0.75)){
 		Effects.effect(seismHE.trailEffect, b.x, b.y, b.rot());
 	}
-}), null, null);
+}), null, null, null);
 seismAP.frontColor = plib.frontColorAP;
 seismAP.backColor = plib.backColorAP;
 seismAP.ammoMultiplier = 2;

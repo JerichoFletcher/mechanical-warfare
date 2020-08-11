@@ -1,7 +1,6 @@
 const elib = require("mechanical-warfare/effectlib");
 const plib = require("mechanical-warfare/plib");
 const groundUnit = prov(() => extend(GroundUnit, {}));
-const bulletLib = require("mechanical-warfare/bulletlib");
 
 const sabreAcid = extend(LiquidBulletType, {
 	init(){

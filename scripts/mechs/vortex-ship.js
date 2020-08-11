@@ -10,7 +10,7 @@ const vortexBullet = bulletLib.bullet(BasicBulletType, 6, 6, 0, 0.01, 100, 0, -1
 		Effects.effect(vortexBullet.trailEffectA, b.x, b.y, b.rot());
 	}
 	Effects.effect(vortexBullet.trailEffectB, b.x, b.y, b.rot());
-}), null, null);
+}), null, null, null);
 vortexBullet.bulletWidth = vortexBullet.bulletHeight = 6;
 vortexBullet.frontColor = plib.frontColorPurple;
 vortexBullet.backColor = plib.backColorPurple;

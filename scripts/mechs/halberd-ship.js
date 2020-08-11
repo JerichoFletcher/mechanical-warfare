@@ -2,7 +2,7 @@ const elib = require("mechanical-warfare/effectlib");
 const plib = require("mechanical-warfare/plib");
 const bulletLib = require("mechanical-warfare/bulletlib");
 
-const halberdBullet = bulletLib.bullet(BasicBulletType, 6, 12, 0, 0, 12, 0, -1, 0, 9, 18, null, null, null, null);
+const halberdBullet = bulletLib.bullet(BasicBulletType, 6, 12, 0, 0, 12, 0, -1, 0, 9, 18, null, null, null, null, null);
 halberdBullet.frontColor = plib.frontColorCyan;
 halberdBullet.backColor = plib.backColorCyan;
 halberdBullet.hitEffect = Fx.hitBulletSmall;
@@ -23,7 +23,7 @@ const halberdBullet2 = bulletLib.bullet(BasicBulletType, 1, 1, 0, 0.05, 0, 0, -1
 	for(var i = 0; i < 3; i++){
 		Lightning.create(b.getTeam(), Pal.lancerLaser, Vars.state.rules.playerDamageMultiplier * 10, b.x, b.y, Mathf.random(360), 15);
 	}
-}));
+}), null);
 halberdBullet2.hitTiles = false;
 halberdBullet2.collidesTile = false;
 halberdBullet2.collides = false;

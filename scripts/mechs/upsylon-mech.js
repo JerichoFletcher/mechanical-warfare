@@ -2,7 +2,7 @@ const elib = require("mechanical-warfare/effectlib");
 const plib = require("mechanical-warfare/plib");
 const bulletLib = require("mechanical-warfare/bulletlib");
 
-const shotgunRound = bulletLib.bullet(BasicBulletType, 6, 9, 0.3, 0, 9, 0, -1, 0, 6, 17, null, null, null, null);
+const shotgunRound = bulletLib.bullet(BasicBulletType, 6, 9, 0.3, 0, 9, 0, -1, 0, 6, 17, null, null, null, null, null);
 shotgunRound.frontColor = plib.frontColorCyan;
 shotgunRound.backColor = plib.backColorCyan;
 shotgunRound.hitEffect = Fx.hitBulletSmall;
@@ -32,7 +32,7 @@ const upsylonPlasma = bulletLib.bullet(BasicBulletType, 1, 1, 0, 0.08, Vars.stat
 	elib.fillCircle(b.x, b.y, Pal.lancerLaser, 1, 6);
 }), cons(b => {
 	Effects.effect(upsylonPlasma.trailEffect, b.x, b.y, b.rot());
-}), null, null);
+}), null, null, null);
 upsylonPlasma.homingRange = upsylonPlasma.range();
 upsylonPlasma.homingPower = 0.001;
 upsylonPlasma.shootEffect = Fx.shootBig;

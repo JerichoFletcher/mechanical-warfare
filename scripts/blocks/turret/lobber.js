@@ -13,7 +13,7 @@ const scrapFrag = bulletLib.bullet(BasicBulletType, 7, 7, 1, 0.1, 12, 0, -1, 0, 
 		color: scrapFrag.backColor,
 		dist: Mathf.range(2.0)
 	});
-}), null, null);
+}), null, null, null);
 
 const lobberScrap = bulletLib.bullet(ArtilleryBulletType, 12, 12, 0.3, 0, 0, 25, 16, 0, 4, 60, null, cons(b => {
 	Effects.effect(trailEffect, b.x, b.y, b.rot(), {
@@ -21,7 +21,7 @@ const lobberScrap = bulletLib.bullet(ArtilleryBulletType, 12, 12, 0.3, 0, 0, 25,
 		color: lobberScrap.backColor,
 		dist: Mathf.range(2.5)
 	});
-}), null, null);
+}), null, null, null);
 lobberScrap.bulletWidth = lobberScrap.bulletHeight = 12;
 lobberScrap.bulletSprite = "shell";
 lobberScrap.hitSound = Sounds.explosion;
@@ -36,7 +36,7 @@ const lobberCopper = bulletLib.bullet(ArtilleryBulletType, 12, 12, 0.3, 0, 0, 50
 		color: lobberCopper.backColor,
 		dist: Mathf.range(2.5)
 	});
-}), null, null);
+}), null, null, null);
 lobberCopper.bulletWidth = lobberCopper.bulletHeight = 13;
 lobberCopper.bulletSprite = "shell";
 lobberCopper.hitSound = Sounds.explosion;
@@ -48,7 +48,7 @@ const lobberCoal = bulletLib.bullet(ArtilleryBulletType, 12, 12, 0.3, 0, 0, 50, 
 		color: lobberCoal.backColor,
 		dist: Mathf.range(2.5)
 	});
-}), null, null);
+}), null, null, null);
 lobberCoal.frontColor = Pal.lightishOrange;
 lobberCoal.backColor = Pal.lightOrange;
 lobberCoal.bulletWidth = lobberCoal.bulletHeight = 13;
@@ -67,7 +67,7 @@ const lobberHoming = bulletLib.bullet(ArtilleryBulletType, 12, 12, 0.3, 0, 0, 50
 		color: lobberHoming.backColor,
 		dist: Mathf.range(2.5)
 	});
-}), null, null);
+}), null, null, null);
 lobberHoming.bulletWidth = lobberHoming.bulletHeight = 14;
 lobberHoming.bulletSprite = "shell";
 lobberHoming.homingPower = 2;

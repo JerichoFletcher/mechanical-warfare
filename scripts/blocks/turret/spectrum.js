@@ -1,5 +1,4 @@
 const elib = require("mechanical-warfare/effectlib");
-const bulletLib = require("mechanical-warfare/bulletlib");
 
 const spectrumLaser = extend(BasicBulletType, {
 	draw(b){

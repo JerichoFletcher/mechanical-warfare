@@ -1,6 +1,7 @@
 const elib = require("mechanical-warfare/effectlib");
 const bulletLib = require("mechanical-warfare/bulletlib");
 const prox = require("mechanical-warfare/prox-block-lib");
+const trailLib = require("mechanical-warfare/trailLib");
 
 const marsShoot = newEffect(20, e => {
 	e.scaled(8, cons(i => {
@@ -49,8 +50,7 @@ const marsSandSmoke = newEffect(64, e => {
 const bulletDraw = function(b, type){
 	Draw.color(type.backColor);
     Draw.rect(type.backRegion, b.x, b.y, type.bulletWidth, type.bulletHeight, b.rot() - 90);
-	dst = Mathf.clamp(Mathf.dst(b.x, b.y, b.getData().vec.x, b.getData().vec.y), 0, b.velocity().len() * 5);
-	Drawf.tri(b.x, b.y, type.bulletWidth * 0.8, dst, b.rot() + 180);
+	b.getData().trail.draw(type.backColor, type.bulletWidth * 0.3);
 	
     Draw.color(type.frontColor);
     Draw.rect(type.frontRegion, b.x, b.y, type.bulletWidth, type.bulletHeight, b.rot() - 90);
@@ -61,7 +61,15 @@ const marsSand = bulletLib.bullet(BasicBulletType, 10, 10, 0, 0, 320, 480, 27, 6
 	bulletDraw(b, marsSand);
 }), cons(b => {
 	Effects.effect(marsSand.trailEffect, b.x, b.y, b.rot());
-}), null, null);
+}), cons(b => {
+	Core.app.post(run(() => {
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsSand.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsSand.frontColor, 1, e.fout() * 4);
 });
@@ -77,7 +85,15 @@ const marsCopper = bulletLib.bullet(BasicBulletType, 12, 12, 0, 0, 1920, 1280, 2
 	bulletDraw(b, marsCopper);
 }), cons(b => {
 	Effects.effect(marsCopper.trailEffect, b.x, b.y, b.rot());
-}), null, null);
+}), cons(b => {
+	Core.app.post(run(() => {
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsCopper.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsCopper.frontColor, 1, e.fout() * 3);
 });
@@ -93,10 +109,15 @@ const marsSilicon = bulletLib.bullet(BasicBulletType, 13, 13, 0, 0, 2400, 800, 1
 	bulletDraw(b, marsSilicon);
 }), cons(b => {
 	Effects.effect(marsSilicon.trailEffect, b.x, b.y, b.rot());
-}), null, null);
-marsSilicon.trailEffect = newEffect(60, e => {
-	elib.fillCircle(e.x, e.y, marsSilicon.frontColor, 1, e.fout() * 3.2);
-});
+}), cons(b => {
+	Core.app.post(run(() => {
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsSilicon.bulletSprite = "shell";
 marsSilicon.ammoMultiplier = 5;
 marsSilicon.inaccuracy = 5;
@@ -111,7 +132,15 @@ const marsGraphite = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 3240, 640, 
 	bulletDraw(b, marsGraphite);
 }), cons(b => {
 	Effects.effect(marsGraphite.trailEffect, b.x, b.y, b.rot());
-}), null, null);
+}), cons(b => {
+	Core.app.post(run(() => {
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsGraphite.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsGraphite.frontColor, 1, e.fout() * 3.5);
 });
@@ -127,7 +156,15 @@ const marsTitanium = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 4800, 600, 
 	bulletDraw(b, marsTitanium);
 }), cons(b => {
 	Effects.effect(marsTitanium.trailEffect, b.x, b.y, b.rot());
-}), null, null);
+}), cons(b => {
+	Core.app.post(run(() => {
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsTitanium.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsTitanium.frontColor, 1, e.fout() * 4);
 });
@@ -143,7 +180,15 @@ const marsCoal = bulletLib.bullet(BasicBulletType, 13, 13, 0, 0, 2400, 480, 24, 
 	bulletDraw(b, marsCoal);
 }), cons(b => {
 	Effects.effect(marsCoal.trailEffect, b.x, b.y, b.rot());
-}), null, null);
+}), cons(b => {
+	Core.app.post(run(() => {
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsCoal.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsCoal.frontColor, 1, e.fout() * 4);
 });
@@ -162,7 +207,15 @@ const marsPyra = bulletLib.bullet(BasicBulletType, 13, 13, 0, 0, 3840, 720, 30, 
 	bulletDraw(b, marsPyra);
 }), cons(b => {
 	Effects.effect(marsPyra.trailEffect, b.x, b.y, b.rot());
-}), null, null);
+}), cons(b => {
+	Core.app.post(run(() => {
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsPyra.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsPyra.frontColor, 1, e.fout() * 4);
 });
@@ -181,7 +234,15 @@ const marsBlast = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 3840, 9600, 56
 	bulletDraw(b, marsBlast);
 }), cons(b => {
 	Effects.effect(marsBlast.trailEffect, b.x, b.y, b.rot());
-}), null, null);
+}), cons(b => {
+	Core.app.post(run(() => {
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsBlast.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsBlast.frontColor, 1, e.fout() * 4);
 });
@@ -200,8 +261,14 @@ const marsSurge = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 12800, 1440, 2
 }), cons(b => {
 	Effects.effect(marsSurge.trailEffect, b.x, b.y, b.rot());
 }), cons(b => {
-	Lightning.create(b.getTeam(), Pal.surge, 17, b.x, b.y, b.rot(), 8);
-}), null);
+	Core.app.post(run(() => {
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsSurge.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsSurge.frontColor, 1, e.fout() * 4);
 });
@@ -526,15 +593,6 @@ const mars = extendContent(ItemTurret, "mars", {
 		}
 		this.shootAtt.get(type)(tile, this.tr);
 		this.effects(tile);
-	},
-	bullet(tile, type, angle){
-		bullet = Bullet.create(type, tile.entity, tile.getTeam(), tile.drawx() + this.tr.x, tile.drawy() + this.tr.y, angle, 1, 1);
-		tx = tile.drawx() + this.tr.x;
-		ty = tile.drawy() + this.tr.y;
-		bullet.setData({vec: {
-			x: tx,
-			y: ty
-		}});
 	},
 	baseReloadSpeed(tile){
 		return tile.isEnemyCheat() ? 1 : tile.ent().power.status * (

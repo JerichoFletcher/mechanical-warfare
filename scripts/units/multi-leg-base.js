@@ -25,13 +25,15 @@ module.exports = {
 			flip = i >= legs.length / 2;
 			flips = Mathf.sign(flip);
 			position = legOffset.trns(angle, att.legBaseOffset).add(base.x, base.y);
+			Draw.color(0, 0, 0, 0.4);
+			Draw.rect(Core.atlas.find("circle-shadow"), leg.base.x, leg.base.y, ssize, ssize);
 			if(leg.moving && att.visualElevation > 0){
 				scl = att.visualElevation;
 				elev = matlib.slope(1 - leg.stage) * scl;
 				Draw.color(shadowColor);
 				Draw.rect(region["foot"], leg.base.x + shadowTX * elev, leg.base.y + shadowTY * elev, position.angleTo(leg.base));
-				Draw.color();
 			}
+			Draw.color();
 			Draw.rect(region["foot"], leg.base.x, leg.base.y, position.angleTo(leg.base));
 			Lines.stroke(region["leg"].getHeight() * Draw.scl * flips);
 			Lines.line(region["leg"], position.x, position.y, leg.joint.x, leg.joint.y, CapStyle.none, 0);

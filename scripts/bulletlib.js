@@ -1,8 +1,14 @@
 const elib = require("mechanical-warfare/effectlib");
 const plib = require("mechanical-warfare/plib");
 module.exports = {
-	bullet(type, width, height, shrink, drag, dmg, sdmg, srad, knockback, speed, lifetime, drawer, trail, update, hit){
+	bullet(type, width, height, shrink, drag, dmg, sdmg, srad, knockback, speed, lifetime, drawer, trail, u, h, i){
 		temp = extend(type, {
+			init(b){
+				if(typeof(b) !== "undefined"){
+					this.super$init();
+					if(i !== null)i.get(b);
+				}
+			},
 			draw(b){
 				if(drawer !== null){
 					drawer.get(b);
@@ -10,22 +16,16 @@ module.exports = {
 					this.super$draw(b);
 				}
 				if(trail !== null){
-					if(!Vars.state.isPaused()){
-						trail.get(b);
-					}
+					if(!Vars.state.isPaused())trail.get(b);
 				}
 			},
 			update(b){
 				this.super$update(b);
-				if(update !== null){
-					update.get(b);
-				}
+				if(u !== null)u.get(b);
 			},
 			hit(b, x, y){
 				this.super$hit(b, b.x, b.y);
-				if(hit !== null){
-					hit.get(b);
-				}
+				if(h !== null)h.get(b);
 			}
 		});
 		temp.bulletWidth = width;

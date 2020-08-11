@@ -1,7 +1,7 @@
 const elib = require("mechanical-warfare/effectlib");
 const bulletLib = require("mechanical-warfare/bulletlib");
 const prox = require("mechanical-warfare/prox-block-lib");
-const trailLib = require("mechanical-warfare/trailLib");
+const trailLib = require("mechanical-warfare/traillib");
 
 const marsShoot = newEffect(20, e => {
 	e.scaled(8, cons(i => {
@@ -71,7 +71,7 @@ const marsSand = bulletLib.bullet(BasicBulletType, 10, 10, 0, 0, 320, 480, 27, 6
 	});
 }));
 marsSand.trailEffect = newEffect(60, e => {
-	elib.fillCircle(e.x, e.y, marsSand.frontColor, 1, e.fout() * 4);
+	elib.fillCircle(e.x, e.y, marsSand.frontColor, 1, e.fout() * 3);
 });
 marsSand.bulletSprite = "shell";
 marsSand.ammoMultiplier = 15;
@@ -80,6 +80,7 @@ marsSand.hitEffect = Fx.flakExplosion;
 marsSand.despawnEffect = Fx.flakExplosion;
 marsSand.hitSound = Sounds.explosion;
 marsSand.pierce = true;
+marsSand.drawSize = 225;
 
 const marsCopper = bulletLib.bullet(BasicBulletType, 12, 12, 0, 0, 1920, 1280, 24, 3, 37.5, 32, cons(b => {
 	bulletDraw(b, marsCopper);
@@ -104,6 +105,7 @@ marsCopper.hitEffect = Fx.blastExplosion;
 marsCopper.despawnEffect = Fx.blastExplosion;
 marsCopper.hitSound = Sounds.explosion;
 marsCopper.pierce = true;
+marsCopper.drawSize = 225;
 
 const marsSilicon = bulletLib.bullet(BasicBulletType, 13, 13, 0, 0, 2400, 800, 18, 4, 37.5, 32, cons(b => {
 	bulletDraw(b, marsSilicon);
@@ -118,15 +120,19 @@ const marsSilicon = bulletLib.bullet(BasicBulletType, 13, 13, 0, 0, 2400, 800, 1
 		trail: trailLib.newTrail(6)
 	});
 }));
+marsSilicon.trailEffect = newEffect(60, e => {
+	elib.fillCircle(e.x, e.y, marsSilicon.frontColor, 1, e.fout() * 3.2);
+});
 marsSilicon.bulletSprite = "shell";
 marsSilicon.ammoMultiplier = 5;
 marsSilicon.inaccuracy = 5;
-marsSilicon.homingPower = 0;
-marsSilicon.homingRange = 0;
+marsSilicon.homingPower = 2;
+marsSilicon.homingRange = 160;
 marsSilicon.hitEffect = Fx.blastExplosion;
 marsSilicon.despawnEffect = Fx.blastExplosion;
 marsSilicon.hitSound = Sounds.explosion;
 marsSilicon.pierce = true;
+marsSilicon.drawSize = 225;
 
 const marsGraphite = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 3240, 640, 12, 5, 37.5, 32, cons(b => {
 	bulletDraw(b, marsGraphite);
@@ -151,6 +157,7 @@ marsGraphite.hitEffect = Fx.blastExplosion;
 marsGraphite.despawnEffect = Fx.blastExplosion;
 marsGraphite.hitSound = Sounds.explosion;
 marsGraphite.pierce = true;
+marsGraphite.drawSize = 225;
 
 const marsTitanium = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 4800, 600, 12, 5.5, 37.5, 32, cons(b => {
 	bulletDraw(b, marsTitanium);
@@ -175,6 +182,7 @@ marsTitanium.hitEffect = Fx.blastExplosion;
 marsTitanium.despawnEffect = Fx.blastExplosion;
 marsTitanium.hitSound = Sounds.explosion;
 marsTitanium.pierce = true;
+marsTitanium.drawSize = 225;
 
 const marsCoal = bulletLib.bullet(BasicBulletType, 13, 13, 0, 0, 2400, 480, 24, 4, 37.5, 32, cons(b => {
 	bulletDraw(b, marsCoal);
@@ -202,6 +210,7 @@ marsCoal.status = StatusEffects.burning;
 marsCoal.frontColor = Pal.lighterOrange;
 marsCoal.backColor = Pal.lightOrange;
 marsCoal.pierce = true;
+marsCoal.drawSize = 225;
 
 const marsPyra = bulletLib.bullet(BasicBulletType, 13, 13, 0, 0, 3840, 720, 30, 4, 37.5, 32, cons(b => {
 	bulletDraw(b, marsPyra);
@@ -229,6 +238,7 @@ marsPyra.status = StatusEffects.burning;
 marsPyra.frontColor = Pal.lighterOrange;
 marsPyra.backColor = Pal.lightOrange;
 marsPyra.pierce = true;
+marsPyra.drawSize = 225;
 
 const marsBlast = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 3840, 9600, 56, 3, 37.5, 32, cons(b => {
 	bulletDraw(b, marsBlast);
@@ -255,6 +265,7 @@ marsBlast.hitSound = Sounds.explosion;
 marsBlast.frontColor = Pal.missileYellow;
 marsBlast.backColor = Pal.missileYellowBack;
 marsBlast.pierce = false;
+marsBlast.drawSize = 225;
 
 const marsSurge = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 12800, 1440, 27, 6, 37.5, 32, cons(b => {
 	bulletDraw(b, marsSurge);
@@ -282,6 +293,7 @@ marsSurge.lightining = 6;
 marsSurge.lightningLength = 18;
 marsSurge.status = StatusEffects.shocked;
 marsSurge.pierce = false;
+marsSurge.drawSize = 225;
 
 const tmpExplosion = extend(BasicBulletType, {
 	draw(b){}

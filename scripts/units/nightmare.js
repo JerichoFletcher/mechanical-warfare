@@ -3,18 +3,18 @@ const legLib = require("mechanical-warfare/units/multi-leg-base");
 const att = {
 	load(){
 		this.sway = 1;
-		this.legBaseOffset = 4;
+		this.legBaseOffset = 8;
 		this.visualElevation = 0.3;
 		this.legExtension = 0;
 		this.elevation = 0.5;
-		this.legLength = 18;
+		this.legLength = 22;
 		this.legLengthScl = 1;
 		this.legTrns = 0.4;
-		this.legSpeed = 0.04;
+		this.legSpeed = 0.4;
 		this.legGroupSize = 3;
 		this.legMoveSpace = 6;
 		this.maxStretch = 1.75;
-		this.legPairOffset = 0;
+		this.legPairOffset = 2;
 		this.flipBackLegs = true;
 		this.landShake = 0;
 		this.kinematicScl = 1;
@@ -76,7 +76,7 @@ const nightmare = extendContent(UnitType, "nightmare", {
 			leg: Core.atlas.find(name + "-leg"),
 			legBase: Core.atlas.find(name + "-leg-base"),
 			joint: Core.atlas.find(name + "-joint"),
-			baseJoint: Core.atlas.find("clear")
+			baseJoint: Core.atlas.find(name + "-joint-base")
 		}
 	}
 });

@@ -63,6 +63,7 @@ const marsSand = bulletLib.bullet(BasicBulletType, 10, 10, 0, 0, 320, 480, 27, 6
 	Effects.effect(marsSand.trailEffect, b.x, b.y, b.rot());
 }), cons(b => {
 	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
 		b.getData().trail.update(b.x, b.y);
 	}));
 }), null, cons(b => {
@@ -88,6 +89,7 @@ const marsCopper = bulletLib.bullet(BasicBulletType, 12, 12, 0, 0, 1920, 1280, 2
 	Effects.effect(marsCopper.trailEffect, b.x, b.y, b.rot());
 }), cons(b => {
 	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
 		b.getData().trail.update(b.x, b.y);
 	}));
 }), null, cons(b => {
@@ -113,6 +115,7 @@ const marsSilicon = bulletLib.bullet(BasicBulletType, 13, 13, 0, 0, 2400, 800, 1
 	Effects.effect(marsSilicon.trailEffect, b.x, b.y, b.rot());
 }), cons(b => {
 	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
 		b.getData().trail.update(b.x, b.y);
 	}));
 }), null, cons(b => {
@@ -140,6 +143,7 @@ const marsGraphite = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 3240, 640, 
 	Effects.effect(marsGraphite.trailEffect, b.x, b.y, b.rot());
 }), cons(b => {
 	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
 		b.getData().trail.update(b.x, b.y);
 	}));
 }), null, cons(b => {
@@ -165,6 +169,7 @@ const marsTitanium = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 4800, 600, 
 	Effects.effect(marsTitanium.trailEffect, b.x, b.y, b.rot());
 }), cons(b => {
 	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
 		b.getData().trail.update(b.x, b.y);
 	}));
 }), null, cons(b => {
@@ -190,6 +195,7 @@ const marsCoal = bulletLib.bullet(BasicBulletType, 13, 13, 0, 0, 2400, 480, 24, 
 	Effects.effect(marsCoal.trailEffect, b.x, b.y, b.rot());
 }), cons(b => {
 	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
 		b.getData().trail.update(b.x, b.y);
 	}));
 }), null, cons(b => {
@@ -218,6 +224,7 @@ const marsPyra = bulletLib.bullet(BasicBulletType, 13, 13, 0, 0, 3840, 720, 30, 
 	Effects.effect(marsPyra.trailEffect, b.x, b.y, b.rot());
 }), cons(b => {
 	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
 		b.getData().trail.update(b.x, b.y);
 	}));
 }), null, cons(b => {
@@ -246,6 +253,7 @@ const marsBlast = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 3840, 9600, 56
 	Effects.effect(marsBlast.trailEffect, b.x, b.y, b.rot());
 }), cons(b => {
 	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
 		b.getData().trail.update(b.x, b.y);
 	}));
 }), null, cons(b => {
@@ -273,6 +281,7 @@ const marsSurge = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 12800, 1440, 2
 	Effects.effect(marsSurge.trailEffect, b.x, b.y, b.rot());
 }), cons(b => {
 	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
 		b.getData().trail.update(b.x, b.y);
 	}));
 }), null, cons(b => {

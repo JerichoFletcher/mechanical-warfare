@@ -78,12 +78,19 @@ module.exports = {
 					att.weaponAngles[i][wi] = Mathf.slerpDelta(att.weaponAngles[i][wi], base.rotation, 0.1);
 				}
 			}
+			if(!att.rotateWeapon[i]){
+				for(var j = 0; j < 2; j++){
+					left = Mathf.booleans[j];
+					wi = Mathf.num(left);
+					att.weaponAngles[i][wi] = base.rotation;
+				}
+			}
 		}
 	},
 	newWeapon(name, index, customShoot, customBullet){
 		const temp = extendContent(Weapon, name, {
 			getRegion(){
-				return Core.atlas.find("mechanical-warfare-" + name + "-equip");
+				return Core.atlas.find("mechanical-warfare-" + name + "-equip", Core.atlas.find("mechanical-warfare-" + name));
 			},
 			updateA(shooter, pointerX, pointerY){
 				for(var i = 0; i < 2; i++){

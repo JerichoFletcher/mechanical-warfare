@@ -82,7 +82,7 @@ module.exports = {
 						Effects.effect(Fx.unitLand, floor3.color, l.base.x, l.base.y);
 					}
 					if(att.landShake > 0){
-						Effect.shake(att.landShake, att.landShake, l.base.x, l.base.y);
+						Effects.shake(att.landShake, att.landShake, l.base.x, l.base.y);
 					}
 				}
 				l.group = group;

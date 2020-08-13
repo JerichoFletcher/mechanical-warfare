@@ -6,10 +6,12 @@ const vortexBullet = bulletLib.bullet(BasicBulletType, 6, 6, 0, 0.01, 100, 0, -1
 	elib.fillCircle(b.x, b.y, vortexBullet.frontColor, 1, vortexBullet.bulletWidth);
 	elib.outlineCircle(b.x, b.y, vortexBullet.backColor, 1, vortexBullet.bulletWidth);
 }), cons(b => {
-	if(b.timer.get(0, 3)){
-		Effects.effect(vortexBullet.trailEffectA, b.x, b.y, b.rot());
+	if(!Vars.state.isPaused()){
+		if(b.timer.get(0, 3)){
+			Effects.effect(vortexBullet.trailEffectA, b.x, b.y, b.rot());
+		}
+		Effects.effect(vortexBullet.trailEffectB, b.x, b.y, b.rot());
 	}
-	Effects.effect(vortexBullet.trailEffectB, b.x, b.y, b.rot());
 }), null, null, null);
 vortexBullet.bulletWidth = vortexBullet.bulletHeight = 6;
 vortexBullet.frontColor = plib.frontColorPurple;

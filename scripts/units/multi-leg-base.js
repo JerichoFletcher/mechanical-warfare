@@ -71,7 +71,7 @@ module.exports = {
 			backLeg = (Math.abs(i + 0.5 - legs.length / 2) <= 0.501);
 			if(backLeg && att.flipBackLegs)side = !side;
 			l.moving = move;
-			l.stage = moving ? (stageF % 1.0) : Mathf.lerpDelta(l.stage, 0, 0.1);
+			l.stage = moving ? (1 - (stageF - stage)) : Mathf.lerpDelta(l.stage, 0, 0.1);
 			if(l.group != group){
 				if(!move && i % div == l.group){
 					tmp = Vars.world.tileWorld(l.base.x, l.base.y);
@@ -93,7 +93,7 @@ module.exports = {
 			jointDest.add(baseOffset);
 			jointDest.lerp(v6.set(baseOffset).lerp(l.base, 0.5), 1 - att.kinematicScl);
 			if(move){
-				moveFract = stageF % 1.0;
+				moveFract = stageF % 1;
 				l.base.lerpDelta(legDest, moveFract);
 				l.joint.lerpDelta(jointDest, moveFract / 2);
 			}

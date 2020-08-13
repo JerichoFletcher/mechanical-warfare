@@ -1,0 +1,8 @@
+health: 32000
+speed: 0.24
+maxVelocity: 1.1
+drag: 0.7
+mass: 5
+hitsize: 32
+rotatespeed: 0.2 
+baseRotateSpeed: 0.1

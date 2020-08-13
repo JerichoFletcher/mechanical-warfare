@@ -60,53 +60,53 @@ halberdGun.shootSound = Sounds.shootBig;
 halberdGun.bullet = halberdBullet;
 
 const halberd = extendContent(Mech, "halberd-ship", {
-  load(){
-    this.weapon.load();
-    this.region = Core.atlas.find(this.name);
-    this.heatRegion = Core.atlas.find(this.name + "-heat");
-  },
-  draw(player){
-    this.super$draw(player);
-    Draw.color(plib.frontColorCyan, plib.backColorCyan, Mathf.absin(4, 1));
-    Draw.alpha(player.velocity().len() / this.maxSpeed);
-    Draw.rect(this.heatRegion, player.x, player.y, player.rotation - 90);
-    Draw.color();
-		if(!Vars.state.isPaused()){
-			var scl = player.velocity().len() / this.maxSpeed;
-			for(var i = 0; i < 2; i++){
-		  	var angle = player.rotation - 90;
-		  	var cx = Angles.trnsx(angle, Mathf.signs[i] * -22 / 4, -21 / 4);
-		  	var cy = Angles.trnsy(angle, Mathf.signs[i] * -22 / 4, -21 / 4);
-		  	if(scl > 0.5){
+	load(){
+		this.weapon.load();
+		this.region = Core.atlas.find(this.name);
+		this.heatRegion = Core.atlas.find(this.name + "-heat");
+	},
+	draw(player){
+		this.super$draw(player);
+		Draw.color(plib.frontColorCyan, plib.backColorCyan, Mathf.absin(4, 1));
+		Draw.alpha(player.velocity().len() / this.maxSpeed);
+		Draw.rect(this.heatRegion, player.x, player.y, player.rotation - 90);
+		Draw.color();
+			if(!Vars.state.isPaused()){
+				var scl = player.velocity().len() / this.maxSpeed;
+				for(var i = 0; i < 2; i++){
+				var angle = player.rotation - 90;
+				var cx = Angles.trnsx(angle, Mathf.signs[i] * -22 / 4, -21 / 4);
+				var cy = Angles.trnsy(angle, Mathf.signs[i] * -22 / 4, -21 / 4);
+				if(scl > 0.5){
 					Effects.effect(this._trailEffect,
 						player.x + cx + player.velocity().x * 5 / 6,
-			  		player.y + cy + player.velocity().y * 5 / 6,
-			  		player.velocity().angle(), scl
+						player.y + cy + player.velocity().y * 5 / 6,
+						player.velocity().angle(), scl
 					);
-		  	}else{
+				}else{
 					Effects.effect(this._trailEffect,
-			  		player.x + cx + player.velocity().x * 5 / 6,
-			  		player.y + cy + player.velocity().y * 5 / 6,
-			  		player.velocity().angle(), this._trailMinSize / this._trailSize
+						player.x + cx + player.velocity().x * 5 / 6,
+						player.y + cy + player.velocity().y * 5 / 6,
+						player.velocity().angle(), this._trailMinSize / this._trailSize
 					);
-	  		}
-    	}
+				}
+			}
 		}
-  },
-  updateAlt(player){
-    var scl = player.velocity().len() / this.maxSpeed;
-    if(scl >= 0.75){
-      if(Mathf.chance((player.velocity().len() / this.maxSpeed * 0.08))){
-        this.pl2.trns(player.rotation - 90, 0, this.weaponOffsetY);
-        var dir = player.velocity().angle() + Mathf.range(this.plasmaCone);
-        Bullet.create(halberdBullet2, player, player.getTeam(),
-          player.x + this.pl2.x, player.y + this.pl2.y,
-          dir, 1, 1
-        );
-        this.plasmaShootSound.at(player.x, player.y, Mathf.random(0.9, 1.1))
-      }
-    }
-  },
+	},
+	updateAlt(player){
+		var scl = player.velocity().len() / this.maxSpeed;
+		if(scl >= 0.75){
+			if(Mathf.chance((player.velocity().len() / this.maxSpeed * 0.08))){
+				this.pl2.trns(player.rotation - 90, 0, this.weaponOffsetY);
+				var dir = player.velocity().angle() + Mathf.range(this.plasmaCone);
+				Bullet.create(halberdBullet2, player, player.getTeam(),
+					player.x + this.pl2.x, player.y + this.pl2.y,
+					dir, 1, 1
+				);
+				this.plasmaShootSound.at(player.x, player.y, Mathf.random(0.9, 1.1))
+			}
+		}
+	}
 });
 halberd._trailEffect = newEffect(30, e => {
   Draw.blend(Blending.additive);

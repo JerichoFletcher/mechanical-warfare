@@ -20,6 +20,9 @@ require("mechanical-warfare/units/nightmare");
 // Recluse
 require("mechanical-warfare/units/recluse");
 
+// A.B.S.O.L.U.T.E
+require("mechanical-warfare/units/absolute");
+
 /** Cyan tier */
 // Anarchy
 require("mechanical-warfare/units/anarchy");

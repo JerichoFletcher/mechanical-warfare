@@ -27,13 +27,13 @@ recluseMissile.hitEffect = Fx.blastExplosion;
 recluseMissile.homingPower = 2;
 recluseMissile.homingRange = 80;
 recluseMissile.hitSound = Sounds.explosion;
+recluseMissile.weaveScale = 8;
+recluseMissile.weaveMag = 3;
 
 const att = {
 	load(){
-		this.sway = 1;
 		this.legBaseOffset = 12;
 		this.visualElevation = 0.5;
-		this.legExtension = 0;
 		this.elevation = 0.5;
 		this.legLength = 36;
 		this.legLengthScl = 1;
@@ -52,6 +52,8 @@ const att = {
 		this.weaponAngles = [[0.0, 0.0]];
 		this.shootCone = [30];
 		this.weaponOffsetY = [12];
+		this.targetAir = [true];
+		this.targetGround = [true];
 		this.weapon = [];
 		this.weapon[0] = multiWeap.newWeapon("recluse-launcher", 0, null, null);
 		this.weapon[0].width = 6;

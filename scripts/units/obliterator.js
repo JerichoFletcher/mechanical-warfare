@@ -4,7 +4,7 @@ const multiWeap = require("mechanical-warfare/units/multi-weapon-base");
 const bulletLib = require("mechanical-warfare/bulletlib");
 const trailLib = require("mechanical-warfare/traillib");
 
-const absoluteBeam = extend(BasicBulletType, {
+const obliteratorBeam = extend(BasicBulletType, {
 	init(b){
 		if(typeof(b) !== "undefined"){
 			Damage.collideLine(b, b.getTeam(), this.hitEffect, b.x, b.y, b.rot(), this.range());
@@ -38,31 +38,31 @@ const absoluteBeam = extend(BasicBulletType, {
         Draw.reset();
 	}
 });
-absoluteBeam.compound = 1;
-absoluteBeam.sideWidth = 0.7;
-absoluteBeam.sideLength = 29;
-absoluteBeam.sideAngle = 90;
-absoluteBeam.lengthFalloff = 0.5;
-absoluteBeam.colors = [
+obliteratorBeam.compound = 1;
+obliteratorBeam.sideWidth = 0.7;
+obliteratorBeam.sideLength = 29;
+obliteratorBeam.sideAngle = 90;
+obliteratorBeam.lengthFalloff = 0.5;
+obliteratorBeam.colors = [
 	Pal.lancerLaser.cpy().mul(1, 1, 1, 0.7),
 	Pal.lancerLaser,
 	Color.white
 ];
-absoluteBeam.bulletWidth = 15;
-absoluteBeam.damage = 150;
-absoluteBeam.speed = 0.01;
-absoluteBeam.lifetime = 16;
-absoluteBeam.keepVelocity = false;
-absoluteBeam.hitEffect = Fx.hitLancer;
-absoluteBeam.despawnEffect = Fx.none;
-absoluteBeam.shootEffect = Fx.lancerLaserShoot;
-absoluteBeam.smokeEffect = Fx.lancerLaserShootSmoke;
-absoluteBeam.collides = false;
-absoluteBeam.collidesAir = false;
-absoluteBeam.collidesTiles = false;
-absoluteBeam.collidesTeam = false;
-absoluteBeam.hitTiles = false;
-absoluteBeam.pierce = true;
+obliteratorBeam.bulletWidth = 15;
+obliteratorBeam.damage = 150;
+obliteratorBeam.speed = 0.01;
+obliteratorBeam.lifetime = 16;
+obliteratorBeam.keepVelocity = false;
+obliteratorBeam.hitEffect = Fx.hitLancer;
+obliteratorBeam.despawnEffect = Fx.none;
+obliteratorBeam.shootEffect = Fx.lancerLaserShoot;
+obliteratorBeam.smokeEffect = Fx.lancerLaserShootSmoke;
+obliteratorBeam.collides = false;
+obliteratorBeam.collidesAir = false;
+obliteratorBeam.collidesTiles = false;
+obliteratorBeam.collidesTeam = false;
+obliteratorBeam.hitTiles = false;
+obliteratorBeam.pierce = true;
 
 const att = {
 	load(){
@@ -91,28 +91,28 @@ const att = {
 			[0.0, 0.0]
 		];
 		this.shootCone = [30, 30, 20, 20, 10];
-		this.weaponOffsetY = [16, -16, 12, -12, 0];
+		this.weaponOffsetY = [24, 12, 18, -18, 0];
 		this.targetAir = [false, false, true, true, true];
 		this.targetGround = [true, true, true, true, true];
 		this.weapon = [];
 		
 		for(var i = 0; i < 2; i++){
-			this.weapon[i] = multiWeap.newWeapon("absolute-beamer", i, null, null);
+			this.weapon[i] = multiWeap.newWeapon("obliterator-beamer", i, null, null);
 			this.weapon[i].alternate = true;
 			this.weapon[i].reload = 60 - (i * 12);
-			this.weapon[i].bullet = absoluteBeam;
+			this.weapon[i].bullet = obliteratorBeam;
 			this.weapon[i].shootSound = Sounds.laser;
-			this.weapon[i].width = 8;
-			this.weapon[i].length = this.weaponOffsetY[i] + 8;
+			this.weapon[i].width = 12;
+			this.weapon[i].length = this.weaponOffsetY[i] + 6;
 		}
 		
 		for(var i = 2; i < 4; i++){
-			this.weapon[i] = multiWeap.newWeapon("absolute-gun", i, null, null);
+			this.weapon[i] = multiWeap.newWeapon("obliterator-gun", i, null, null);
 			this.weapon[i].alternate = true;
 			this.weapon[i].reload = 16 - ((i - 2) * 4);
 			this.weapon[i].bullet = Bullets.standardThoriumBig;
 			this.weapon[i].shootSound = Sounds.shootBig;
-			this.weapon[i].width = 16;
+			this.weapon[i].width = 24 + ((i - 2) * 4);
 			this.weapon[i].length = this.weaponOffsetY[i] + 8;
 			this.weapon[i].shots = 2;
 			this.weapon[i].shotDelay = 2;
@@ -122,28 +122,46 @@ const att = {
 	}
 }
 
-const absoluteMissile = bulletLib.bullet(MissileBulletType, 8, 8, 0, -0.003, 24, 18, 8, 0, 5, 60, null, null, null, null, null);
-absoluteMissile.hitEffect = Fx.blastExplosion;
-absoluteMissile.despawnEffect = Fx.blastExplosion;
-absoluteMissile.shootEffect = Fx.shootBig;
-absoluteMissile.smokeEffect = Fx.shootBigSmoke;
-absoluteMissile.weaveScale = 8;
-absoluteMissile.weaveMag = 3;
+const obliteratorMissile = bulletLib.bullet(MissileBulletType, 8, 8, 0, -0.003, 24, 18, 8, 0, 5, 60, cons(b => {
+	Draw.color(obliteratorMissile.backColor);
+    Draw.rect(obliteratorMissile.backRegion, b.x, b.y, obliteratorMissile.bulletWidth, obliteratorMissile.bulletHeight, b.rot() - 90);
+	b.getData().trail.draw(obliteratorMissile.backColor, obliteratorMissile.bulletWidth * 0.3);
+	
+    Draw.color(obliteratorMissile.frontColor);
+    Draw.rect(obliteratorMissile.frontRegion, b.x, b.y, obliteratorMissile.bulletWidth, obliteratorMissile.bulletHeight, b.rot() - 90);
+    Draw.color();
+}), null, cons(b => {
+	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(8)
+	});
+}));
+obliteratorMissile.hitEffect = Fx.blastExplosion;
+obliteratorMissile.despawnEffect = Fx.blastExplosion;
+obliteratorMissile.shootEffect = Fx.shootBig;
+obliteratorMissile.smokeEffect = Fx.shootBigSmoke;
+obliteratorMissile.weaveScale = 8;
+obliteratorMissile.weaveMag = 3;
 
-const absoluteLauncher = extendContent(Weapon, "absolute-launcher", {
+const obliteratorLauncher = extendContent(Weapon, "obliterator-launcher", {
 	load(){
-		this.region = Core.atlas.find("mechanical-warfare-absolute-launcher-equip");
+		this.region = Core.atlas.find("mechanical-warfare-obliterator-launcher-equip");
 	}
 });
-absoluteLauncher.width = 24;
-absoluteLauncher.reload = 30;
-absoluteLauncher.shots = 4;
-absoluteLauncher.spacing = 7.5;
-absoluteLauncher.shotDelay = 2;
-absoluteLauncher.bullet = absoluteMissile;
-absoluteLauncher.shootSound = Sounds.missile;
+obliteratorLauncher.alternate = true;
+obliteratorLauncher.width = 30;
+obliteratorLauncher.reload = 30;
+obliteratorLauncher.shots = 4;
+obliteratorLauncher.spacing = 7.5;
+obliteratorLauncher.shotDelay = 2;
+obliteratorLauncher.bullet = obliteratorMissile;
+obliteratorLauncher.shootSound = Sounds.missile;
 
-const absolute = extendContent(UnitType, "absolute", {
+const obliterator = extendContent(UnitType, "obliterator", {
 	load(){
 		this.weapon.load();
 		this.region = Core.atlas.find("clear");
@@ -186,8 +204,8 @@ const absolute = extendContent(UnitType, "absolute", {
 		table.row();
 	},
 });
-absolute.weapon = absoluteLauncher;
-absolute.create(prov(() => {
+obliterator.weapon = obliteratorLauncher;
+obliterator.create(prov(() => {
 	const unit = extend(GroundUnit, {
 		added(){
 			this.super$added();
@@ -244,7 +262,6 @@ absolute.create(prov(() => {
 				multiWeap.updateWeapons(this);
 			}
 			att = this.type.getAttributes();
-			print("stageF: " + (this._totalLength + 1 * att.legPairOffset) / this._moveSpace);
 		},
 		updateLastPosition(){
 			this.setDelta({

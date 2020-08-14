@@ -106,11 +106,43 @@ module.exports = {
 				att = shooter.type.getAttributes();
 				weap = att.weapon[index];
 				if(att.targetAir[index] && !att.targetGround[index]){
-					target = Units.closestEnemy(shooter.getTeam(), shooter.getX(), shooter.getY(), weap.bullet.range(), boolf(e => !e.isDead() && e.isFlying()));
+					predicate = boolf(unit => !unit.isDead() && unit.isFlying() && Angles.near(shooter.angleTo(unit), shooter.rotation, att.shootCone[index]));
 				}else{
-					target = Units.closestTarget(shooter.getTeam(), shooter.getX(), shooter.getY(), weap.bullet.range(), boolf(e => (!e.isDead() && (!e.isFlying() || att.targetAir[index]) && (e.isFlying() || att.targetGround[index]))));
+					predicate = boolf(unit => (!unit.isDead() && (!unit.isFlying() || att.targetAir[index]) && (unit.isFlying() || att.targetGround[index])) && Angles.near(shooter.angleTo(unit), shooter.rotation, att.shootCone[index]));
+					tilePred = boolf(tile => {
+						entity = tile.ent();
+						return !entity.isDead() && Angles.near(shooter.angleTo(entity), shooter.rotation, att.shootCone[index]);
+					});
 				}
-				weap.setTarget(target);
+				result = null;
+				cdist = 0;
+				range = weap.bullet.range();
+				Units.nearbyEnemies(shooter.getTeam(), shooter.getX() - range, shooter.getY() - range, range * 2, range * 2, cons(unit => {
+					if(unit.isDead() || !predicate.get(unit))return;
+					dst2 = Mathf.dst2(unit.x, unit.y, shooter.getX(), shooter.getY());
+					if(dst2 < range * range && (result == null || dst2 < cdist)){
+						result = unit;
+						cdist = dst2;
+					}
+				}));
+				if(result != null){
+					weap.setTarget(result);
+					return;
+				}
+				if(att.targetGround[index]){
+					result = Units.findEnemyTile(shooter.getTeam(), shooter.getX(), shooter.getY(), range, tilePred);
+					if(result != null){
+						weap.setTarget(result);
+						return;
+					}
+				}
+				if(weap.getTarget() == null && shooter.target != null){
+					if(shooter.target instanceof TileEntity){
+						weap.setTarget(tilePred.get(shooter.target) ? shooter.target : null);
+					}else if(shooter.target instanceof Unit){
+						weap.setTarget(predicate.get(shooter.target) ? shooter.target : null);
+					}
+				}
 			},
 			updateA(shooter, pointerX, pointerY){
 				for(var i = 0; i < 2; i++){

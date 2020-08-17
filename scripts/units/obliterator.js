@@ -11,7 +11,7 @@ const obliteratorBeam = extend(BasicBulletType, {
 		}
 	},
 	range(){
-		return 120;
+		return 160;
 	},
 	draw(b){
         f = Mathf.curve(b.fin(), 0, 0.2);
@@ -69,7 +69,7 @@ const att = {
 		this.legBaseOffset = 18;
 		this.visualElevation = 0.7;
 		this.elevation = 0.7;
-		this.legLength = 64;
+		this.legLength = 96;
 		this.legLengthScl = 1;
 		this.legTrns = 0.6;
 		this.legSpeed = 0.5;
@@ -99,7 +99,7 @@ const att = {
 		for(var i = 0; i < 2; i++){
 			this.weapon[i] = multiWeap.newWeapon("obliterator-beamer", i, null, null);
 			this.weapon[i].alternate = true;
-			this.weapon[i].reload = 60 - (i * 12);
+			this.weapon[i].reload = 48 - (i * 24);
 			this.weapon[i].bullet = obliteratorBeam;
 			this.weapon[i].shootSound = Sounds.laser;
 			this.weapon[i].width = 12;
@@ -214,8 +214,9 @@ obliterator.create(prov(() => {
 				rot = this.baseRotation;
 				spacing = 360 / this._legs.length;
 				legLength = att.legLength;
-				this._legs[i].joint.trns(i * spacing + rot, legLength / 2 + att.legBaseOffset).add(this.x, this.y);
-				this._legs[i].base.trns(i * spacing + rot, legLength + att.legBaseOffset).add(this.x, this.y);
+				leg = this._legs[i];
+				leg._set("joint", leg._get("joint").trns(i * spacing + rot, legLength / 2 + att.legBaseOffset).add(this.x, this.y));
+				leg._set("base", leg._get("base").trns(i * spacing + rot, legLength + att.legBaseOffset).add(this.x, this.y));
 			}
 		},
 		damage(amount){
@@ -294,7 +295,7 @@ obliterator.create(prov(() => {
 			this._timerShoot = arr;
 		}
 	});
-	unit.setTimer2(new Interval(9));
+	unit.setTimer2(new Interval(8));
 	unit.setShootTimers2([{
 		timerShootLeft: 0,
 		timerShootRight: 1
@@ -307,8 +308,6 @@ obliterator.create(prov(() => {
 	}, {
 		timerShootLeft: 6,
 		timerShootRight: 7
-	}, {
-		timerShoot: 8
 	}]);
 	unit.setLegs([]);
 	for(var i = 0; i < 8; i++){

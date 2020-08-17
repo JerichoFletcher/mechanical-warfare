@@ -1,6 +1,6 @@
 health: 32000
-speed: 0.24
-maxVelocity: 1.1
+speed: 0.27
+maxVelocity: 1.2
 drag: 0.7
 mass: 5
 hitsize: 32

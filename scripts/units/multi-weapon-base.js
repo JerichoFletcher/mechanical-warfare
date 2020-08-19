@@ -138,7 +138,7 @@ module.exports = {
 				}
 				if(weap.getTarget() == null && shooter.target != null){
 					if(shooter.target instanceof TileEntity){
-						weap.setTarget(tilePred.get(shooter.target) ? shooter.target : null);
+						weap.setTarget(tilePred.get(shooter.target.tile) ? shooter.target : null);
 					}else if(shooter.target instanceof Unit){
 						weap.setTarget(predicate.get(shooter.target) ? shooter.target : null);
 					}
@@ -177,16 +177,17 @@ module.exports = {
 				
 				weap = shooter.type.getAttributes().weapon[index];
 				if(customShoot == null){
-					weap.shootSound.at(x, y, Mathf.random(0.8, 1.0));
 					sequenceNum = 0;
 					if(weap.shotDelay > 0.01){
 						Angles.shotgun(weap.shots, weap.spacing, rotation, new Floatc(){get: f => {
 							Time.run(sequenceNum * weap.shotDelay, run(() => {
+								weap.shootSound.at(x, y, Mathf.random(0.8, 1.0));
 								weap.bulletB(shooter, x, y, f + Mathf.range(weap.inaccuracy));
 							}));
 							sequenceNum++;
 						}});
 					}else{
+						weap.shootSound.at(x, y, Mathf.random(0.8, 1.0));
 						Angles.shotgun(weap.shots, weap.spacing, rotation, new Floatc(){get: f => {
 							weap.bulletB(shooter, x, y, f + Mathf.range(weap.inaccuracy));
 						}});

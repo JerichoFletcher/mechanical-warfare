@@ -103,7 +103,7 @@ const att = {
 			this.weapon[i].bullet = obliteratorBeam;
 			this.weapon[i].shootSound = Sounds.laser;
 			this.weapon[i].width = 12;
-			this.weapon[i].length = this.weaponOffsetY[i] + 6;
+			this.weapon[i].length = this.weaponOffsetY[i] + 11.25;
 		}
 		
 		for(var i = 2; i < 4; i++){
@@ -112,9 +112,9 @@ const att = {
 			this.weapon[i].reload = 16 - ((i - 2) * 4);
 			this.weapon[i].bullet = Bullets.standardThoriumBig;
 			this.weapon[i].shootSound = Sounds.shootBig;
-			this.weapon[i].width = 24 + ((i - 2) * 4);
-			this.weapon[i].length = this.weaponOffsetY[i] + 8;
-			this.weapon[i].shots = 2;
+			this.weapon[i].width = 12 + ((i - 2) * 8);
+			this.weapon[i].length = this.weaponOffsetY[i] + 21.5;
+			this.weapon[i].shots = 3;
 			this.weapon[i].shotDelay = 2;
 			this.weapon[i].spacing = 0;
 			this.weapon[i].inaccuracy = 2;
@@ -153,24 +153,25 @@ const obliteratorLauncher = extendContent(Weapon, "obliterator-launcher", {
 	}
 });
 obliteratorLauncher.alternate = true;
-obliteratorLauncher.width = 30;
+obliteratorLauncher.width = 10;
+obliteratorLauncher.length = 8.25;
 obliteratorLauncher.reload = 30;
-obliteratorLauncher.shots = 4;
+obliteratorLauncher.shots = 8;
 obliteratorLauncher.spacing = 7.5;
-obliteratorLauncher.shotDelay = 2;
+obliteratorLauncher.shotDelay = 1;
 obliteratorLauncher.bullet = obliteratorMissile;
 obliteratorLauncher.shootSound = Sounds.missile;
 
 const obliterator = extendContent(UnitType, "obliterator", {
 	load(){
 		this.weapon.load();
-		this.region = Core.atlas.find("clear");
-		this.baseRegion = Core.atlas.find("clear");
+		this.region = Core.atlas.find(this.name);
+		this.baseRegion = Core.atlas.find(this.name + "-base");
 		this.legRegion = Core.atlas.find("clear");
 		att.load();
 	},
 	getReg(){
-		name = "mechanical-warfare-recluse";
+		name = this.name;
 		return {
 			foot: Core.atlas.find(name + "-foot"),
 			leg: Core.atlas.find(name + "-leg"),
@@ -274,10 +275,11 @@ obliterator.create(prov(() => {
 		},
 		draw(){
 			legLib.drawLegs(this);
+			multiWeap.drawSecWeapons(this, 2);
+			multiWeap.drawSecWeapons(this, 0);
 			this.super$draw();
-			for(var i = 0; i < 4; i++){
-				multiWeap.drawSecWeapons(this, i);
-			}
+			multiWeap.drawSecWeapons(this, 1);
+			multiWeap.drawSecWeapons(this, 3);
 		},
 		getTimer2(){
 			return this._timer;

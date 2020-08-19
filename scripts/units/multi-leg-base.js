@@ -97,7 +97,7 @@ module.exports = {
 				l._set("base", l._get("base").lerpDelta(legDest, moveFract));
 				l._set("joint", l._get("joint").lerpDelta(jointDest, moveFract / 2));
 			}
-			l._set("joint", l._get("joint").lerpDelta(jointDest, moveFract / 4));
+			l._set("joint", l._get("joint").lerpDelta(jointDest, moveSpeed / 4));
 		}
 	},
 	newLeg(){

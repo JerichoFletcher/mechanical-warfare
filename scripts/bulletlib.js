@@ -39,5 +39,59 @@ module.exports = {
 		temp.speed = speed;
 		temp.lifetime = lifetime;
 		return temp;
+	},
+	laserBullet(length, colors){
+		temp = extend(BasicBulletType, {
+			init(b){
+				if(typeof(b) !== "undefined"){
+					Damage.collideLine(b, b.getTeam(), this.hitEffect, b.x, b.y, b.rot(), this.range());
+				}
+			},
+			range(){
+				return length;
+			},
+			draw(b){
+				f = Mathf.curve(b.fin(), 0, 0.2);
+				baseLen = this.range() * f;
+				width = this.bulletWidth;
+				Lines.lineAngle(b.x, b.y, b.rot(), baseLen);
+				Lines.precise(true);
+				for(var i = 0; i < this.colors.length; i++){
+					color = this.colors[i];
+					Draw.color(color);
+					stroke = (width *= this.lengthFalloff) * b.fout();
+					Lines.stroke(stroke);
+					Lines.lineAngle(b.x, b.y, b.rot(), baseLen, CapStyle.none);
+					Tmp.v1.trns(b.rot(), baseLen);
+					Drawf.tri(b.x + Tmp.v1.x, b.y + Tmp.v1.y, stroke * 1.22, width * 2 + width / 2, b.rot());
+					elib.fillCircleWCol(b.x, b.y, 1 * width * b.fout());
+					for(var i = 0; i < 2; i++){
+						sign = Mathf.signs[i];
+						Drawf.tri(b.x, b.y, this.sideWidth * b.fout() * width, this.sideLength * this.compound, b.rot() + this.sideAngle * sign);
+					}
+					this.compound *= this.lengthFalloff;
+				}
+				Lines.precise(false);
+				Draw.reset();
+			}
+		});
+		temp.compound = 1;
+		temp.sideWidth = 0.7;
+		temp.sideLength = 29;
+		temp.sideAngle = 90;
+		temp.lengthFalloff = 0.5;
+		temp.colors = colors;
+		temp.damage = 150;
+		temp.speed = 0.01;
+		temp.lifetime = 16;
+		temp.keepVelocity = false;
+		temp.despawnEffect = Fx.none;
+		temp.collides = false;
+		temp.collidesAir = false;
+		temp.collidesTiles = false;
+		temp.collidesTeam = false;
+		temp.hitTiles = false;
+		temp.pierce = true;
+		return temp;
 	}
 };

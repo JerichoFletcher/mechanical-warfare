@@ -1,13 +1,14 @@
 const tbase = require("mechanical-warfare/units/tank-base");
 
-const devastatorShell = extend(BasicBulletType, {
-	range(){
-		return 110;
-	},
-});
-devastatorShell.damage = 83;
-devastatorShell.speed = 7;
-devastatorShell.lifetime = 18;
+const devastatorShell = extend(BasicBulletType, {});
+devastatorShell.bulletWidth = 12;
+devastatorShell.bulletHeight = 15;
+devastatorShell.damage = 103;
+devastatorShell.speed = 9;
+devastatorShell.lifetime = 68;
+devastatorShell.shootEffect = Fx.shootBig;
+devastatorShell.smokeEffect = Fx.shootBigSmoke;
+devastatorShell.hitEffect = Fx.blastExplosion;
 
 const devastatorGun = extendContent(Weapon, "devastator-gun", {
 	load(){
@@ -16,8 +17,11 @@ const devastatorGun = extendContent(Weapon, "devastator-gun", {
 		if(quake != null)this.shootSound = quake.shootSound;
 	},
 });
+devastatorGun.alternate = true;
 devastatorGun.bullet = devastatorShell;
-devastatorGun.reload = 160;
+devastatorGun.reload = 300;
+devastatorGun.width = 0;
+devastatorGun.length = 15 / 4;
 
 const devastator = extendContent(UnitType, "devastator", {});
 devastator.weapon = devastatorGun;
@@ -42,10 +46,11 @@ devastator.create(prov(() => {
 			}else{
 				Draw.color(Color.white);
 			}
-			Draw.rect(this.type.baseRegion, this.x, this.y, this.baseRotation - 90);
-			Tmp.v1.trns(this.rotation - 90, 0, -(this.getWeapon().getRecoil(this, true) + this.getWeapon().getRecoil(this, false)));
-			Draw.rect(this.getWeapon().region, this.x + Tmp.v1.x, this.y + Tmp.v1.y, this.rotation - 90);
-			Draw.rect(this.type.region, this.x, this.y, this.rotation - 90);
+			//Draw.rect(this.type.baseRegion, this.x, this.y, this.baseRotation - 90);
+			Draw.rect(this.type.region, this.x, this.y, this.baseRotation - 90);
+			offsetY = -15 / 4;
+			Tmp.v1.trns(this.rotation - 90, 0, -(this.getWeapon().getRecoil(this, true) + this.getWeapon().getRecoil(this, false) + offsetY));
+			Draw.rect(this.type.weapon.region, this.x + Tmp.v1.x, this.y + Tmp.v1.y, this.rotation - 90);
 			Draw.mixcol();
 		},
 		frame(){

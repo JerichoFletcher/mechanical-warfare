@@ -1,8 +1,8 @@
-health: 840
+health: 1280
 speed: 0.28
-maxVelocity: 1.19
+maxVelocity: 0.4
 drag: 0.4
 mass: 2
 hitsize: 13
-rotatespeed: 0.2
-baseRotateSpeed: 0.1
+rotatespeed: 0.06
+baseRotateSpeed: 0.08

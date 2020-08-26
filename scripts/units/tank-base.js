@@ -12,9 +12,7 @@ module.exports = {
 						closestSpawn == null ||
 						!base.withinDst(closestSpawn, Vars.state.rules.dropZoneRadius + 85)
 					){
-						if(!base.withinDst(base.target, base.type.attackLength)){
-							base.moveToCore(PathFinder.PathTarget.enemyCores);
-						}
+						base.moveToCore(PathFinder.PathTarget.enemyCores);
 					}else{
 						dst = base.dst(core);
 						if(dst < base.getWeapon().bullet.range() / 1.1){
@@ -40,6 +38,5 @@ module.exports = {
 				w, h, tra
 			);
 		}
-		Draw.rect(base.type.region, base.x, base.y, tra);
 	}
 }

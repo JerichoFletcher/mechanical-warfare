@@ -26,20 +26,20 @@ module.exports = {
 			flips = Mathf.sign(flip);
 			position = legOffset.trns(angle, att.legBaseOffset).add(base.x, base.y);
 			Draw.color(0, 0, 0, 0.4);
-			Draw.rect(Core.atlas.find("circle-shadow"), leg.base.x, leg.base.y, ssize, ssize);
-			if(leg.moving && att.visualElevation > 0){
+			Draw.rect(Core.atlas.find("circle-shadow"), leg._get("base").x, leg._get("base").y, ssize, ssize);
+			if(leg._get("moving") && att.visualElevation > 0){
 				scl = att.visualElevation;
-				elev = matlib.slope(1 - leg.stage) * scl;
+				elev = matlib.slope(1 - leg._get("stage")) * scl;
 				Draw.color(shadowColor);
-				Draw.rect(region["foot"], leg.base.x + shadowTX * elev, leg.base.y + shadowTY * elev, position.angleTo(leg.base));
+				Draw.rect(region["foot"], leg._get("base").x + shadowTX * elev, leg._get("base").y + shadowTY * elev, position.angleTo(leg._get("base")));
 			}
 			Draw.color();
-			Draw.rect(region["foot"], leg.base.x, leg.base.y, position.angleTo(leg.base));
+			Draw.rect(region["foot"], leg._get("base").x, leg._get("base").y, position.angleTo(leg._get("base")));
 			Lines.stroke(region["leg"].getHeight() * Draw.scl * flips);
-			Lines.line(region["leg"], position.x, position.y, leg.joint.x, leg.joint.y, CapStyle.none, 0);
+			Lines.line(region["leg"], position.x, position.y, leg._get("joint").x, leg._get("joint").y, CapStyle.none, 0);
 			Lines.stroke(region["legBase"].getHeight() * Draw.scl * flips);
-			Lines.line(region["legBase"], leg.joint.x, leg.joint.y, leg.base.x, leg.base.y, CapStyle.none, 0);
-			Draw.rect(region["joint"], leg.joint.x, leg.joint.y);
+			Lines.line(region["legBase"], leg._get("joint").x, leg._get("joint").y, leg._get("base").x, leg._get("base").y, CapStyle.none, 0);
+			Draw.rect(region["joint"], leg._get("joint").x, leg._get("joint").y);
 			Draw.rect(region["baseJoint"], position.x, position.y, rotation);
 		}
 		Draw.reset();
@@ -61,8 +61,8 @@ module.exports = {
 			dstRot = base.legAngle(rot, i);
 			baseOffset = v5.trns(dstRot, att.legBaseOffset).add(base.x, base.y);
 			l = legs[i];
-			l.joint.sub(baseOffset).limit(att.maxStretch * legLength / 2).add(baseOffset);
-			l.base.sub(baseOffset).limit(att.maxStretch * legLength).add(baseOffset);
+			l._set("joint", l._get("joint").sub(baseOffset).limit(att.maxStretch * legLength / 2).add(baseOffset));
+			l._set("base", l._get("base").sub(baseOffset).limit(att.maxStretch * legLength).add(baseOffset));
 			stageF = (base.getTotalLength() + i * att.legPairOffset) / base.getMoveSpace();
 			stage = Math.floor(stageF);
 			group = stage % div;
@@ -70,44 +70,50 @@ module.exports = {
 			side = (i < legs.length / 2);
 			backLeg = (Math.abs(i + 0.5 - legs.length / 2) <= 0.501);
 			if(backLeg && att.flipBackLegs)side = !side;
-			l.moving = move;
-			l.stage = moving ? (stageF % 1.0) : Mathf.lerpDelta(l.stage, 0, 0.1);
-			if(l.group != group){
-				if(!move && i % div == l.group){
-					tmp = Vars.world.tileWorld(l.base.x, l.base.y);
+			l._set("moving", move);
+			l._set("stage", moving ? (1 - (stageF - stage)) : Mathf.lerpDelta(l._get("stage"), 0, 0.1));
+			if(l._get("group") != group){
+				if(!move && i % div == l._get("group")){
+					tmp = Vars.world.tileWorld(l._get("base").x, l._get("base").y);
 					floor3 = (tmp == null ? Blocks.air.asFloor() : tmp.floor());
 					if(floor3.isLiquid){
-						Effects.effect(floor3.walkEffect, floor3.color, l.base.x, l.base.y);
+						Effects.effect(floor3.walkEffect, floor3.color, l._get("base").x, l._get("base").y);
 					}else{
-						Effects.effect(Fx.unitLand, floor3.color, l.base.x, l.base.y);
+						Effects.effect(Fx.unitLand, floor3.color, l._get("base").x, l._get("base").y);
 					}
 					if(att.landShake > 0){
-						Effects.shake(att.landShake, att.landShake, l.base.x, l.base.y);
+						Effects.shake(att.landShake, att.landShake, l._get("base").x, l._get("base").y);
 					}
 				}
-				l.group = group;
+				l._set("group", group);
 			}
 			legDest = v1.trns(dstRot, legLength * att.legLengthScl).add(baseOffset).add(moveOffset);
 			jointDest = v2;
-			matlib.IKsolveSide(legLength / 2, legLength / 2, v6.set(l.base).sub(baseOffset), side, jointDest);
+			matlib.IKsolveSide(legLength / 2, legLength / 2, v6.set(l._get("base")).sub(baseOffset), side, jointDest);
 			jointDest.add(baseOffset);
-			jointDest.lerp(v6.set(baseOffset).lerp(l.base, 0.5), 1 - att.kinematicScl);
+			jointDest.lerp(v6.set(baseOffset).lerp(l._get("base"), 0.5), 1 - att.kinematicScl);
 			if(move){
-				moveFract = stageF % 1.0;
-				l.base.lerpDelta(legDest, moveFract);
-				l.joint.lerpDelta(jointDest, moveFract / 2);
+				moveFract = stageF % 1;
+				l._set("base", l._get("base").lerpDelta(legDest, moveFract));
+				l._set("joint", l._get("joint").lerpDelta(jointDest, moveFract / 2));
 			}
-			l.joint.lerpDelta(jointDest, moveSpeed / 4);
+			l._set("joint", l._get("joint").lerpDelta(jointDest, moveSpeed / 4));
 		}
 	},
 	newLeg(){
 		leg = {
-			joint: new Vec2(),
-			base: new Vec2(),
-			group: -1,
-			moving: false,
-			stage: 0.0
+			_set(key, value){
+				this[key] = value;
+			},
+			_get(key){
+				return this[key];
+			}
 		}
-		return leg;
+		leg._set("joint", new Vec2());
+		leg._set("base", new Vec2());
+		leg._set("group", Math.floor(-1));
+		leg._set("moving", false);
+		leg._set("stage", 0);
+		return new Object(leg);
 	}
 }

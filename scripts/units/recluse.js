@@ -27,22 +27,22 @@ recluseMissile.hitEffect = Fx.blastExplosion;
 recluseMissile.homingPower = 2;
 recluseMissile.homingRange = 80;
 recluseMissile.hitSound = Sounds.explosion;
+recluseMissile.weaveScale = 8;
+recluseMissile.weaveMag = 3;
 
 const att = {
 	load(){
-		this.sway = 1;
 		this.legBaseOffset = 12;
-		this.visualElevation = 0.5;
-		this.legExtension = 0;
-		this.elevation = 0.5;
-		this.legLength = 36;
+		this.visualElevation = 0.6;
+		this.elevation = 0.6;
+		this.legLength = 30;
 		this.legLengthScl = 1;
 		this.legTrns = 0.4;
 		this.legSpeed = 0.4;
-		this.legGroupSize = 4;
-		this.legMoveSpace = 4;
+		this.legGroupSize = 2;
+		this.legMoveSpace = 2;
 		this.maxStretch = 1.75;
-		this.legPairOffset = 2;
+		this.legPairOffset = 0;
 		this.flipBackLegs = true;
 		this.landShake = 1;
 		this.kinematicScl = 1;
@@ -52,6 +52,8 @@ const att = {
 		this.weaponAngles = [[0.0, 0.0]];
 		this.shootCone = [30];
 		this.weaponOffsetY = [12];
+		this.targetAir = [true];
+		this.targetGround = [true];
 		this.weapon = [];
 		this.weapon[0] = multiWeap.newWeapon("recluse-launcher", 0, null, null);
 		this.weapon[0].width = 6;
@@ -167,8 +169,8 @@ recluse.create(prov(() => {
 		},
 		draw(){
 			legLib.drawLegs(this);
-			this.super$draw();
 			multiWeap.drawSecWeapons(this, 0);
+			this.super$draw();
 		},
 		getTimer2(){
 			return this._timer;

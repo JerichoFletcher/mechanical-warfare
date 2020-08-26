@@ -118,6 +118,8 @@ const att = {
 		];
 		this.shootCone = [30, 20, 60];
 		this.weaponOffsetY = [0, -5.75, 12];
+		this.targetAir = [true, true, true];
+		this.targetGround = [true, true, true];
 		this.weapon = [];
 		this.weapon[0] = multiWeap.newWeapon("apollyon-machine-gun", 0, null, null);
 		this.weapon[0].width = 8.25;

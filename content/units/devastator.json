@@ -1,0 +1,7 @@
+health: 1440
+speed: 0.18
+maxVelocity: 0.8
+drag: 0.7
+mass: 8
+hitsize: 23
+targetAir: false

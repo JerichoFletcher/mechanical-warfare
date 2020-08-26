@@ -1,8 +1,9 @@
 const elib = require("mechanical-warfare/effectlib");
 const plib = require("mechanical-warfare/plib");
 const bulletLib = require("mechanical-warfare/bulletlib");
+const trailLib = require("mechanical-warfare/traillib");
 
-const halberdBullet = bulletLib.bullet(BasicBulletType, 6, 12, 0, 0, 12, 0, -1, 0, 9, 18, null, null, null, null);
+const halberdBullet = bulletLib.bullet(BasicBulletType, 6, 12, 0, 0, 12, 0, -1, 0, 9, 18, null, null, null, null, null);
 halberdBullet.frontColor = plib.frontColorCyan;
 halberdBullet.backColor = plib.backColorCyan;
 halberdBullet.hitEffect = Fx.hitBulletSmall;
@@ -11,29 +12,33 @@ halberdBullet.smokeEffect = Fx.shootBigSmoke;
 
 const halberdBullet2 = bulletLib.bullet(BasicBulletType, 1, 1, 0, 0.05, 0, 0, -1, 0, 12, 60, cons(b => {
 	elib.fillCircle(b.x, b.y, Pal.lancerLaser, 1, 6);
-}), cons(b => {
-	Effects.effect(halberdBullet2.trailEffect, b.x, b.y, b.rot());
-}), cons(b => {
+	b.getData().trail.draw(Pal.lancerLaser, 6);
+}), null, cons(b => {
 	if(Mathf.chance(0.1)){
 		cone = 45;
 		rot = b.rot() + Mathf.range(cone);
 		Lightning.create(b.getTeam(), Pal.lancerLaser, Vars.state.rules.playerDamageMultiplier * 10, b.x, b.y, rot, 10);
 	}
+	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
+		b.getData().trail.update(b.x, b.y);
+	}));
 }), cons(b => {
 	for(var i = 0; i < 3; i++){
 		Lightning.create(b.getTeam(), Pal.lancerLaser, Vars.state.rules.playerDamageMultiplier * 10, b.x, b.y, Mathf.random(360), 15);
 	}
+}), cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(12)
+	});
 }));
 halberdBullet2.hitTiles = false;
 halberdBullet2.collidesTile = false;
 halberdBullet2.collides = false;
 halberdBullet2.shootEffect = Fx.shootBig;
 halberdBullet2.smokeEffect = Fx.shootBigSmoke;
-halberdBullet2.trailEffect = newEffect(30, e => {
-  elib.fillCircle(e.x, e.y, Pal.lancerLaser, 1, Mathf.lerp(6, 0.2, e.fin()));
-});
 halberdBullet2.despawnEffect = newEffect(20, e => {
-  e.scaled(1.2, cons(i => {
+  e.scaled(6, cons(i => {
 	elib.outlineCircle(e.x, e.y, Pal.lancerLaser, i.fout() * 6, 1 + i.fin() * 14);
   }));
   elib.fillCircle(e.x, e.y, Pal.lancerLaser, 0.2 + e.fout() * 0.8, Mathf.lerp(6 * 2, 0.2, e.fin()));
@@ -45,7 +50,8 @@ const halberdGun = extendContent(Weapon, "gatling", {
     this.region = Core.atlas.find("mechanical-warfare-gatling-equip");
   }
 });
-halberdGun.length = 1.2;
+halberdGun.width = 4;
+halberdGun.length = 6.75;
 halberdGun.reload = 6;
 halberdGun.alternate = true;
 halberdGun.inaccuracy = 1;
@@ -127,6 +133,7 @@ halberd.engineColor = plib.engineColorCyan;
 halberd.cellTrnsY = 1;
 halberd.buildPower = 1.2;
 halberd.weapon = halberdGun;
+halberd.weaponOffsetX = 4;
 
 const halberdPad = extendContent(MechPad, "halberd-ship-pad", {});
 halberdPad.mech = halberd;

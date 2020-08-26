@@ -134,11 +134,12 @@ seederShip.create(prov(() => {
 		}
 	}, null, base => {
 		if(base.dat("relT") < 60)base.provDat("relT", val => ++val);
-		if(base.target != null && base.dat("carry") !== undefined){
-			side = Angles.backwardDistance(base.rotation, Angles.angle(base.x, base.y, base.target.x, base.target.y)) > Angles.forwardDistance(base.rotation, Angles.angle(base.x, base.y, base.target.x, base.target.y)) ? 0 : 1;
-			if(side == 0 && !base.dat("carry")[side] && base.dat("carry")[1])side = 1;
-			if(side == 1 && !base.dat("carry")[side] && base.dat("carry")[0])side = 0;
-			if(base.target.getTeam().isEnemy(base.getTeam()) && base.dst(base.target) < base.getWeapon().bullet.range() * 1.33 && base.dat("relT") >= 60){
+		if(base.dat("relT") >= 60 && base.target != null && base.dat("carry") !== undefined){
+			if(base.target.getTeam().isEnemy(base.getTeam()) && base.dst(base.target) < base.getWeapon().bullet.range() * 1.33){
+				//side = Angles.backwardDistance(base.rotation, Angles.angle(base.x, base.y, base.target.x, base.target.y)) > Angles.forwardDistance(base.rotation, Angles.angle(base.x, base.y, base.target.x, base.target.y)) ? 0 : 1;
+				side = (base.angleTo(base.target) % 360) - (base.rotation % 360) < 0 ? 0 : 1;
+				if(side == 0 && !base.dat("carry")[side] && base.dat("carry")[1])side = 1;
+				if(side == 1 && !base.dat("carry")[side] && base.dat("carry")[0])side = 0;
 				if(base.dat("carry")[side]){
 					angle = base.rotation + 90 * Mathf.signs[side];
 					Tmp.v1.trns(angle, drawCarryWidth);

@@ -20,14 +20,14 @@ const hoverUnit = prov(() => extend(HoverUnit, {
 	}
 }));
 
-const apollyonBullet = bulletLib.bullet(BasicBulletType, 10, 14, 0, 0, 10, 0, 0, 0, 6, 32, null, null, null, null);
+const apollyonBullet = bulletLib.bullet(BasicBulletType, 10, 14, 0, 0, 10, 0, 0, 0, 6, 32, null, null, null, null, null);
 apollyonBullet.frontColor = plib.frontColorPurple;
 apollyonBullet.backColor = plib.backColorPurple;
 apollyonBullet.shootEffect = Fx.shootBig;
 apollyonBullet.smokeEffect = Fx.shootBigSmoke;
 apollyonBullet.hitEffect = Fx.hitBulletBig;
 
-const apollyonHVBullet = bulletLib.bullet(BasicBulletType, 8, 15, 0, 0, 80, 0, 0, 2, 20, 20, null, null, null, null);
+const apollyonHVBullet = bulletLib.bullet(BasicBulletType, 8, 15, 0, 0, 80, 0, 0, 2, 20, 20, null, null, null, null, null);
 apollyonHVBullet.bulletSprite = "mechanical-warfare-hvbullet";
 apollyonHVBullet.frontColor = plib.frontColorPurple;
 apollyonHVBullet.backColor = plib.backColorPurple;
@@ -35,7 +35,7 @@ apollyonHVBullet.shootEffect = Fx.shootBig;
 apollyonHVBullet.smokeEffect = Fx.shootBigSmoke;
 apollyonHVBullet.hitEffect = Fx.hitBulletBig;
 
-const apollyonMissile = bulletLib.bullet(MissileBulletType, 8, 13, 0, -0.02, 18, 12, 16, 2, 6, 30, null, null, null, null);
+const apollyonMissile = bulletLib.bullet(MissileBulletType, 8, 13, 0, -0.02, 18, 12, 16, 2, 6, 30, null, null, null, null, null);
 apollyonMissile.frontColor = plib.frontColorPurple;
 apollyonMissile.backColor = plib.backColorPurple;
 apollyonMissile.trailColor = plib.backColorPurple;

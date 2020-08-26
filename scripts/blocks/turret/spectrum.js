@@ -1,5 +1,4 @@
 const elib = require("mechanical-warfare/effectlib");
-const bulletLib = require("mechanical-warfare/bulletlib");
 
 const spectrumLaser = extend(BasicBulletType, {
 	draw(b){
@@ -44,7 +43,7 @@ const spectrumLaser = extend(BasicBulletType, {
 		});
 	}
 });
-spectrumLaser.damage = 50;
+spectrumLaser.damage = 99;
 spectrumLaser.despawnEffect = Fx.none;
 spectrumLaser.hitEffect2 = newEffect(30, e => {
 	Draw.color(e.data.colorA, e.data.colorB, e.fin());
@@ -221,7 +220,10 @@ const spectrum = extendContent(PowerTurret, "spectrum", {
 		}));
 		if(targetFin === null){
 			target = Units.findEnemyTile(tile.getTeam(), tile.drawx(), tile.drawy(), this.range, boolf(t => !t.isDead()));
-			if(target === null)return;
+			if(target === null){
+				entity.target = null;
+				return;
+			}
 			if(!target.withinDst(tile.drawx(), tile.drawy(), this.getMinDst())){
 				entity.target = target;
 			}

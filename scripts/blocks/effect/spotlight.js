@@ -1,3 +1,5 @@
+const r = 450;
+
 const spotlight = extendContent(LightBlock, "spotlight", {
 	load(){
 		this.super$load();
@@ -60,7 +62,7 @@ const spotlight = extendContent(LightBlock, "spotlight", {
 	},
 });
 spotlight.layer = Layer.turret;
-spotlight.radius = 450;
+spotlight.radius = r;
 spotlight.angleIncr = 15;
 spotlight.entityType = prov(() => {
 	var entity = extend(TileEntity, {
@@ -92,7 +94,7 @@ spotlight.entityType = prov(() => {
 			this.super$read(stream, revision);
 			this._trot = stream.readFloat();
 			this._rot = this._trot;
-		},
+		}
 	});
 	entity.setRot(90.0);
 	entity.setTargetRot(90.0);

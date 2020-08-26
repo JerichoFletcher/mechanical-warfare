@@ -2,31 +2,31 @@ const elib = require("mechanical-warfare/effectlib");
 const plib = require("mechanical-warfare/plib");
 const bulletLib = require("mechanical-warfare/bulletlib");
 
-const ghostGlassFrag = bulletLib.bullet(BasicBulletType, 5, 12, 1, 0.5, 9, 0, -1, 0, 2, 20, null, null, null, null);
+const ghostGlassFrag = bulletLib.bullet(BasicBulletType, 5, 12, 1, 0.5, 9, 0, -1, 0, 2, 20, null, null, null, null, null);
 ghostGlassFrag.despawnEffect = Fx.none;
 
-const ghostGlass = bulletLib.bullet(FlakBulletType, 3, 15, 0, 0, 12, 48, 18, 0, 18, 14, null, null, null, null);
+const ghostGlass = bulletLib.bullet(FlakBulletType, 3, 15, 0, 0, 12, 48, 18, 0, 18, 14, null, null, null, null, null);
 ghostGlass.ammoMultiplier = 2;
 ghostGlass.fragBullets = 12;
 ghostGlass.fragBullet = ghostGlassFrag;
 ghostGlass.hitEffect = Fx.flakExplosion;
 ghostGlass.despawnEffect = Fx.flakExplosion;
 
-const ghostPyratite = bulletLib.bullet(FlakBulletType, 4, 18, 0, 0, 66, 102, 18, 0, 16, 16, null, null, null, null);
+const ghostPyratite = bulletLib.bullet(FlakBulletType, 4, 18, 0, 0, 66, 102, 18, 0, 16, 16, null, null, null, null, null);
 ghostPyratite.ammoMultiplier = 2;
 ghostPyratite.hitEffect = Fx.flakExplosion;
 ghostPyratite.despawnEffect = Fx.flakExplosion;
 
-const ghostBlastCompound = bulletLib.bullet(FlakBulletType, 3, 15, 0, 0, 104, 152, 42, 0, 15, 16, null, null, null, null);
+const ghostBlastCompound = bulletLib.bullet(FlakBulletType, 3, 15, 0, 0, 104, 152, 42, 0, 15, 16, null, null, null, null, null);
 ghostBlastCompound.ammoMultiplier = 2;
 ghostBlastCompound.reloadMultiplier = 0.6;
 ghostBlastCompound.hitEffect = Fx.blastExplosion;
 ghostBlastCompound.despawnEffect = Fx.blastExplosion;
 
-const ghostPlastaniumFrag = bulletLib.bullet(BasicBulletType, 5, 12, 1, 0.5, 12, 0, -1, 0, 2, 20, null, null, null, null);
+const ghostPlastaniumFrag = bulletLib.bullet(BasicBulletType, 5, 12, 1, 0.5, 12, 0, -1, 0, 2, 20, null, null, null, null, null);
 ghostPlastaniumFrag.despawnEffect = Fx.none;
 
-const ghostPlastanium = bulletLib.bullet(FlakBulletType, 4, 18, 0, 0, 18, 56, 24, 0, 18, 14, null, null, null, null);
+const ghostPlastanium = bulletLib.bullet(FlakBulletType, 4, 18, 0, 0, 18, 56, 24, 0, 18, 14, null, null, null, null, null);
 ghostPlastanium.ammoMultiplier = 3;
 ghostPlastanium.fragBullets = 12;
 ghostPlastanium.fragBullet = ghostPlastaniumFrag;
@@ -48,7 +48,7 @@ const ghostSurge = bulletLib.bullet(FlakBulletType, 4, 18, 0, 0, 20, 48, 20, 0, 
 	for(var i = 0; i < 5; i++){
 		Lightning.create(b.getTeam(), Pal.surge, 12, b.x, b.y, Mathf.random(360), 15);
 	}
-}));
+}), null);
 ghostSurge.trailEffect = newEffect(5, e => {
 	elib.fillCircle(e.x, e.y, Pal.surge, 1, e.fout() * 2);
 });
@@ -58,7 +58,7 @@ ghostSurge.status = StatusEffects.shocked;
 ghostSurge.hitEffect = Fx.flakExplosion;
 ghostSurge.despawnEffect = ghostSurge.hitEffect;
 
-const ghostShell = bulletLib.bullet(FlakBulletType, 5, 21, 0, 0, 125, 174, 42, 0, 20, 13, null, null, null, null);
+const ghostShell = bulletLib.bullet(FlakBulletType, 5, 21, 0, 0, 125, 174, 42, 0, 20, 13, null, null, null, null, null);
 ghostShell.ammoMultiplier = 5;
 ghostShell.hitEffect = Fx.blastExplosion;
 ghostShell.despawnEffect = Fx.blastExplosion;

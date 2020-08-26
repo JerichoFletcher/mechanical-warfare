@@ -1,7 +1,6 @@
 const elib = require("mechanical-warfare/effectlib");
 const plib = require("mechanical-warfare/plib");
 const multiWeap = require("mechanical-warfare/units/multi-weapon-base");
-const bulletLib = require("mechanical-warfare/bulletlib");
 
 const hoverUnit = prov(() => extend(HoverUnit, {
 	drawEngine(){

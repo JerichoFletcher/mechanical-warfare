@@ -69,14 +69,14 @@ const att = {
 		this.legBaseOffset = 18;
 		this.visualElevation = 0.7;
 		this.elevation = 0.7;
-		this.legLength = 96;
+		this.legLength = 72;
 		this.legLengthScl = 1;
 		this.legTrns = 0.6;
 		this.legSpeed = 0.5;
-		this.legGroupSize = 4;
-		this.legMoveSpace = 3;
+		this.legGroupSize = 2;
+		this.legMoveSpace = 1.5;
 		this.maxStretch = 1.75;
-		this.legPairOffset = 3;
+		this.legPairOffset = 0;
 		this.flipBackLegs = true;
 		this.landShake = 4;
 		this.kinematicScl = 1;
@@ -102,7 +102,7 @@ const att = {
 			this.weapon[i].reload = 48 - (i * 24);
 			this.weapon[i].bullet = obliteratorBeam;
 			this.weapon[i].shootSound = Sounds.laser;
-			this.weapon[i].width = 12;
+			this.weapon[i].width = 12 - (i * 2);
 			this.weapon[i].length = this.weaponOffsetY[i] + 11.25;
 		}
 		

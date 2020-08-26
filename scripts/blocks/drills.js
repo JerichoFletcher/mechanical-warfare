@@ -111,13 +111,13 @@ const quarry = extendContent(GenericCrafter, "quarry", {
 quarry.rotateSpeed = 3;
 quarry.entityType = prov(() => {
 	const entity = extend(GenericCrafter.GenericCrafterEntity, {
-		getRotation: function(){
+		getRotation(){
 			return this._rot;
 		},
-		setRotation: function(val){
+		setRotation(val){
 			this._rot = val % 360;
 		},
-		efficiency: function(){
+		efficiency(){
 			var count = 0;
 			var res;
 			this.tile.getLinkedTilesAs(this.tile.block(), this.tile.block().tempTiles).each(boolf(other => isStone(other.floor())), cons(other => count++));
@@ -128,16 +128,16 @@ quarry.entityType = prov(() => {
 			}
 			return res;
 		},
-		getHeat: function(){
+		getHeat(){
 			return this._heat;
 		},
-		setHeat: function(val){
+		setHeat(val){
 			this._heat = val;
 		},
-		getEfficiency: function(){
+		getEfficiency(){
 			return this._efficiency;
 		},
-		setEfficiency: function(val){
+		setEfficiency(val){
 			this._efficiency = val;
 		}
 	});

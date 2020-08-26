@@ -169,8 +169,8 @@ recluse.create(prov(() => {
 		},
 		draw(){
 			legLib.drawLegs(this);
-			this.super$draw();
 			multiWeap.drawSecWeapons(this, 0);
+			this.super$draw();
 		},
 		getTimer2(){
 			return this._timer;

@@ -6,7 +6,7 @@ const windstormShell = bulletLib.bullet(BasicBulletType, 12, 21, 0, 0, 96, 0, -1
 	if(Mathf.chance(0.5)){
 		Effects.effect(windstormShell.trailEffect, b.x, b.y, b.rot());
 	}
-}), null, null);
+}), null, null, null);
 windstormShell.ammoMultiplier = 4;
 windstormShell.frontColor = plib.frontColorAP;
 windstormShell.backColor = plib.backColorAP;

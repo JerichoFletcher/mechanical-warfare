@@ -98,6 +98,8 @@ const att = {
 		this.weaponAngles = [];
 		this.shootCone = [];
 		this.weaponOffsetY = [];
+		this.targetAir = [];
+		this.targetGround = [];
 		this.weapon = [];
 		this.rotorCount = 2;
 		this.rotor = [];
@@ -120,6 +122,8 @@ const att = {
 			this.shootCone[i] = 30;
 			this.weaponOffsetY[i] = 0.0;
 			this.rotateWeapon[i] = false;
+			this.targetAir[i] = true;
+			this.targetGround[i] = true;
 		}
 		
 		this.weapon[0] = multiWeap.newWeapon("viper-lasergun", 0, (weap, shooter, x, y, rotation, left) => {

@@ -1,6 +1,7 @@
 const elib = require("mechanical-warfare/effectlib");
 const bulletLib = require("mechanical-warfare/bulletlib");
 const prox = require("mechanical-warfare/prox-block-lib");
+const trailLib = require("mechanical-warfare/traillib");
 
 const marsShoot = newEffect(20, e => {
 	e.scaled(8, cons(i => {
@@ -49,8 +50,7 @@ const marsSandSmoke = newEffect(64, e => {
 const bulletDraw = function(b, type){
 	Draw.color(type.backColor);
     Draw.rect(type.backRegion, b.x, b.y, type.bulletWidth, type.bulletHeight, b.rot() - 90);
-	dst = Mathf.clamp(Mathf.dst(b.x, b.y, b.getData().vec.x, b.getData().vec.y), 0, b.velocity().len() * 5);
-	Drawf.tri(b.x, b.y, type.bulletWidth * 0.8, dst, b.rot() + 180);
+	b.getData().trail.draw(type.backColor, type.bulletWidth * 0.3);
 	
     Draw.color(type.frontColor);
     Draw.rect(type.frontRegion, b.x, b.y, type.bulletWidth, type.bulletHeight, b.rot() - 90);
@@ -61,9 +61,18 @@ const marsSand = bulletLib.bullet(BasicBulletType, 10, 10, 0, 0, 320, 480, 27, 6
 	bulletDraw(b, marsSand);
 }), cons(b => {
 	Effects.effect(marsSand.trailEffect, b.x, b.y, b.rot());
-}), null, null);
+}), cons(b => {
+	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsSand.trailEffect = newEffect(60, e => {
-	elib.fillCircle(e.x, e.y, marsSand.frontColor, 1, e.fout() * 4);
+	elib.fillCircle(e.x, e.y, marsSand.frontColor, 1, e.fout() * 3);
 });
 marsSand.bulletSprite = "shell";
 marsSand.ammoMultiplier = 15;
@@ -72,12 +81,22 @@ marsSand.hitEffect = Fx.flakExplosion;
 marsSand.despawnEffect = Fx.flakExplosion;
 marsSand.hitSound = Sounds.explosion;
 marsSand.pierce = true;
+marsSand.drawSize = 225;
 
 const marsCopper = bulletLib.bullet(BasicBulletType, 12, 12, 0, 0, 1920, 1280, 24, 3, 37.5, 32, cons(b => {
 	bulletDraw(b, marsCopper);
 }), cons(b => {
 	Effects.effect(marsCopper.trailEffect, b.x, b.y, b.rot());
-}), null, null);
+}), cons(b => {
+	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsCopper.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsCopper.frontColor, 1, e.fout() * 3);
 });
@@ -88,30 +107,50 @@ marsCopper.hitEffect = Fx.blastExplosion;
 marsCopper.despawnEffect = Fx.blastExplosion;
 marsCopper.hitSound = Sounds.explosion;
 marsCopper.pierce = true;
+marsCopper.drawSize = 225;
 
 const marsSilicon = bulletLib.bullet(BasicBulletType, 13, 13, 0, 0, 2400, 800, 18, 4, 37.5, 32, cons(b => {
 	bulletDraw(b, marsSilicon);
 }), cons(b => {
 	Effects.effect(marsSilicon.trailEffect, b.x, b.y, b.rot());
-}), null, null);
+}), cons(b => {
+	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsSilicon.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsSilicon.frontColor, 1, e.fout() * 3.2);
 });
 marsSilicon.bulletSprite = "shell";
 marsSilicon.ammoMultiplier = 5;
 marsSilicon.inaccuracy = 5;
-marsSilicon.homingPower = 0;
-marsSilicon.homingRange = 0;
+marsSilicon.homingPower = 2;
+marsSilicon.homingRange = 160;
 marsSilicon.hitEffect = Fx.blastExplosion;
 marsSilicon.despawnEffect = Fx.blastExplosion;
 marsSilicon.hitSound = Sounds.explosion;
 marsSilicon.pierce = true;
+marsSilicon.drawSize = 225;
 
 const marsGraphite = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 3240, 640, 12, 5, 37.5, 32, cons(b => {
 	bulletDraw(b, marsGraphite);
 }), cons(b => {
 	Effects.effect(marsGraphite.trailEffect, b.x, b.y, b.rot());
-}), null, null);
+}), cons(b => {
+	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsGraphite.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsGraphite.frontColor, 1, e.fout() * 3.5);
 });
@@ -122,12 +161,22 @@ marsGraphite.hitEffect = Fx.blastExplosion;
 marsGraphite.despawnEffect = Fx.blastExplosion;
 marsGraphite.hitSound = Sounds.explosion;
 marsGraphite.pierce = true;
+marsGraphite.drawSize = 225;
 
 const marsTitanium = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 4800, 600, 12, 5.5, 37.5, 32, cons(b => {
 	bulletDraw(b, marsTitanium);
 }), cons(b => {
 	Effects.effect(marsTitanium.trailEffect, b.x, b.y, b.rot());
-}), null, null);
+}), cons(b => {
+	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsTitanium.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsTitanium.frontColor, 1, e.fout() * 4);
 });
@@ -138,12 +187,22 @@ marsTitanium.hitEffect = Fx.blastExplosion;
 marsTitanium.despawnEffect = Fx.blastExplosion;
 marsTitanium.hitSound = Sounds.explosion;
 marsTitanium.pierce = true;
+marsTitanium.drawSize = 225;
 
 const marsCoal = bulletLib.bullet(BasicBulletType, 13, 13, 0, 0, 2400, 480, 24, 4, 37.5, 32, cons(b => {
 	bulletDraw(b, marsCoal);
 }), cons(b => {
 	Effects.effect(marsCoal.trailEffect, b.x, b.y, b.rot());
-}), null, null);
+}), cons(b => {
+	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsCoal.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsCoal.frontColor, 1, e.fout() * 4);
 });
@@ -157,12 +216,22 @@ marsCoal.status = StatusEffects.burning;
 marsCoal.frontColor = Pal.lighterOrange;
 marsCoal.backColor = Pal.lightOrange;
 marsCoal.pierce = true;
+marsCoal.drawSize = 225;
 
 const marsPyra = bulletLib.bullet(BasicBulletType, 13, 13, 0, 0, 3840, 720, 30, 4, 37.5, 32, cons(b => {
 	bulletDraw(b, marsPyra);
 }), cons(b => {
 	Effects.effect(marsPyra.trailEffect, b.x, b.y, b.rot());
-}), null, null);
+}), cons(b => {
+	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsPyra.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsPyra.frontColor, 1, e.fout() * 4);
 });
@@ -176,12 +245,22 @@ marsPyra.status = StatusEffects.burning;
 marsPyra.frontColor = Pal.lighterOrange;
 marsPyra.backColor = Pal.lightOrange;
 marsPyra.pierce = true;
+marsPyra.drawSize = 225;
 
 const marsBlast = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 3840, 9600, 56, 3, 37.5, 32, cons(b => {
 	bulletDraw(b, marsBlast);
 }), cons(b => {
 	Effects.effect(marsBlast.trailEffect, b.x, b.y, b.rot());
-}), null, null);
+}), cons(b => {
+	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsBlast.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsBlast.frontColor, 1, e.fout() * 4);
 });
@@ -194,14 +273,22 @@ marsBlast.hitSound = Sounds.explosion;
 marsBlast.frontColor = Pal.missileYellow;
 marsBlast.backColor = Pal.missileYellowBack;
 marsBlast.pierce = false;
+marsBlast.drawSize = 225;
 
 const marsSurge = bulletLib.bullet(BasicBulletType, 15, 15, 0, 0, 12800, 1440, 27, 6, 37.5, 32, cons(b => {
 	bulletDraw(b, marsSurge);
 }), cons(b => {
 	Effects.effect(marsSurge.trailEffect, b.x, b.y, b.rot());
 }), cons(b => {
-	Lightning.create(b.getTeam(), Pal.surge, 17, b.x, b.y, b.rot(), 8);
-}), null);
+	Core.app.post(run(() => {
+		if(b == null || b.getData() == null)return;
+		b.getData().trail.update(b.x, b.y);
+	}));
+}), null, cons(b => {
+	b.setData({
+		trail: trailLib.newTrail(6)
+	});
+}));
 marsSurge.trailEffect = newEffect(60, e => {
 	elib.fillCircle(e.x, e.y, marsSurge.frontColor, 1, e.fout() * 4);
 });
@@ -215,6 +302,7 @@ marsSurge.lightining = 6;
 marsSurge.lightningLength = 18;
 marsSurge.status = StatusEffects.shocked;
 marsSurge.pierce = false;
+marsSurge.drawSize = 225;
 
 const tmpExplosion = extend(BasicBulletType, {
 	draw(b){}
@@ -526,15 +614,6 @@ const mars = extendContent(ItemTurret, "mars", {
 		}
 		this.shootAtt.get(type)(tile, this.tr);
 		this.effects(tile);
-	},
-	bullet(tile, type, angle){
-		bullet = Bullet.create(type, tile.entity, tile.getTeam(), tile.drawx() + this.tr.x, tile.drawy() + this.tr.y, angle, 1, 1);
-		tx = tile.drawx() + this.tr.x;
-		ty = tile.drawy() + this.tr.y;
-		bullet.setData({vec: {
-			x: tx,
-			y: ty
-		}});
 	},
 	baseReloadSpeed(tile){
 		return tile.isEnemyCheat() ? 1 : tile.ent().power.status * (

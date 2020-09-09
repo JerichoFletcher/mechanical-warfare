@@ -20,6 +20,7 @@ Contributors:
 - [DatOnePlayer](https://github.com/DatOnePlayer)
 - [Gdeft](https://github.com/Gdeft)
 - [D.A.R.K](https://github.com/DARK0717)
+- [ThePythonGuy3](https://github.com/ThePythonGuy3)
 
 If you want to contribute to this mod, or simply just want to know more, also join our [Discord server](https://discord.gg/K3uzNSD)!
 

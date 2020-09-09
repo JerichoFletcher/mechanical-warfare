@@ -6,7 +6,7 @@ const blowShell = bulletLib.bullet(BasicBulletType, 8, 14, 0, 0, 84, 0, -1, 0, 1
 	if(Mathf.chance(0.3)){
 		Effects.effect(blowShell.trailEffect, b.x, b.y, b.rot());
 	}
-}), null, null);
+}), null, null, null);
 blowShell.ammoMultiplier = 3;
 blowShell.frontColor = plib.frontColorAP;
 blowShell.backColor = plib.backColorAP;

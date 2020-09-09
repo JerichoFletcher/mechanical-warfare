@@ -46,10 +46,13 @@ module.exports = {
 		for(var i = 0; i < att.weaponCount; i++){
 			weap = att.weapon[i];
 			ammo = weap.bullet;
+			weap.findTarget(base, i);
+			target = weap.getTarget();
 			if(
-				(Angles.near(base.angleTo(base.target), base.rotation, att.shootCone[i]) || weap.ignoreRotation) &&
-				base.dst(base.target) < ammo.range() &&
-				base.target.getTeam().isEnemy(base.getTeam())
+				target != null &&
+				(Angles.near(base.angleTo(target), base.rotation, att.shootCone[i]) || weap.ignoreRotation) &&
+				base.dst(target) < ammo.range() &&
+				target.getTeam().isEnemy(base.getTeam())
 			){
 				if(att.rotateWeapon[i]){
 					rotated = true;
@@ -59,7 +62,7 @@ module.exports = {
 						wx = base.x + Angles.trnsx(base.rotation - 90, weap.width * Mathf.sign(left));
 						wy = base.y + Angles.trnsy(base.rotation - 90, weap.width * Mathf.sign(left));
 						att.weaponAngles[i][wi] = Mathf.clamp(
-							Mathf.slerpDelta(att.weaponAngles[i][wi], Angles.angle(wx, wy, base.target.getX(), base.target.getY()), 0.1),
+							Mathf.slerpDelta(att.weaponAngles[i][wi], Angles.angle(wx, wy, target.getX(), target.getY()), 0.1),
 							base.rotation - att.shootCone[i] / 2,
 							base.rotation + att.shootCone[i] / 2
 						);
@@ -67,7 +70,8 @@ module.exports = {
 						weap.updateB(base, wx + Tmp.v2.x, wy + Tmp.v2.y, att.weaponAngles[i][wi], left);
 					}
 				}else{
-					to = Predict.intercept(base, base.target, ammo.speed);
+					speed = ammo.speed <= 0.01 ? 9999999 : ammo.speed;
+					to = Predict.intercept(base, target, speed);
 					weap.updateA(base, to.x, to.y);
 				}
 			}
@@ -78,12 +82,67 @@ module.exports = {
 					att.weaponAngles[i][wi] = Mathf.slerpDelta(att.weaponAngles[i][wi], base.rotation, 0.1);
 				}
 			}
+			if(!att.rotateWeapon[i]){
+				for(var j = 0; j < 2; j++){
+					left = Mathf.booleans[j];
+					wi = Mathf.num(left);
+					att.weaponAngles[i][wi] = base.rotation;
+				}
+			}
 		}
 	},
 	newWeapon(name, index, customShoot, customBullet){
 		const temp = extendContent(Weapon, name, {
 			getRegion(){
-				return Core.atlas.find("mechanical-warfare-" + name + "-equip");
+				return Core.atlas.find("mechanical-warfare-" + name + "-equip", Core.atlas.find("mechanical-warfare-" + name));
+			},
+			setTarget(target){
+				this._target = target;
+			},
+			getTarget(){
+				return this._target;
+			},
+			findTarget(shooter, index){
+				att = shooter.type.getAttributes();
+				weap = att.weapon[index];
+				if(att.targetAir[index] && !att.targetGround[index]){
+					predicate = boolf(unit => !unit.isDead() && unit.isFlying() && Angles.near(shooter.angleTo(unit), shooter.rotation, att.shootCone[index]));
+				}else{
+					predicate = boolf(unit => (!unit.isDead() && (!unit.isFlying() || att.targetAir[index]) && (unit.isFlying() || att.targetGround[index])) && Angles.near(shooter.angleTo(unit), shooter.rotation, att.shootCone[index]));
+					tilePred = boolf(tile => {
+						entity = tile.ent();
+						return !entity.isDead() && Angles.near(shooter.angleTo(entity), shooter.rotation, att.shootCone[index]);
+					});
+				}
+				result = null;
+				cdist = 0;
+				range = weap.bullet.range();
+				Units.nearbyEnemies(shooter.getTeam(), shooter.getX() - range, shooter.getY() - range, range * 2, range * 2, cons(unit => {
+					if(unit.isDead() || !predicate.get(unit))return;
+					dst2 = Mathf.dst2(unit.x, unit.y, shooter.getX(), shooter.getY());
+					if(dst2 < range * range && (result == null || dst2 < cdist)){
+						result = unit;
+						cdist = dst2;
+					}
+				}));
+				if(result != null){
+					weap.setTarget(result);
+					return;
+				}
+				if(att.targetGround[index]){
+					result = Units.findEnemyTile(shooter.getTeam(), shooter.getX(), shooter.getY(), range, tilePred);
+					if(result != null){
+						weap.setTarget(result);
+						return;
+					}
+				}
+				if(weap.getTarget() == null && shooter.target != null){
+					if(shooter.target instanceof TileEntity){
+						weap.setTarget(tilePred.get(shooter.target.tile) ? shooter.target : null);
+					}else if(shooter.target instanceof Unit){
+						weap.setTarget(predicate.get(shooter.target) ? shooter.target : null);
+					}
+				}
 			},
 			updateA(shooter, pointerX, pointerY){
 				for(var i = 0; i < 2; i++){
@@ -118,16 +177,17 @@ module.exports = {
 				
 				weap = shooter.type.getAttributes().weapon[index];
 				if(customShoot == null){
-					weap.shootSound.at(x, y, Mathf.random(0.8, 1.0));
 					sequenceNum = 0;
 					if(weap.shotDelay > 0.01){
 						Angles.shotgun(weap.shots, weap.spacing, rotation, new Floatc(){get: f => {
 							Time.run(sequenceNum * weap.shotDelay, run(() => {
+								weap.shootSound.at(x, y, Mathf.random(0.8, 1.0));
 								weap.bulletB(shooter, x, y, f + Mathf.range(weap.inaccuracy));
 							}));
 							sequenceNum++;
 						}});
 					}else{
+						weap.shootSound.at(x, y, Mathf.random(0.8, 1.0));
 						Angles.shotgun(weap.shots, weap.spacing, rotation, new Floatc(){get: f => {
 							weap.bulletB(shooter, x, y, f + Mathf.range(weap.inaccuracy));
 						}});
@@ -143,50 +203,9 @@ module.exports = {
 				Effects.effect(ammo.shootEffect, x + Tmp.v1.x, y + Tmp.v1.y, rotation, shooter);
 				Effects.effect(ammo.smokeEffect, x + Tmp.v1.x, y + Tmp.v1.y, rotation, shooter);
 				shooter.getTimer2().get(shooter.getShootTimer2(index, left), weap.reload);
-				/*// Manual Synchronization
-				if(shooter instanceof BaseUnit){
-					this.syncUnit(shooter, offsetX, offsetY, rotation, left);
-				}else{
-					this.syncPlayer(shooter, offsetX, offsetY, rotation, left);
-				}*/
 			},
-			/*syncUnit(shooter, x, y, rotation, left){
-				if(Vars.net.client()){return;}
-				if(shooter == null){return;}
-				if(shooter == Vars.player){return;}
-				packet = Pools.obtain(Packets.InvokePacket, prov(() => new Packets.InvokePacket));
-				packet.writeBuffer = tempBuffer;
-				packet.priority = 0;
-				packet.type = 19;
-				tempBuffer.position(0);
-				TypeIO.writeShooter(tempBuffer, shooter);
-				tempBuffer.putFloat(x);
-				tempBuffer.putFloat(y);
-				tempBuffer.putFloat(rotation);
-				tempBuffer.put(left ? 0 : 1);
-				packet.writeLength = tempBuffer.position();
-				Vars.net.send(packet, Net.SendMode.udp);
-			},
-			syncPlayer(shooter, x, y, rotation, left){
-				if(Vars.net.client()){return;}
-				if(shooter == null){return;}
-				if(shooter == Vars.player){return;}
-				packet = Pools.obtain(Packets.InvokePacket, prov(() => new Packets.InvokePacket));
-				packet.writeBuffer = tempBuffer;
-				packet.priority = 0;
-				packet.type = 32;
-				tempBuffer.position(0);
-				TypeIO.writePlayer(tempBuffer, shooter);
-				tempBuffer.putFloat(x);
-				tempBuffer.putFloat(y);
-				tempBuffer.putFloat(rotation);
-				tempBuffer.put(left ? 0 : 1);
-				packet.writeLength = tempBuffer.position();
-				Vars.net.send(packet, Net.SendMode.udp);
-			},*/
 			bulletB(owner, x, y, angle){
 				if(owner == null){return;}
-				print("Bullet");
 				Tmp.v1.trns(angle, 3.0);
 				if(customBullet == null){
 					Bullet.create(this.bullet, owner, owner.getTeam(), x + Tmp.v1.x, y + Tmp.v1.y, angle, 1.0 - this.velocityRnd + Mathf.random(this.velocityRnd));
@@ -198,6 +217,7 @@ module.exports = {
 				return (1.0 - Mathf.clamp(shooter.getTimer2().getTime(shooter.getShootTimer2(index, left)) / this.reload)) * this.recoil;
 			}
 		});
+		temp.setTarget(null);
 		return temp;
 	}
 }

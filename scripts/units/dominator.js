@@ -3,7 +3,7 @@ const plib = require("mechanical-warfare/plib");
 const groundUnit = prov(() => extend(GroundUnit, {}));
 const bulletLib = require("mechanical-warfare/bulletlib");
 
-const hvBullet = bulletLib.bullet(BasicBulletType, 8, 15, 0, 0, 50, 0, 0, 2, 16, 18, null, null, null, null);
+const hvBullet = bulletLib.bullet(BasicBulletType, 8, 15, 0, 0, 50, 0, 0, 2, 16, 18, null, null, null, null, null);
 hvBullet.bulletSprite = "mechanical-warfare-hvbullet";
 
 const flakPopper = extend(FlakBulletType, {

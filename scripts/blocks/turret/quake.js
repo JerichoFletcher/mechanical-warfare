@@ -6,7 +6,7 @@ const quakeHE = bulletLib.bullet(BasicBulletType, 17, 22, 0, 0, 240, 500, 40, 3,
 	if(Mathf.chance(0.75)){
 		Effects.effect(quakeHE.trailEffect, b.x, b.y, b.rot());
 	}
-}), null, null);
+}), null, null, null);
 quakeHE.frontColor = plib.frontColorHE;
 quakeHE.backColor = plib.backColorHE;
 quakeHE.ammoMultiplier = 2;
@@ -38,7 +38,7 @@ const quakeAP = bulletLib.bullet(BasicBulletType, 17, 22, 0, 0, 2210, 120, 10, 6
 	if(Mathf.chance(0.75)){
 		Effects.effect(quakeAP.trailEffect, b.x, b.y, b.rot());
 	}
-}), null, null);
+}), null, null, null);
 quakeAP.frontColor = plib.frontColorAP;
 quakeAP.backColor = plib.backColorAP;
 quakeAP.ammoMultiplier = 2;

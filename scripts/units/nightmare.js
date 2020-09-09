@@ -3,18 +3,19 @@ const legLib = require("mechanical-warfare/units/multi-leg-base");
 const att = {
 	load(){
 		this.sway = 1;
-		this.legBaseOffset = 4;
-		this.visualElevation = 0.3;
+		this.legBaseOffset = 8;
+		this.visualElevation = 0.5;
+		this.elevation = 0.5;
 		this.legExtension = 0;
 		this.elevation = 0.5;
-		this.legLength = 18;
+		this.legLength = 22;
 		this.legLengthScl = 1;
 		this.legTrns = 0.4;
-		this.legSpeed = 0.05;
-		this.legGroupSize = 3;
-		this.legMoveSpace = 8;
+		this.legSpeed = 0.4;
+		this.legGroupSize = 2;
+		this.legMoveSpace = 2.5;
 		this.maxStretch = 1.75;
-		this.legPairOffset = 3;
+		this.legPairOffset = 0;
 		this.flipBackLegs = true;
 		this.landShake = 0;
 		this.kinematicScl = 1;
@@ -25,8 +26,8 @@ const nightmareShell = extend(ArtilleryBulletType, {});
 nightmareShell.bulletWidth = 20;
 nightmareShell.bulletHeight = 20;
 nightmareShell.bulletSprite = "shell";
-nightmareShell.speed = 3;
-nightmareShell.lifetime = 56;
+nightmareShell.speed = 5;
+nightmareShell.lifetime = 60;
 nightmareShell.inaccuracy = 2;
 nightmareShell.hitTiles = true;
 nightmareShell.collidesTiles = true;
@@ -49,6 +50,7 @@ nightmareCannon.length = 8;
 nightmareCannon.shots = 4;
 nightmareCannon.spacing = 1;
 nightmareCannon.inaccuracy = 2;
+nightmareCannon.shotDelay = 2;
 nightmareCannon.recoil = 2.4;
 nightmareCannon.ejectEffect = Fx.shellEjectBig;
 nightmareCannon.bullet = nightmareShell;
@@ -75,7 +77,7 @@ const nightmare = extendContent(UnitType, "nightmare", {
 			leg: Core.atlas.find(name + "-leg"),
 			legBase: Core.atlas.find(name + "-leg-base"),
 			joint: Core.atlas.find(name + "-joint"),
-			baseJoint: Core.atlas.find("clear")
+			baseJoint: Core.atlas.find(name + "-joint-base")
 		}
 	}
 });
@@ -130,7 +132,6 @@ nightmare.create(prov(() => {
 			this.super$update();
 			this.updateLastPosition();
 			legLib.updateLegs(this);
-			print(this.x + ", " + this.y + ";" + this._legs[1].joint.x + ", " + this._legs[1].joint.y + ";" + this._legs[1].base.x + ", " + this._legs[1].base.y);
 		},
 		updateLastPosition(){
 			this.setDelta({

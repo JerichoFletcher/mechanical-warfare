@@ -1,0 +1,41 @@
+loadout: basicNucleus
+startingItems: [
+  copper/1200
+  lead/600
+  graphite/300
+  silicon/300
+  metaglass/200
+  titanium/600
+  iron/600
+  steel/300
+]
+conditionWave: 16
+launchPeriod: 8
+requirements: [
+  {
+    type: ZoneWave
+    zone: volcano
+    wave: 40
+  }
+  {
+    type: Unlock
+    block: recycler
+  }
+  {
+	type: Unlock
+	block: crusher-drill
+  }
+]
+resources: [
+  copper
+  lead
+  coal
+  titanium
+  iron
+  aluminum
+  thorium
+  uranium
+  sand
+  scrap
+  cobblestone
+]

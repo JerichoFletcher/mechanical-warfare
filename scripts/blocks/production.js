@@ -547,7 +547,7 @@ const APassembler= extendContent(GenericCrafter, "ap-shell-assembler",{
 	draw(tile){
 		var entity=tile.ent();
 		Draw.rect(this.region, tile.drawx(), tile.drawy());
-		Draw.rect(this.bar, tile.drawx(), tile.drawy()-20 + Mathf.absin(entity.totalProgress, 3, 10)*entity.warmup);
+		Draw.rect(this.bar, tile.drawx(), tile.drawy()-5 + Mathf.absin(entity.totalProgress, 3, 10)*entity.warmup);
 		Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
 	},
 });

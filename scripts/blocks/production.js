@@ -530,7 +530,7 @@ mk2Assembler.drawer = cons(tile => {
 });
 
 //AP Shell assembler
-const APassembler= extendcontent(GenericCrafter, "ap-shell-assembler"){
+const APassembler= extendContent(GenericCrafter, "ap-shell-assembler",{
 	load(){
 		this.region=Core.atlas.find(this.name);
 		this.bar=Core.atlas.find(this.name + "-bar");

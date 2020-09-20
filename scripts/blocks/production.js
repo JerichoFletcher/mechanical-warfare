@@ -540,7 +540,7 @@ const APassembler= extendContent(GenericCrafter, "ap-shell-assembler",{
 		return[
 			Core.atlas.find(this.name),
 			Core.atlas.find(this.name + "-bar"),
-			Core.atlas.find(this.name + "-top)
+			Core.atlas.find(this.name + "-top),
 		];
 	},
 	

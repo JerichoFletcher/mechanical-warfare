@@ -1,9 +1,0 @@
-type: Wall
-size: 1
-update: true
-health: 560
-requirements: [
-steel/6
-]
-category: defense
-research: titanium-wall

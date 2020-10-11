@@ -1,5 +1,0 @@
-type: OreBlock
-itemDrop: iron
-oreDefault: true
-oreThreshold: 0.864
-oreScale: 24.904762

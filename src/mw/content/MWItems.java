@@ -6,7 +6,7 @@ import mindustry.type.*;
 
 public class MWItems implements ContentList{
     public static Item
-    
+
     gravel, iron, aluminum, uranium,
     steel, scrapPlate, insulationPlate,
     apShell, heShell,

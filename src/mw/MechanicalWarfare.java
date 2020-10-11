@@ -5,8 +5,10 @@ import mindustry.mod.*;
 import mw.content.*;
 
 public class MechanicalWarfare extends Mod{
-    ContentList[] contents = {
-        new MWItems()
+    private ContentList[] contents = {
+        new MWItems(),
+        new MWLiquids(),
+        new MWBlocks()
     };
 
     @Override

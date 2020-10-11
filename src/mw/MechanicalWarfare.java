@@ -12,6 +12,11 @@ public class MechanicalWarfare extends Mod{
     };
 
     @Override
+    public void init(){
+        // TODO create sounds
+    }
+
+    @Override
     public void loadContent(){
         for(ContentList list : contents){
             list.load();

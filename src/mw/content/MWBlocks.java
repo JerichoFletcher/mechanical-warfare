@@ -3,8 +3,14 @@ package mw.content;
 import mindustry.content.*;
 import mindustry.ctype.*;
 import mindustry.graphics.*;
+import mindustry.type.*;
 import mindustry.world.*;
+import mindustry.world.blocks.defense.*;
+import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.environment.*;
+import mw.world.blocks.defense.*;
+
+import static mindustry.type.ItemStack.*;
 
 public class MWBlocks implements ContentList{
     public static Block
@@ -13,7 +19,13 @@ public class MWBlocks implements ContentList{
     lava, contaminatedWater, deepContaminatedWater, darksandContaminatedWater, sandContaminatedWater,
 
     //ores
-    oreIron, oreAluminum, oreUranium;
+    oreIron, oreAluminum, oreUranium,
+
+    //defense
+    insulatorWall, insulatorWallLarge, reinforcedWall, reinforcedWallLarge, steelWall, steelWallLarge,
+
+    //transport
+    aluminumConveyor, ironConveyor;
 
     @Override
     public void load(){
@@ -63,6 +75,8 @@ public class MWBlocks implements ContentList{
         }};
 
         darksandContaminatedWater = new ShallowLiquid("darksand-contaminated-water"){{
+            set(contaminatedWater, Blocks.darksand);
+
             liquidDrop = MWLiquids.contaminatedWater;
             speedMultiplier = 0.5f;
             variants = 0;
@@ -74,11 +88,11 @@ public class MWBlocks implements ContentList{
             blendGroup = contaminatedWater;
             cacheLayer = CacheLayer.water;
             albedo = 0.5f;
-
-            set(contaminatedWater, Blocks.darksand);
         }};
 
         sandContaminatedWater = new ShallowLiquid("sand-contaminated-water"){{
+            set(contaminatedWater, Blocks.sand);
+
             liquidDrop = MWLiquids.contaminatedWater;
             speedMultiplier = 0.5f;
             variants = 0;
@@ -90,8 +104,6 @@ public class MWBlocks implements ContentList{
             blendGroup = contaminatedWater;
             cacheLayer = CacheLayer.water;
             albedo = 0.5f;
-
-            set(contaminatedWater, Blocks.sand);
         }};
 
         //end region
@@ -113,6 +125,38 @@ public class MWBlocks implements ContentList{
             oreDefault = true;
             oreThreshold = 0.89f;
             oreScale = 25.828543f;
+        }};
+
+        //end region
+        //region defense
+
+        insulatorWall = new InsulatorWall("insulator-wall"){{
+            requirements(Category.defense, with(MWItems.insulationPlate, 1));
+
+            health = 1000;
+            solid = true;
+            sync = true;
+            update = true;
+            powerProduction = 2;
+        }};
+
+        //end region
+        //region transport
+
+        aluminumConveyor = new Conveyor("aluminum-conveyor"){{
+            requirements(Category.distribution, with(Items.copper, 1, Items.lead, 1, MWItems.aluminum, 1));
+
+            health = 15;
+            speed = 0.123f;
+            displayedSpeed = 16f;
+        }};
+
+        ironConveyor = new Conveyor("iron-conveyor"){{
+            requirements(Category.distribution, with(Items.copper, 1, Items.lead, 1, MWItems.aluminum, 1));
+
+            health = 55;
+            speed = 0.0538f;
+            displayedSpeed = 7f;
         }};
 
         //end region

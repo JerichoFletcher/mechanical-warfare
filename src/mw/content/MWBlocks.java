@@ -126,8 +126,8 @@ public class MWBlocks implements ContentList{
 
         oreAluminum = new OreBlock(MWItems.aluminum){{
             oreDefault = true;
-            oreThreshold = 0.89f;
-            oreScale = 25.828543f;
+            oreThreshold = 0.873f;
+            oreScale = 25.285737f;
         }};
 
         oreUranium = new OreBlock(MWItems.uranium){{

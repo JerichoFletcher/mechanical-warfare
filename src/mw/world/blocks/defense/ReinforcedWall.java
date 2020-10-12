@@ -13,7 +13,7 @@ public class ReinforcedWall extends Wall{
 
     public Effect healEffect = Fx.healBlockFull;
     public Color healColor = Color.valueOf("efefff");
-    public int healTimer = timers++;
+    public final int healTimer = timers++;
 
     public ReinforcedWall(String name){
         super(name);
@@ -26,7 +26,7 @@ public class ReinforcedWall extends Wall{
         public void updateTile(){
             super.updateTile();
 
-            if(timer(healTimer, healTime)){
+            if(timer(healTimer, healTime) && healthf() < maxHealth()){
                 heal(maxHealth() / healPower);
                 healEffect.at(x, y, rotation, healColor, size);
             }

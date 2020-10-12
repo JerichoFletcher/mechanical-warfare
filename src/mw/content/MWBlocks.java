@@ -17,6 +17,7 @@ public class MWBlocks implements ContentList{
 
         //environment
         lava, contaminatedWater, deepContaminatedWater, darksandContaminatedWater, sandContaminatedWater,
+        obsidian, obsidianRocks,
 
         //ores
         oreIron, oreAluminum, oreUranium,
@@ -104,6 +105,14 @@ public class MWBlocks implements ContentList{
             blendGroup = contaminatedWater;
             cacheLayer = CacheLayer.water;
             albedo = 0.5f;
+        }};
+
+        obsidian = new Floor("obsidian"){{
+            variants = 3;
+        }};
+
+        obsidianRocks = new StaticWall("obsidian-rocks"){{
+            variants = 2;
         }};
 
         //end region

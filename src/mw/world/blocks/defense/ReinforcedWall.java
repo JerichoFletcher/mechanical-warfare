@@ -26,9 +26,9 @@ public class ReinforcedWall extends Wall{
         public void updateTile(){
             super.updateTile();
 
-            if(timer(healTimer, healTime) && healthf() < maxHealth()){
+            if(timer(healTimer, healTime) && health() < maxHealth()){
                 heal(maxHealth() / healPower);
-                healEffect.at(x, y, rotation, healColor, size);
+                healEffect.at(x, y, size, healColor);
             }
         }
     }

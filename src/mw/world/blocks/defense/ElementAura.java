@@ -101,6 +101,8 @@ public class ElementAura extends Block{
 
         @Override
         public void updateTile(){
+            super.updateTile();
+
             if(!validateTarget()){
                 target = null;
                 hasTarget = false;

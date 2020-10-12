@@ -1,8 +1,10 @@
 package mw.world.blocks.defense;
 
 import arc.*;
+import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
+import arc.util.*;
 import mindustry.content.*;
 import mindustry.entities.*;
 import mindustry.entities.bullet.*;
@@ -12,15 +14,20 @@ import mindustry.world.*;
 import mindustry.world.consumers.*;
 import mindustry.world.meta.*;
 import mindustry.world.meta.values.*;
+import mw.content.*;
 
 import static mindustry.Vars.*;
 
 public class ElementAura extends Block{
-    protected BulletType bullet;
+    public BulletType bullet;
 
     public Liquid liquid;
     public TextureRegion liquidRegion;
+    public TextureRegion heatRegion;
 
+    public float powerUse = 1f;
+
+    public Color heatColor = Color.white.cpy();
     public float warmup = 0.08f;
     public float cooldown = 0.02f;
     public float liquidUsed = 1f;
@@ -38,20 +45,25 @@ public class ElementAura extends Block{
     public ElementAura(String name, Liquid liquid){
         super(name);
         this.liquid = liquid;
-        outlineIcon = false;
     }
 
     public ElementAura(String name){
-        this(name, Liquids.water);
+        this(name, MWLiquids.lava);
+    }
+
+    @Override
+    public void init() {
+        if(consumes.has(ConsumeType.liquid)){
+            consumes.remove(ConsumeType.liquid);
+        }
+
+        consumes.powerCond(powerUse, ElementAuraBuild::shooting);
     }
 
     @Override
     public void setStats(){
         super.setStats();
 
-        if(consumes.has(ConsumeType.liquid)){
-            consumes.remove(ConsumeType.liquid);
-        }
         stats.add(BlockStat.input, new LiquidValue(liquid, 60 / reloadTime, true));
     }
 
@@ -60,16 +72,32 @@ public class ElementAura extends Block{
         super.load();
 
         liquidRegion = Core.atlas.find(name + "-liquid");
+        heatRegion = Core.atlas.find(name + "-heat");
     }
 
     public class ElementAuraBuild extends Building{
-        public float heat = 0.0f;
+        public float heat = 0f;
         public float reload = reloadTime;
 
         public Teamc target;
-        public boolean hasTarget = false;
 
+        protected boolean hasTarget = false;
         protected boolean hasShot = false;
+
+        @Override
+        public void draw(){
+            Draw.rect(region, x, y);
+
+            Draw.color(liquid.color, liquids.total() / liquidCapacity);
+            Draw.rect(liquidRegion, x, y);
+
+            Draw.color(Color.black, heatColor, heat * 0.7f + Mathf.absin(Time.time(), 3f, 0.3f) * heat);
+            Draw.blend(Blending.additive);
+            Draw.rect(heatRegion, x, y);
+            Draw.blend();
+
+	        Draw.reset();
+        }
 
         @Override
         public void updateTile(){
@@ -79,7 +107,7 @@ public class ElementAura extends Block{
             }
 
             heat = Mathf.lerpDelta(heat, 
-                shooting() ? 1 : 0,
+                shooting() ? 1f : 0f,
                 shooting() ? warmup : cooldown
             );
 
@@ -166,7 +194,12 @@ public class ElementAura extends Block{
         @Override
         public boolean acceptLiquid(Building source, Liquid type, float amount) {
             return liquid == type
-                && liquids.get(liquids.current()) <= liquidUsed;
+                && liquids.get(liquid) + amount < liquidCapacity;
+        }
+
+        @Override
+        public boolean shouldActiveSound(){
+            return shooting();
         }
     }
 }

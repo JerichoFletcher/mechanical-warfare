@@ -8,7 +8,7 @@ import mindustry.type.*;
 public class MWLiquids implements ContentList{
     public static Liquid
 
-        lava, contaminatedWater, acid, gas;
+    lava, contaminatedWater, acid, gas;
 
     @Override
     public void load(){

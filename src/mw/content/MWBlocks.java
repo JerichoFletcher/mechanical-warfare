@@ -15,18 +15,19 @@ import static mindustry.type.ItemStack.*;
 public class MWBlocks implements ContentList{
     public static Block
 
-        //environment
-        lava, contaminatedWater, deepContaminatedWater, darksandContaminatedWater, sandContaminatedWater,
-        obsidian, obsidianRocks,
+    //environment
+    lava, contaminatedWater, deepContaminatedWater, darksandContaminatedWater, sandContaminatedWater,
+    obsidian, obsidianRocks,
 
-        //ores
-        oreIron, oreAluminum, oreUranium,
+    //ores
+    oreIron, oreAluminum, oreUranium,
 
-        //defense
-        insulatorWall, insulatorWallLarge, reinforcedWall, reinforcedWallLarge, steelWall, steelWallLarge,
+    //defense
+    insulatorWall, insulatorWallLarge, reinforcedWall, reinforcedWallLarge, steelWall, steelWallLarge,
+    fireAura, frostAura,
 
-        //transport
-        aluminumConveyor, ironConveyor;
+    //transport
+    aluminumConveyor, ironConveyor;
 
     @Override
     public void load(){
@@ -179,6 +180,33 @@ public class MWBlocks implements ContentList{
 
             size = 2;
             health = 2240;
+        }};
+
+        fireAura = new ElementAura("fire-aura", MWLiquids.lava){{
+            requirements(Category.effect, with(Items.lead, 125, MWItems.iron, 75, Items.metaglass, 50, Items.phasefabric, 25));
+
+            size = 2;
+            health = 320;
+            powerUse = 1.5f;
+            activeSound = MWSounds.fireAuraActive;
+            liquidCapacity = 60f;
+            shootEffect = MWFx.fireAuraEffect;
+            smokeEffect = Fx.fireSmoke;
+
+            bullet = MWBullets.fireAuraBullet;
+        }};
+
+        frostAura = new ElementAura("frost-aura", Liquids.cryofluid){{
+            requirements(Category.effect, with(Items.silicon, 150, MWItems.steel, 50, Items.metaglass, 60, Items.phasefabric, 20));
+
+            size = 2;
+            health = 320;
+            powerUse = 1.5f;
+            liquidCapacity = 60f;
+            shootEffect = MWFx.frostAuraEffect;
+            smokeEffect = MWFx.frostAuraSmoke;
+
+            bullet = MWBullets.frostAuraBullet;
         }};
 
         //end region

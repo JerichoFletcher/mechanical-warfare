@@ -6,17 +6,18 @@ import arc.mock.*;
 
 public class MWSounds{
     public static Sound
-        blowshot = new MockSound(),
-        fireAuraActive = new MockSound(),
-        heatrayActive = new MockSound(),
-        hypernovaActive = new MockSound(),
-        hypernovaShoot = new MockSound(),
-        quakemk2shot = new MockSound(),
-        quakeshot = new MockSound(),
-        supernovaActive = new MockSound(),
-        supernovaShoot = new MockSound(),
-        voltmeterActive = new MockSound(),
-        voltmeterIdle = new MockSound();
+
+    blowshot = new MockSound(),
+    fireAuraActive = new MockSound(),
+    heatrayActive = new MockSound(),
+    hypernovaActive = new MockSound(),
+    hypernovaShoot = new MockSound(),
+    quakemk2shot = new MockSound(),
+    quakeshot = new MockSound(),
+    supernovaActive = new MockSound(),
+    supernovaShoot = new MockSound(),
+    voltmeterActive = new MockSound(),
+    voltmeterIdle = new MockSound();
 
     public static void load(){
         Core.assets.load("sounds/blowshot.ogg", Sound.class).loaded = sound -> blowshot = (Sound)sound;

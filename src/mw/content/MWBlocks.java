@@ -15,17 +15,17 @@ import static mindustry.type.ItemStack.*;
 public class MWBlocks implements ContentList{
     public static Block
 
-    //environment
-    lava, contaminatedWater, deepContaminatedWater, darksandContaminatedWater, sandContaminatedWater,
+        //environment
+        lava, contaminatedWater, deepContaminatedWater, darksandContaminatedWater, sandContaminatedWater,
 
-    //ores
-    oreIron, oreAluminum, oreUranium,
+        //ores
+        oreIron, oreAluminum, oreUranium,
 
-    //defense
-    insulatorWall, insulatorWallLarge, reinforcedWall, reinforcedWallLarge, steelWall, steelWallLarge,
+        //defense
+        insulatorWall, insulatorWallLarge, reinforcedWall, reinforcedWallLarge, steelWall, steelWallLarge,
 
-    //transport
-    aluminumConveyor, ironConveyor;
+        //transport
+        aluminumConveyor, ironConveyor;
 
     @Override
     public void load(){
@@ -131,13 +131,45 @@ public class MWBlocks implements ContentList{
         //region defense
 
         insulatorWall = new InsulatorWall("insulator-wall"){{
-            requirements(Category.defense, with(MWItems.insulationPlate, 1));
+            requirements(Category.defense, with(MWItems.insulationPlate, 6));
 
-            health = 1000;
-            solid = true;
-            sync = true;
-            update = true;
-            powerProduction = 2;
+            health = 900;
+            powerProduction = 2f;
+        }};
+
+        insulatorWallLarge = new InsulatorWall("insulator-wall-large"){{
+            requirements(Category.defense, with(MWItems.insulationPlate, 24));
+
+            size = 2;
+            health = 3600;
+            powerProduction = 4f;
+            energyMultiplier = 30f;
+        }};
+
+        reinforcedWall = new ReinforcedWall("reinforced-wall"){{
+            requirements(Category.defense, with(MWItems.iron, 6, Items.surgealloy, 4, MWItems.uranium, 3, Items.phasefabric, 1));
+
+            health = 1280;
+        }};
+
+        reinforcedWallLarge = new ReinforcedWall("reinforced-wall-large"){{
+            requirements(Category.defense, with(MWItems.iron, 24, Items.surgealloy, 16, MWItems.uranium, 12, Items.phasefabric, 4));
+
+            size = 2;
+            health = 5120;
+        }};
+
+        steelWall = new Wall("steel-wall"){{
+            requirements(Category.defense, with(MWItems.steel, 6));
+
+            health = 560;
+        }};
+
+        steelWallLarge = new Wall("steel-wall-large"){{
+            requirements(Category.defense, with(MWItems.steel, 24));
+
+            size = 2;
+            health = 2240;
         }};
 
         //end region

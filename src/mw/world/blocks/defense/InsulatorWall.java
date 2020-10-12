@@ -4,6 +4,7 @@ import arc.*;
 import arc.math.*;
 import arc.struct.*;
 import arc.util.*;
+import arc.util.io.*;
 import mindustry.entities.bullet.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -24,6 +25,8 @@ public class InsulatorWall extends Wall{
 
     public InsulatorWall(String name){
         super(name);
+        update = true;
+        sync = true;
         insulated = true;
         flashHit = true;
         consumesPower = false;
@@ -63,6 +66,23 @@ public class InsulatorWall extends Wall{
             }
 
             return super.collision(bullet);
+        }
+
+        @Override
+        public float getPowerProduction(){
+            return powerProduction * productionEfficiency;
+        }
+
+        @Override
+        public void write(Writes write){
+            super.write(write);
+            write.f(productionEfficiency);
+        }
+
+        @Override
+        public void read(Reads read){
+            super.read(read);
+            productionEfficiency = read.f();
         }
     }
 }

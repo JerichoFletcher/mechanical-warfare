@@ -24,7 +24,7 @@ public class MWBlocks implements ContentList{
 
     //defense
     insulatorWall, insulatorWallLarge, reinforcedWall, reinforcedWallLarge, steelWall, steelWallLarge,
-    fireAura, frostAura,
+    fireAura, frostAura, slagBomb,
 
     //transport
     aluminumConveyor, ironConveyor;
@@ -207,6 +207,13 @@ public class MWBlocks implements ContentList{
             smokeEffect = MWFx.frostAuraSmoke;
 
             bullet = MWBullets.frostAuraBullet;
+        }};
+
+        slagBomb = new LiquidBomb("slag-bomb", Liquids.slag){{
+            requirements(Category.effect, with(Items.copper, 20, Items.metaglass, 8, MWItems.scrapPlate, 15));
+
+            health = 40;
+            baseExplosiveness = 3f;
         }};
 
         //end region

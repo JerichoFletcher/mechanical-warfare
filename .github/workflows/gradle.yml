@@ -23,5 +23,5 @@ jobs:
     - name: Upload built jar file
       uses: actions/upload-artifact@v2
       with:
-        name: MechanicalWarfare
-        path: build/libs/MechanicalWarfare.jar
+        name: ${{ env.REPOSITORY_NAME }}
+        path: build/libs/${{ env.REPOSITORY_NAME }}.jar

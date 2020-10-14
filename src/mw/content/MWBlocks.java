@@ -244,7 +244,7 @@ public class MWBlocks implements ContentList{
         //region power
 
         spotlight = new FloodLight("spotlight"){{
-            requirements(Category.power, BuildVisibility.lightingOnly, with(Items.graphite, 10, Items.silicon, 4));
+            requirements(Category.effect, BuildVisibility.lightingOnly, with(Items.graphite, 10, Items.silicon, 4));
 
             health = 200;
             length = 450f;

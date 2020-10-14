@@ -52,12 +52,14 @@ public class ElementAura extends Block{
     }
 
     @Override
-    public void init() {
+    public void init(){
         if(consumes.has(ConsumeType.liquid)){
             consumes.remove(ConsumeType.liquid);
         }
 
         consumes.powerCond(powerUse, ElementAuraBuild::shooting);
+
+        super.init();
     }
 
     @Override

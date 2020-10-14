@@ -26,13 +26,13 @@ public class FloodLight extends LightBlock{
 
     public TextureRegion baseRegion;
 
-    protected static Rect viewport;
+    protected static Rect viewport = new Rect();
 
     public FloodLight(String name){
         super(name);
         outlineIcon = true;
 
-        config(Float.class, (FloodLightBuild build, Float i) -> build.targetRotation += i);
+        config(Float.class, (FloodLightBuild build, Float i) -> build.targetRot += i);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class FloodLight extends LightBlock{
             for(int i = 0; i < rayCount; i++){
                 float j = i - (rayCount + 1f) / 2f;
 
-                Tmp.v1.trns(parent.rotation - 90f, widthf() * j, lengthf());
+                Tmp.v1.trns(parent.currentRot - 90f, widthf() * j, lengthf());
 
                 Draw.z(Layer.light);
                 renderer.lights.line(getX(), getY(), Tmp.v1.x, Tmp.v2.y, widthf(), color, opacf());
@@ -90,8 +90,8 @@ public class FloodLight extends LightBlock{
 
     public class FloodLightBuild extends LightBuild{
         public FloodLightRay light;
-        public float rotation = 90f;
-        public float targetRotation = 90f;
+        public float currentRot = 90f;
+        public float targetRot = 90f;
 
         @Override
         public void created(){
@@ -136,7 +136,7 @@ public class FloodLight extends LightBlock{
             Draw.rect(baseRegion, x, y);
 
             Draw.z(Layer.turret);
-            Draw.rect(region, x, y, rotation);
+            Draw.rect(region, x, y, currentRot);
             Draw.z(z);
         }
 
@@ -147,7 +147,7 @@ public class FloodLight extends LightBlock{
             Draw.color(team().color);
             Lines.stroke(1f);
 
-            Tmp.v2.trns(targetRotation, length).add(this);
+            Tmp.v2.trns(targetRot, length).add(this);
             Lines.dashLine(x, y, Tmp.v2.x, Tmp.v2.y, Mathf.round(length / 3f));
 
             Draw.reset();
@@ -160,23 +160,23 @@ public class FloodLight extends LightBlock{
         public void updateTile(){
             super.updateTile();
 
-            rotation = Angles.moveToward(rotation, targetRotation, rotateSpeed);
+            currentRot = Angles.moveToward(currentRot, targetRot, rotateSpeed);
         }
 
         @Override
         public void write(Writes write){
             super.write(write);
 
-            write.f(rotation);
-            write.f(targetRotation);
+            write.f(currentRot);
+            write.f(targetRot);
         }
 
         @Override
         public void read(Reads read){
             super.read(read);
 
-            rotation = read.f();
-            targetRotation = read.f();
+            currentRot = read.f();
+            targetRot = read.f();
         }
     }
 }

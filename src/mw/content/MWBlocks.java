@@ -8,7 +8,9 @@ import mindustry.world.*;
 import mindustry.world.blocks.defense.*;
 import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.environment.*;
+import mindustry.world.meta.*;
 import mw.world.blocks.defense.*;
+import mw.world.blocks.power.*;
 
 import static mindustry.type.ItemStack.*;
 
@@ -27,7 +29,10 @@ public class MWBlocks implements ContentList{
     fireAura, frostAura, slagBomb,
 
     //transport
-    aluminumConveyor, ironConveyor;
+    aluminumConveyor, ironConveyor,
+
+    //power
+    spotlight;
 
     @Override
     public void load(){
@@ -233,6 +238,17 @@ public class MWBlocks implements ContentList{
             health = 55;
             speed = 0.0538f;
             displayedSpeed = 7f;
+        }};
+
+        //end region
+        //region power
+
+        spotlight = new FloodLight("spotlight"){{
+            requirements(Category.power, BuildVisibility.lightingOnly, with(Items.graphite, 10, Items.silicon, 4));
+
+            health = 200;
+            length = 450f;
+            consumes.power(0.08f);
         }};
 
         //end region

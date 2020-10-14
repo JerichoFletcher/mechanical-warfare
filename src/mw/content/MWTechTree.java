@@ -25,6 +25,10 @@ public class MWTechTree extends TechTree{
                 node(slagBomb);
             });
 
+            node(mender, () -> {
+                node(spotlight);
+            });
+
             node(titaniumWall, () -> {
                 node(steelWall, () -> {
                     node(steelWallLarge);

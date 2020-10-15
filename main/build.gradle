@@ -4,7 +4,7 @@ version '1.0'
 
 sourceCompatibility = 1.8
 
-sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.main.java.srcDirs = ["src"]
 
 project.ext.mainClassName = "mw.MechanicalWarfare"
 project.ext.assetsDir = new File("$projectDir/assets")
@@ -15,12 +15,6 @@ repositories{
 }
 
 ext{
-    //the build number that this mod is made for
-    mindustryVersion = 'v107'
-    //version of SDK you will be using
-    sdkVersion = '30'
-    sdkRoot = System.getenv("ANDROID_HOME")
-
     doExec = { cmd ->
         def proc = cmd.execute(null, new File("$buildDir/libs"))
         proc.waitForProcessOutput(System.out, System.err)
@@ -36,7 +30,7 @@ allprojects{
     }
 }
 
-task jarAndroid(type: Jar){
+task jarAndroid{
     dependsOn "jar"
 
     doLast{
@@ -49,33 +43,26 @@ task jarAndroid(type: Jar){
     }
 }
 
-task jarDesktop(type: Jar){
+jar{
     archiveFileName = "${project.archivesBaseName}Desktop.jar"
 
     from {configurations.runtimeClasspath.collect{ it.isDirectory() ? it : zipTree(it) }}
 
-    from(projectDir){
+    from(project.projectDir){
         include "mod.json"
     }
 
     from(project.assetsDir){
         include "**"
     }
-
-    manifest{
-        attributes 'Main-Class': project.mainClassName
-    }
 }
 
 task deploy(type: Jar){
     dependsOn jarAndroid
-    dependsOn jarDesktop
+    dependsOn jar
     archiveFileName = "${project.archivesBaseName}.jar"
 
-    from{[
-        zipTree("$buildDir/libs/${project.archivesBaseName}Desktop.jar"), 
-        zipTree("$buildDir/libs/${project.archivesBaseName}Android.jar")
-    ]}
+    from{ [zipTree("$buildDir/libs/${project.archivesBaseName}Desktop.jar"), zipTree("$buildDir/libs/${project.archivesBaseName}Android.jar")] }
 
     doLast{
         delete{ delete "$buildDir/libs/${project.archivesBaseName}Desktop.jar" }

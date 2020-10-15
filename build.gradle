@@ -1,8 +1,6 @@
 buildscript{
     ext{
         props = new Properties().with{ p -> p.load(file('gradle.properties').newReader()); return p }
-
-        mindustryVersion = props['mindustryVersion']
     }
 
     repositories{
@@ -17,6 +15,13 @@ buildscript{
 }
 
 allprojects{
+    ext{
+        mindustryVersion = props["mindustryVersion"]
+
+        sdkVersion = '30'
+        sdkRoot = System.getenv("ANDROID_HOME")
+    }
+
     repositories{
         mavenLocal()
         mavenCentral()

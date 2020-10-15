@@ -1,5 +1,4 @@
-build/
-bin/
+main/build/
 
 .classpath
 .project

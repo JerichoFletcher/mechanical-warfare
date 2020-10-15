@@ -1,6 +1,8 @@
 buildscript{
     ext{
         props = new Properties().with{ p -> p.load(file('gradle.properties').newReader()); return p }
+
+        mindustryVersion = props["mindustryVersion"]
     }
 
     repositories{

@@ -52,13 +52,14 @@ task jarAndroid(type: Jar){
 task jarDesktop(type: Jar){
     archiveFileName = "${project.archivesBaseName}Desktop.jar"
 
-    from files(sourceSets.main.output.classesDirs)
-    from files(sourceSets.main.output.resourcesDir)
     from {configurations.runtimeClasspath.collect{ it.isDirectory() ? it : zipTree(it) }}
-    from files(project.assetsDir)
 
     from(projectDir){
         include "mod.json"
+    }
+
+    from(project.assetsDir){
+        include "**"
     }
 
     manifest{

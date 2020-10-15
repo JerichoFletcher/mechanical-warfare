@@ -71,7 +71,7 @@ task jarDesktop(type: Jar){
 task deploy(type: Jar){
     dependsOn jarAndroid
     dependsOn jarDesktop
-    archiveFileName = "${modName}.jar"
+    archiveFileName = "${project.archivesBaseName}.jar"
 
     from{[
         zipTree("$buildDir/libs/${modName}Desktop.jar"), 

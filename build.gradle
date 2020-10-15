@@ -17,10 +17,6 @@ buildscript{
 }
 
 allprojects{
-    ext{
-        modName = 'MechanicalWarfare'
-    }
-
     repositories{
         mavenLocal()
         mavenCentral()

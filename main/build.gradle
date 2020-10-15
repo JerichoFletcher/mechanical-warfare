@@ -39,20 +39,18 @@ allprojects{
 task jarAndroid(type: Jar){
     dependsOn "jar"
 
-    archiveFileName = "${modName}Android.jar"
-
     doLast{
         //collect dependencies needed for desugaring
         def files = (configurations.compileClasspath.asList() + configurations.runtimeClasspath.asList() + [new File("$sdkRoot/platforms/android-$sdkVersion/android.jar")])
         def dependencies = files.collect{ "--classpath $it.path" }.join(" ")
 
         //dex and desugar files - this requires d8 in your PATH
-        doExec("d8 $dependencies --min-api 14 --output ${modName}Android.jar ${modName}Desktop.jar")
+        doExec("d8 $dependencies --min-api 14 --output ${project.archivesBaseName}Android.jar ${project.archivesBaseName}Desktop.jar")
     }
 }
 
 task jarDesktop(type: Jar){
-    archiveFileName = "${modName}Desktop.jar"
+    archiveFileName = "${project.archivesBaseName}Desktop.jar"
 
     from files(sourceSets.main.output.classesDirs)
     from files(sourceSets.main.output.resourcesDir)
@@ -74,12 +72,12 @@ task deploy(type: Jar){
     archiveFileName = "${project.archivesBaseName}.jar"
 
     from{[
-        zipTree("$buildDir/libs/${modName}Desktop.jar"), 
-        zipTree("$buildDir/libs/${modName}Android.jar")
+        zipTree("$buildDir/libs/${project.archivesBaseName}Desktop.jar"), 
+        zipTree("$buildDir/libs/${project.archivesBaseName}Android.jar")
     ]}
 
     doLast{
-        delete{ delete "$buildDir/libs/${modName}Desktop.jar" }
-        delete{ delete "$buildDir/libs/${modName}Android.jar" }
+        delete{ delete "$buildDir/libs/${project.archivesBaseName}Desktop.jar" }
+        delete{ delete "$buildDir/libs/${project.archivesBaseName}Android.jar" }
     }
 }

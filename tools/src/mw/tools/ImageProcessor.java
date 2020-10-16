@@ -3,8 +3,6 @@ package mw.tools;
 import arc.files.*;
 import arc.func.*;
 import arc.graphics.*;
-import arc.util.*;
-import arc.util.Log.*;
 import mindustry.core.*;
 
 import java.io.*;
@@ -19,35 +17,22 @@ public class ImageProcessor{
     public static void main(String[] args) throws Exception{
         headless = true;
 
-        Log.setLogger(new NoopLogHandler());
         content = new ContentLoader();
         content.createBaseContent();
-        Log.setLogger(new DefaultLogHandler());
 
-        switch(args[0]){
-            case "antialias":
-                Time.mark();
-                Fi.get("./sprites").walk(path -> {
-                    if(!path.extEquals("png")) return;
+        Fi.get("./sprites-gen").walk(path -> {
+            if(!path.extEquals("png")) return;
 
-                    String fname = path.name();
+            try{
+                BufferedImage image = ImageIO.read(path.file());
+                if(image == null) throw new IOException("image " + path.absolutePath() + " is corrupted or invalid!");
 
-                    try{
-                        BufferedImage image = ImageIO.read(path.file());
-                        if(image == null) throw new IOException("image " + path.absolutePath() + " is corrupted or invalid!");
-
-                        BufferedImage antialiased = antialias(path);
-
-                        Fi fi = Fi.get("./sprites-gen").child(fname);
-                        ImageIO.write(antialiased, "png", fi.file());
-                    }catch(IOException e){
-                        throw new RuntimeException(e);
-                    }
-                });
-                Log.debug("Time to antialias sprites: @ms", Time.elapsed());
-
-                break;
-        }
+                BufferedImage antialiased = antialias(path);
+                ImageIO.write(antialiased, "png", path.file());
+            }catch(IOException e){
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     public static BufferedImage antialias(Fi path) throws IOException{

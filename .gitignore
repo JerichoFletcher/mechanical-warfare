@@ -2,7 +2,7 @@ bin/
 
 mw/build/
 mw/bin/
-mw/assets-raw/sprites-gen/*.png
+mw/assets-raw/sprites-gen/*
 
 tools/build/
 tools/bin/

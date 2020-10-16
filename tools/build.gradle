@@ -12,15 +12,19 @@ ext{
     spritesAssetsFolder = "../mw/assets/sprites/"
 }
 
-task antialias(dependsOn: classes){
+task processSprites(dependsOn: classes){
     doLast{
         delete{
             delete "$spritesGenFolder"
             delete "$spritesAssetsFolder"
         }
 
+        copy{
+            from "../mw/assets-raw/sprites/"
+            into "$spritesGenFolder"
+        }
+
         file("$spritesGenFolder").mkdirs()
-        file("$spritesAssetsFolder").mkdirs()
 
         javaexec{
             main = imageProcessorMain
@@ -28,7 +32,6 @@ task antialias(dependsOn: classes){
             jvmArgs("-Djava.awt.headless=true")
             standardInput = System.in
             workingDir = "../mw/assets-raw/"
-            args "antialias"
         }
 
         copy{

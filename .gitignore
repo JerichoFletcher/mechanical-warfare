@@ -1,4 +1,9 @@
-main/build/
+mw/build/
+mw/bin/
+mw/assets-raw/sprites-gen/*.png
+
+tools/build/
+tools/bin/
 
 .classpath
 .project

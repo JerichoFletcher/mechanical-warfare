@@ -1,3 +1,5 @@
+bin/
+
 mw/build/
 mw/bin/
 mw/assets-raw/sprites-gen/*.png

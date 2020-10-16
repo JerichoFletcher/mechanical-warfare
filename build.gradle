@@ -1,6 +1,8 @@
 buildscript{
     ext{
         props = new Properties().with{ p -> p.load(file('gradle.properties').newReader()); return p }
+
+        mindustryVersion = props["mindustryVersion"]
     }
 
     repositories{
@@ -31,15 +33,7 @@ allprojects{
         jcenter()
     }
 
-    tasks.withType(JavaCompile){
-        targetCompatibility = 8
-        sourceCompatibility = 14
-        options.encoding = "UTF-8"
-        options.compilerArgs += ["-Xlint:deprecation"]
-    }
-}
-
-configure(subprojects){
+    //java 8 backwards compatibility flag
     tasks.withType(JavaCompile){
         if(JavaVersion.current() != JavaVersion.VERSION_1_8){
             options.compilerArgs.addAll(['--release', '8'])

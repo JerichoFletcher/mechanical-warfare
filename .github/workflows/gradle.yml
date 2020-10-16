@@ -25,4 +25,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: ${{ env.REPOSITORY_NAME }}
-        path: main/build/libs/mw.jar
+        path: mw/build/libs/mw.jar

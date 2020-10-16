@@ -1,0 +1,5 @@
+if(JavaVersion.current().ordinal() < JavaVersion.VERSION_14.ordinal()){
+    throw new GradleException("!! You must use Java 14 or above to compile and run Mechanical Warfare 2.0 !! Read the README. Your version: ${System.properties["java.version"]}")
+}
+
+include 'mw', 'tools'

@@ -1,0 +1,66 @@
+buildscript{
+    ext{
+        props = new Properties().with{ p -> p.load(file('gradle.properties').newReader()); return p }
+
+        mindustryVersion = props["mindustryVersion"]
+    }
+
+    repositories{
+        mavenCentral()
+        maven{ url 'https://jitpack.io' }
+    }
+
+    dependencies{
+        classpath "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+        classpath "com.github.Anuken.Mindustry:core:$mindustryVersion"
+    }
+}
+
+allprojects{
+    ext{
+        mindustryVersion = props["mindustryVersion"]
+
+        sdkVersion = '30'
+        sdkRoot = System.getenv("ANDROID_HOME")
+
+        version '1.0'
+
+        sourceCompatibility = 1.8
+    }
+
+    repositories{
+        mavenLocal()
+        mavenCentral()
+        maven{ url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven{ url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven{ url 'https://jitpack.io' }
+        jcenter()
+    }
+
+    //java 8 backwards compatibility flag
+    tasks.withType(JavaCompile){
+        if(JavaVersion.current() != JavaVersion.VERSION_1_8){
+            options.compilerArgs.addAll(['--release', '8'])
+        }
+    }
+}
+
+project(":mw"){
+    apply plugin: 'java'
+
+    dependencies{
+        compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+        compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
+    }
+}
+
+project(":tools"){
+    apply plugin: 'java'
+
+    dependencies{
+        implementation project(":mw")
+
+        implementation "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+        implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
+    }
+}

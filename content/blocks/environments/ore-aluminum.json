@@ -1,5 +1,0 @@
-type: OreBlock
-itemDrop: aluminum
-oreDefault: true
-oreThreshold: 0.89
-oreScale: 25.828543

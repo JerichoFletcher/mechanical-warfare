@@ -1,6 +1,0 @@
-//type: Floor
-speedMultiplier: -1
-
-walkEffect: breakBlock
-damageTaken: 10
-variants: 2

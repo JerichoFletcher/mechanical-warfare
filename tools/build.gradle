@@ -6,7 +6,7 @@ repositories{
 }
 
 ext{
-    imageProcessorMain = "mw.tools.ImageProcessor"
+    imageProcessorMain = "mw.tools.SpriteProcessor"
 
     spritesGenFolder = "../mw/assets-raw/sprites-gen/"
     spritesAssetsFolder = "../mw/assets/sprites/"

@@ -70,7 +70,7 @@ The output directory of your built `.jar` file is `mw/build/libs`.
 
 ---
 
-Or, you could let GitHub Actions build the `.jar` file for you. Simply add the file index, commit, and push the changes via the bash. Go to your forked repository, check the `Actions` tab. There, you should see the most recent commit pushes you've done. Select the most recent commit with green checkmark _(indicates that it didn't fail to build)_, and download the uploaded artifact. <br>
+Or, you could let GitHub Actions build the `.jar` file for you. Simply track the changed files, commit, and push the changes via the bash. Go to your forked repository, check the `Actions` tab. There, you should see the most recent commit pushes you've done. Select the most recent commit with green checkmark _(indicates that it didn't fail to build)_, and download the uploaded artifact. <br>
 
 The downloaded artifact is a `.zip` file, you have to manually unzip it to actually get the `.jar` file. The `.jar` file should be compatible for both android and desktop.
 

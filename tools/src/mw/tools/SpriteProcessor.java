@@ -13,7 +13,7 @@ import java.awt.image.*;
 
 import static mindustry.Vars.*;
 
-public class ImageProcessor{
+public class SpriteProcessor{
     public static void main(String[] args) throws Exception{
         headless = true;
 

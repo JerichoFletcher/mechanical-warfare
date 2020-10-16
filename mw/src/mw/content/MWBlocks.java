@@ -18,7 +18,7 @@ public class MWBlocks implements ContentList{
     public static Block
 
     //environment
-    lava, contaminatedWater, deepContaminatedWater, darksandContaminatedWater, sandContaminatedWater,
+    magma, contaminatedWater, deepContaminatedWater, darksandContaminatedWater, sandContaminatedWater,
     obsidian, obsidianRocks,
 
     //ores
@@ -38,7 +38,7 @@ public class MWBlocks implements ContentList{
     public void load(){
         //region environment
 
-        lava = new Floor("lava"){{
+        magma = new Floor("magma"){{
             liquidDrop = MWLiquids.lava;
             speedMultiplier = 0.15f;
             variants = 0;

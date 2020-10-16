@@ -1,7 +1,6 @@
 package mw;
 
 import arc.*;
-import arc.util.*;
 import mindustry.ctype.*;
 import mindustry.game.EventType.*;
 import mindustry.mod.*;
@@ -31,12 +30,8 @@ public class MechanicalWarfare extends Mod{
 
     @Override
     public void loadContent(){
-        Time.mark();
-
         for(ContentList list : contents){
             list.load();
         }
-
-        Log.info("Time to load @ contents: @", getClass().getSimpleName(), Time.elapsed());
     }
 }

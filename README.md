@@ -13,6 +13,7 @@ Huge thanks to our contributors that have actively participated in the developme
 
 Translators:
 - French - [feu-follet](https://github.com/feu-follet)
+- Ukrainian - [Prosta4ok_ua](https://github.com/Prosta4okua)
 
 Contributors:
 - [kapzduke](https://github.com/kapzduke)

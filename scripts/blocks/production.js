@@ -528,3 +528,49 @@ mk2Assembler.drawer = cons(tile => {
 	Draw.rect(mk2Assembler.liquidRegion, tile.drawx(), tile.drawy());
 	Draw.reset();
 });
+
+//AP Shell assembler
+const APassembler= extendContent(GenericCrafter, "ap-shell-assembler",{
+	load(){
+		this.region=Core.atlas.find(this.name);
+		this.bar=Core.atlas.find(this.name + "-bar");
+		this.topRegion=Core.atlas.find(this.name+ "-top");
+	},
+	generateIcons:function(){
+		return[
+			Core.atlas.find(this.name),
+			Core.atlas.find(this.name + "-bar"),
+			Core.atlas.find(this.name + "-top"),
+		];
+	},
+	
+	draw(tile){
+		var entity=tile.ent();
+		Draw.rect(this.region, tile.drawx(), tile.drawy());
+		Draw.rect(this.bar, tile.drawx(), tile.drawy()-5 + Mathf.absin(entity.totalProgress, 3, 10)*entity.warmup);
+		Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
+	},
+});
+			
+//HE Shell assembler
+const HEassembler= extendContent(GenericCrafter, "he-shell-assembler",{
+	load(){
+		this.region=Core.atlas.find(this.name);
+		this.bar=Core.atlas.find(this.name + "-bar");
+		this.topRegion=Core.atlas.find(this.name+ "-top");
+	},
+	generateIcons:function(){
+		return[
+			Core.atlas.find(this.name),
+			Core.atlas.find(this.name + "-bar"),
+			Core.atlas.find(this.name + "-top"),
+		];
+	},
+	
+	draw(tile){
+		var entity=tile.ent();
+		Draw.rect(this.region, tile.drawx(), tile.drawy());
+		Draw.rect(this.bar, tile.drawx(), tile.drawy()-5 + Mathf.absin(entity.totalProgress, 3, 10)*entity.warmup);
+		Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
+	},
+});					

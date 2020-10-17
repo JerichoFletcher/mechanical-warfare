@@ -1,110 +1,157 @@
 package mw.tools;
 
+import arc.*;
 import arc.files.*;
-import arc.func.*;
-import arc.graphics.*;
+import arc.graphics.g2d.*;
+import arc.graphics.g2d.TextureAtlas.*;
+import arc.struct.*;
+import arc.util.*;
 import mindustry.core.*;
+import mindustry.mod.Mods.*;
+import mw.*;
 
+import java.awt.image.*;
 import java.io.*;
-import java.util.*;
 
 import javax.imageio.*;
-import java.awt.image.*;
 
 import static mindustry.Vars.*;
 
 public class SpriteProcessor{
+    static ObjectMap<String, TextureRegion> regionCache = new ObjectMap<>();
+    static ObjectMap<String, BufferedImage> spriteCache = new ObjectMap<>();
+
+    static MechanicalWarfare mod = new MechanicalWarfare();
+
     public static void main(String[] args) throws Exception{
         headless = true;
 
         content = new ContentLoader();
         content.createBaseContent();
 
-        Fi.get("./sprites-gen").walk(path -> {
+        //setup dummy loaded mod to load mw contents properly
+        content.setCurrentMod(new LoadedMod(null, null, mod, new ModMeta(){{
+            name = "mechanical-warfare";
+        }}));
+
+        mod.loadContent();
+
+        content.setCurrentMod(null);
+
+        Fi.get("./sprites").walk(path -> {
             if(!path.extEquals("png")) return;
 
-            try{
-                BufferedImage image = ImageIO.read(path.file());
-                if(image == null) throw new IOException("image " + path.absolutePath() + " is corrupted or invalid!");
+            path.copyTo(Fi.get("./sprites-gen"));
+        });
 
-                BufferedImage antialiased = antialias(path);
-                ImageIO.write(antialiased, "png", path.file());
+        Fi.get("./sprites-gen").walk(path -> {
+            String fname = path.nameWithoutExtension();
+
+            try{
+                BufferedImage sprite = ImageIO.read(path.file());
+                if(sprite == null) throw new IOException("sprite " + path.absolutePath() + " is corrupted or invalid!");
+
+                GenRegion region = new GenRegion(fname, path){{
+                    width = sprite.getWidth();
+                    height = sprite.getHeight();
+                    u2 = v2 = 1f;
+                    u = v = 0f;
+                }};
+
+                regionCache.put(fname, region);
+                spriteCache.put(fname, sprite);
             }catch(IOException e){
                 throw new RuntimeException(e);
             }
         });
-    }
 
-    public static BufferedImage antialias(Fi path) throws IOException{
-        BufferedImage image = ImageIO.read(path.file());
-        BufferedImage out = ImageIO.read(path.file());
+        Core.atlas = new TextureAtlas(){
+            @Override
+            public AtlasRegion find(String name){
+                if(!regionCache.containsKey(name)){
+                    GenRegion region = new GenRegion(name, null);
+                    region.invalid = true;
 
-        Func2<Integer, Integer, Integer> getRGB = (ix, iy) -> {
-            return image.getRGB(Math.max(Math.min(ix, image.getWidth() - 1), 0), Math.max(Math.min(iy, image.getHeight() - 1), 0));
+                    return region;
+                }
+
+                return (AtlasRegion)regionCache.get(name);
+            }
+
+            @Override
+            public AtlasRegion find(String name, TextureRegion def){
+                if(!regionCache.containsKey(name)){
+                    return (AtlasRegion)def;
+                }
+
+                return (AtlasRegion)regionCache.get(name);
+            }
+
+            @Override
+            public AtlasRegion find(String name, String def){
+                if(!regionCache.containsKey(name)){
+                    return (AtlasRegion)regionCache.get(def);
+                }
+
+                return (AtlasRegion)regionCache.get(name);
+            }
+
+            @Override
+            public boolean has(String name){
+                return regionCache.containsKey(name);
+            }
         };
 
-        Color color = new Color();
-        Color sum = new Color();
-        Color suma = new Color();
-        int[] p = new int[9];
+        Generators.generate();
 
-        for(int x = 0; x < image.getWidth(); x++){
-            for(int y = 0; y < image.getHeight(); y++){
-                int A = getRGB.get(x - 1, y + 1),
-                    B = getRGB.get(x, y + 1),
-                    C = getRGB.get(x + 1, y + 1),
-                    D = getRGB.get(x - 1, y),
-                    E = getRGB.get(x, y),
-                    F = getRGB.get(x + 1, y),
-                    G = getRGB.get(x - 1, y - 1),
-                    H = getRGB.get(x, y - 1),
-                    I = getRGB.get(x + 1, y - 1);
+        Sprite.dispose();
+    }
 
-                Arrays.fill(p, E);
+    public static BufferedImage buffer(TextureRegion reg){
+        return spriteCache.get(((AtlasRegion)reg).name.replaceFirst("mechanical-warfare-", ""));
+    }
 
-                if(D == B && D != H && B != F) p[0] = D;
-                if((D == B && D != H && B != F && E != C) || (B == F && B != D && F != H && E != A)) p[1] = B;
-                if(B == F && B != D && F != H) p[2] = F;
-                if((H == D && H != F && D != B && E != A) || (D == B && D != H && B != F && E != G)) p[3] = D;
-                if((B == F && B != D && F != H && E != I) || (F == H && F != B && H != D && E != C)) p[5] = F;
-                if(H == D && H != F && D != B) p[6] = D;
-                if((F == H && F != B && H != D && E != G) || (H == D && H != F && D != B && E != I)) p[7] = H;
-                if(F == H && F != B && H != D) p[8] = F;
+    public static boolean has(String name){
+        return Core.atlas.has(name);
+    }
 
-                suma.set(0);
+    public static boolean has(TextureRegion region){
+        return has(((AtlasRegion)region).name.replaceFirst("mechanical-warfare-", ""));
+    }
 
-                for(int val : p){
-                    color.argb8888(val);
-                    suma.r += color.r * color.a;
-                    suma.g += color.g * color.a;
-                    suma.b += color.b * color.a;
-                    suma.a += color.a;
-                }
+    public static Sprite get(String name){
+        return get(Core.atlas.find(name));
+    }
 
-                float fm = suma.a <= 0.001f ? 0f : 1f / suma.a;
-                suma.mul(fm, fm, fm, fm);
+    public static Sprite get(TextureRegion region){
+        GenRegion.validate(region);
 
-                float total = 0f;
-                sum.set(0);
+        return new Sprite(spriteCache.get(((AtlasRegion)region).name.replaceFirst("mechanical-warfare-", "")));
+    }
 
-                for(int val : p){
-                    color.argb8888(val);
-                    float a = color.a;
-                    color.lerp(suma, 1f - a);
-                    sum.r += color.r;
-                    sum.g += color.g;
-                    sum.b += color.b;
-                    sum.a += a;
-                    total += 1f;
-                }
+    static void err(String message, Object... args){
+        throw new IllegalArgumentException(Strings.format(message, args));
+    }
 
-                fm = (float)(1f / total);
-                sum.mul(fm, fm, fm, fm);
-                out.setRGB(x, y, sum.argb8888());
-                sum.set(0);
-            }
+    static class GenRegion extends AtlasRegion{
+        boolean invalid = false;
+        Fi path;
+
+        GenRegion(String name, Fi path){
+            if(name == null) throw new IllegalArgumentException("name is null");
+            this.name = name;
+            this.path = path;
         }
 
-        return out;
+        @Override
+        public boolean found(){
+            return !invalid;
+        }
+
+        static void validate(TextureRegion region){
+            if(((GenRegion)region).invalid){
+                err("Region does not exist: @", ((GenRegion)region).name);
+            }
+        }
     }
 }

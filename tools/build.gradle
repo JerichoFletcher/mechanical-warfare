@@ -19,11 +19,6 @@ task processSprites(dependsOn: classes){
             delete "$spritesAssetsFolder"
         }
 
-        copy{
-            from "../mw/assets-raw/sprites/"
-            into "$spritesGenFolder"
-        }
-
         file("$spritesGenFolder").mkdirs()
 
         javaexec{

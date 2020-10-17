@@ -13,7 +13,7 @@ public class MechanicalWarfare extends Mod{
         new MWLiquids(),
         new MWBullets(),
         //new MWAmmoTypes(),
-        //new MWUnitTypes(),
+        new MWUnitTypes(),
         new MWBlocks(),
         //new MWLoadouts(),
         //new MWWeathers(),

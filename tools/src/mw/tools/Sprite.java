@@ -21,13 +21,13 @@ public class Sprite{
     private Graphics2D graphics;
     private Color color = new Color();
 
-    public final int width, height;
+    final int width, height;
 
-    public Sprite(TextureRegion reg){
+    Sprite(TextureRegion reg){
         this(SpriteProcessor.buffer(reg));
     }
 
-    public Sprite(BufferedImage buf){
+    Sprite(BufferedImage buf){
         sprite = new BufferedImage(buf.getWidth(), buf.getHeight(), BufferedImage.TYPE_INT_ARGB);
         graphics = sprite.createGraphics();
         graphics.drawImage(buf, 0, 0, null);
@@ -37,28 +37,28 @@ public class Sprite{
         toDispose.add(this);
     }
 
-    public Sprite(int width, int height){
+    Sprite(int width, int height){
         this(new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB));
     }
 
-    public static Sprite createEmpty(int width, int height){
+    static Sprite createEmpty(int width, int height){
         Sprite out = new Sprite(width, height);
 
         return out;
     }
 
-    public Sprite copy(){
+    Sprite copy(){
         Sprite out = new Sprite(width, height);
         out.draw(this);
 
         return out;
     }
 
-    public int getRGB(int x, int y){
+    private int getRGB(int x, int y){
         return sprite.getRGB(Math.max(Math.min(x, sprite.getWidth() - 1), 0), Math.max(Math.min(y, sprite.getHeight() - 1), 0));
     }
 
-    public Color getColor(int x, int y){
+    private Color getColor(int x, int y){
         if(!Structs.inBounds(x, y, width, height)) return color.set(0, 0, 0, 0);
 
         int i = getRGB(x, y);
@@ -67,20 +67,25 @@ public class Sprite{
         return color;
     }
 
-    public void draw(int x, int y, Color color){
+    private void clear(){
+        graphics.setColor(new java.awt.Color(0f, 0f, 0f, 0f));
+        graphics.fillRect(0, 0, width, height);
+    }
+
+    private void draw(int x, int y, Color color){
         graphics.setColor(new java.awt.Color(color.r, color.g, color.b, color.a));
         graphics.fillRect(x, y, 1, 1);
     }
 
-    public void draw(Sprite sprite){
+    private void draw(Sprite sprite){
         draw(sprite, 0, 0);
     }
 
-    public void draw(Sprite sprite, int x, int y){
+    private void draw(Sprite sprite, int x, int y){
         graphics.drawImage(sprite.sprite, x, y, null);
     }
 
-    public Sprite antialias() throws IOException{
+    Sprite antialias(){
         Color sum = new Color();
         Color suma = new Color();
         int[] p = new int[9];
@@ -145,12 +150,11 @@ public class Sprite{
         return this;
     }
 
-    public Sprite outline(int radius, Color outlineColor){
+    Sprite outline(int radius, Color outlineColor){
         Sprite out = createEmpty(width, height);
 
         for(int x = 0; x < width; x++){
             for(int y = 0; y < height; y++){
-
                 if(getColor(x, y).a < 1f){
                     boolean found = false;
 
@@ -175,7 +179,83 @@ public class Sprite{
         return out;
     }
 
-    public void save(String name){
+    Sprite floorAlpha(){
+        for(int x = 0; x < width; x++){
+            for(int y = 0; y < height; y++){
+                Color color = getColor(x, y);
+                if(color.a <= 0.15f) color.a(0f);
+
+                draw(x, y, color);
+            }
+        }
+
+        return this;
+    }
+
+    Sprite alphableed(){
+        Sprite all = copy();
+        Sprite pending = new Sprite(width, height);
+        Seq<Color> average = new Seq<>();
+
+        boolean complete = false;
+
+        while(!complete){
+            complete = true;
+
+            pending.clear();
+
+            for(int x = 0; x < all.width; x++){
+                for(int y = 0; y < all.height; y++){
+                    if(all.getColor(x, y).a < 1f){
+                        boolean found = false;
+
+                        outer:
+                        for(int rx = -1; rx <= 1; rx++){
+                            for(int ry = -1; ry <= 1; ry++){
+                                if(Mathf.dst(rx, ry) <= 1 && all.getColor(rx + x, ry + y).a > 0.1f){
+                                    found = true;
+
+                                    break outer;
+                                }
+                            }
+                        }
+
+                        if(found){
+                            complete = false;
+
+                            average.clear();
+
+                            for(int rx = -1; rx <= 1; rx++){
+                                for(int ry = -1; ry <= 1; ry++){
+                                    if(rx == 0 && ry == 0) continue;
+
+                                    if(all.getColor(rx + x, ry + y).a > 0.1f){
+                                        average.add(all.getColor(rx + x, ry + y));
+                                    }
+                                }
+                            }
+
+                            if(average.size > 0){
+                                float r = average.sumf(c -> c.r) / average.size;
+                                float g = average.sumf(c -> c.g) / average.size;
+                                float b = average.sumf(c -> c.b) / average.size;
+
+                                pending.draw(x, y, Tmp.c1.set(r, g, b, 1f));
+                            }
+                        }
+                    }
+                }
+            }
+
+            all.draw(pending);
+        }
+
+        draw(all);
+
+        return this;
+    }
+
+    void save(String name){
         try{
             ImageIO.write(sprite, "png", Fi.get("./sprites-gen").child(name + ".png").file());
         }catch(IOException e){
@@ -183,7 +263,7 @@ public class Sprite{
         }
     }
 
-    public static void dispose(){
+    static void dispose(){
         for(Sprite sprite : toDispose){
             sprite.graphics.dispose();
         }

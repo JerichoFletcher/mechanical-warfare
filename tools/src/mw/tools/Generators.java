@@ -2,8 +2,7 @@ package mw.tools;
 
 public class Generators{
     public static final Generator[] generators = {
-        new OutlineGenerator(),
-        new AntialiasedGenerator()
+        new OutlineGenerator()
     };
 
     public static void generate(){

@@ -18,10 +18,10 @@ import javax.imageio.*;
 import static mindustry.Vars.*;
 
 public class SpriteProcessor{
-    static ObjectMap<String, TextureRegion> regionCache = new ObjectMap<>();
-    static ObjectMap<String, BufferedImage> spriteCache = new ObjectMap<>();
+    private static ObjectMap<String, TextureRegion> regionCache = new ObjectMap<>();
+    private static ObjectMap<String, BufferedImage> spriteCache = new ObjectMap<>();
 
-    static MechanicalWarfare mod = new MechanicalWarfare();
+    public static MechanicalWarfare mod = new MechanicalWarfare();
 
     public static void main(String[] args) throws Exception{
         headless = true;
@@ -104,26 +104,39 @@ public class SpriteProcessor{
 
         Generators.generate();
 
+        Fi.get("./sprites-gen").walk(path -> {
+            try{
+                BufferedImage image = ImageIO.read(path.file());
+
+                Sprite sprite = new Sprite(image);
+                sprite.floorAlpha().alphableed();//.antialias();
+
+                sprite.save(path.nameWithoutExtension());
+            }catch(IOException e){
+                throw new RuntimeException(e);
+            }
+        });
+
         Sprite.dispose();
     }
 
-    public static BufferedImage buffer(TextureRegion reg){
+    static BufferedImage buffer(TextureRegion reg){
         return spriteCache.get(((AtlasRegion)reg).name.replaceFirst("mechanical-warfare-", ""));
     }
 
-    public static boolean has(String name){
+    static boolean has(String name){
         return Core.atlas.has(name);
     }
 
-    public static boolean has(TextureRegion region){
+    static boolean has(TextureRegion region){
         return has(((AtlasRegion)region).name.replaceFirst("mechanical-warfare-", ""));
     }
 
-    public static Sprite get(String name){
+    static Sprite get(String name){
         return get(Core.atlas.find(name));
     }
 
-    public static Sprite get(TextureRegion region){
+    static Sprite get(TextureRegion region){
         GenRegion.validate(region);
 
         return new Sprite(spriteCache.get(((AtlasRegion)region).name.replaceFirst("mechanical-warfare-", "")));

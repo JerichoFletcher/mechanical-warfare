@@ -23,6 +23,7 @@ Contributors:
 - [D.A.R.K](https://github.com/DARK0717)
 - [ThePythonGuy3](https://github.com/ThePythonGuy3)
 - [SteelBlue8](https://github.com/SteelBlue8)
+- [sk7725](https://github.com/sk7725)
 
 If you want to contribute to this mod, or simply just want to know more, also join our [Discord server](https://discord.gg/K3uzNSD)!
 

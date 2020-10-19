@@ -4,11 +4,13 @@ import arc.func.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.graphics.g2d.TextureAtlas.*;
+import arc.math.geom.*;
 import arc.struct.*;
 import arc.util.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
+import mindustry.ui.*;
 
 import static mindustry.Vars.*;
 
@@ -128,6 +130,14 @@ public class IconGenerator implements Generator{
                 }
 
                 icon.save(fname + "-full");
+
+                for(Cicon i : Cicon.scaled){
+                    Vec2 size = Scaling.fit.apply(icon.width, icon.height, i.size, i.size);
+                    Sprite scaled = new Sprite((int)size.x, (int)size.y);
+
+                    scaled.drawScaled(icon);
+                    scaled.save(fname + "-" + i.name());
+                }
             }catch(IllegalArgumentException e){
                 Log.err("Skipping unit @: @", type.name, e.getMessage());
             }

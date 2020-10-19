@@ -111,6 +111,10 @@ public class Sprite{
         draw(sprite, (width - sprite.width) / 2, (height - sprite.height) / 2, flipx, flipy);
     }
 
+    void drawScaled(Sprite sprite){
+        graphics.drawImage(sprite.sprite.getScaledInstance(width, height, java.awt.Image.SCALE_AREA_AVERAGING), 0, 0, width, height, null);
+    }
+
     Sprite antialias(){
         Color sum = new Color();
         Color suma = new Color();

@@ -45,6 +45,7 @@ public class ElementAura extends Block{
     public ElementAura(String name, Liquid liquid){
         super(name);
         this.liquid = liquid;
+        hasLiquids = true;
     }
 
     public ElementAura(String name){
@@ -196,9 +197,8 @@ public class ElementAura extends Block{
         }
 
         @Override
-        public boolean acceptLiquid(Building source, Liquid type, float amount) {
-            return liquid == type
-                && liquids.get(liquid) + amount < liquidCapacity;
+        public boolean acceptLiquid(Building source, Liquid type){
+            return block.hasLiquids && type == liquid;
         }
 
         @Override

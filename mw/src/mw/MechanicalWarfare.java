@@ -19,7 +19,7 @@ public class MechanicalWarfare extends Mod{
         //new MWWeathers(),
         //new MWPlanets(),
         //new MWSectorPresets(),
-        new MWTechTree()
+        //new MWTechTree()
     };
 
     public MechanicalWarfare(){

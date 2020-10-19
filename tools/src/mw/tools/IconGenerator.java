@@ -65,15 +65,15 @@ public class IconGenerator implements Generator{
                 Sprite outl = outline.get(SpriteProcessor.get(fname));
                 outl.save(fname + "-outline");
 
-                Sprite icon = SpriteProcessor.get(fname);
-                icon.draw(outline.get(icon));
+                Sprite region = SpriteProcessor.get(fname);
+                Sprite icon = Sprite.createEmpty(region.width, region.height);
 
                 if(unit instanceof Mechc){
                     Sprite leg = SpriteProcessor.get(parseName.get(type.legRegion));
                     icon.drawCenter(leg);
                     icon.drawCenter(leg, true, false);
 
-                    icon.drawCenter(icon);
+                    icon.draw(region);
                 }
 
                 for(Weapon weapon : type.weapons){
@@ -83,18 +83,18 @@ public class IconGenerator implements Generator{
                         Sprite weapSprite = SpriteProcessor.get(weapon.name.replaceFirst("mechanical-warfare-", ""));
 
                         icon.draw(weapSprite,
-                        (int)(weapon.x / Draw.scl + icon.width / 2f - weapon.region.width / 2f),
-                        (int)(-weapon.y / Draw.scl + icon.height / 2f - weapon.region.height / 2f),
+                        (int)(weapon.x * 4f / Draw.scl + icon.width / 2f - weapSprite.width / 2f),
+                        (int)(-weapon.y * 4f / Draw.scl + icon.height / 2f - weapSprite.height / 2f),
                         weapon.flipSprite, false);
 
                         icon.draw(outline.get(weapSprite),
-                        (int)(weapon.x / Draw.scl + icon.width / 2f - weapon.region.width / 2f),
-                        (int)(-weapon.y / Draw.scl + icon.height / 2f - weapon.region.height / 2f),
+                        (int)(weapon.x * 4f / Draw.scl + icon.width / 2f - weapSprite.width / 2f),
+                        (int)(-weapon.y * 4f / Draw.scl + icon.height / 2f - weapSprite.height / 2f),
                         weapon.flipSprite, false);
                     }
                 }
 
-                icon.drawCenter(icon);
+                icon.draw(region);
 
                 Sprite baseCell = SpriteProcessor.get(parseName.get(type.cellRegion));
                 Sprite cell = new Sprite(baseCell.width, baseCell.height);
@@ -108,15 +108,15 @@ public class IconGenerator implements Generator{
                     Sprite weapSprite = SpriteProcessor.get(weapon.name.replaceFirst("mechanical-warfare-", ""));
 
                     icon.draw(weapSprite,
-                    (int)(weapon.x / Draw.scl + icon.width / 2f - weapon.region.width / 2f),
-                    (int)(-weapon.y / Draw.scl + icon.height / 2f - weapon.region.height / 2f),
+                    (int)(weapon.x * 4f / Draw.scl + icon.width / 2f - weapSprite.width / 2f),
+                    (int)(-weapon.y * 4f / Draw.scl + icon.height / 2f - weapSprite.height / 2f),
                     weapon.flipSprite, false
                     );
 
                     if(weapon.top){
                         icon.draw(outline.get(weapSprite),
-                        (int)(weapon.x / Draw.scl + icon.width / 2f - weapon.region.width / 2f),
-                        (int)(-weapon.y / Draw.scl + icon.height / 2f - weapon.region.height / 2f),
+                        (int)(weapon.x * 4f / Draw.scl + icon.width / 2f - weapSprite.width / 2f),
+                        (int)(-weapon.y * 4f / Draw.scl + icon.height / 2f - weapSprite.height / 2f),
                         weapon.flipSprite, false
                         );
                     }

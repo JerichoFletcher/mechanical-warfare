@@ -43,9 +43,7 @@ public class IconGenerator implements Generator{
                 };
 
                 for(Weapon weapon : type.weapons){
-                    weapon.load();
-
-                    String fname = parseName.get(weapon.region);
+                    String fname = weapon.name.replaceFirst("mechanical-warfare-", "");
 
                     if(outlined.add(fname) && SpriteProcessor.has(fname)){
                         outline.get(SpriteProcessor.get(fname)).save(fname + "-outline");

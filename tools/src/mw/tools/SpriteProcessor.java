@@ -147,7 +147,7 @@ public class SpriteProcessor{
     }
 
     static class GenRegion extends AtlasRegion{
-        boolean invalid = false;
+        boolean invalid;
         Fi path;
 
         GenRegion(String name, Fi path){

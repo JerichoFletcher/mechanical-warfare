@@ -66,7 +66,10 @@ public class IconGenerator implements Generator{
                 outl.save(fname + "-outline");
 
                 Sprite region = SpriteProcessor.get(fname);
+
                 Sprite icon = Sprite.createEmpty(region.width, region.height);
+                icon.draw(region);
+                icon.draw(outline.get(region));
 
                 if(unit instanceof Mechc){
                     Sprite leg = SpriteProcessor.get(parseName.get(type.legRegion));

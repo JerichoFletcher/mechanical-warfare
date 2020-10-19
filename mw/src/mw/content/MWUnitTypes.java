@@ -8,15 +8,42 @@ import mindustry.entities.*;
 import mindustry.entities.bullet.*;
 import mindustry.gen.*;
 import mindustry.type.*;
+import mw.entities.bullet.*;
 
 public class MWUnitTypes implements ContentList{
     public static UnitType
 
     //ground - orange
-    sabre;
+    rapier, sabre;
 
     @Override
     public void load(){
+        rapier = new UnitType("rapier"){{
+            constructor = () -> MechUnit.create();
+
+            health = 360f;
+            speed = 0.6f;
+            hitSize = 9f;
+
+            weapons.add(new Weapon("mechanical-warfare-rapier-gun"){{
+                top = false;
+                x = 8f;
+                rotate = false;
+                reload = 120f;
+                alternate = true;
+                recoil = 2f;
+                ejectEffect = Fx.none;
+                shootSound = Sounds.shootBig;
+
+                bullet = new TeleportBulletType(4f, 17f, "mechanical-warfare-blade"){{
+                    width = 10f;
+                    height = 20f;
+                    damage = 17f;
+                    lifetime = 40f;
+                }};
+            }});
+        }};
+
         sabre = new UnitType("sabre"){{
             constructor = () -> MechUnit.create();
 

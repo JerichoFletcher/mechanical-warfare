@@ -28,6 +28,8 @@ public class MWUnitTypes implements ContentList{
             immunities = ObjectSet.with(StatusEffects.corroded);
 
             weapons.add(new Weapon("mechanical-warfare-sabre-launcher"){{
+                top = false;
+
                 x = 9f;
                 reload = 90f;
                 recoil = 3f;

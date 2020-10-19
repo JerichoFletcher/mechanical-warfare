@@ -77,6 +77,7 @@ public class IconGenerator implements Generator{
                     icon.drawCenter(leg, true, false);
 
                     icon.draw(region);
+                    icon.draw(outl);
                 }
 
                 for(Weapon weapon : type.weapons){
@@ -98,6 +99,7 @@ public class IconGenerator implements Generator{
                 }
 
                 icon.draw(region);
+                icon.draw(outl);
 
                 Sprite baseCell = SpriteProcessor.get(parseName.get(type.cellRegion));
                 Sprite cell = new Sprite(baseCell.width, baseCell.height);

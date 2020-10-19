@@ -21,15 +21,15 @@ public class MWUnitTypes implements ContentList{
             constructor = () -> MechUnit.create();
 
             health = 600f;
-            speed = 0.12f;
-            drag = 0.4f;
-            hitSize = 9f;
-            rotateSpeed = 0.04f;
+            speed = 0.4f;
+            hitSize = 12f;
+            rotateSpeed = 3f;
+            mechFrontSway = 0.5f;
+            armor = 9f;
             immunities = ObjectSet.with(StatusEffects.corroded);
 
             weapons.add(new Weapon("mechanical-warfare-sabre-launcher"){{
                 top = false;
-
                 x = 9f;
                 rotate = false;
                 reload = 90f;

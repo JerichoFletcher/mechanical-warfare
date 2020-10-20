@@ -35,6 +35,7 @@ jar{
 
     from(project.projectDir){
         include "mod.json"
+        include "icon.png"
     }
 
     from(project.assetsDir){

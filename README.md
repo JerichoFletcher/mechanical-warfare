@@ -59,7 +59,7 @@ $ ./gradlew.bat mw:jar
 #### Android
 1. Install the Android SDK [here](https://developer.android.com/studio#downloads). Just down load the "Command line tools only", as Android Studio is not required.
 2. Unzip the Android SDK directory, and set `ANDROID_HOME` environment variable to point to the unzipped SDK directory
-3. Run `gradlew.bat mw:deploy` (or `./gradlew.bat mw:deploy` if on Linux/Mac). If you did all of these correctly ~which I didn't~, there should be the built `.jar` file in the output directory that works for both desktop and android.
+3. Run `gradlew.bat tools:processSprites` then `gradlew.bat mw:deploy` (or `./gradlew` if on Linux/Mac). If you did all of these correctly ~which I didn't~, there should be the built `.jar` file in the output directory that works for both desktop and android.
 
 ##### Troubleshooting
 If the terminal returns `Permission denied` or `Command not found` on Mac/Linux, run `chmod +x ./gradlew` before running `./gradlew`. _This is a one-time procedure._
@@ -79,7 +79,8 @@ The downloaded artifact is a `.zip` file, you have to manually unzip it to actua
 Huge thanks to our contributors that have actively participated in the development of this mod, so be sure to check them out!
 
 Translators:
-- French - [feu-follet](https://github.com/feu-follet)
+- French: [feu-follet](https://github.com/feu-follet)
+- Ukrainian: [Prosta4okua](https://github.com/Prosta4okua)
 
 Contributors:
 - [kapzduke](https://github.com/kapzduke)
@@ -88,6 +89,8 @@ Contributors:
 - [Gdeft](https://github.com/Gdeft)
 - [D.A.R.K](https://github.com/DARK0717)
 - [ThePythonGuy3](https://github.com/ThePythonGuy3)
+- [SteelBlue8](https://github.com/SteelBlue8)
+- [sk7725](https://github.com/sk7725)
 
 If you want to contribute to this mod, or simply just want to know more, also join our [Discord server](https://discord.gg/K3uzNSD)!
 

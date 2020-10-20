@@ -1,6 +1,5 @@
 package mw;
 
-import arc.*;
 import mindustry.*;
 import mindustry.ctype.*;
 import mindustry.game.EventType.*;
@@ -24,15 +23,13 @@ public class MechanicalWarfare extends Mod{
     };
 
     public MechanicalWarfare(){
-        Events.on(ClientLoadEvent.class, e -> {
-            MWSounds.load();
-        });
-
         Vars.enableConsole = true;
     }
 
     @Override
     public void loadContent(){
+        MWSounds.load();
+
         for(ContentList list : contents){
             list.load();
         }

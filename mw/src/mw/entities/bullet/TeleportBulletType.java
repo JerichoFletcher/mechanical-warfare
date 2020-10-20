@@ -62,11 +62,8 @@ public class TeleportBulletType extends BasicBulletType{
         Time.run(teleportDelay, () -> {
             if(b != null && (TeleportBulletData)b.data() != null){
                 if(((TeleportBulletData)b.data()).target == null){
-                    try{
-                        Pools.free(b.data());
-                        b.remove();
-                    // i can't be bothered enough to fix this
-                    }catch(NullPointerException e){}
+                    Pools.free(b.data());
+                    b.remove();
 
                     return;
                 }else{
@@ -76,12 +73,14 @@ public class TeleportBulletType extends BasicBulletType{
                     float targetRot = result.sub(b.x, b.y).angle();
                     b.vel().set(0f, speed).setAngle(targetRot);
                 }
+            }else if(b != null && (TeleportBulletData)b.data() == null){
+                b.remove();
             }
         });
     }
 
     class TeleportBulletData implements Pool.Poolable{
-        public Teamc target;
+        public @Nullable Posc target;
 
         @Override
         public void reset(){

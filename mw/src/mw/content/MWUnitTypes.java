@@ -14,7 +14,7 @@ public class MWUnitTypes implements ContentList{
     public static UnitType
 
     //ground - orange
-    rapier, sabre;
+    rapier, sabre, dominator;
 
     @Override
     public void load(){
@@ -23,7 +23,7 @@ public class MWUnitTypes implements ContentList{
 
             health = 360f;
             speed = 0.6f;
-            hitSize = 9f;
+            hitSize = 12f;
 
             weapons.add(new Weapon("mechanical-warfare-rapier-gun"){{
                 top = false;
@@ -47,9 +47,9 @@ public class MWUnitTypes implements ContentList{
         sabre = new UnitType("sabre"){{
             constructor = () -> MechUnit.create();
 
-            health = 600f;
+            health = 800f;
             speed = 0.4f;
-            hitSize = 12f;
+            hitSize = 16f;
             rotateSpeed = 3f;
             mechFrontSway = 0.5f;
             armor = 9f;
@@ -116,6 +116,30 @@ public class MWUnitTypes implements ContentList{
                         Damage.status(b.team, x, y, splashDamageRadius, status, statusDuration, collidesAir, collidesGround);
                     }
                 };
+            }});
+        }};
+
+        dominator = new UnitType("dominator"){{
+            constructor = () -> MechUnit.create();
+
+            health = 10000f;
+            speed = 0.3f;
+            hitSize = 22f;
+            rotateSpeed = 2f;
+            mechFrontSway = 0.5f;
+
+            weapons.add(new Weapon("mechanical-warfare-domination"){{
+                top = false;
+                x = 20.5f;
+                shootY = 13.25f;
+                rotate = false;
+                reload = 30f;
+                recoil = 3f;
+                shots = 6;
+                inaccuracy = 50f;
+                shootSound = Sounds.shootBig;
+                ejectEffect = Fx.shellEjectBig;
+                bullet = MWBullets.flakPopSmall;
             }});
         }};
     }

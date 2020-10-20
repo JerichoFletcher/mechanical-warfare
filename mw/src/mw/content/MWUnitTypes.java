@@ -1,20 +1,16 @@
 package mw.content;
 
-import arc.math.*;
 import arc.struct.*;
 import mindustry.content.*;
 import mindustry.ctype.*;
-import mindustry.entities.*;
-import mindustry.entities.bullet.*;
 import mindustry.gen.*;
 import mindustry.type.*;
-import mw.entities.bullet.*;
 
 public class MWUnitTypes implements ContentList{
     public static UnitType
 
     //ground - orange
-    rapier, sabre, dominator;
+    rapier, sabre, dominator, nullifier;
 
     @Override
     public void load(){
@@ -29,18 +25,12 @@ public class MWUnitTypes implements ContentList{
                 top = false;
                 x = 8f;
                 rotate = false;
-                reload = 120f;
+                reload = 60f;
                 alternate = true;
                 recoil = 2f;
                 ejectEffect = Fx.none;
                 shootSound = Sounds.shootBig;
-
-                bullet = new TeleportBulletType(4f, 17f, "mechanical-warfare-blade"){{
-                    width = 10f;
-                    height = 20f;
-                    damage = 17f;
-                    lifetime = 40f;
-                }};
+                bullet = MWBullets.bladeSmall;
             }});
         }};
 
@@ -59,63 +49,13 @@ public class MWUnitTypes implements ContentList{
                 top = false;
                 x = 9f;
                 rotate = false;
-                reload = 90f;
+                reload = 60f;
                 recoil = 3f;
                 shake = 2f;
                 shots = 1;
                 ejectEffect = Fx.shellEjectBig;
                 shootSound = Sounds.shootBig;
-
-                bullet = new MissileBulletType(2.5f, 20f){
-                    {
-                        width = 9f;
-                        height = 13f;
-                        lifetime = 64f;
-                        homingPower = 0.5f;
-                        homingRange = 50f;
-                        shootEffect = Fx.shootBig;
-                        smokeEffect = Fx.shootBigSmoke;
-                        status = StatusEffects.corroded;
-                        fragBullets = 10;
-
-                        fragBullet = new MissileBulletType(2.5f, 4f){{
-                            lifetime = 24f;
-                            splashDamage = 5f;
-                            splashDamageRadius = 20f;
-                            homingPower = 0.75f;
-                            homingRange = 75f;
-                            status = StatusEffects.corroded;
-                            fragBullets = 3;
-
-                            fragBullet = new LiquidBulletType(MWLiquids.acid){{
-                                lifetime = 2f;
-                                speed = 1f;
-                                damage = 2f;
-                            }};
-                        }};
-                    }
-
-                    @Override
-                    public void hit(Bullet b, float x, float y){
-                        hitEffect.at(b, b.rotation());
-                        hitSound.at(b);
-                        Effect.shake(hitShake, 6f, b);
-
-                        for(int i = 0; i < fragBullets; i++){
-                            float len = Mathf.random(1f, 7f);
-                            float a = Mathf.random(360f);
-
-                            fragBullet.create(b, b.team(),
-                                b.x + Angles.trnsx(a, len),
-                                b.y + Angles.trnsy(a, len),
-                                a, Mathf.random(fragVelocityMin, fragVelocityMax), len
-                            );
-                        }
-
-                        Damage.damage(b.team, x, y, splashDamageRadius, splashDamage * b.damageMultiplier(), collidesAir, collidesGround);
-                        Damage.status(b.team, x, y, splashDamageRadius, status, statusDuration, collidesAir, collidesGround);
-                    }
-                };
+                bullet = MWBullets.fragBig;
             }});
         }};
 
@@ -126,7 +66,7 @@ public class MWUnitTypes implements ContentList{
             speed = 0.3f;
             hitSize = 22f;
             rotateSpeed = 2f;
-            mechFrontSway = 0.5f;
+            mechFrontSway = 0.55f;
 
             weapons.add(new Weapon("mechanical-warfare-domination"){{
                 top = false;
@@ -140,6 +80,29 @@ public class MWUnitTypes implements ContentList{
                 shootSound = Sounds.shootBig;
                 ejectEffect = Fx.shellEjectBig;
                 bullet = MWBullets.flakPopSmall;
+            }});
+        }};
+
+        nullifier = new UnitType("nullifier"){{
+            constructor = () -> MechUnit.create();
+
+            health = 18000f;
+            speed = 0.2f;
+            hitSize = 27f;
+            rotateSpeed = 2f;
+            mechFrontSway = 0.6f;
+
+            weapons.add(new Weapon("mechanical-warfare-null-pointer"){{
+                top = false;
+                x = 30.25f;
+                shootY = 21.5f;
+                reload = 30f;
+                recoil = 5f;
+                shake = 2.2f;
+                inaccuracy = 2f;
+                shootSound = MWSounds.quakeshot;
+                ejectEffect = Fx.shellEjectBig;
+                bullet = MWBullets.nullBullet;
             }});
         }};
     }

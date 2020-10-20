@@ -18,13 +18,17 @@ public class PopBulletType extends FlakBulletType{
 
     public PopBulletType(float speed, float damage){
         super(speed, damage);
+        collides = true;
+        collidesAir = true;
+        collidesGround = true;
+        collidesTiles = true;
     }
 
     @Override
     public void hit(Bullet b, float x, float y){
         super.hit(b, x, y);
 
-        if(b.owner() != null){
+        if(b.owner() instanceof Player){
             Unit owner = (Unit)b.owner();
             
             Tmp.v1.set(owner.aimX(), owner.aimY());

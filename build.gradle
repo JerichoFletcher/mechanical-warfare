@@ -19,6 +19,7 @@ buildscript{
 allprojects{
     ext{
         mindustryVersion = props["mindustryVersion"]
+        modName = props["modName"]
 
         sdkVersion = '30'
         sdkRoot = System.getenv("ANDROID_HOME")

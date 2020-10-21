@@ -63,6 +63,8 @@ public class MWBullets implements ContentList{
             knockback = 3f;
             backColor = Color.white;
             frontColor = Color.black;
+            shootEffect = Fx.shootBig;
+            smokeEffect = Fx.shootBigSmoke;
         }};
 
         fragBig = new MissileBulletType(2.5f, 20f){

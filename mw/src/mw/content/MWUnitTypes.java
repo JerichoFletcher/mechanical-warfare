@@ -96,6 +96,7 @@ public class MWUnitTypes implements ContentList{
                 top = false;
                 x = 30.25f;
                 shootY = 21.5f;
+                rotate = false;
                 reload = 30f;
                 recoil = 5f;
                 shake = 2.2f;

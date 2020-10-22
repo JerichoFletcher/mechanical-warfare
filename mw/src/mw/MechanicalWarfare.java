@@ -1,5 +1,7 @@
 package mw;
 
+import arc.*;
+import arc.util.*;
 import mindustry.*;
 import mindustry.ctype.*;
 import mindustry.game.EventType.*;
@@ -24,14 +26,20 @@ public class MechanicalWarfare extends Mod{
 
     public MechanicalWarfare(){
         Vars.enableConsole = true;
+
+        Events.on(DisposeEvent.class, e -> {
+            MWSounds.dispose();
+        });
     }
 
     @Override
     public void loadContent(){
-        MWSounds.load();
-
         for(ContentList list : contents){
             list.load();
+
+            Log.info("Loaded @ content: @", getClass().getSimpleName(), list.getClass().getSimpleName());
         }
+
+        Core.app.post(() -> MWSounds.load());
     }
 }

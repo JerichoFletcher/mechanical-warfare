@@ -1,81 +1,73 @@
 package mw.content;
 
 import arc.*;
-import arc.assets.*;
 import arc.audio.*;
+import arc.func.*;
 import arc.mock.*;
+import arc.util.Log;
 import mindustry.*;
-import mindustry.mod.*;
+
+import static mindustry.Vars.*;
 
 public class MWSounds{
     public static Sound
 
-    blowshot,
-    fireAuraActive,
-    heatrayActive,
-    hypernovaActive,
-    hypernovaShoot,
-    quakemk2shot,
-    quakeshot,
-    supernovaActive,
-    supernovaShoot,
-    voltmeterActive,
-    voltmeterIdle;
+    blowshot = new MockSound(),
+    fireAuraActive = new MockSound(),
+    heatrayActive = new MockSound(),
+    hypernovaActive = new MockSound(),
+    hypernovaShoot = new MockSound(),
+    quakemk2shot = new MockSound(),
+    quakeshot = new MockSound(),
+    supernovaActive = new MockSound(),
+    supernovaShoot = new MockSound(),
+    voltmeterActive = new MockSound(),
+    voltmeterIdle = new MockSound();
 
     public static void load(){
-        blowshot = loadSound("blowshot");
-        fireAuraActive = loadSound("fireAuraActive");
-        heatrayActive = loadSound("heatrayActive");
-        hypernovaActive = loadSound("hypernovaActive");
-        hypernovaShoot = loadSound("hypernovaShoot");
-        quakemk2shot = loadSound("quakemk2shot");
-        quakeshot = loadSound("quakeshot");
-        supernovaActive = loadSound("supernovaActive");
-        supernovaShoot = loadSound("supernovaShoot");
-        voltmeterActive = loadSound("voltmeterActive");
-        voltmeterIdle = loadSound("voltmeterIdle");
+        Func<String, Sound> loadSound = soundName -> {
+            Sound result = mods.getScripts().loadSound(soundName);
+            Log.info("Loaded sound: @", result.toString());
+
+            return result;
+        };
+
+        blowshot = loadSound.get("blowshot");
+        fireAuraActive = loadSound.get("fireAuraActive");
+        heatrayActive = loadSound.get("heatrayActive");
+        hypernovaActive = loadSound.get("hypernovaActive");
+        hypernovaShoot = loadSound.get("hypernovaShoot");
+        quakemk2shot = loadSound.get("quakemk2shot");
+        quakeshot = loadSound.get("quakeshot");
+        supernovaActive = loadSound.get("supernovaActive");
+        supernovaShoot = loadSound.get("supernovaShoot");
+        voltmeterActive = loadSound.get("voltmeterActive");
+        voltmeterIdle = loadSound.get("voltmeterIdle");
     }
 
     public static void dispose(){
-        blowshot = disposeSound("blowshot");
-        fireAuraActive = disposeSound("fireAuraActive");
-        heatrayActive = disposeSound("heatrayActive");
-        hypernovaActive = disposeSound("hypernovaActive");
-        hypernovaShoot = disposeSound("hypernovaShoot");
-        quakemk2shot = disposeSound("quakemk2shot");
-        quakeshot = disposeSound("quakeshot");
-        supernovaActive = disposeSound("supernovaActive");
-        supernovaShoot = disposeSound("supernovaShoot");
-        voltmeterActive = disposeSound("voltmeterActive");
-        voltmeterIdle = disposeSound("voltmeterIdle");
-    }
+        Func<String, Sound> disposeSound = soundName -> {
+            String name = "sounds/" + soundName;
+            String path = !Vars.ios ? name + ".ogg" : name + ".mp3";
 
-    static Sound loadSound(String n){
-        if(Vars.headless) return new MockSound();
+            if(Core.assets.contains(path, Sound.class)){
+                Core.assets.get(path, Sound.class).dispose();
+                Core.assets.unload(path);
+            }
 
-        String name = "sounds/" + n;
-        String path = Vars.tree.get(name + ".ogg").exists() && !Vars.ios ? name + ".ogg" : name + ".mp3";
+            return null;
+        };
 
-        if(Core.assets.contains(path, Sound.class)) return Core.assets.get(path, Sound.class);
-
-        ModLoadingSound sound = new ModLoadingSound();
-
-        AssetDescriptor<?> desc = Core.assets.load(path, Sound.class);
-        desc.loaded = result -> sound.sound = (Sound)result;
-        desc.errored = Throwable::printStackTrace;
-
-        return sound;
-    }
-
-    static Sound disposeSound(String n){
-        String name = "sounds/" + n;
-        String path = Vars.tree.get(name + ".ogg").exists() && !Vars.ios ? name + ".ogg" : name + ".mp3";
-
-        if(Core.assets.contains(path, Sound.class)){
-            Core.assets.get(path, Sound.class).dispose();
-            Core.assets.unload(path);
-        }
-
-        return null;
+        blowshot = disposeSound.get("blowshot");
+        fireAuraActive = disposeSound.get("fireAuraActive");
+        heatrayActive = disposeSound.get("heatrayActive");
+        hypernovaActive = disposeSound.get("hypernovaActive");
+        hypernovaShoot = disposeSound.get("hypernovaShoot");
+        quakemk2shot = disposeSound.get("quakemk2shot");
+        quakeshot = disposeSound.get("quakeshot");
+        supernovaActive = disposeSound.get("supernovaActive");
+        supernovaShoot = disposeSound.get("supernovaShoot");
+        voltmeterActive = disposeSound.get("voltmeterActive");
+        voltmeterIdle = disposeSound.get("voltmeterIdle");
     }
 }

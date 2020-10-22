@@ -28,15 +28,20 @@ public class PopBulletType extends FlakBulletType{
     public void hit(Bullet b, float x, float y){
         super.hit(b, x, y);
 
-        if(b.owner() instanceof Player){
-            Unit owner = (Unit)b.owner();
-            
-            Tmp.v1.set(owner.aimX(), owner.aimY());
-            float targetRot = Tmp.v1.sub(b.x, b.y).angle();
+        boolean notPlayer = true;
+        if(b.owner() instanceof Unit){
+            if(((Unit)b.owner()).isPlayer()){
+                Unit owner = (Unit)b.owner();
 
-            popSound.at(b);
-            popBullet.create(owner, owner.team(), b.x, b.y, targetRot);
-        }else{
+                Tmp.v1.set(owner.aimX(), owner.aimY());
+                float targetRot = Tmp.v1.sub(b.x, b.y).angle();
+
+                popSound.at(b);
+                popBullet.create(owner, owner.team(), b.x, b.y, targetRot);
+            }else{
+                notPlayer = false;
+            }
+        }else if(!notPlayer){
             Posc target = Units.closestTarget(b.team(), b.x, b.y, popBullet.range());
 
             if(target != null){
@@ -47,10 +52,5 @@ public class PopBulletType extends FlakBulletType{
                 popBullet.create(b, b.team(), b.x, b.y, targetRot);
             }
         }
-    }
-
-    @Override
-    public float range(){
-        return super.range() + popBullet.range();
     }
 }

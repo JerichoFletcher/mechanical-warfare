@@ -1,5 +1,6 @@
 package mw.content;
 
+import arc.func.*;
 import arc.struct.*;
 import mindustry.content.*;
 import mindustry.ctype.*;
@@ -7,19 +8,50 @@ import mindustry.gen.*;
 import mindustry.type.*;
 
 public class MWUnitTypes implements ContentList{
+    private static final Prov<?>[] constructors = new Prov[]{
+        MechUnit::create
+    };
+    private static final int[] classIDs = new int[constructors.length];
+
     public static UnitType
 
     //ground - orange
-    rapier, sabre, dominator, nullifier;
+    scrapper, rapier, sabre, dominator, nullifier;
 
     @Override
     public void load(){
-        rapier = new UnitType("rapier"){{
-            constructor = () -> MechUnit.create();
+        for(int i = 0, j = 0; i < EntityMapping.idMap.length; i++){
+            if(EntityMapping.idMap[i] == null){
+                classIDs[j] = i;
+                EntityMapping.idMap[i] = constructors[j++];
 
+                if(j >= constructors.length) break;
+            }
+        }
+
+        EntityMapping.nameMap.put("scrapper", MechUnit::create);
+        scrapper = new UnitType("scrapper"){{
+            health = 180f;
+            speed = 0.7f;
+            hitSize = 8f;
+
+            weapons.add(new Weapon("mechanical-warfare-scrapper-blade"){{
+                top = false;
+                x = 5.25f;
+                shootY = 4f;
+                reload = 25f;
+                recoil = -4.5f;
+                ejectEffect = Fx.none;
+                shootSound = Sounds.splash;
+                bullet = MWBullets.meleeTiny;
+            }});
+        }};
+
+        EntityMapping.nameMap.put("rapier", MechUnit::create);
+        rapier = new UnitType("rapier"){{
             health = 360f;
             speed = 0.6f;
-            hitSize = 12f;
+            hitSize = 11f;
 
             weapons.add(new Weapon("mechanical-warfare-rapier-gun"){{
                 top = false;
@@ -34,12 +66,11 @@ public class MWUnitTypes implements ContentList{
             }});
         }};
 
+        EntityMapping.nameMap.put("sabre", MechUnit::create);
         sabre = new UnitType("sabre"){{
-            constructor = () -> MechUnit.create();
-
             health = 800f;
             speed = 0.4f;
-            hitSize = 16f;
+            hitSize = 13f;
             rotateSpeed = 3f;
             mechFrontSway = 0.5f;
             armor = 9f;
@@ -55,13 +86,12 @@ public class MWUnitTypes implements ContentList{
                 shots = 1;
                 ejectEffect = Fx.shellEjectBig;
                 shootSound = Sounds.shootBig;
-                bullet = MWBullets.fragBig;
+                bullet = MWBullets.missileFragBig;
             }});
         }};
 
+        EntityMapping.nameMap.put("dominator", MechUnit::create);
         dominator = new UnitType("dominator"){{
-            constructor = () -> MechUnit.create();
-
             health = 10000f;
             speed = 0.3f;
             hitSize = 22f;
@@ -83,9 +113,8 @@ public class MWUnitTypes implements ContentList{
             }});
         }};
 
+        EntityMapping.nameMap.put("nullifier", MechUnit::create);
         nullifier = new UnitType("nullifier"){{
-            constructor = () -> MechUnit.create();
-
             health = 18000f;
             speed = 0.2f;
             hitSize = 27f;

@@ -10,6 +10,7 @@ import mindustry.entities.bullet.*;
 import mindustry.gen.*;
 
 public class TeleportBulletType extends BasicBulletType{
+    public int maxHits = 3;
     public float teleportRange = 64f;
     public float teleportDelay = 10f;
 
@@ -23,9 +24,6 @@ public class TeleportBulletType extends BasicBulletType{
 
     public TeleportBulletType(float speed, float damage){
         super(speed, damage);
-        pierceCap = 3;
-        pierce = true;
-        pierceBuilding = true;
     }
 
     public TeleportBulletType(){
@@ -36,55 +34,53 @@ public class TeleportBulletType extends BasicBulletType{
     public void init(Bullet b){
         super.init(b);
 
-        b.data(Pools.obtain(TeleportBulletData.class, () -> new TeleportBulletData()));
+        if(b.data == null){
+            b.data(Pools.obtain(TeleportBulletData.class, () -> new TeleportBulletData(0)));
+        }
     }
 
     @Override
     public void hit(Bullet b, float x, float y){
         super.hit(b, b.x, b.y);
 
-        Tmp.v1.trns(Mathf.randomSeed(b.id) + Time.time(), teleportRange);
-        b.set(b.x + Tmp.v1.x, b.y + Tmp.v1.y);
-        b.time(0f);
+        if(((TeleportBulletData)b.data()).hits < maxHits){
+            Tmp.v1.trns(Mathf.randomSeed(b.id) + Time.time(), teleportRange);
+            Bullet b2 = create(b, b.team(), b.x + Tmp.v1.x, b.y + Tmp.v1.y, 0f, damage, 1f, 1f, Pools.obtain(TeleportBulletData.class, () -> {
+                return new TeleportBulletData(((TeleportBulletData)b.data()).hits + 1);
+            }));
 
-        ((TeleportBulletData)b.data()).target = Units.closestTarget(b.team(), b.x, b.y, range(), unit -> !unit.dead(), tile -> !tile.dead());
+            Posc target = Units.closestTarget(b2.team(), b2.x, b2.y, range(), unit -> !unit.dead(), build -> !build.dead());
+            if(target == null) return;
 
-        if(((TeleportBulletData)b.data()).target == null){
-            Pools.free(b.data());
-            b.remove();
+            b2.vel().set(0f, 0.5f).setAngle(Angles.angle(b2.x, b2.y, target.getX(), target.getY()));
+            chargeEffect.at(b2, b2.rotation());
 
-            return;
-        }
+            Time.run(teleportDelay, () -> {
+                if(b2 != null && !Units.invalidateTarget(target, b2.team(), b2.x, b2.y, range())){
+                    launchEffect.at(b2, b2.rotation());
 
-        b.vel().set(0f, 0.5f).setAngle(Angles.angle(b.x, b.y, ((TeleportBulletData)b.data()).target.x(), ((TeleportBulletData)b.data()).target.y()));
-        chargeEffect.at(b, b.rotation());
-
-        Time.run(teleportDelay, () -> {
-            if(b != null && (TeleportBulletData)b.data() != null){
-                if(((TeleportBulletData)b.data()).target == null){
-                    Pools.free(b.data());
-                    b.remove();
-
-                    return;
+                    Vec2 result = Predict.intercept(b2, target, speed);
+                    float targetRot = result.sub(b2.x, b2.y).angle();
+                    b2.vel().set(0f, speed).setAngle(targetRot);
                 }else{
-                    launchEffect.at(b, b.rotation());
-
-                    Vec2 result = Predict.intercept(b, ((TeleportBulletData)b.data()).target, speed);
-                    float targetRot = result.sub(b.x, b.y).angle();
-                    b.vel().set(0f, speed).setAngle(targetRot);
+                    Pools.free(b.data());
                 }
-            }else if(b != null && (TeleportBulletData)b.data() == null){
-                b.remove();
-            }
-        });
+            });
+        }else{
+            Pools.free(b.data());
+        }
     }
 
     class TeleportBulletData implements Pool.Poolable{
-        public @Nullable Posc target;
+        public int hits;
+
+        public TeleportBulletData(int hits){
+            this.hits = hits;
+        }
 
         @Override
         public void reset(){
-            target = null;
+            hits = 0;
         }
     }
 }

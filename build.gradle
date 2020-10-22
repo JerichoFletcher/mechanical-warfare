@@ -12,6 +12,7 @@ buildscript{
 
     dependencies{
         classpath "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+        classpath "com.github.Anuken.Arc:backend-headless:$mindustryVersion"
         classpath "com.github.Anuken.Mindustry:core:$mindustryVersion"
     }
 }
@@ -62,6 +63,7 @@ project(":tools"){
         implementation project(":mw")
 
         implementation "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+        implementation "com.github.Anuken.Arc:backend-headless:$mindustryVersion"
         implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
     }
 }

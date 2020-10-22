@@ -19,7 +19,10 @@ public class MWBullets implements ContentList{
     nullBullet,
 
     //missile
-    fragBig,
+    missileFragBig,
+
+    //melee
+    meleeTiny,
 
     //teleport
     bladeSmall,
@@ -67,12 +70,12 @@ public class MWBullets implements ContentList{
             smokeEffect = Fx.shootBigSmoke;
         }};
 
-        fragBig = new MissileBulletType(2.5f, 20f){
+        missileFragBig = new MissileBulletType(2.5f, 20f){
             {
                 width = 9f;
                 height = 13f;
                 lifetime = 64f;
-                homingPower = 0.5f;
+                homingPower = 0.08f;
                 homingRange = 50f;
                 shootEffect = Fx.shootBig;
                 smokeEffect = Fx.shootBigSmoke;
@@ -83,7 +86,7 @@ public class MWBullets implements ContentList{
                     lifetime = 24f;
                     splashDamage = 5f;
                     splashDamageRadius = 20f;
-                    homingPower = 0.75f;
+                    homingPower = 0.08f;
                     homingRange = 75f;
                     status = StatusEffects.corroded;
                     fragBullets = 3;
@@ -117,6 +120,8 @@ public class MWBullets implements ContentList{
                 Damage.status(b.team, x, y, splashDamageRadius, status, statusDuration, collidesAir, collidesGround);
             }
         };
+
+        meleeTiny = new MeleeBulletType(30f, "mechanical-warfare-blade");
 
         bladeSmall = new TeleportBulletType(4f, 17f, "mechanical-warfare-blade"){{
             width = 10f;

@@ -1,12 +1,14 @@
 package mw.tools;
 
 import arc.*;
+import arc.backend.headless.*;
 import arc.files.*;
 import arc.graphics.g2d.*;
 import arc.graphics.g2d.TextureAtlas.*;
 import arc.struct.*;
 import arc.util.*;
 import mindustry.core.*;
+import mindustry.mod.*;
 import mindustry.mod.Mods.*;
 import mw.*;
 
@@ -15,6 +17,7 @@ import java.io.*;
 
 import javax.imageio.*;
 
+import static arc.Core.*;
 import static mindustry.Vars.*;
 
 public class SpriteProcessor{
@@ -29,43 +32,9 @@ public class SpriteProcessor{
         content = new ContentLoader();
         content.createBaseContent();
 
-        //setup dummy loaded mod to load mw contents properly
-        content.setCurrentMod(new LoadedMod(null, null, mod, new ModMeta(){{
-            name = "mechanical-warfare";
-        }}));
-
-        mod.loadContent();
-
-        content.setCurrentMod(null);
-
-        Fi.get("./sprites").walk(path -> {
-            if(!path.extEquals("png")) return;
-
-            path.copyTo(Fi.get("./sprites-gen"));
-        });
-
-        Fi.get("./sprites-gen").walk(path -> {
-            String fname = path.nameWithoutExtension();
-
-            try{
-                BufferedImage sprite = ImageIO.read(path.file());
-                if(sprite == null) throw new IOException("sprite " + path.absolutePath() + " is corrupted or invalid!");
-
-                GenRegion region = new GenRegion(fname, path){{
-                    width = sprite.getWidth();
-                    height = sprite.getHeight();
-                    u2 = v2 = 1f;
-                    u = v = 0f;
-                }};
-
-                regionCache.put(fname, region);
-                spriteCache.put(fname, sprite);
-            }catch(IOException e){
-                throw new RuntimeException(e);
-            }
-        });
-
-        Core.atlas = new TextureAtlas(){
+        mods = new Mods();
+        files = new HeadlessFiles();
+        atlas = new TextureAtlas(){
             @Override
             public AtlasRegion find(String name){
                 if(!regionCache.containsKey(name)){
@@ -101,6 +70,41 @@ public class SpriteProcessor{
                 return regionCache.containsKey(name);
             }
         };
+        app = new HeadlessApplication(new ApplicationListener(){}, null, e -> {});
+
+        //setup dummy loaded mod to load mw contents properly
+        content.setCurrentMod(new LoadedMod(null, null, mod, new ModMeta(){{
+            name = "mechanical-warfare";
+        }}));
+        mod.loadContent();
+        content.setCurrentMod(null);
+
+        Fi.get("./sprites").walk(path -> {
+            if(!path.extEquals("png")) return;
+
+            path.copyTo(Fi.get("./sprites-gen"));
+        });
+
+        Fi.get("./sprites-gen").walk(path -> {
+            String fname = path.nameWithoutExtension();
+
+            try{
+                BufferedImage sprite = ImageIO.read(path.file());
+                if(sprite == null) throw new IOException("sprite " + path.absolutePath() + " is corrupted or invalid!");
+
+                GenRegion region = new GenRegion(fname, path){{
+                    width = sprite.getWidth();
+                    height = sprite.getHeight();
+                    u2 = v2 = 1f;
+                    u = v = 0f;
+                }};
+
+                regionCache.put(fname, region);
+                spriteCache.put(fname, sprite);
+            }catch(IOException e){
+                throw new RuntimeException(e);
+            }
+        });
 
         Generators.generate();
 

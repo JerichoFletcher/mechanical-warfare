@@ -1,4 +1,4 @@
-![Logo](icon.png)
+![Logo](mw/icon.png)
 
 # Mechanical Warfare
 Mechanical Warfare is a 6.0 Mindustry mod written in [`.java`](https://www.java.com/en) mainly adding new units and turrets. Not for the faintest of engines.

@@ -1,5 +1,6 @@
 bin/
 
+mw/last_log.txt
 mw/build/
 mw/bin/
 mw/assets-raw/sprites-gen/

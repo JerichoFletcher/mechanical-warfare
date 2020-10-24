@@ -155,7 +155,7 @@ public class SpriteProcessor{
 
                 Sprite sprite = new Sprite(image);
                 sprite.floorAlpha();
-                if(!path.absolutePath().contains("ui")) sprite.antialias();
+                if(!path.absolutePath().contains("sprites/ui")) sprite.antialias();
 
                 sprite.save(path.nameWithoutExtension());
             }catch(IOException e){

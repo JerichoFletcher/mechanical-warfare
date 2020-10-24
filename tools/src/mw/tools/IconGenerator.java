@@ -38,8 +38,6 @@ public class IconGenerator implements Generator{
                             sprite.draw(outline.get(sprite));
 
                             sprite.save(fname);
-                        }else{
-                            Log.warn("@ not found", fname);
                         }
                     }
                 };
@@ -54,13 +52,11 @@ public class IconGenerator implements Generator{
 
                 Unit unit = type.constructor.get();
 
-                if(unit instanceof Legsc){
-                    outliner.get(type.jointRegion);
-                    outliner.get(type.footRegion);
-                    outliner.get(type.legBaseRegion);
-                    outliner.get(type.baseJointRegion);
-                    outliner.get(type.legRegion);
-                }
+                outliner.get(type.jointRegion);
+                outliner.get(type.footRegion);
+                outliner.get(type.legBaseRegion);
+                outliner.get(type.baseJointRegion);
+                if(unit instanceof Legsc) outliner.get(type.legRegion);
 
                 String fname = parseName.get(type.region);
 
@@ -136,9 +132,9 @@ public class IconGenerator implements Generator{
                     Sprite scaled = new Sprite((int)size.x, (int)size.y);
 
                     scaled.drawScaled(icon);
-                    scaled.save(fname + "-" + i.name());
+                    scaled.save("ui/" + fname + "-" + i.name());
                 }
-            }catch(IllegalArgumentException e){
+            }catch(Exception e){
                 Log.err("Skipping unit @: @", type.name, e.getMessage());
             }
         });

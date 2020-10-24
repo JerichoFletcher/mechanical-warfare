@@ -20,6 +20,7 @@ task processSprites(dependsOn: classes){
         }
 
         file("$spritesGenFolder").mkdirs()
+        file("$spritesGenFolder/ui").mkdirs()
 
         javaexec{
             main = imageProcessorMain

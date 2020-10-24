@@ -7,6 +7,7 @@ import arc.graphics.g2d.*;
 import arc.graphics.g2d.TextureAtlas.*;
 import arc.struct.*;
 import arc.util.*;
+import arc.util.Log.*;
 import mindustry.core.*;
 import mindustry.mod.*;
 import mindustry.mod.Mods.*;
@@ -14,6 +15,7 @@ import mw.*;
 
 import java.awt.image.*;
 import java.io.*;
+import java.sql.*;
 
 import javax.imageio.*;
 
@@ -25,15 +27,24 @@ public class SpriteProcessor{
     private static ObjectMap<String, BufferedImage> spriteCache = new ObjectMap<>();
 
     public static MechanicalWarfare mod = new MechanicalWarfare();
+    public static Seq<String> log = new Seq<>();
 
     public static void main(String[] args) throws Exception{
         headless = true;
 
-        content = new ContentLoader();
-        content.createBaseContent();
+        Log.logger = (level, text) -> {
+            String[] stags = {"&lc&fb[D]", "&lb&fb[I]", "&ly&fb[W]", "&lr&fb[E]", ""};
 
+            String rawText = Log.format(
+                stags[level.ordinal()] + "&fr " + text
+            );
+
+            System.out.println(rawText);
+            log.add(Log.removeColors(rawText));
+        };
+
+        Log.info("Setting up base fields...");
         mods = new Mods();
-        files = new HeadlessFiles();
         atlas = new TextureAtlas(){
             @Override
             public AtlasRegion find(String name){
@@ -70,21 +81,49 @@ public class SpriteProcessor{
                 return regionCache.containsKey(name);
             }
         };
-        app = new HeadlessApplication(new ApplicationListener(){}, null, e -> {});
+        app = new HeadlessApplication(new ApplicationListener(){
+            @Override
+            public void dispose(){
+                Writer writer = Fi.get("../last_log.txt").writer(false);
+                StringBuilder builder = new StringBuilder();
 
-        //setup dummy loaded mod to load mw contents properly
+                log.each(str -> {
+                    builder.append(str);
+                    builder.append("\n");
+                });
+
+                try{
+                    writer.write(builder.toString());
+                    writer.flush();
+                }catch(IOException e){
+                    try{
+                        err(e);
+                    }catch(RuntimeException e2){
+                        e2.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        Log.info("Initializing base contents...");
+        content = new ContentLoader();
+        content.createBaseContent();
+
+        Log.info("Loading '@' contents...", mod.getClass().getSimpleName());
         content.setCurrentMod(new LoadedMod(null, null, mod, new ModMeta(){{
             name = "mechanical-warfare";
         }}));
         mod.loadContent();
         content.setCurrentMod(null);
 
+        Log.info("Copying files...");
         Fi.get("./sprites").walk(path -> {
             if(!path.extEquals("png")) return;
 
             path.copyTo(Fi.get("./sprites-gen"));
         });
 
+        Log.info("Adding files to the texture atlas...");
         Fi.get("./sprites-gen").walk(path -> {
             String fname = path.nameWithoutExtension();
 
@@ -102,26 +141,32 @@ public class SpriteProcessor{
                 regionCache.put(fname, region);
                 spriteCache.put(fname, sprite);
             }catch(IOException e){
-                throw new RuntimeException(e);
+                err(e);
             }
         });
 
+        Log.info("Generating additional sprites...");
         Generators.generate();
 
+        Log.info("Saving sprites...");
         Fi.get("./sprites-gen").walk(path -> {
             try{
                 BufferedImage image = ImageIO.read(path.file());
 
                 Sprite sprite = new Sprite(image);
-                sprite.floorAlpha().antialias();
+                sprite.floorAlpha();
+                if(!path.absolutePath().contains("ui")) sprite.antialias();
 
                 sprite.save(path.nameWithoutExtension());
             }catch(IOException e){
-                throw new RuntimeException(e);
+                err(e);
             }
         });
 
+        Log.info("Disposing all sprites...");
         Sprite.dispose();
+
+        Core.app.exit();
     }
 
     static BufferedImage buffer(TextureRegion reg){
@@ -147,7 +192,17 @@ public class SpriteProcessor{
     }
 
     static void err(String message, Object... args){
-        throw new IllegalArgumentException(Strings.format(message, args));
+        err(new IllegalArgumentException(Strings.format(message, args)));
+    }
+
+    static void err(Throwable e){
+        StringWriter swriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(swriter);
+        e.printStackTrace(writer);
+
+        log.add(Strings.format("@[E]@ @", ColorCodes.red, ColorCodes.reset, swriter.toString()));
+
+        throw new RuntimeException(e);
     }
 
     static class GenRegion extends AtlasRegion{

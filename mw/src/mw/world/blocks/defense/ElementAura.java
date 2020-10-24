@@ -67,7 +67,7 @@ public class ElementAura extends Block{
     public void setStats(){
         super.setStats();
 
-        stats.add(BlockStat.input, new LiquidValue(liquid, 60 / reloadTime, true));
+        stats.add(Stat.input, new LiquidValue(liquid, 60 / reloadTime, true));
     }
 
     @Override

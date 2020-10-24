@@ -226,7 +226,7 @@ public class Sprite{
         try{
             ImageIO.write(sprite, "png", Fi.get("./sprites-gen").child(name + ".png").file());
         }catch(IOException e){
-            throw new RuntimeException(e);
+            SpriteProcessor.err(e);
         }
     }
 

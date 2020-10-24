@@ -37,9 +37,11 @@ public class MechanicalWarfare extends Mod{
         for(ContentList list : contents){
             list.load();
 
-            Log.info("Loaded @ content: @", getClass().getSimpleName(), list.getClass().getSimpleName());
+            Log.info("Loaded '@' content: '@'", getClass().getSimpleName(), list.getClass().getSimpleName());
         }
 
-        Core.app.post(() -> MWSounds.load());
+        if(!Vars.headless){
+            Core.app.post(() -> MWSounds.load());
+        }
     }
 }

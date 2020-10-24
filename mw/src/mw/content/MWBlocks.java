@@ -162,13 +162,13 @@ public class MWBlocks implements ContentList{
         }};
 
         reinforcedWall = new ReinforcedWall("reinforced-wall"){{
-            requirements(Category.defense, with(MWItems.iron, 6, Items.surgealloy, 4, MWItems.uranium, 3, Items.phasefabric, 1));
+            requirements(Category.defense, with(MWItems.iron, 6, Items.surgeAlloy, 4, MWItems.uranium, 3, Items.phaseFabric, 1));
 
             health = 1280;
         }};
 
         reinforcedWallLarge = new ReinforcedWall("reinforced-wall-large"){{
-            requirements(Category.defense, with(MWItems.iron, 24, Items.surgealloy, 16, MWItems.uranium, 12, Items.phasefabric, 4));
+            requirements(Category.defense, with(MWItems.iron, 24, Items.surgeAlloy, 16, MWItems.uranium, 12, Items.phaseFabric, 4));
 
             size = 2;
             health = 5120;
@@ -188,7 +188,7 @@ public class MWBlocks implements ContentList{
         }};
 
         fireAura = new ElementAura("fire-aura", MWLiquids.lava){{
-            requirements(Category.effect, with(Items.lead, 125, MWItems.iron, 75, Items.metaglass, 50, Items.phasefabric, 25));
+            requirements(Category.effect, with(Items.lead, 125, MWItems.iron, 75, Items.metaglass, 50, Items.phaseFabric, 25));
 
             size = 2;
             health = 320;
@@ -202,7 +202,7 @@ public class MWBlocks implements ContentList{
         }};
 
         frostAura = new ElementAura("frost-aura", Liquids.cryofluid){{
-            requirements(Category.effect, with(Items.silicon, 150, MWItems.steel, 50, Items.metaglass, 60, Items.phasefabric, 20));
+            requirements(Category.effect, with(Items.silicon, 150, MWItems.steel, 50, Items.metaglass, 60, Items.phaseFabric, 20));
 
             size = 2;
             health = 320;

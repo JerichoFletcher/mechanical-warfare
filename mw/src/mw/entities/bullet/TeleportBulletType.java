@@ -34,7 +34,7 @@ public class TeleportBulletType extends BasicBulletType{
     public void init(Bullet b){
         super.init(b);
 
-        if(b.data == null){
+        if(b.data() == null){
             b.data(Pools.obtain(TeleportBulletData.class, () -> new TeleportBulletData(0)));
         }
     }
@@ -44,7 +44,7 @@ public class TeleportBulletType extends BasicBulletType{
         super.hit(b, b.x, b.y);
 
         if(((TeleportBulletData)b.data()).hits < maxHits){
-            Tmp.v1.trns(Mathf.randomSeed(b.id) + Time.time(), teleportRange);
+            Tmp.v1.trns(Mathf.randomSeed(b.id), teleportRange);
             Bullet b2 = create(b, b.team(), b.x + Tmp.v1.x, b.y + Tmp.v1.y, 0f, damage, 1f, 1f, Pools.obtain(TeleportBulletData.class, () -> {
                 return new TeleportBulletData(((TeleportBulletData)b.data()).hits + 1);
             }));
@@ -62,7 +62,7 @@ public class TeleportBulletType extends BasicBulletType{
                     Vec2 result = Predict.intercept(b2, target, speed);
                     float targetRot = result.sub(b2.x, b2.y).angle();
                     b2.vel().set(0f, speed).setAngle(targetRot);
-                }else{
+                }else if((TeleportBulletData)b.data() != null){
                     Pools.free(b.data());
                 }
             });

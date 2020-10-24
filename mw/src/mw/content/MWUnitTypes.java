@@ -39,7 +39,7 @@ public class MWUnitTypes implements ContentList{
                 top = false;
                 x = 5.25f;
                 shootY = 4f;
-                reload = 25f;
+                reload = 20f;
                 recoil = -4.5f;
                 ejectEffect = Fx.none;
                 shootSound = Sounds.splash;
@@ -57,7 +57,7 @@ public class MWUnitTypes implements ContentList{
                 top = false;
                 x = 8f;
                 rotate = false;
-                reload = 60f;
+                reload = 48f;
                 alternate = true;
                 recoil = 2f;
                 ejectEffect = Fx.none;
@@ -96,7 +96,10 @@ public class MWUnitTypes implements ContentList{
             speed = 0.3f;
             hitSize = 22f;
             rotateSpeed = 2f;
-            mechFrontSway = 0.55f;
+            canDrown = false;
+            mechFrontSway = 0.6f;
+            mechStepParticles = true;
+            mechStepShake = 0.15f;
 
             weapons.add(new Weapon("mechanical-warfare-domination"){{
                 top = false;
@@ -119,7 +122,11 @@ public class MWUnitTypes implements ContentList{
             speed = 0.2f;
             hitSize = 27f;
             rotateSpeed = 2f;
-            mechFrontSway = 0.6f;
+            canDrown = false;
+            mechFrontSway = 1.9f;
+            mechStepParticles = true;
+            mechStepShake = 0.25f;
+            mechSideSway = 0.6f;
 
             weapons.add(new Weapon("mechanical-warfare-null-pointer"){{
                 top = false;

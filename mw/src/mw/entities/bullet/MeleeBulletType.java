@@ -2,13 +2,16 @@ package mw.entities.bullet;
 
 import arc.graphics.g2d.*;
 import arc.math.*;
+import arc.util.*;
 import mindustry.content.Fx;
 import mindustry.entities.*;
 import mindustry.entities.bullet.*;
 import mindustry.gen.*;
 
 public class MeleeBulletType extends BasicBulletType{
-    public float length = 40f;
+    public float length = 24f;
+    public float lineAngle = 30f;
+    public float lineLength = 8f;
 
     public MeleeBulletType(float damage, String bulletSprite){
         super(0.01f, damage);
@@ -42,18 +45,28 @@ public class MeleeBulletType extends BasicBulletType{
 
     @Override
     public void draw(Bullet b){
-        float len = Mathf.curve(b.fin(), 0f, 0.2f);
-        float w, h;
+        float len = Mathf.curve(b.fin(), 0f, 0.2f) * b.fout() * length * 1.2f;
+
+        Tmp.v1.trns(b.rotation(), Draw.scl * len / 2f);
+        Tmp.v2.trns(b.rotation(), b.finpow() * length / 2f);
 
         Draw.color(backColor);
-        w = backRegion.width * Draw.scl;
-        h = backRegion.height * Draw.scl * len;
-        Draw.rect(backRegion, b.x, b.y, w, h, b.rotation());
+        Draw.rect(backRegion, b.x + Tmp.v1.x + Tmp.v2.x, b.y + Tmp.v1.y + Tmp.v2.y, backRegion.width * Draw.scl, len, b.rotation() - 90f);
 
         Draw.color(frontColor);
-        w = frontRegion.width * Draw.scl;
-        h = frontRegion.height * Draw.scl * len;
-        Draw.rect(frontRegion, b.x, b.y, w, h, b.rotation());
+        Draw.rect(frontRegion, b.x + Tmp.v1.x + Tmp.v2.x, b.y + Tmp.v1.y + Tmp.v2.y, frontRegion.width * Draw.scl, len, b.rotation() - 90f);
+
+        float alpha = 0.5f + Mathf.curve(b.fin(), 0f, 0.2f) * b.fout() * 0.5f;
+        Tmp.v1.trns(b.rotation(), length);
+
+        Draw.color(frontColor, alpha);
+        Lines.stroke(b.fout() * 2f);
+        for(int i : Mathf.signs){
+            Lines.lineAngle(b.x + Tmp.v1.x, b.y + Tmp.v1.y, b.rotation() - 180f + i * lineAngle, lineLength);
+
+            Tmp.v2.set(Tmp.v1).scl(b.fin());
+            Lines.lineAngle(b.x + Tmp.v2.x, b.y + Tmp.v2.y, b.rotation() - 180f + i * lineAngle, lineLength / 2f);
+        }
 
         Draw.reset();
     }

@@ -6,6 +6,7 @@ import arc.util.*;
 import mindustry.entities.*;
 import mindustry.entities.bullet.*;
 import mindustry.gen.*;
+import mindustry.world.blocks.defense.turrets.Turret.*;
 
 public class PopBulletType extends FlakBulletType{
     public BulletType popBullet;
@@ -28,7 +29,6 @@ public class PopBulletType extends FlakBulletType{
     public void hit(Bullet b, float x, float y){
         super.hit(b, x, y);
 
-        boolean notPlayer = true;
         if(b.owner() instanceof Unit){
             if(((Unit)b.owner()).isPlayer()){
                 Unit owner = (Unit)b.owner();
@@ -39,18 +39,32 @@ public class PopBulletType extends FlakBulletType{
                 popSound.at(b);
                 popBullet.create(owner, owner.team(), b.x, b.y, targetRot);
             }else{
-                notPlayer = false;
-            }
-        }else if(!notPlayer){
-            Posc target = Units.closestTarget(b.team(), b.x, b.y, popBullet.range());
+                if(b.owner() instanceof TurretBuild){
+                    TurretBuild build = (TurretBuild)b.owner();
 
-            if(target != null){
-                Vec2 result = Predict.intercept(b, target, popBullet.speed);
-                float targetRot = result.sub(b.x, b.y).angle();
+                    if(build.target != null){
+                        popSound.at(b);
+                        popBullet.create(b, b.team(), b.x, b.y, Tmp.v1.set(build.targetPos).sub(b).angle());
+                    }
+                }else{
+                    Posc target = Units.closestTarget(b.team(), b.x, b.y, popBullet.range(), unit -> {
+                        return (popBullet.collidesGround && !unit.isFlying()) || (popBullet.collidesAir && unit.isFlying()) && !unit.dead();
+                    });
 
-                popSound.at(b);
-                popBullet.create(b, b.team(), b.x, b.y, targetRot);
+                    if(target != null){
+                        Vec2 result = Predict.intercept(b, target, popBullet.speed);
+                        float targetRot = result.sub(b.x, b.y).angle();
+
+                        popSound.at(b);
+                        popBullet.create(b, b.team(), b.x, b.y, targetRot);
+                    }
+                }
             }
         }
+    }
+
+    @Override
+    public float range(){
+        return popBullet.range();
     }
 }

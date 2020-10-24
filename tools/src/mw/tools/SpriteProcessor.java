@@ -27,7 +27,7 @@ public class SpriteProcessor{
     private static ObjectMap<String, BufferedImage> spriteCache = new ObjectMap<>();
 
     public static MechanicalWarfare mod = new MechanicalWarfare();
-    public static Seq<String> log = new Seq<>();
+    public static Seq<String> log = Seq.with("# Auto-generated. No reason to modify.\n");
 
     public static void main(String[] args) throws Exception{
         headless = true;

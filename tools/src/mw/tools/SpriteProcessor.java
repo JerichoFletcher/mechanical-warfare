@@ -7,7 +7,6 @@ import arc.graphics.g2d.*;
 import arc.graphics.g2d.TextureAtlas.*;
 import arc.struct.*;
 import arc.util.*;
-import arc.util.Log.*;
 import mindustry.core.*;
 import mindustry.mod.*;
 import mindustry.mod.Mods.*;
@@ -15,7 +14,6 @@ import mw.*;
 
 import java.awt.image.*;
 import java.io.*;
-import java.sql.*;
 
 import javax.imageio.*;
 

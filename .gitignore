@@ -1,12 +1,8 @@
 bin/
+build/
+last_log.txt
 
-mw/last_log.txt
-mw/build/
-mw/bin/
 mw/assets-raw/sprites-gen/
-
-tools/build/
-tools/bin/
 
 .classpath
 .project

@@ -1,9 +1,4 @@
-sourceSets.main.java.srcDirs = [ "src/" ]
-
-repositories{
-    mavenCentral()
-    maven{ url 'https://www.jitpack.io' }
-}
+sourceSets.main.java.srcDirs = [ "src/", "$buildDir/generated/sources/annotationProcessor/java/main/" ]
 
 ext{
     mainClassName = "mw.MechanicalWarfare"
@@ -52,6 +47,6 @@ task deploy(type: Jar){
 
     doLast{
         delete{ delete "$buildDir/libs/${modName}Desktop.jar" }
-        delete{ delete "$buildDir/libs/${modName}Dndroid.jar" }
+        delete{ delete "$buildDir/libs/${modName}Android.jar" }
     }
 }

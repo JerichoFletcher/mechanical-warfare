@@ -2,6 +2,8 @@ bin/
 build/
 last_log.txt
 
+annotations/resources/META-INF/services
+
 mw/assets-raw/sprites-gen/
 
 .classpath

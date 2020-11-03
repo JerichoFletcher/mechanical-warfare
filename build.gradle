@@ -20,6 +20,8 @@ buildscript{
 }
 
 allprojects{
+    apply plugin: 'java'
+
     ext{
         mindustryVersion = props["mindustryVersion"]
         modName = props["modName"]
@@ -30,6 +32,20 @@ allprojects{
         version '1.0'
 
         sourceCompatibility = 1.8
+
+        writeProcessors = {
+            new File(rootDir, "annotations/resources/META-INF/services/").mkdirs()
+            def processorFile = new File(rootDir, "annotations/resources/META-INF/services/javax.annotation.processing.Processor")
+            def text = new StringBuilder()
+            def files = new File(rootDir, "annotations/src/")
+            files.eachFileRecurse(groovy.io.FileType.FILES){ file ->
+                if(file.name.endsWith(".java") && (file.text.contains(" extends NovaProcessor") && !file.text.contains("abstract class"))){
+                    text.append(file.path.substring(files.path.length() + 1)).append("\n")
+                }
+            }
+
+            processorFile.text = text.toString().replace(".java", "").replace("/", ".").replace("\\", ".")
+        }
     }
 
     repositories{
@@ -49,17 +65,36 @@ allprojects{
     }
 }
 
-project(":mw"){
-    apply plugin: 'java'
+project(":annotations"){
+    apply plugin: 'java-library'
 
     dependencies{
-        compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
-        compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
+        implementation 'com.squareup:javapoet:1.12.1'
+        implementation "com.github.GlennFolker.Nova:nova-main:$novaHash"
+        implementation "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+    }
+}
+
+project(":mw"){
+    apply plugin: 'java-library'
+
+    task preGen{
+        writeProcessors()
+    }
+
+    dependencies{
+        compileJava.dependsOn(preGen)
+
+        implementation "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+        implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
+
+        implementation project(":annotations")
+        annotationProcessor project(":annotations")
     }
 }
 
 project(":tools"){
-    apply plugin: 'java'
+    apply plugin: 'java-library'
 
     dependencies{
         implementation project(":mw")

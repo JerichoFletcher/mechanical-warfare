@@ -9,7 +9,7 @@ import mw.annotations.Annotations.*;
 import mw.type.*;
 
 public class MWUnitTypes implements ContentList{
-    public static @EntityDef({Unitc.class, Mechc.class}) UnitType scrapper, rapier, sabre, dominator, nullifier;
+    public static @EntityPointer(MechUnit.class) UnitType scrapper, rapier, sabre, dominator, nullifier;
 
     @Override
     public void load(){
@@ -65,7 +65,6 @@ public class MWUnitTypes implements ContentList{
                 recoil = 3f;
                 shake = 2f;
                 shots = 1;
-                ejectEffect = Fx.shellEjectBig;
                 shootSound = Sounds.shootBig;
                 bullet = MWBullets.missileFragBig;
             }});
@@ -91,7 +90,6 @@ public class MWUnitTypes implements ContentList{
                 shots = 6;
                 inaccuracy = 50f;
                 shootSound = Sounds.shootBig;
-                ejectEffect = Fx.shellEjectBig;
                 bullet = MWBullets.flakPopSmall;
             }});
         }};
@@ -117,7 +115,6 @@ public class MWUnitTypes implements ContentList{
                 shake = 2.2f;
                 inaccuracy = 2f;
                 shootSound = MWSounds.quakeshot;
-                ejectEffect = Fx.shellEjectBig;
                 bullet = MWBullets.nullBullet;
             }});
         }};

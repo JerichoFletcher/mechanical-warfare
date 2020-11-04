@@ -5,6 +5,6 @@
     "main": "mw.MechanicalWarfare",
     "description": "Adds brand new units, turrets, and resources along with their respective crafters. \n\nNot for the faintest of engines. \n\nJoin our Discord server: https://discord.gg/K3uzNSD",
     "version": 2.0,
-    "minGameVersion": 107,
+    "minGameVersion": 112,
     "dependencies": []
 }

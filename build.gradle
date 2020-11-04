@@ -69,7 +69,7 @@ project(":annotations"){
     apply plugin: 'java-library'
 
     dependencies{
-        implementation 'com.squareup:javapoet:1.12.1'
+        implementation "com.squareup:javapoet:1.12.1"
         implementation "com.github.GlennFolker.Nova:nova-main:$novaHash"
         implementation "com.github.Anuken.Arc:arc-core:$mindustryVersion"
     }

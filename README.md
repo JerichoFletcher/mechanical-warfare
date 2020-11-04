@@ -1,6 +1,6 @@
 ![Logo](mw/icon.png)
 
-[![Build Status](https://github.com/JerichoFletcher/mechanical-warfare/workflows/Java%20CI/badge.svg)](https://github.com/Anuken/Arc/actions)
+[![Build Status](https://github.com/JerichoFletcher/mechanical-warfare/workflows/Java%20CI/badge.svg)](https://github.com/JerichoFletcher/mechanical-warfare/actions)
 [![Discord](https://img.shields.io/discord/391020510269669376.svg)](https://discord.gg/K3uzNSD)
 
 # Mechanical Warfare

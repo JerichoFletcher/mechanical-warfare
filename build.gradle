@@ -20,7 +20,10 @@ buildscript{
 }
 
 allprojects{
-    apply plugin: 'java'
+    apply plugin: "java"
+
+    group = "com.github.JerichoFletcher"
+    version = "1.0"
 
     ext{
         mindustryVersion = props["mindustryVersion"]

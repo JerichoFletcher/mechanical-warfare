@@ -8,6 +8,9 @@ buildscript{
 
     repositories{
         mavenCentral()
+        jcenter()
+        maven{ url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        google()
         maven{ url 'https://jitpack.io' }
     }
 
@@ -52,12 +55,11 @@ allprojects{
     }
 
     repositories{
-        mavenLocal()
         mavenCentral()
-        maven{ url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        maven{ url "https://oss.sonatype.org/content/repositories/releases/" }
-        maven{ url 'https://jitpack.io' }
         jcenter()
+        maven{ url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        google()
+        maven{ url 'https://jitpack.io' }
     }
 
     //java 8 backwards compatibility flag

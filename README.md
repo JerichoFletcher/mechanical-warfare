@@ -1,7 +1,7 @@
 ![Logo](mw/icon.png)
 
 [![Build Status](https://github.com/JerichoFletcher/mechanical-warfare/workflows/Java%20CI/badge.svg)](https://github.com/JerichoFletcher/mechanical-warfare/actions)
-[![Discord](https://img.shields.io/discord/391020510269669376.svg)](https://discord.gg/K3uzNSD)
+[![Discord](https://img.shields.io/discord/715164441137643521.svg)](https://discord.gg/K3uzNSD)
 
 # Mechanical Warfare
 Mechanical Warfare is a 6.0 Mindustry mod written in [`.java`](https://www.java.com/en) mainly adding new units and turrets. Not for the faintest of engines.

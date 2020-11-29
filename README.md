@@ -22,7 +22,7 @@ Here's the important contributing rule:
 1. Please follow the file formatting used in other files; for example:
     1. No spaces around parenthesis
     2. `camelCase` for _every_ fields _and_ constants. `SCREAMING_CASE` is hard to read and annoying to type
-    3. No need for unecessary getter / setters
+    3. No need for unnecessary getter / setters
 2. If you want to create sprites, here's some rules you _should_ obey:
     1. Always put your sprites in `mw/assets-raw/sprites/`, nowhere else
     2. Use a non-index based image editor _(aka not paint.net)_ to make antialiasing process work properly. It's recommended to use Adobe Photoshop or Aseprite

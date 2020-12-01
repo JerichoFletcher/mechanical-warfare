@@ -4,6 +4,8 @@ const groundUnit = prov(() => extend(GroundUnit, {}));
 
 const blade = extend(BasicBulletType, {
 	draw(b){
+		if(b.getData().target == null) return;
+
 		x = b.getData().target.getX();
 		y = b.getData().target.getY();
 		angle = Angles.angle(b.x, b.y, x, y);
@@ -13,6 +15,8 @@ const blade = extend(BasicBulletType, {
 	init(b){
 		if(typeof(b) !== "undefined"){
 			b.setData({target: b.getOwner().target});
+			if(b.getData().target == null) return;
+
 			x = b.getData().target.getX();
 			y = b.getData().target.getY();
 			angle = Angles.angle(b.x, b.y, x, y);
